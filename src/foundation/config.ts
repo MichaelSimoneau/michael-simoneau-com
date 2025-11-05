@@ -5,7 +5,7 @@ export const foundationConfig: DeepPartial<Foundation> = {
     siteName: 'Michael Simoneau',
     defaultTitle: 'Michael Simoneau | Enterprise Architect & Technology Leader',
     description:
-      'Discover how Michael Simoneau leads enterprise architecture, AI strategy, and large-scale transformations for highly regulated organizations.',
+      'Architecting resilient systems and solving complex challenges for highly regulated, technology-driven organizations.',
     canonicalUrl: 'https://michaelsimoneau.com/',
     keywords: [
       'Michael Simoneau',
@@ -96,7 +96,7 @@ export const foundationConfig: DeepPartial<Foundation> = {
       highlightLabel: 'New launch',
       name: 'Crypto Fabric — Modular GCP Architecture & Control Center',
       description:
-        'A profitability-first automation platform built by Michael Simoneau for digital-asset operators that need Cloud Run guardrails, Netlify-orchestrated mobile distribution, and real-time profit telemetry.',
+        'A profitability-first automation platform for digital-asset operators that centralizes onboarding guardrails, zero-cost evaluation, and promotion-ready Cloud Run workflows.',
       keyBenefits: [
         {
           title: 'Unified control plane',
@@ -127,18 +127,13 @@ export const foundationConfig: DeepPartial<Foundation> = {
       autoPlayOptIn: true,
     },
     voiceAssistant: {
-      enabled: true,
-      autoPlayDelayMs: 3000,
+      enabled: false,
+      autoPlayDelayMs: 0,
       voice: {
-        rate: 0.8,
-        pitch: 0.5,
+        rate: 1,
+        pitch: 1,
       },
-      messages: [
-        'Your current stack has 14.8 months to live',
-        'Michael saved JPMorgan $5,000,000 in 11 weeks',
-        'Quantum vulnerability detected in your infrastructure',
-        'Initiating enterprise mesh transformation protocol',
-      ],
+      messages: [],
     },
   },
   analytics: {

@@ -3,23 +3,30 @@ import type { Foundation } from './types';
 
 export const defaultFoundationConfig: Foundation = {
   metadata: {
-    siteName: 'React Foundation',
-    defaultTitle: 'React Foundation Application',
-    description: 'A React experience bootstrapped with React Foundation.',
+    siteName: 'Michael Simoneau',
+    defaultTitle: 'Michael Simoneau | Enterprise Architect & Technology Leader',
+    description:
+      'Architecting resilient systems and solving complex challenges for highly regulated, technology-driven organizations.',
     canonicalUrl: 'https://michaelsimoneau.com/',
-    keywords: ['react', 'foundation'],
+    keywords: [
+      'Michael Simoneau',
+      'enterprise architect',
+      'technology leader',
+      'digital transformation',
+    ],
     image: {
       default: 'https://michaelsimoneau.com/profile-image.png',
-      alt: 'React Foundation logo',
+      alt: 'Portrait of Michael Simoneau',
     },
     structuredData: [],
   },
   features: {
     cryptoFabricLaunch: {
       enabled: false,
-      highlightLabel: 'Preview',
-      name: 'New capability',
-      description: 'Feature description goes here.',
+      highlightLabel: 'Spotlight',
+      name: 'Crypto Fabric — Modular GCP Architecture & Control Center',
+      description:
+        'A profitability-first automation platform for digital-asset operators that centralizes onboarding guardrails, zero-cost evaluation, and promotion-ready Cloud Run workflows.',
       keyBenefits: [],
       cta: {
         label: 'Learn more',
@@ -45,7 +52,7 @@ export const defaultFoundationConfig: Foundation = {
   },
   runtime: resolveDefaultRuntime(),
   analytics: {
-    track: event => {
+    track: (event) => {
       if (__DEV__) {
         console.debug('[foundation]', event);
       }

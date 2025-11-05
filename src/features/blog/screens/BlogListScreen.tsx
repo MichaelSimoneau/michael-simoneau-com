@@ -1,6 +1,10 @@
 import { useMemo } from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
-import { useFoundationBoundary, useFoundationMetadata, useFoundationPageView } from '../../../foundation';
+import {
+  useFoundationBoundary,
+  useFoundationMetadata,
+  useFoundationPageView,
+} from '../../../foundation';
 import { BlogListItem } from '../components/BlogListItem';
 import { useBlogArticles, useFeaturedBlogArticles } from '../hooks/useBlogArticles';
 
@@ -36,14 +40,15 @@ export const BlogListScreen = () => {
         <Text style={styles.heroEyebrow}>Insights</Text>
         <Text style={styles.heroTitle}>{metadata.siteName} Briefings</Text>
         <Text style={styles.heroSubtitle}>
-          Pattern libraries, zero-trust telemetry, and profitability playbooks engineered for regulated enterprises.
+          Pattern libraries, zero-trust telemetry, and profitability playbooks engineered for
+          regulated enterprises.
         </Text>
       </View>
 
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>Featured</Text>
         <View style={styles.grid}>
-          {featuredArticles.map(article => (
+          {featuredArticles.map((article) => (
             <BlogListItem key={article.id} article={article} />
           ))}
         </View>
@@ -52,7 +57,7 @@ export const BlogListScreen = () => {
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>Latest briefs</Text>
         <View style={styles.grid}>
-          {articles.map(article => (
+          {articles.map((article) => (
             <BlogListItem key={`latest-${article.id}`} article={article} />
           ))}
         </View>

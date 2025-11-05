@@ -1,19 +1,56 @@
 import { useMemo } from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
-import { useFoundationBoundary, useFoundationFeature, useFoundationPageView } from '../../../foundation';
+import {
+  useFoundationBoundary,
+  useFoundationFeature,
+  useFoundationPageView,
+} from '../../../foundation';
 
 const serviceCatalog = [
   {
     title: 'Guardrail Orchestrator',
-    description: 'Policy-driven deployment pipelines that gate workloads on profitability and compliance outcomes.',
+    description:
+      'Policy-driven deployment pipelines that gate workloads on profitability and compliance outcomes.',
+    features: ['Profitability gates', 'Compliance checks', 'Auto-scaling limits', 'Cost ceilings'],
   },
   {
     title: 'Profit Telemetry Mesh',
-    description: 'Unified data plane that streams revenue, spend, and risk scores into a single control surface.',
+    description:
+      'Unified data plane that streams revenue, spend, and risk scores into a single control surface.',
+    features: ['Real-time metrics', 'Revenue tracking', 'Cost analysis', 'Risk scoring'],
   },
   {
     title: 'Zero-Cost Sandbox',
-    description: 'Local-first adapters that mirror Cloud Run behavior with deterministic billing simulations.',
+    description:
+      'Local-first adapters that mirror Cloud Run behavior with deterministic billing simulations.',
+    features: ['Local development', 'Billing simulation', 'Cost prediction', 'Safe testing'],
+  },
+  {
+    title: 'Aave Liquidator',
+    description: 'Automated opportunistic strategies tuned for guardrail-compliant gas ceilings.',
+    features: [
+      'Gas optimization',
+      'Liquidation detection',
+      'Profit maximization',
+      'Risk management',
+    ],
+  },
+  {
+    title: 'EigenLayer Operator',
+    description:
+      'Tier-A operator orchestration that inherits profitability telemetry from day one.',
+    features: ['Validator management', 'Staking automation', 'Reward optimization', 'Monitoring'],
+  },
+  {
+    title: 'Treasury Reinvestor',
+    description:
+      'Capital allocation engine that routes Crypto Fabric profits into the YachtOffice ecosystem.',
+    features: [
+      'Profit routing',
+      'Capital allocation',
+      'Yield optimization',
+      'Portfolio management',
+    ],
   },
 ];
 
@@ -52,10 +89,17 @@ export const CryptoFabricScreen = () => {
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>Service catalog</Text>
         <View style={styles.grid}>
-          {serviceCatalog.map(item => (
+          {serviceCatalog.map((item) => (
             <View key={item.title} style={styles.card}>
               <Text style={styles.cardTitle}>{item.title}</Text>
               <Text style={styles.cardCopy}>{item.description}</Text>
+              <View style={styles.featuresList}>
+                {item.features.map((feature, index) => (
+                  <View key={index} style={styles.featurePill}>
+                    <Text style={styles.featureText}>{feature}</Text>
+                  </View>
+                ))}
+              </View>
             </View>
           ))}
         </View>
@@ -65,8 +109,8 @@ export const CryptoFabricScreen = () => {
         <Text style={styles.sectionTitle}>Profit-first guardrails</Text>
         <View style={styles.callout}>
           <Text style={styles.calloutText}>
-            Every module inherits profitability envelopes, telemetry contracts, and policy-as-code enforcement so you can scale
-            digital-asset revenue without sacrificing discipline.
+            Every module inherits profitability envelopes, telemetry contracts, and policy-as-code
+            enforcement so you can scale digital-asset revenue without sacrificing discipline.
           </Text>
         </View>
       </View>
@@ -112,6 +156,26 @@ const styles = StyleSheet.create({
   },
   grid: {
     gap: 16,
+  },
+  featuresList: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    rowGap: 8,
+    columnGap: 8,
+  },
+  featurePill: {
+    borderRadius: 999,
+    borderWidth: 1,
+    borderColor: '#38BDF8',
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    backgroundColor: '#0F172A',
+  },
+  featureText: {
+    color: '#E2E8F0',
+    fontSize: 12,
+    letterSpacing: 0.5,
+    textTransform: 'uppercase',
   },
   card: {
     backgroundColor: '#0B1120',

@@ -6,10 +6,7 @@ const isMergeableRecord = (value: unknown): value is MergeableRecord => {
   return typeof value === 'object' && value !== null && !Array.isArray(value);
 };
 
-export const deepMerge = <T extends MergeableRecord>(
-  target: T,
-  source: DeepPartial<T>,
-): T => {
+export const deepMerge = <T extends MergeableRecord>(target: T, source: DeepPartial<T>): T => {
   const output: MergeableRecord = { ...target };
 
   Object.entries(source ?? {}).forEach(([key, value]) => {

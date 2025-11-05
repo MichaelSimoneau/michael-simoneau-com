@@ -21,12 +21,7 @@ const renderBlock = (block: ContentBlock) => {
   switch (block.type) {
     case 'heading':
       return (
-        <Text
-          style={[
-            styles.heading,
-            headingStyles[block.level] ?? headingStyles[2],
-          ]}
-        >
+        <Text style={[styles.heading, headingStyles[block.level] ?? headingStyles[2]]}>
           {block.content}
         </Text>
       );
@@ -62,70 +57,97 @@ const renderBlock = (block: ContentBlock) => {
 };
 
 const headingStyles: Record<number, TextStyle> = {
-  1: { fontSize: 32 },
-  2: { fontSize: 28 },
-  3: { fontSize: 24 },
-  4: { fontSize: 20 },
-  5: { fontSize: 18 },
-  6: { fontSize: 16 },
+  1: { fontSize: 36, fontWeight: '800', letterSpacing: -0.5, marginBottom: 16, marginTop: 24 },
+  2: { fontSize: 32, fontWeight: '800', letterSpacing: -0.3, marginBottom: 14, marginTop: 20 },
+  3: { fontSize: 28, fontWeight: '700', letterSpacing: -0.2, marginBottom: 12, marginTop: 18 },
+  4: { fontSize: 24, fontWeight: '700', letterSpacing: -0.1, marginBottom: 10, marginTop: 16 },
+  5: { fontSize: 20, fontWeight: '600', marginBottom: 8, marginTop: 14 },
+  6: { fontSize: 18, fontWeight: '600', marginBottom: 6, marginTop: 12 },
 };
 
 const styles = StyleSheet.create({
   container: {
-    gap: 16,
+    gap: 24,
+    padding: 24,
   },
   heading: {
     fontWeight: '700',
-    color: '#0F172A',
+    color: '#F8FAFC',
   },
   paragraph: {
-    fontSize: 16,
-    lineHeight: 24,
-    color: '#1F2937',
+    fontSize: 18,
+    lineHeight: 28,
+    color: '#CBD5F5',
+    fontWeight: '500',
+    marginBottom: 16,
   },
   listContainer: {
-    gap: 8,
+    gap: 12,
+    marginBottom: 16,
   },
   listItem: {
     flexDirection: 'row',
     alignItems: 'flex-start',
-    gap: 8,
+    gap: 12,
   },
   bullet: {
-    lineHeight: 24,
-    fontSize: 16,
+    lineHeight: 28,
+    fontSize: 18,
+    color: '#38BDF8',
+    fontWeight: '700',
+    marginTop: 2,
   },
   listText: {
     flex: 1,
-    fontSize: 16,
-    lineHeight: 24,
+    fontSize: 18,
+    lineHeight: 28,
+    color: '#CBD5F5',
+    fontWeight: '500',
   },
   codeBlock: {
     backgroundColor: '#0F172A',
-    borderRadius: 12,
-    padding: 16,
-    gap: 8,
+    borderRadius: 16,
+    padding: 20,
+    gap: 12,
+    borderWidth: 1,
+    borderColor: '#12213B',
+    marginBottom: 16,
+    shadowColor: '#38BDF8',
+    shadowOpacity: 0.1,
+    shadowRadius: 8,
+    shadowOffset: { width: 0, height: 4 },
   },
   codeLanguage: {
     color: '#38BDF8',
-    fontSize: 12,
+    fontSize: 14,
     textTransform: 'uppercase',
-    letterSpacing: 1,
+    letterSpacing: 2,
+    fontWeight: '700',
   },
   codeText: {
     fontFamily: 'Courier New',
     color: '#E2E8F0',
-  },
-  callout: {
-    borderLeftWidth: 4,
-    borderLeftColor: '#0EA5E9',
-    backgroundColor: '#E0F2FE',
-    padding: 16,
-    borderRadius: 12,
-  },
-  calloutText: {
     fontSize: 16,
     lineHeight: 24,
-    color: '#0F172A',
+  },
+  callout: {
+    borderLeftWidth: 6,
+    borderLeftColor: '#0EA5E9',
+    backgroundColor: 'rgba(56,189,248,0.12)',
+    padding: 20,
+    borderRadius: 16,
+    borderWidth: 1,
+    borderColor: '#12213B',
+    marginBottom: 16,
+    shadowColor: '#0EA5E9',
+    shadowOpacity: 0.1,
+    shadowRadius: 12,
+    shadowOffset: { width: 0, height: 4 },
+  },
+  calloutText: {
+    fontSize: 18,
+    lineHeight: 28,
+    color: '#E2E8F0',
+    fontWeight: '600',
   },
 });

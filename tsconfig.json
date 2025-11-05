@@ -8,17 +8,27 @@
     "noEmit": true,
     "allowJs": false,
     "isolatedModules": true,
-    "types": ["jest"]
+    "types": ["jest"],
+    "typeRoots": ["./types", "./node_modules/@types"],
+    "paths": {
+      "@react-three/fiber/native": ["./types/@react-three__fiber/native/index"],
+      "@react-three/drei": ["./types/@react-three__drei/index"],
+      "three": ["./types/three/index"],
+      "@react-three/fiber": ["./types/@react-three__fiber/index"]
+    }
   },
   "include": [
     "app",
     "src",
     "scripts",
+    "types/**/*.d.ts",
     "app.config.ts",
     "app.config.js",
     "app.json",
     "AGENTS.md",
     "**/AGENTS.md",
-    "src/**/*.spec.tsx"
+    "src/**/*.spec.tsx",
+    ".expo/types/**/*.ts",
+    "expo-env.d.ts"
   ]
 }
