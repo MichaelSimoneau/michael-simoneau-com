@@ -1,17 +1,39 @@
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useEffect, useMemo } from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
-import { useFoundationBoundary, useFoundationPageView } from '../../../foundation';
+import {
+  useFoundationBoundary,
+  useFoundationPageView,
+} from '../../../foundation';
 import { BlogContentRenderer } from '../components/BlogContentRenderer';
 import { useBlogArticle } from '../hooks/useBlogArticles';
 
-export const BlogArticleScreen = () => {
+interface BlogArticleScreenProps {
+  articleId?: string;
+  articleHref?: string;
+}
+export const BlogArticleScreen = ({
+  articleId: overrideArticleId,
+  articleHref,
+}: BlogArticleScreenProps = {}) => {
   const { id } = useLocalSearchParams();
   const router = useRouter();
-  const articleId = useMemo(() => (Array.isArray(id) ? id[0] : id), [id]);
-  const article = useBlogArticle(articleId);
-  const boundary = useMemo(() => {
+  const routeArticleId = useMemo(() => (Array.isArray(id) ? id[0] : id), [id]);
+  const resolvedArticleId = overrideArticleId ?? routeArticleId;
+  const article = useBlogArticle(resolvedArticleId);
+  const resolvedHref = useMemo(() => {
     if (!article) {
+      return undefined;
+    }
+
+    if (articleHref) {
+      return articleHref;
+    }
+
+    return `/blog/${article.id}`;
+  }, [article, articleHref]);
+  const boundary = useMemo(() => {
+    if (!article || !resolvedHref) {
       return undefined;
     }
 
@@ -19,9 +41,9 @@ export const BlogArticleScreen = () => {
       id: `blog-article-${article.id}`,
       label: article.title,
       description: article.excerpt,
-      href: `/blog/${article.id}`,
+      href: resolvedHref,
     };
-  }, [article]);
+  }, [article, resolvedHref]);
   const articleViewPayload = useMemo(() => {
     if (!article) {
       return undefined;
@@ -42,26 +64,26 @@ export const BlogArticleScreen = () => {
   });
   useFoundationPageView(
     'blog:not-found',
-    articleId
+    resolvedArticleId
       ? {
-          id: articleId,
+          id: resolvedArticleId,
         }
       : undefined,
     {
-      enabled: !article && Boolean(articleId),
-      deps: [articleId, article ? 'found' : 'missing'],
+      enabled: !article && Boolean(resolvedArticleId),
+      deps: [resolvedArticleId, article ? 'found' : 'missing'],
     },
   );
 
   useEffect(() => {
-    if (!articleId) {
+    if (!resolvedArticleId || overrideArticleId) {
       return;
     }
 
     if (!article) {
       router.replace('/blog');
     }
-  }, [article, articleId, router]);
+  }, [article, overrideArticleId, resolvedArticleId, router]);
 
   if (!article) {
     return null;
@@ -73,7 +95,9 @@ export const BlogArticleScreen = () => {
         <Text style={styles.date}>{article.date}</Text>
         <Text style={styles.title}>{article.title}</Text>
         <Text style={styles.excerpt}>{article.excerpt}</Text>
-        <Text style={styles.meta}>{`${article.author} • ${article.readTime}`}</Text>
+        <Text
+          style={styles.meta}
+        >{`${article.author} • ${article.readTime}`}</Text>
       </View>
 
       <BlogContentRenderer blocks={article.content} />

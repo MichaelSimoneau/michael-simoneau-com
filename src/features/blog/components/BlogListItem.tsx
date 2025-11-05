@@ -7,9 +7,17 @@ interface BlogListItemProps {
 }
 
 export const BlogListItem = ({ article }: BlogListItemProps) => {
+  const href =
+    article.id === 'zero-why' ? '/blogs/zero' : `/blog/${article.id}`;
+
   return (
-    <Link href={`/blog/${article.id}`} asChild>
-      <View style={[styles.card, article.featured ? styles.featuredCard : undefined]}>
+    <Link href={href} asChild>
+      <View
+        style={[
+          styles.card,
+          article.featured ? styles.featuredCard : undefined,
+        ]}
+      >
         <View style={styles.metaRow}>
           <Text style={styles.date}>{article.date}</Text>
           <Text style={styles.readTime}>{article.readTime}</Text>
@@ -17,7 +25,7 @@ export const BlogListItem = ({ article }: BlogListItemProps) => {
         <Text style={styles.title}>{article.title}</Text>
         <Text style={styles.excerpt}>{article.excerpt}</Text>
         <View style={styles.tagRow}>
-          {article.tags.map(tag => (
+          {article.tags.map((tag) => (
             <View style={styles.tagPill} key={tag}>
               <Text style={styles.tagText}>{tag}</Text>
             </View>

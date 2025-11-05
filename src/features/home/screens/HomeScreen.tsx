@@ -10,6 +10,7 @@ import {
 } from '../../../foundation';
 import { useFeaturedBlogArticles } from '../../blog/hooks/useBlogArticles';
 import { BlogListItem } from '../../blog/components/BlogListItem';
+import { InterviewButton } from '../components/InterviewButton';
 
 export const HomeScreen = () => {
   const metadata = useFoundationMetadata();
@@ -21,7 +22,8 @@ export const HomeScreen = () => {
     () => ({
       id: 'home',
       label: 'Mission Control',
-      description: 'Entry deck for Michael Simoneau with live runtime signals and featured strategies.',
+      description:
+        'Entry deck for Michael Simoneau with live runtime signals and featured strategies.',
       href: '/',
     }),
     [],
@@ -36,7 +38,11 @@ export const HomeScreen = () => {
       voiceAssistantEnabled: voiceAssistantFeature.enabled,
     },
     {
-      deps: [featuredArticles.length, cryptoFabricFeature.enabled, voiceAssistantFeature.enabled],
+      deps: [
+        featuredArticles.length,
+        cryptoFabricFeature.enabled,
+        voiceAssistantFeature.enabled,
+      ],
     },
   );
 
@@ -46,17 +52,24 @@ export const HomeScreen = () => {
         <Text style={styles.eyebrow}>Enterprise Architect</Text>
         <Text style={styles.heroTitle}>{metadata.defaultTitle}</Text>
         <Text style={styles.heroSubtitle}>{metadata.description}</Text>
-        <Text style={styles.heroMeta}>{`Operating on ${runtime.platform.toUpperCase()} • ${runtime.locale}`}</Text>
+        <Text
+          style={styles.heroMeta}
+        >{`Operating on ${runtime.platform.toUpperCase()} • ${runtime.locale}`}</Text>
+        <InterviewButton />
       </View>
 
       {cryptoFabricFeature.enabled && (
         <View style={styles.section}>
-          <Text style={styles.sectionEyebrow}>{cryptoFabricFeature.highlightLabel}</Text>
+          <Text style={styles.sectionEyebrow}>
+            {cryptoFabricFeature.highlightLabel}
+          </Text>
           <View style={styles.card}>
             <Text style={styles.sectionTitle}>{cryptoFabricFeature.name}</Text>
-            <Text style={styles.sectionBody}>{cryptoFabricFeature.description}</Text>
+            <Text style={styles.sectionBody}>
+              {cryptoFabricFeature.description}
+            </Text>
             <View style={styles.benefitList}>
-              {cryptoFabricFeature.keyBenefits.map(benefit => (
+              {cryptoFabricFeature.keyBenefits.map((benefit) => (
                 <View key={benefit.title} style={styles.benefitItem}>
                   <Text style={styles.benefitTitle}>{benefit.title}</Text>
                   <Text style={styles.benefitCopy}>{benefit.description}</Text>
@@ -65,7 +78,9 @@ export const HomeScreen = () => {
             </View>
             <Link href={cryptoFabricFeature.cta.href} asChild>
               <View style={styles.primaryButton}>
-                <Text style={styles.primaryButtonText}>{cryptoFabricFeature.cta.label}</Text>
+                <Text style={styles.primaryButtonText}>
+                  {cryptoFabricFeature.cta.label}
+                </Text>
               </View>
             </Link>
           </View>
@@ -78,20 +93,24 @@ export const HomeScreen = () => {
           <Text style={styles.sectionBody}>
             {voiceAssistantFeature.messages.join(' • ')}
           </Text>
-          <Text style={styles.voiceMeta}>{`Pitch ${voiceAssistantFeature.voice.pitch} • Rate ${voiceAssistantFeature.voice.rate}`}</Text>
+          <Text
+            style={styles.voiceMeta}
+          >{`Pitch ${voiceAssistantFeature.voice.pitch} • Rate ${voiceAssistantFeature.voice.rate}`}</Text>
         </View>
       </View>
 
       <View style={styles.section}>
         <Text style={styles.sectionEyebrow}>Latest strategy briefs</Text>
         <View style={styles.grid}>
-          {featuredArticles.map(article => (
+          {featuredArticles.map((article) => (
             <BlogListItem key={`home-${article.id}`} article={article} />
           ))}
         </View>
         <Link href="/blog" asChild>
           <View style={styles.secondaryButton}>
-            <Text style={styles.secondaryButtonText}>Browse the briefing library</Text>
+            <Text style={styles.secondaryButtonText}>
+              Browse the briefing library
+            </Text>
           </View>
         </Link>
       </View>
@@ -106,10 +125,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#0B1120',
   },
   hero: {
-    gap: 12,
+    gap: 16,
     padding: 32,
     backgroundColor: '#111C3D',
     borderRadius: 32,
+    borderWidth: 1,
+    borderColor: '#1E293B',
   },
   eyebrow: {
     color: '#38BDF8',
