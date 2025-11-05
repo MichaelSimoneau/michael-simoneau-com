@@ -1,7 +1,0 @@
-[build]
-  command = "yarn build"
-  publish = "dist"
-
-[build.environment]
-  EXPO_NO_TELEMETRY = "1"
-  NODE_VERSION = "20"

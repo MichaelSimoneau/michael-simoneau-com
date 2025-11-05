@@ -1,8 +1,7 @@
 # .github Automation Charter
 
-All GitHub workflows and bots must accelerate the Expo-first delivery pipeline.
+All GitHub workflows should reinforce the Vite + React delivery pipeline.
 
-- Author CI steps that understand Expo projects (use `expo-doctor`, `expo export --platform web`, etc.).
-- Prefer reusable workflow components; keep environment secrets referenced via GitHub Environments.
-- Never introduce legacy deployment steps (Firebase Hosting CLI, Vite builds) into workflows going forward.
-- When adding new scripts inside `.github/scripts`, document usage inline and ensure Node 18+ compatibility.
+- Workflows must install dependencies with Yarn and run `yarn build`, `yarn lint`, `yarn typecheck`, and `yarn test`.
+- Prefer reusable workflow components and limit secrets to GitHub Environments when deployments are added.
+- Keep any helper scripts inside `.github/scripts` compatible with Node 20 and document usage inline.

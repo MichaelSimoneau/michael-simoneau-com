@@ -1,4 +1,5 @@
 # Bolt Workspace Notes
 
-- This directory is for AI assistance configuration. Keep prompts forward-looking and aligned with Expo RN strategy.
-- Do not store secrets. Version controlled text only.
+- This directory stores AI assistance configuration for the Vite + React stack.
+- Keep prompts aligned with the MetLife platform narrative and web performance priorities.
+- Do not store secrets. Version-controlled text only.

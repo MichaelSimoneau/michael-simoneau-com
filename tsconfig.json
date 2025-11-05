@@ -1,24 +1,21 @@
 {
-  "extends": "expo/tsconfig.base",
   "compilerOptions": {
-    "target": "esnext",
-    "module": "esnext",
-    "jsx": "react-jsx",
-    "strict": true,
-    "noEmit": true,
+    "target": "ESNext",
+    "useDefineForClassFields": true,
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "allowJs": false,
+    "skipLibCheck": true,
+    "esModuleInterop": false,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "resolveJsonModule": true,
     "isolatedModules": true,
-    "types": ["jest"]
+    "noEmit": true,
+    "jsx": "react-jsx"
   },
-  "include": [
-    "app",
-    "src",
-    "scripts",
-    "app.config.ts",
-    "app.config.js",
-    "app.json",
-    "AGENTS.md",
-    "**/AGENTS.md",
-    "src/**/*.spec.tsx"
-  ]
+  "include": ["src", "vitest.setup.ts"],
+  "references": [{ "path": "./tsconfig.node.json" }]
 }

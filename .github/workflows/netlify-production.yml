@@ -9,8 +9,6 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    env:
-      EXPO_NO_TELEMETRY: '1'
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -19,24 +17,22 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-
-      - name: Restore node_modules cache
-        uses: actions/cache@v4
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json', 'app.json') }}
+          cache: "yarn"
 
       - name: Install dependencies
-        run: npm install --prefer-offline --no-audit
+        run: yarn install --frozen-lockfile
 
-      - name: Run ESLint
-        run: npm run lint
+      - name: Lint
+        run: yarn lint
 
-      - name: Run TypeScript typecheck
-        run: npm run typecheck
+      - name: Typecheck
+        run: yarn typecheck
+
+      - name: Test
+        run: yarn test
 
       - name: Build static site
-        run: npm run build
+        run: yarn build
 
       - name: Deploy production to Netlify
         if: ${{ secrets.NETLIFY_AUTH_TOKEN != '' && secrets.NETLIFY_SITE_ID != '' }}
