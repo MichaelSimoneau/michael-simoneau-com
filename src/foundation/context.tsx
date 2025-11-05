@@ -1,22 +1,23 @@
-import { Appearance } from 'react-native';
-import {
-  createContext,
+import React, {
   useCallback,
   useContext,
   useEffect,
   useMemo,
   useState,
-} from 'react';
-import { defaultFoundationConfig } from './defaultConfig';
+} from "react";
+import { Appearance } from "react-native";
+import { defaultFoundationConfig } from "./defaultConfig";
 import type {
   Foundation,
   FoundationBoundary,
   FoundationProviderProps,
-} from './types';
-import { resolveDefaultRuntime } from './runtime';
-import { deepMerge } from './utils';
+} from "./types";
+import { resolveDefaultRuntime } from "./runtime";
+import { deepMerge } from "./utils";
 
-const FoundationContext = createContext<Foundation>(defaultFoundationConfig);
+const FoundationContext = React.createContext<Foundation>(
+  defaultFoundationConfig,
+);
 
 export const FoundationProvider = ({
   config,
@@ -45,7 +46,7 @@ export const FoundationProvider = ({
     };
   }, []);
 
-  const registerBoundary = useCallback<Foundation['registerBoundary']>(
+  const registerBoundary = useCallback<Foundation["registerBoundary"]>(
     (boundary) => {
       setBoundaries((current) => {
         const existingIndex = current.findIndex(
@@ -82,7 +83,7 @@ export const FoundationProvider = ({
 export const useFoundation = () => {
   const context = useContext(FoundationContext);
   if (!context) {
-    throw new Error('useFoundation must be used inside a FoundationProvider');
+    throw new Error("useFoundation must be used inside a FoundationProvider");
   }
   return context;
 };

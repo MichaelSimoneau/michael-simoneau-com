@@ -1,5 +1,10 @@
-import { View } from 'react-native';
+import React, { type ReactNode } from "react";
+import { View } from "react-native";
 
-export const FoundationProvider = ({ children }: { children: React.ReactNode }) => (
-  <View testID="foundation-provider">{children}</View>
-);
+import type { ReactNode } from "react";
+
+export const FoundationProvider = ({
+  children,
+}: {
+  children: ReactNode;
+}): React.ReactElement => <View testID="foundation-provider">{children}</View>;

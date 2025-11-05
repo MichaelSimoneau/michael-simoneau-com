@@ -1,5 +1,9 @@
-import { BlogArticleScreen } from '../../src/features/blog/screens/BlogArticleScreen';
+import { BlogArticleScreen } from "../../src/features/blog/screens/BlogArticleScreen";
 
-export default function BlogArticleRoute() {
-  return <BlogArticleScreen />;
+export default function BlogArticleRoute(): React.ReactElement {
+  return (
+    <React.Fragment>
+      <BlogArticleScreen />
+    </React.Fragment>
+  );
 }
