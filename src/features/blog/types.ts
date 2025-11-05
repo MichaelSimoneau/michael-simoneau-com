@@ -50,7 +50,10 @@ export interface BlogArticle {
   generatedImagePrompt?: string;
 }
 
-export type BlogArticleSummary = Pick<BlogArticle, 'id' | 'title' | 'excerpt' | 'date' | 'readTime' | 'author' | 'tags' | 'heroImage' | 'featured'>;
+export type BlogArticleSummary = Pick<
+  BlogArticle,
+  'id' | 'title' | 'excerpt' | 'date' | 'readTime' | 'author' | 'tags' | 'heroImage' | 'featured'
+>;
 
 export type RenderContentBlock = (block: ContentBlock, index: number) => ReactNode;
 
