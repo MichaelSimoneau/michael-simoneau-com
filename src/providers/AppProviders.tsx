@@ -9,8 +9,8 @@ interface AppProvidersProps {
 
 export const AppProviders = ({ children }: AppProvidersProps) => {
   return (
-    <SafeAreaProvider testID="safe-area-provider">
-      <FoundationProvider config={foundationConfig} testID='foundation-provider'>{children}</FoundationProvider>
+    <SafeAreaProvider>
+      <FoundationProvider config={foundationConfig}>{children}</FoundationProvider>
     </SafeAreaProvider>
   );
 };

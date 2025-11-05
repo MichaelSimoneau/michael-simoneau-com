@@ -11,11 +11,7 @@
     "experiments": {
       "typedRoutes": true
     },
-    "plugins": [
-      ["expo-router", {
-        "origin": "expo"
-      }]
-    ],
+    "plugins": ["expo-router"],
     "splash": {
       "backgroundColor": "#0B1120"
     },

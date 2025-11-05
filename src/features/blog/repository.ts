@@ -11,6 +11,7 @@ const sortByDateDescending = (articles: BlogArticle[]): BlogArticle[] => {
 
 export const blogRepository: BlogRepository = {
   getArticles: () => sortByDateDescending(blogArticles),
-  getFeaturedArticles: () => sortByDateDescending(blogArticles.filter(article => article.featured)),
-  getArticleById: (id: string) => blogArticles.find(article => article.id === id),
+  getFeaturedArticles: () =>
+    sortByDateDescending(blogArticles.filter((article) => article.featured)),
+  getArticleById: (id: string) => blogArticles.find((article) => article.id === id),
 };

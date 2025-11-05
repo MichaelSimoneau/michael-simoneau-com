@@ -1,6 +1,6 @@
 import { Link, usePathname } from 'expo-router';
-import { useMemo } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useMemo } from 'react';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { useFoundationBoundary, useFoundationPageView } from '../src/foundation';
 
 export default function NotFound() {
@@ -29,9 +29,13 @@ export default function NotFound() {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Signal lost</Text>
-      <Text style={styles.copy}>The control center could not locate that module. Return to the briefing deck.</Text>
-      <Link href="/" style={styles.link}>
-        <Text style={styles.linkText}>Navigate home</Text>
+      <Text style={styles.copy}>
+        The control center could not locate that module. Return to the briefing deck.
+      </Text>
+      <Link href="/" asChild>
+        <Pressable style={({ pressed }) => [styles.link, pressed && styles.linkPressed]}>
+          <Text style={styles.linkText}>Navigate home</Text>
+        </Pressable>
       </Link>
     </View>
   );
@@ -62,6 +66,9 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     paddingHorizontal: 24,
     backgroundColor: '#38BDF8',
+  },
+  linkPressed: {
+    opacity: 0.85,
   },
   linkText: {
     color: '#0F172A',
