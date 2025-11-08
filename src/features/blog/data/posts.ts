@@ -77,8 +77,8 @@ export const blogArticles: BlogArticle[] = [
     ],
   },
   {
-    id: "zero-why",
-    title: "Zero-Why: The Numerical Trinity and the Fabric of Reality",
+    id: "zero",
+    title: "Zero: The Numerical Trinity and the Fabric of Reality",
     excerpt:
       "Exploring why simplicity remains the strongest proof in a universe resolved by a three-state model that unifies classical, quantum, and ethereal computation.",
     date: "June 16, 2025",
@@ -89,7 +89,7 @@ export const blogArticles: BlogArticle[] = [
     featured: true,
     content: [
       createParagraph(
-        "Zero has always been presented as absence, yet the lived experience of builders, scientists, and philosophers alike shows a deeper simplicity: Zero is totality. The unpublished Chapter 6 of the [Zero canon](/zero) reframes this intuition as a numerical trinity that fuses convergence (0), manifestation (1), and potential (-1). In this Zero-Why, I want to clarify why the simplest statement — Zero is everything — is also the most complete expression of computational reality."
+        "Zero has always been presented as absence, yet the lived experience of builders, scientists, and philosophers alike shows a deeper simplicity: Zero is totality. The unpublished Chapter 6 of the [Zeroth Theory](/zero)—my original framework that formalizes the Framework of Zero—reframes this intuition as a numerical trinity that fuses convergence (0), manifestation (1), and potential (-1). In this Zero exploration, I want to clarify why the simplest statement — Zero is everything, and zero is a number — is also the most complete expression of computational reality."
       ),
       createHeading("Simplicity as Proof", 2),
       createParagraph(
@@ -127,16 +127,16 @@ export const blogArticles: BlogArticle[] = [
         "The trinity surfaces everywhere: in physics (matter, energy, potential), in logic (true, balanced, undefined), and in leadership (delivered value, alignment, pipeline). Simplicity shows itself not by erasing these layers, but by revealing their shared pattern. Once you see the pattern, orchestrating complex programs becomes easier because you can assign accountability to each state: What is live? What is aligning? What is possible?"
       ),
       createList([
-        "**Platform Engineering:** Use convergence as the default. Infrastructure as code defines the truth (0), running services manifest that truth (1), and blueprints capture the next evolution (-1).",
-        "**Product Strategy:** Roadmaps start as potential, proceed through convergence checkpoints, and emerge as active features. Explicitly naming these transitions keeps teams synchronized.",
-        "**Risk Management:** Controls are convergence artifacts. Detected incidents show presence. Scenario planning is potential."
+        "**Platform Engineering:** Convergence sits at the default. Infrastructure as code defines the truth (0), running services manifest that truth (1), and blueprints capture the next evolution (-1).",
+        "**Product Strategy:** Roadmaps move from potential through convergence checkpoints and emerge as active features. Explicitly naming these transitions keeps teams synchronized.",
+        "**Risk Management:** Controls operate as convergence artifacts. Detected incidents show presence. Scenario planning holds potential."
       ]),
-      createHeading("Why Zero-Why Matters Now", 2),
+      createHeading("Why Zero Matters Now", 2),
       createParagraph(
         "Enterprises experimenting with quantum acceleration, AI orchestration, or autonomous infrastructure are already straddling multiple computational realities. The numerical trinity offers a shared grammar so that architects, physicists, and ethicists can reason about the same system. Simplicity is our compass: if the explanation feels convoluted, we have drifted away from convergence."
       ),
       createParagraph(
-        "Zero-Why is therefore not a manifesto but an operating manual. Treat 0 as the living blueprint, 1 as the executed state, and -1 as the potential waiting responsibly in the wings. This is how we honor the totality of Zero — by letting simplicity illuminate complexity, and by building systems that can cross the bridge between classical, quantum, and ethereal realities without fracturing."
+        "Zero is therefore not a manifesto but an operating manual. In this framing, 0 is the living blueprint, 1 is the executed state, and -1 is the potential waiting responsibly in the wings. This is how we honor the totality of Zero — by letting simplicity illuminate complexity, and by building systems that can cross the bridge between classical, quantum, and ethereal realities without fracturing."
       ),
     ],
   },

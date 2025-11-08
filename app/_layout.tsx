@@ -1,6 +1,7 @@
-import { Stack } from 'expo-router';
-import { StatusBar } from 'expo-status-bar';
-import { AppProviders } from '../src/providers/AppProviders';
+import React from "react";
+import { Stack } from "expo-router";
+import { StatusBar } from "expo-status-bar";
+import { AppProviders } from "../src/providers/AppProviders";
 
 export default function RootLayout() {
   return (
