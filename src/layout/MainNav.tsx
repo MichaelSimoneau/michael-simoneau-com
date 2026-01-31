@@ -16,6 +16,7 @@ export const MainNav: React.FC<MainNavProps> = ({ scrollContainerId }) => {
   const isHomePage = location.pathname === '/';
   const scrollToSectionHandler = useScrollToSection({ scrollContainerId });
   const labsRef = useRef<HTMLDivElement>(null);
+  const mobileOverlayRef = useRef<HTMLDivElement>(null);
 
   const handleHomeClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     setIsOpen(false);
@@ -48,13 +49,15 @@ export const MainNav: React.FC<MainNavProps> = ({ scrollContainerId }) => {
     // Defer scroll so overlay/dropdown close first; avoids mobile scroll not working
     setTimeout(() => {
       scrollToSectionHandler(sectionId);
-    }, 100);
+    }, 280);
   };
 
-  // Close Labs when clicking outside
+  // Close Labs when clicking outside (desktop only; mobile overlay has its own close)
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (labsRef.current && !labsRef.current.contains(event.target as Node)) {
+      const target = event.target as Node;
+      if (mobileOverlayRef.current?.contains(target)) return;
+      if (labsRef.current && !labsRef.current.contains(target)) {
         setIsLabsExpanded(false);
       }
     };
@@ -210,7 +213,8 @@ export const MainNav: React.FC<MainNavProps> = ({ scrollContainerId }) => {
       </div>
       
       {isOpen && (
-        <motion.div 
+        <motion.div
+          ref={mobileOverlayRef}
           className="fixed inset-0 w-screen h-screen bg-black z-[60]"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
