@@ -11,11 +11,12 @@ export const Interview3: React.FC = () => {
     <>
       <Seo
         title="Interview Session 3: Zeroth & the Digital Organism | Michael Simoneau"
-        description="Michael Simoneau on Zero theory, the HashWeb, metabolic money, and the ghost in the shell. Part 3 of the interview series."
+        description="Michael Simoneau on Zero theory, #WEB (the HashWeb), metabolic money, and the ghost in the shell. Part 3 of the interview series."
         canonicalUrl="https://www.michaelsimoneau.com/interview/3"
         keywords={[
           "Michael Simoneau Interview",
           "Zeroth",
+          "#WEB",
           "HashWeb",
           "Zero Theory",
           "Metabolic Money",
@@ -27,7 +28,7 @@ export const Interview3: React.FC = () => {
           '@context': 'https://schema.org',
           '@type': 'Article',
           headline: 'Interview Session 3: Zeroth & the Digital Organism',
-          description: 'Zero theory, HashWeb, metabolic money, and the digital organism',
+          description: 'Zero theory, #WEB (the HashWeb), metabolic money, and the digital organism',
           author: {
             '@type': 'Person',
             name: 'Michael Simoneau',
@@ -82,8 +83,8 @@ export const Interview3: React.FC = () => {
                   </div>
 
                   <div>
-                    <p className="text-lg font-semibold mb-2">What is the HashWeb and the Gemini token?</p>
-                    <p className="text-gray-300">The HashWeb is where that math hits the road. We moved to a native 128-bit structure—two 64-bit siblings fused together. Sibling A is the value particle: price, lineage, economics. Sibling B is the payload: the data or a pointer to it. You can&apos;t separate them. So when you &quot;send&quot; a 4GB file, the file doesn&apos;t move—you send a new pointer locked to the value. The map and the payment are one. That&apos;s intrinsic worth: value fused to the file&apos;s existence on the network.</p>
+                    <p className="text-lg font-semibold mb-2">What is the #WEB (the HashWeb) and the Gemini token?</p>
+                    <p className="text-gray-300">#WEB (the HashWeb) is where that math hits the road. We moved to a native 128-bit structure—two 64-bit siblings fused together. Sibling A is the value particle: price, lineage, economics. Sibling B is the payload: the data or a pointer to it. You can&apos;t separate them. So when you &quot;send&quot; a 4GB file, the file doesn&apos;t move—you send a new pointer locked to the value. The map and the payment are one. That&apos;s intrinsic worth: value fused to the file&apos;s existence on the network.</p>
                   </div>
 
                   <div>

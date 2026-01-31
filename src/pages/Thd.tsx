@@ -13,12 +13,13 @@ export const Thd: React.FC = () => {
   return (
     <>
       <Seo
-        title="The Human Dollar (THD) | Anti-Crypto & Attention Economy – HashWeb"
-        description="The Human Dollar (THD) is a revolutionary digital asset — the Anti-Crypto. It creates an Attention Economy and is the embodiment of the HashWeb, as detailed in Building Web 4 With Money That Lives."
+        title="The Human Dollar (THD) | Anti-Crypto & Attention Economy - #WEB (the HashWeb)"
+        description="The Human Dollar (THD) is a revolutionary digital asset — the Anti-Crypto. It creates an Attention Economy and is the embodiment of the #WEB (the HashWeb), as detailed in Building Web4 With Money That Lives."
         canonicalUrl="https://www.michaelsimoneau.com/thd"
         keywords={[
           "The Human Dollar",
           "THD",
+          "#WEB",
           "HashWeb",
           "Attention Economy",
           "Anti-Crypto",
@@ -34,7 +35,7 @@ export const Thd: React.FC = () => {
             "@type": "CreativeWork",
             name: "The Human Dollar (THD)",
             description:
-              "The Human Dollar (THD) is a revolutionary digital asset — the Anti-Crypto. It creates an Attention Economy and is the embodiment of the HashWeb.",
+              "The Human Dollar (THD) is a revolutionary digital asset — the Anti-Crypto. It creates an Attention Economy and is the embodiment of the #WEB (the HashWeb).",
             url: "https://www.michaelsimoneau.com/thd",
             author: {
               "@type": "Organization",
@@ -100,7 +101,7 @@ export const Thd: React.FC = () => {
                 The Anti-Crypto · Attention Economy
               </p>
               <p className="text-xl text-gray-400 mb-4">
-                Embodiment of the HashWeb
+                Embodiment of the #WEB (the HashWeb)
               </p>
               <p className="text-lg text-gray-300 max-w-3xl">
                 Metabolic money: if you don&apos;t observe it, use it, or transact with it, it decays. Value is stitched into the hash; the system has a metabolism. Observation is oxygen. Usage is mining. The concept is detailed in Building Web 4 With Money That Lives.
@@ -117,7 +118,7 @@ export const Thd: React.FC = () => {
           >
             <div className="text-center mb-6">
               <p className="text-lg md:text-xl text-gray-300 max-w-4xl mx-auto mb-4">
-                The Human Dollar is the embodiment of the <strong className="text-amber-400">HashWeb</strong>. The HashWeb is detailed in the audio below: <em>Building Web 4 With Money That Lives</em>.
+                The Human Dollar is the embodiment of the <strong className="text-amber-400">#WEB</strong>. The #WEB (the HashWeb) is detailed in the audio below: <em>Building Web4 With Money That Lives</em>.
               </p>
             </div>
             <div className="flex justify-center mb-6">
@@ -173,7 +174,7 @@ export const Thd: React.FC = () => {
               The <strong className="text-amber-300">redemption constraint</strong> is the safety net: one THD is always redeemable for at least one USDC (or the stable reserve). It can&apos;t decay to zero. When it hits the floor, it completes — burns, cashes out against the reserve, and holds value in a stable state. Birth, life, completion.
             </p>
             <p className="text-gray-300">
-              As the embodiment of the HashWeb — detailed in Building Web 4 With Money That Lives — The Human Dollar shifts the internet from a library of static records to a jungle where data competes for observation. It kills the bubble but protects the asset.
+              As the embodiment of the #WEB (the HashWeb) — detailed in Building Web 4 With Money That Lives — The Human Dollar shifts the internet from a library of static records to a jungle where data competes for observation. It kills the bubble but protects the asset.
             </p>
           </motion.section>
 
@@ -193,15 +194,15 @@ export const Thd: React.FC = () => {
                   Observation is oxygen
                 </h3>
                 <p className="text-gray-300">
-                  In HashWeb you mine value by using the data — looking at it, trading it, refreshing observation. You reset the decay clock. If the world stops looking, the system prunes; value returns to potential.
+                  In #WEB (the HashWeb) you mine value by using the data — looking at it, trading it, refreshing observation. You reset the decay clock. If the world stops looking, the system prunes; value returns to potential.
                 </p>
               </div>
               <div className="rounded-lg bg-gray-900/50 p-6 border border-gray-800">
                 <h3 className="text-xl font-bold mb-3 text-amber-300">
-                  HashWeb &amp; Gemini
+                  #WEB &amp; Gemini
                 </h3>
                 <p className="text-gray-300">
-                  The HashWeb uses a 128-bit bicameral structure: the Gemini token. Sibling A (THTH) is the value particle; sibling B (Z0P) is the payload. Value is stitched into the DNA of the hash — the price is in the money.
+                  The #WEB uses a 128-bit bicameral structure: the Gemini token. Sibling A (THTH) is the value particle; sibling B (Z0P) is the payload. Value is stitched into the DNA of the hash — the price is in the money.
                 </p>
               </div>
               <div className="rounded-lg bg-gray-900/50 p-6 border border-gray-800">

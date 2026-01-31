@@ -166,8 +166,8 @@ export const CryptoFabric: React.FC = () => {
             <div className="text-center mb-6">
               <p className="text-lg md:text-xl text-gray-300 max-w-4xl mx-auto mb-4 italic">
                 This podcast explores <em>Metabolic Money and the Digital Organism</em> — 
-                the journey from EtherHive to HashWeb. It details how value lives in the hash, 
-                observation is oxygen, and usage is mining. The HashWeb and its embodiment 
+                the journey from EtherHive to #WEB (the HashWeb). It details how value lives in the hash, 
+                observation is oxygen, and usage is mining. The #WEB (the HashWeb) and its embodiment 
                 (The Human Dollar) are introduced in this episode; for more on the philosophy 
                 behind it, see <Link to="/zero" className="text-cyan-400 hover:text-cyan-300 underline">zeroth</Link> and <Link to="/thd" className="text-cyan-400 hover:text-cyan-300 underline">The Human Dollar</Link>.
               </p>
