@@ -44,27 +44,16 @@ export const ThdHero: React.FC = () => {
             transition={{ duration: 0.6, delay: 0.3 }}
           >
             <div
-              className="relative w-32 h-32 md:w-40 md:h-40 overflow-hidden shadow-2xl"
+              className="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden"
               style={{
-                clipPath: 'polygon(50% 0%, 85.35% 14.65%, 100% 50%, 85.35% 85.35%, 50% 100%, 14.65% 85.35%, 0% 50%, 14.65% 14.65%)',
+                boxShadow: '0 0 48px rgba(255,255,255,0.12), 0 8px 30px rgba(0,0,0,0.4)',
               }}
             >
-              {/* Outer octagon: thick border color */}
-              <div
-                className="absolute inset-0 bg-amber-400"
-                style={{
-                  clipPath: 'polygon(50% 0%, 85.35% 14.65%, 100% 50%, 85.35% 85.35%, 50% 100%, 14.65% 85.35%, 0% 50%, 14.65% 14.65%)',
-                }}
+              <img
+                src="/THD.png"
+                alt="The Human Dollar"
+                className="w-full h-full object-cover"
               />
-              {/* Inner octagon: gradient fill */}
-              <div
-                className="absolute inset-2 flex items-center justify-center bg-gradient-to-br from-amber-500 to-yellow-600"
-                style={{
-                  clipPath: 'polygon(50% 0%, 85.35% 14.65%, 100% 50%, 85.35% 85.35%, 50% 100%, 14.65% 85.35%, 0% 50%, 14.65% 14.65%)',
-                }}
-              >
-                <span className="text-4xl md:text-5xl font-bold text-white">THD</span>
-              </div>
             </div>
           </motion.div>
 
