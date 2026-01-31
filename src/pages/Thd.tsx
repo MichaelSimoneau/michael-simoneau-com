@@ -79,8 +79,26 @@ export const Thd: React.FC = () => {
             transition={{ duration: 0.5 }}
           >
             <div className="md:mr-8 mb-6 md:mb-0 flex-shrink-0">
-              <div className="w-48 h-48 md:w-64 md:h-64 rounded-full overflow-hidden border-4 border-amber-400 shadow-lg bg-gradient-to-br from-amber-500 to-yellow-600 flex items-center justify-center">
-                <span className="text-6xl md:text-7xl font-bold text-white">THD</span>
+              <div
+                className="relative w-48 h-48 md:w-64 md:h-64 overflow-hidden shadow-lg"
+                style={{
+                  clipPath: 'polygon(50% 0%, 85.35% 14.65%, 100% 50%, 85.35% 85.35%, 50% 100%, 14.65% 85.35%, 0% 50%, 14.65% 14.65%)',
+                }}
+              >
+                <div
+                  className="absolute inset-0 bg-amber-400"
+                  style={{
+                    clipPath: 'polygon(50% 0%, 85.35% 14.65%, 100% 50%, 85.35% 85.35%, 50% 100%, 14.65% 85.35%, 0% 50%, 14.65% 14.65%)',
+                  }}
+                />
+                <div
+                  className="absolute inset-2 flex items-center justify-center bg-gradient-to-br from-amber-500 to-yellow-600"
+                  style={{
+                    clipPath: 'polygon(50% 0%, 85.35% 14.65%, 100% 50%, 85.35% 85.35%, 50% 100%, 14.65% 85.35%, 0% 50%, 14.65% 14.65%)',
+                  }}
+                >
+                  <span className="text-6xl md:text-7xl font-bold text-white">THD</span>
+                </div>
               </div>
             </div>
             <div className="text-center md:text-left flex-1">

@@ -43,8 +43,28 @@ export const ThdHero: React.FC = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.3 }}
           >
-            <div className="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden border-4 border-amber-400 shadow-2xl bg-gradient-to-br from-amber-500 to-yellow-600 flex items-center justify-center">
-              <span className="text-4xl md:text-5xl font-bold text-white">THD</span>
+            <div
+              className="relative w-32 h-32 md:w-40 md:h-40 overflow-hidden shadow-2xl"
+              style={{
+                clipPath: 'polygon(50% 0%, 85.35% 14.65%, 100% 50%, 85.35% 85.35%, 50% 100%, 14.65% 85.35%, 0% 50%, 14.65% 14.65%)',
+              }}
+            >
+              {/* Outer octagon: thick border color */}
+              <div
+                className="absolute inset-0 bg-amber-400"
+                style={{
+                  clipPath: 'polygon(50% 0%, 85.35% 14.65%, 100% 50%, 85.35% 85.35%, 50% 100%, 14.65% 85.35%, 0% 50%, 14.65% 14.65%)',
+                }}
+              />
+              {/* Inner octagon: gradient fill */}
+              <div
+                className="absolute inset-2 flex items-center justify-center bg-gradient-to-br from-amber-500 to-yellow-600"
+                style={{
+                  clipPath: 'polygon(50% 0%, 85.35% 14.65%, 100% 50%, 85.35% 85.35%, 50% 100%, 14.65% 85.35%, 0% 50%, 14.65% 14.65%)',
+                }}
+              >
+                <span className="text-4xl md:text-5xl font-bold text-white">THD</span>
+              </div>
             </div>
           </motion.div>
 
