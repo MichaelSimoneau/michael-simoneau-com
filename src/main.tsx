@@ -1,6 +1,6 @@
 import { StrictMode, lazy, Suspense } from 'react';
 import { createRoot } from 'react-dom/client';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
 import App from './App'; // App will become a layout/outlet component
 import './index.css';
 import { ScrollProvider } from './contexts/ScrollContext';
@@ -11,6 +11,8 @@ import { NotFound } from "./layout/NotFound";
 import { Blog } from "./features/blog/components/Blog";
 import { BlogPost } from "./features/blog/components/BlogPost";
 import { Interview } from "./features/interview/components/Interview";
+import { Interview2 } from "./features/interview/components/Interview2";
+import { Interview3 } from "./features/interview/components/Interview3";
 import { ZeroTruth } from "./features/zero-truth/components/ZeroTruth";
 import { FullProfile } from "./pages/FullProfile";
 import { CryptoFabric } from "./pages/CryptoFabric";
@@ -50,7 +52,13 @@ const router = createBrowserRouter([
       },
       {
         path: "interview",
-        element: <Interview />,
+        element: <Outlet />,
+        children: [
+          { index: true, element: <Interview /> },
+          { path: "1", element: <Interview /> },
+          { path: "2", element: <Interview2 /> },
+          { path: "3", element: <Interview3 /> },
+        ],
       },
       {
         path: "zero",

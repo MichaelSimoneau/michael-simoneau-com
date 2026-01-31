@@ -53,6 +53,14 @@ export const Interview: React.FC = () => {
               Back to Home
             </Link>
 
+            <div className="flex flex-wrap gap-4 mb-8 text-sm text-gray-400">
+              <span className="text-cyan-400">Part 1: The Foundation</span>
+              <span className="text-gray-600">|</span>
+              <Link to="/interview/2" className="hover:text-cyan-400 transition-colors">Part 2: From Code to Architecture</Link>
+              <span className="text-gray-600">|</span>
+              <Link to="/interview/3" className="hover:text-cyan-400 transition-colors">Part 3: Zeroth & the Digital Organism</Link>
+            </div>
+
             <h1 className="text-4xl md:text-5xl font-bold mb-8 text-center">
               <span className="block text-cyan-400">An Interview with Michael Simoneau</span>
               <span className="block text-2xl md:text-3xl mt-4">A Journey in Technology and Problem-Solving</span>
