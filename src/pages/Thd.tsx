@@ -6,7 +6,7 @@ import { AnimatedBackground } from "../backgrounds/AnimatedBackground";
 import { MainNav } from "../layout/MainNav";
 import { Seo } from "../foundation/seo/Seo";
 import { AudioPlayer } from "../ui/players/AudioPlayer";
-import { METABOLIC_MONEY_TRANSCRIPT } from "../features/thd/data/metabolicMoneyTranscript";
+import { BUILDING_WEB_4_TRANSCRIPT } from "../features/thd/data/buildingWeb4Transcript";
 
 export const Thd: React.FC = () => {
   const [transcriptExpanded, setTranscriptExpanded] = useState(false);
@@ -14,7 +14,7 @@ export const Thd: React.FC = () => {
     <>
       <Seo
         title="The Human Dollar (THD) | Anti-Crypto & Attention Economy – HashWeb"
-        description="The Human Dollar (THD) is a revolutionary digital asset — the Anti-Crypto. It creates an Attention Economy and is the embodiment of the HashWeb, as detailed in Metabolic Money and the Digital Organism."
+        description="The Human Dollar (THD) is a revolutionary digital asset — the Anti-Crypto. It creates an Attention Economy and is the embodiment of the HashWeb, as detailed in Building Web 4 With Money That Lives."
         canonicalUrl="https://www.michaelsimoneau.com/thd"
         keywords={[
           "The Human Dollar",
@@ -22,8 +22,8 @@ export const Thd: React.FC = () => {
           "HashWeb",
           "Attention Economy",
           "Anti-Crypto",
-          "Metabolic Money",
-          "Digital Organism",
+          "Building Web 4",
+          "Money That Lives",
           "revolutionary digital asset",
           "human dollar",
         ]}
@@ -103,7 +103,7 @@ export const Thd: React.FC = () => {
                 Embodiment of the HashWeb
               </p>
               <p className="text-lg text-gray-300 max-w-3xl">
-                Metabolic money: if you don&apos;t observe it, use it, or transact with it, it decays. Value is stitched into the hash; the system has a metabolism. Observation is oxygen. Usage is mining. The concept is detailed in Metabolic Money and the Digital Organism.
+                Metabolic money: if you don&apos;t observe it, use it, or transact with it, it decays. Value is stitched into the hash; the system has a metabolism. Observation is oxygen. Usage is mining. The concept is detailed in Building Web 4 With Money That Lives.
               </p>
             </div>
           </motion.div>
@@ -117,13 +117,13 @@ export const Thd: React.FC = () => {
           >
             <div className="text-center mb-6">
               <p className="text-lg md:text-xl text-gray-300 max-w-4xl mx-auto mb-4">
-                The Human Dollar is the embodiment of the <strong className="text-amber-400">HashWeb</strong>. The HashWeb is detailed in the audio below: <em>Metabolic Money and the Digital Organism</em>.
+                The Human Dollar is the embodiment of the <strong className="text-amber-400">HashWeb</strong>. The HashWeb is detailed in the audio below: <em>Building Web 4 With Money That Lives</em>.
               </p>
             </div>
             <div className="flex justify-center mb-6">
               <AudioPlayer
-                src="/Metabolic_Money_And_The_Digital_Organism.mp3"
-                title="Metabolic Money and the Digital Organism (HashWeb)"
+                src="/Building_Web_4_With_Money_That_Lives.mp3"
+                title="Building Web 4 With Money That Lives"
               />
             </div>
             {/* Collapsible Transcript – optional view */}
@@ -144,7 +144,7 @@ export const Thd: React.FC = () => {
               {transcriptExpanded && (
                 <div className="px-6 pb-6 pt-0 border-t border-amber-800/30">
                   <div className="max-h-[60vh] overflow-y-auto text-gray-300 text-sm leading-relaxed space-y-4 pr-2">
-                    {METABOLIC_MONEY_TRANSCRIPT.split(/\n\n+/).map((para, i) => (
+                    {BUILDING_WEB_4_TRANSCRIPT.split(/\n\n+/).map((para, i) => (
                       <p key={i}>{para}</p>
                     ))}
                   </div>
@@ -173,7 +173,7 @@ export const Thd: React.FC = () => {
               The <strong className="text-amber-300">redemption constraint</strong> is the safety net: one THD is always redeemable for at least one USDC (or the stable reserve). It can&apos;t decay to zero. When it hits the floor, it completes — burns, cashes out against the reserve, and holds value in a stable state. Birth, life, completion.
             </p>
             <p className="text-gray-300">
-              As the embodiment of the HashWeb — detailed in Metabolic Money and the Digital Organism — The Human Dollar shifts the internet from a library of static records to a jungle where data competes for observation. It kills the bubble but protects the asset.
+              As the embodiment of the HashWeb — detailed in Building Web 4 With Money That Lives — The Human Dollar shifts the internet from a library of static records to a jungle where data competes for observation. It kills the bubble but protects the asset.
             </p>
           </motion.section>
 

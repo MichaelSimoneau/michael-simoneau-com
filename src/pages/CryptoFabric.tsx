@@ -1,12 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import { ChevronDown, ChevronUp } from "lucide-react";
 import { AnimatedBackground } from "../backgrounds/AnimatedBackground";
 import { MainNav } from "../layout/MainNav";
 import { Seo } from "../foundation/seo/Seo";
 import { AudioPlayer } from "../ui/players/AudioPlayer";
+import { METABOLIC_MONEY_TRANSCRIPT } from "../features/thd/data/metabolicMoneyTranscript";
 
 export const CryptoFabric: React.FC = () => {
+  const [transcriptExpanded, setTranscriptExpanded] = useState(false);
   return (
     <>
       <Seo
@@ -162,16 +165,43 @@ export const CryptoFabric: React.FC = () => {
           >
             <div className="text-center mb-6">
               <p className="text-lg md:text-xl text-gray-300 max-w-4xl mx-auto mb-4 italic">
-                This podcast explores the journey from Zero philosophy to Zeroth protocol – 
-                how the foundational concepts in <Link to="/zero" className="text-cyan-400 hover:text-cyan-300 underline">zeroth</Link> 
-                (the philosophical foundation about Zero, Energy, and Existence) form the basis 
-                for <a href="https://Zeroth.LIVE/" target="_blank" rel="noopener noreferrer" className="text-cyan-400 hover:text-cyan-300 underline">Zeroth.LIVE</a> (the cryptoeconomic 
-                runtime specification). Discover the connection between deterministic crypto 
-                and the intrinsic value model that powers the Zeroth network.
+                This podcast explores <em>Metabolic Money and the Digital Organism</em> — 
+                the journey from EtherHive to HashWeb. It details how value lives in the hash, 
+                observation is oxygen, and usage is mining. The HashWeb and its embodiment 
+                (The Human Dollar) are introduced in this episode; for more on the philosophy 
+                behind it, see <Link to="/zero" className="text-cyan-400 hover:text-cyan-300 underline">zeroth</Link> and <Link to="/thd" className="text-cyan-400 hover:text-cyan-300 underline">The Human Dollar</Link>.
               </p>
             </div>
-            <div className="flex justify-center">
-              <AudioPlayer src="/The_AI_Built_for_Deterministic_Crypto.mp3" title="The AI Built for Deterministic Crypto" />
+            <div className="flex justify-center mb-6">
+              <AudioPlayer
+                src="/Metabolic_Money_And_The_Digital_Organism.mp3"
+                title="EtherHive: From #CryptoFabric to #WEB (the HashWeb)"
+              />
+            </div>
+            {/* Collapsible Transcript */}
+            <div className="rounded-xl bg-gray-900/50 border border-cyan-800/30 overflow-hidden">
+              <button
+                type="button"
+                onClick={() => setTranscriptExpanded((e) => !e)}
+                className="w-full flex items-center justify-between gap-2 px-6 py-4 text-left text-cyan-400 font-semibold hover:bg-gray-800/50 transition-colors"
+                aria-expanded={transcriptExpanded}
+              >
+                <span>Transcript</span>
+                {transcriptExpanded ? (
+                  <ChevronUp size={20} className="flex-shrink-0" />
+                ) : (
+                  <ChevronDown size={20} className="flex-shrink-0" />
+                )}
+              </button>
+              {transcriptExpanded && (
+                <div className="px-6 pb-6 pt-0 border-t border-cyan-800/30">
+                  <div className="max-h-[60vh] overflow-y-auto text-gray-300 text-sm leading-relaxed space-y-4 pr-2">
+                    {METABOLIC_MONEY_TRANSCRIPT.split(/\n\n+/).map((para, i) => (
+                      <p key={i}>{para}</p>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
           </motion.section>
 
