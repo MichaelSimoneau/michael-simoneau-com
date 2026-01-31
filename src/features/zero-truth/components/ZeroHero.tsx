@@ -8,7 +8,7 @@ export const ZeroHero: React.FC = () => {
   return (
     <motion.section 
       id="zero"
-      className="w-full flex flex-col text-white px-4 py-16 md:py-24 relative overflow-hidden flex-none"
+      className="w-full flex flex-col items-center justify-center text-white px-4 py-16 md:py-24 relative overflow-hidden flex-none"
       style={{ 
         minHeight: '100vh',
       }}
@@ -20,7 +20,7 @@ export const ZeroHero: React.FC = () => {
       <div className="absolute inset-0 -z-10">
         <NebulaStormBackground className="absolute w-full h-full" />
       </div>
-      <div className="container mx-auto max-w-6xl relative z-10 w-full py-8 flex flex-col flex-grow min-h-full">
+      <div className="container mx-auto max-w-6xl relative z-10 w-full py-8 flex flex-col">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}

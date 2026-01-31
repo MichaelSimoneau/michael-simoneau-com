@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { InterviewButton } from './InterviewButton';
 
-const sectionWrapperClasses = 'py-12 md:py-20 px-4 relative min-h-screen';
+const sectionWrapperClasses = 'py-12 md:py-20 px-4 relative min-h-screen flex flex-col items-center justify-center';
 
 /**
  * AI Interview section: fixed-height slot for InterviewButton so typewriter
