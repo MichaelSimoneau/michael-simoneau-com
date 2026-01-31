@@ -37,8 +37,9 @@ export const Interview2: React.FC = () => {
       />
       <AnimatedBackground />
       <MainNav />
-      <section className="min-h-screen text-white py-20 px-4 pt-24 relative z-10">
-        <div className="container mx-auto max-w-4xl">
+      <div className="h-screen overflow-y-auto overflow-x-hidden overscroll-behavior-x-none scroll-smooth relative z-10">
+        <section className="min-h-screen text-white py-20 px-4 pt-24">
+          <div className="container mx-auto max-w-4xl">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -109,7 +110,8 @@ export const Interview2: React.FC = () => {
             </div>
           </motion.div>
         </div>
-      </section>
+        </section>
+      </div>
     </>
   );
 };
