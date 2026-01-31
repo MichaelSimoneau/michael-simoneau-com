@@ -69,7 +69,7 @@ const router = createBrowserRouter([
         element: <FullProfile />,
       },
       {
-        path: "crypto-fabric",
+        path: "cryptofabric",
         element: <CryptoFabric />,
       },
       {

@@ -15,7 +15,7 @@ export const CryptoFabric: React.FC = () => {
       <Seo
         title="Crypto Fabric | EtherHive LLC - Profitability-First Automation Platform"
         description="Crypto Fabric, architected by Michael Simoneau and EtherHive LLC, is a profitability-first automation platform. Deploy Ethereum staking, AI-driven trading, and DePIN nodes with zero configuration and 100% solar power."
-        canonicalUrl="https://www.michaelsimoneau.com/crypto-fabric"
+        canonicalUrl="https://www.michaelsimoneau.com/cryptofabric"
         keywords={[
           "Crypto Fabric",
           "EtherHive",
@@ -46,7 +46,7 @@ export const CryptoFabric: React.FC = () => {
           "MicroK8s Kubernetes",
           "Google Secret Manager",
         ]}
-        image="https://www.michaelsimoneau.com/crypto-fabric.jpeg"
+        image="https://www.michaelsimoneau.com/cryptofabric.jpeg"
         structuredData={[
           {
             '@context': 'https://schema.org',
@@ -55,12 +55,12 @@ export const CryptoFabric: React.FC = () => {
             applicationCategory: 'FinanceApplication',
             operatingSystem: 'Linux, Kubernetes',
             description: 'Profitability-first automation platform for digital-asset operators. Deploy Ethereum staking, AI-driven trading, and DePIN node workloads (Pocket Network, Akash, Storj, Saturn, HOPR, NYM, Lava RPC) with zero configuration through our AI-driven Control Center. Built by Michael Simoneau; Hosted by EtherHive, LLC with 100% solar-powered infrastructure and a unique profit-sharing model.',
-            url: 'https://www.michaelsimoneau.com/crypto-fabric',
-            image: 'https://www.michaelsimoneau.com/crypto-fabric.jpeg',
+            url: 'https://www.michaelsimoneau.com/cryptofabric',
+            image: 'https://www.michaelsimoneau.com/cryptofabric.jpeg',
             publisher: {
               '@type': 'Organization',
               name: 'EtherHive LLC',
-              url: 'https://www.michaelsimoneau.com/crypto-fabric',
+              url: 'https://www.michaelsimoneau.com/cryptofabric',
             },
             offers: {
               '@type': 'Offer',
@@ -93,7 +93,7 @@ export const CryptoFabric: React.FC = () => {
                 '@type': 'ListItem',
                 position: 2,
                 name: 'Crypto Fabric',
-                item: 'https://www.michaelsimoneau.com/crypto-fabric'
+                item: 'https://www.michaelsimoneau.com/cryptofabric'
               }
             ]
           },
@@ -101,8 +101,8 @@ export const CryptoFabric: React.FC = () => {
             '@context': 'https://schema.org',
             '@type': 'Organization',
             name: 'EtherHive LLC',
-            url: 'https://www.michaelsimoneau.com/crypto-fabric',
-            logo: 'https://www.michaelsimoneau.com/crypto-fabric.jpeg',
+            url: 'https://www.michaelsimoneau.com/cryptofabric',
+            logo: 'https://www.michaelsimoneau.com/cryptofabric.jpeg',
             founder: {
               '@type': 'Person',
               name: 'Michael Simoneau'

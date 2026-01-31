@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useRef } from 'react';
+import { useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { MainNav } from '../layout/MainNav';
 import { HeroSection } from '../features/profile/components/HeroSection';
@@ -16,13 +17,14 @@ import { useScrollContext } from '../contexts/ScrollContext';
 import { Seo } from '../foundation/seo/Seo';
 import { SearchOptimizedSummary } from '../features/profile/components/SearchOptimizedSummary';
 import { ZeroHero } from '../features/zero-truth/components/ZeroHero';
-import { CryptoFabricHero } from '../features/crypto-fabric/components/CryptoFabricHero';
+import { CryptoFabricHero } from '../features/cryptofabric/components/CryptoFabricHero';
 // import { ThthHero } from '../features/thth/components/ThthHero';
 import { ThdHero } from '../features/thd';
 
 export const MainPage: React.FC = () => {
   const scrollContainerRef = useRef<HTMLDivElement | null>(null);
   const { registerMainScrollContainer } = useScrollContext();
+  const location = useLocation();
   const keywords = useMemo(
     () => [
       'Michael Simoneau',
@@ -145,33 +147,33 @@ export const MainPage: React.FC = () => {
     if (scrollContainerRef.current) {
       registerMainScrollContainer(scrollContainerRef);
     }
-    
-    const hash = window.location.hash;
-    if (hash && scrollContainerRef.current) {
-      // Remove the # from the hash to get the section ID
-      const sectionId = hash.substring(1);
-      const targetElement = document.getElementById(sectionId);
-      
-      if (targetElement) {
-        // Small delay to ensure the page is fully rendered
-        setTimeout(() => {
-          if (scrollContainerRef.current) {
-            const offset = 80; // MainNav height
-            const containerRect = scrollContainerRef.current.getBoundingClientRect();
-            const elementRect = targetElement.getBoundingClientRect();
-            const scrollTop = elementRect.top - containerRect.top + scrollContainerRef.current.scrollTop - offset;
-            
-            scrollContainerRef.current.scrollTo({
-              top: scrollTop,
-              behavior: 'smooth',
-            });
-          }
-        }, 100);
-      }
-    } else if (!hash && scrollContainerRef.current) {
-      scrollContainerRef.current.scrollTo({top: 0, behavior: 'auto'});
+
+    const hash = location.hash || window.location.hash;
+    if (hash) {
+      const sectionId = hash.replace(/^#/, '');
+      const targetId = sectionId;
+      // Delay so scroll container ref and target are in DOM (e.g. after navigate from another page)
+      const timeoutId = setTimeout(() => {
+        const container = scrollContainerRef.current;
+        const targetElement = document.getElementById(targetId);
+        if (container && targetElement) {
+          const offset = 80;
+          const containerRect = container.getBoundingClientRect();
+          const elementRect = targetElement.getBoundingClientRect();
+          const scrollTop = elementRect.top - containerRect.top + container.scrollTop - offset;
+          container.scrollTo({ top: scrollTop, behavior: 'smooth' });
+        }
+      }, 150);
+      return () => clearTimeout(timeoutId);
+    } else {
+      const timeoutId = setTimeout(() => {
+        if (scrollContainerRef.current) {
+          scrollContainerRef.current.scrollTo({ top: 0, behavior: 'auto' });
+        }
+      }, 0);
+      return () => clearTimeout(timeoutId);
     }
-  }, [registerMainScrollContainer]);
+  }, [registerMainScrollContainer, location.pathname, location.hash]);
 
   const sectionWrapperClasses = "py-12 md:py-20 px-4 relative min-h-screen";
 

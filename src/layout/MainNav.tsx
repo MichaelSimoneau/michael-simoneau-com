@@ -43,9 +43,12 @@ export const MainNav: React.FC<MainNavProps> = ({ scrollContainerId }) => {
 
   const handleLabsItemClick = (sectionId: string, e?: React.MouseEvent) => {
     e?.stopPropagation();
-    handleSectionLinkClick(sectionId);
     setIsLabsExpanded(false);
-    setIsOpen(false); // Close mobile menu if open
+    setIsOpen(false);
+    // Defer scroll so overlay/dropdown close first; avoids mobile scroll not working
+    setTimeout(() => {
+      scrollToSectionHandler(sectionId);
+    }, 100);
   };
 
   // Close Labs when clicking outside
@@ -178,13 +181,6 @@ export const MainNav: React.FC<MainNavProps> = ({ scrollContainerId }) => {
                   </button>
                   <span className="text-gray-500">|</span>
                   <button
-                    onClick={(e) => handleLabsItemClick('thth', e)}
-                    className="text-gray-300 hover:text-cyan-400 transition-colors whitespace-nowrap"
-                  >
-                    THTH Token
-                  </button>
-                  <span className="text-gray-500">|</span>
-                  <button
                     onClick={(e) => handleLabsItemClick('thd', e)}
                     className="text-gray-300 hover:text-cyan-400 transition-colors whitespace-nowrap"
                   >
@@ -287,12 +283,6 @@ export const MainNav: React.FC<MainNavProps> = ({ scrollContainerId }) => {
                   className="text-xl text-gray-400 hover:text-cyan-400 transition-colors"
                 >
                   Crypto Fabric
-                </button>
-                <button 
-                  onClick={(e) => handleLabsItemClick('thth', e)}
-                  className="text-xl text-gray-400 hover:text-cyan-400 transition-colors"
-                >
-                  THTH Token
                 </button>
                 <button 
                   onClick={(e) => handleLabsItemClick('thd', e)}

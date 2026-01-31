@@ -246,7 +246,7 @@ export const Thd: React.FC = () => {
                   Zeroth Theory
                 </Link>
                 <Link
-                  to="/crypto-fabric"
+                  to="/cryptofabric"
                   className="inline-block px-8 py-3 bg-gray-800 hover:bg-gray-700 text-white font-bold rounded-lg transition-colors border border-gray-700"
                 >
                   Crypto Fabric

@@ -76,15 +76,13 @@ export const useScrollToSection = (options?: UseScrollToSectionOptions) => {
         attemptScroll(scrollContainerElement, sectionId, true);
       } else {
         console.warn(`[useScrollToSection] Scroll container '${options?.scrollContainerId}' not found on home page. Navigating with hash.`);
-        // Fallback to navigate, which sets the hash. Browser + scroll-padding-top will handle.
-        navigate(newHash); 
+        navigate({ pathname: '/', hash: sectionId });
         onComplete?.();
       }
     } else {
-      // Not on home page, navigate. This will set the URL and hash.
-      // <ScrollRestoration> and browser default behavior (with scroll-padding-top) should handle the scroll.
-      navigate(`/${newHash}`); 
-      onComplete?.(); 
+      // Not on home page, navigate to main page with hash so MainPage hash-on-load can scroll.
+      navigate({ pathname: '/', hash: sectionId });
+      onComplete?.();
     }
   }, [location.pathname, location.hash, navigate, options?.scrollContainerId]); // Added location.hash to deps
 
