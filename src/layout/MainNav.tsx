@@ -183,6 +183,13 @@ export const MainNav: React.FC<MainNavProps> = ({ scrollContainerId }) => {
                   >
                     THTH Token
                   </button>
+                  <span className="text-gray-500">|</span>
+                  <button
+                    onClick={(e) => handleLabsItemClick('thd', e)}
+                    className="text-gray-300 hover:text-cyan-400 transition-colors whitespace-nowrap"
+                  >
+                    The Human Dollar
+                  </button>
                   <button
                     onClick={handleLabsClick}
                     className="ml-2 p-1 group"
@@ -286,6 +293,12 @@ export const MainNav: React.FC<MainNavProps> = ({ scrollContainerId }) => {
                   className="text-xl text-gray-400 hover:text-cyan-400 transition-colors"
                 >
                   THTH Token
+                </button>
+                <button 
+                  onClick={(e) => handleLabsItemClick('thd', e)}
+                  className="text-xl text-gray-400 hover:text-cyan-400 transition-colors"
+                >
+                  The Human Dollar
                 </button>
                 
                 <button

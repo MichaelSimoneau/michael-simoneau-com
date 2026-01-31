@@ -15,6 +15,7 @@ import { ZeroTruth } from "./features/zero-truth/components/ZeroTruth";
 import { FullProfile } from "./pages/FullProfile";
 import { CryptoFabric } from "./pages/CryptoFabric";
 import { Thth } from "./pages/Thth";
+import { Thd } from "./pages/Thd";
 
 // Lazy load main page component
 const LazyMainPage = lazy(() => 
@@ -66,6 +67,10 @@ const router = createBrowserRouter([
       {
         path: "thth",
         element: <Thth />,
+      },
+      {
+        path: "thd",
+        element: <Thd />,
       },
       {
         path: "*",

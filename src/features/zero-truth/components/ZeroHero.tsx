@@ -8,11 +8,9 @@ export const ZeroHero: React.FC = () => {
   return (
     <motion.section 
       id="zero"
-      className="w-full flex flex-col text-white px-4 py-16 md:py-24 relative overflow-hidden"
+      className="w-full flex flex-col text-white px-4 py-16 md:py-24 relative overflow-hidden flex-none"
       style={{ 
         minHeight: '100vh',
-        flexGrow: 1,
-        flexShrink: 0,
       }}
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}

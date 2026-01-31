@@ -7,11 +7,9 @@ export const ThthHero: React.FC = () => {
   return (
     <motion.section 
       id="thth"
-      className="w-full flex flex-col text-white px-4 py-16 md:py-24 relative overflow-hidden bg-gradient-to-br from-gray-900 via-purple-900/20 to-gray-900"
+      className="w-full flex flex-col text-white px-4 py-16 md:py-24 relative overflow-hidden bg-gradient-to-br from-gray-900 via-purple-900/20 to-gray-900 flex-none"
       style={{ 
         minHeight: '100vh',
-        flexGrow: 1,
-        flexShrink: 0,
       }}
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}

@@ -18,6 +18,7 @@ import { SearchOptimizedSummary } from '../features/profile/components/SearchOpt
 import { ZeroHero } from '../features/zero-truth/components/ZeroHero';
 import { CryptoFabricHero } from '../features/crypto-fabric/components/CryptoFabricHero';
 import { ThthHero } from '../features/thth/components/ThthHero';
+import { ThdHero } from '../features/thd';
 
 export const MainPage: React.FC = () => {
   const scrollContainerRef = useRef<HTMLDivElement | null>(null);
@@ -221,30 +222,46 @@ export const MainPage: React.FC = () => {
       <div
         ref={scrollContainerRef}
         id="new-main-page-scroll-container"
-        className="text-white h-screen flex flex-col overflow-y-auto overflow-x-hidden overscroll-behavior-x-none scroll-smooth relative z-10"
+        className="text-white h-screen overflow-y-auto overflow-x-hidden overscroll-behavior-x-none scroll-smooth relative z-10"
       >
         <MainNav scrollContainerId="new-main-page-scroll-container" />
 
-        <section>
-          <HeroSection />
-        </section>
+        <div className="relative">
+          <section>
+            <HeroSection />
+          </section>
+        </div>
 
-        <AIInterviewSection />
+        <div className="relative">
+          <AIInterviewSection />
+        </div>
 
-        <SearchOptimizedSummary />
+        <div className="relative">
+          <SearchOptimizedSummary />
+        </div>
 
-        <ZeroHero />
+        <div className="relative">
+          <ZeroHero />
+        </div>
 
-        <CryptoFabricHero />
+        <div className="relative">
+          <CryptoFabricHero />
+        </div>
 
-        <ThthHero />
+        <div className="relative">
+          <ThthHero />
+        </div>
 
-        <div id="profile">
+        <div className="relative">
+          <ThdHero />
+        </div>
+
+        <div id="profile" className="relative">
           <motion.section
             id="about-me"
             className={`${sectionWrapperClasses}`}
             initial={{opacity: 0}}
-            whileInView={{opacity: 1}} 
+            whileInView={{opacity: 1}}
             viewport={{once: true, amount: 0.2}}
             transition={{duration: 0.7}}
           >
@@ -252,61 +269,73 @@ export const MainPage: React.FC = () => {
           </motion.section>
         </div>
 
-        <motion.section 
-          id="testimonials"
-          className={`${sectionWrapperClasses} bg-gray-900/40`}
-          initial={{opacity: 0}}
-          whileInView={{opacity: 1}} 
-          viewport={{once: true, amount: 0.2}}
-          transition={{duration: 0.7}}
-        >
-          <Testimonials />
-        </motion.section>
+        <div className="relative">
+          <motion.section
+            id="testimonials"
+            className={`${sectionWrapperClasses} bg-gray-900/40`}
+            initial={{opacity: 0}}
+            whileInView={{opacity: 1}}
+            viewport={{once: true, amount: 0.2}}
+            transition={{duration: 0.7}}
+          >
+            <Testimonials />
+          </motion.section>
+        </div>
 
-        <motion.section 
-          id="expertise" 
-          className={`${sectionWrapperClasses} bg-gray-900/40`}
-          initial={{opacity: 0}}
-          whileInView={{opacity: 1}} 
-          viewport={{once: true, amount: 0.2}}
-          transition={{duration: 0.7}}
-        >
-          <div className="container mx-auto">
-            <h2 className="text-4xl font-bold text-white mb-12 text-center">
-              Proven <span className="text-cyan-400">Expertise</span> & Impact
-            </h2>
-            <StoneXProject />
-            <JPMorganProject />
-          </div>
-        </motion.section>
+        <div className="relative">
+          <motion.section
+            id="expertise"
+            className={`${sectionWrapperClasses} bg-gray-900/40`}
+            initial={{opacity: 0}}
+            whileInView={{opacity: 1}}
+            viewport={{once: true, amount: 0.2}}
+            transition={{duration: 0.7}}
+          >
+            <div className="container mx-auto">
+              <h2 className="text-4xl font-bold text-white mb-12 text-center">
+                Proven <span className="text-cyan-400">Expertise</span> & Impact
+              </h2>
+              <StoneXProject />
+              <JPMorganProject />
+            </div>
+          </motion.section>
+        </div>
 
-        <motion.section 
-          id="service-offerings"
-          className={`${sectionWrapperClasses}`}
-          initial={{opacity: 0}}
-          whileInView={{opacity: 1}} 
-          viewport={{once: true, amount: 0.2}}
-          transition={{duration: 0.7}}
-        >
-          <ServiceOffering />
-        </motion.section>
+        <div className="relative">
+          <motion.section
+            id="service-offerings"
+            className={`${sectionWrapperClasses}`}
+            initial={{opacity: 0}}
+            whileInView={{opacity: 1}}
+            viewport={{once: true, amount: 0.2}}
+            transition={{duration: 0.7}}
+          >
+            <ServiceOffering />
+          </motion.section>
+        </div>
 
-        <motion.section 
-          id="cto-triage"
-          className={`${sectionWrapperClasses} bg-gray-900/40`}
-          initial={{opacity: 0}}
-          whileInView={{opacity: 1}} 
-          viewport={{once: true, amount: 0.2}}
-          transition={{duration: 0.7}}
-        >
-          <CTOTriage />
-        </motion.section>
+        <div className="relative">
+          <motion.section
+            id="cto-triage"
+            className={`${sectionWrapperClasses} bg-gray-900/40`}
+            initial={{opacity: 0}}
+            whileInView={{opacity: 1}}
+            viewport={{once: true, amount: 0.2}}
+            transition={{duration: 0.7}}
+          >
+            <CTOTriage />
+          </motion.section>
+        </div>
 
-        <BlogTeaser />
-        
-        <section>
-          <ContactFooter />
-        </section>
+        <div className="relative">
+          <BlogTeaser />
+        </div>
+
+        <div className="relative">
+          <section>
+            <ContactFooter />
+          </section>
+        </div>
       </div>
     </>
   );
