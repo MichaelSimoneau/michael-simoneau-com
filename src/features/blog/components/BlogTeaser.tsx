@@ -12,7 +12,7 @@ export const BlogTeaser: React.FC = () => {
   return (
     <motion.section
       id="blog-teaser"
-      className="py-16 bg-black/20"
+      className="py-16 bg-black/20 min-h-screen"
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
       viewport={{ once: true, amount: 0.2 }}

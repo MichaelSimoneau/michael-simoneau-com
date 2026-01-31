@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 export const SearchOptimizedSummary = () => (
   <motion.section
     id="michael-simoneau-enterprise-architect"
-    className="py-16 text-white"
+    className="py-16 text-white min-h-screen"
     initial={{ opacity: 0 }}
     whileInView={{ opacity: 1 }}
     viewport={{ once: true, amount: 0.2 }}

@@ -1,6 +1,5 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { InterviewButton } from '../../../features/interview/components/InterviewButton'; // Preserving this
 import { AudioPlayer } from '../../../ui/players/AudioPlayer';
 import { ChevronDown } from 'lucide-react';
 
@@ -35,35 +34,35 @@ export const HeroSection: React.FC = () => {
         </p>
       </motion.div>
 
-      <motion.div 
-        className="w-full max-w-2xl mx-auto mb-6 z-10"
-        initial={{ opacity: 0, scale: 0.9 }}
-        whileInView={{ opacity: 1, scale: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8, delay: 0.4 }}
-      >
-        <AudioPlayer src="/Zeroth-Vision-2025-12-20-09_57-UTC.mp3" title="Zeroth Vision" />
-      </motion.div>
-
-      <motion.div 
-        className="w-full max-w-2xl mx-auto mb-6 z-10"
-        initial={{ opacity: 0, scale: 0.9 }}
-        whileInView={{ opacity: 1, scale: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8, delay: 0.45 }}
-      >
-        <AudioPlayer src="/The_AI_Built_for_Deterministic_Crypto.mp3" title="The AI Built for Deterministic Crypto" />
-      </motion.div>
-
-      <motion.div 
-        className="w-full max-w-2xl mx-auto my-8 z-10"
-        initial={{ opacity: 0, scale: 0.9 }}
-        whileInView={{ opacity: 1, scale: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8, delay: 0.5 }}
-      >
-        <InterviewButton />
-      </motion.div>
+      <div className="w-full max-w-2xl mx-auto z-10 flex flex-col gap-6">
+        <motion.div
+          className="w-full"
+          initial={{ opacity: 0, scale: 0.9 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+        >
+          <AudioPlayer src="/Zeroth_Protocol_Turns_Data_Into_Organisms.mp3" title="Zeroth Vision" />
+        </motion.div>
+        <motion.div
+          className="w-full"
+          initial={{ opacity: 0, scale: 0.9 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.45 }}
+        >
+          <AudioPlayer src="/The_AI_Built_for_Deterministic_Crypto.mp3" title="The AI Built for Deterministic Crypto" />
+        </motion.div>
+        <motion.div
+          className="w-full"
+          initial={{ opacity: 0, scale: 0.9 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.5 }}
+        >
+          <AudioPlayer src="/Metabolic_Money_And_The_Digital_Organism.mp3" title="Introduction to #Web (The HashWeb)" />
+        </motion.div>
+      </div>
 
       <motion.div 
         className="absolute bottom-10 left-1/2 -translate-x-1/2 z-10"

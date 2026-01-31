@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { MainNav } from '../layout/MainNav';
 import { HeroSection } from '../features/profile/components/HeroSection';
+import { AIInterviewSection } from '../features/interview/components/AIInterviewSection';
 import { StoneXProject } from '../features/portfolio/components/StoneXProject';
 import { JPMorganProject } from '../features/portfolio/components/JPMorganProject';
 import { AboutMeSection } from '../features/profile/components/AboutMeSection';
@@ -171,7 +172,7 @@ export const MainPage: React.FC = () => {
     }
   }, [registerMainScrollContainer]);
 
-  const sectionWrapperClasses = "py-12 md:py-20 px-4 relative";
+  const sectionWrapperClasses = "py-12 md:py-20 px-4 relative min-h-screen";
 
   return (
     <>
@@ -227,6 +228,8 @@ export const MainPage: React.FC = () => {
         <section>
           <HeroSection />
         </section>
+
+        <AIInterviewSection />
 
         <SearchOptimizedSummary />
 
