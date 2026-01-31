@@ -62,6 +62,15 @@ export const HeroSection: React.FC = () => {
         >
           <AudioPlayer src="/Building_Web_4_With_Money_That_Lives.mp3" title="Building Web4 With Money That Lives" />
         </motion.div>
+        <motion.div
+          className="w-full"
+          initial={{ opacity: 0, scale: 0.9 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.55 }}
+        >
+          <AudioPlayer src="/Zero_Is_The_Void__Zeroth_Is_Totality.mp3" title="Zero is Void; Zeroth is Totality" />
+        </motion.div>
       </div>
 
       <motion.div 
