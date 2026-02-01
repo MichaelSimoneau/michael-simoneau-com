@@ -64,12 +64,14 @@ export const parseZeroContent = (text: string): ZeroContent => {
       continue;
     }
 
-    // Detect start of detailed content (Chapter 1 appears again)
-    // The summary TOC has indented bullet points usually, but let's look for the detailed pattern
-    // Detailed pattern: "Chapter 1: Zero" followed shortly by "Principle 1:" WITHOUT bullet points
+    // Detect start of detailed content (Chapter N: ...)
     if (line.startsWith('Chapter') && !line.includes('•')) {
+      // If we are in preface and see a Chapter line, transition to content (no TOC)
+      if (section === 'preface') {
+        flushBuffer(); // Save preface
+        section = 'content';
+      }
       // If we are in TOC, we only switch to content if we see Chapter 1 again.
-      // This avoids parsing the TOC chapters as content.
       if (section === 'toc') {
         if (line.startsWith('Chapter 1:')) {
           section = 'content';

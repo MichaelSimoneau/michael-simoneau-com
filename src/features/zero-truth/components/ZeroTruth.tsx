@@ -8,7 +8,7 @@ import { Seo } from '../../../foundation/seo/Seo';
 import { parseZeroContent, ZeroContent, Chapter, Principle } from '../../../utils/zeroParser';
 import { ZeroMobileNavigation } from './ZeroMobileNavigation';
 // @ts-ignore
-import truthText from '/zero.txt?raw';
+import truthText from '/zeroth.txt?raw';
 
 export const ZeroTruth: React.FC = () => {
   const [content, setContent] = useState<ZeroContent | null>(null);

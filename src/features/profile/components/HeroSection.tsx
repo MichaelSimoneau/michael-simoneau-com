@@ -60,7 +60,7 @@ export const HeroSection: React.FC = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.5 }}
         >
-          <AudioPlayer src="/Building_Web_4_With_Money_That_Lives.mp3" title="Building Web4 With Money That Lives" />
+          <AudioPlayer src="/Metabolic_Money_And_The_Digital_Organism.mp3" title="Metabolic Money And The Digital Organism" />
         </motion.div>
         <motion.div
           className="w-full"
@@ -69,7 +69,7 @@ export const HeroSection: React.FC = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.55 }}
         >
-          <AudioPlayer src="/Zero_Is_The_Void__Zeroth_Is_Totality.mp3" title="Zero is Void; Zeroth is Totality" />
+          <AudioPlayer src="/Coding_A_Failover_System_For_Reality.mp3" title="Coding A Failover System For Reality" />
         </motion.div>
       </div>
 

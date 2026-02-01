@@ -6,7 +6,7 @@ import { AnimatedBackground } from "../backgrounds/AnimatedBackground";
 import { MainNav } from "../layout/MainNav";
 import { Seo } from "../foundation/seo/Seo";
 import { AudioPlayer } from "../ui/players/AudioPlayer";
-import { BUILDING_WEB_4_TRANSCRIPT } from "../features/thd/data/buildingWeb4Transcript";
+import { METABOLIC_MONEY_TRANSCRIPT } from "../features/thd/data/metabolicMoneyTranscript";
 
 export const Thd: React.FC = () => {
   const [transcriptExpanded, setTranscriptExpanded] = useState(false);
@@ -145,7 +145,7 @@ export const Thd: React.FC = () => {
               {transcriptExpanded && (
                 <div className="px-6 pb-6 pt-0 border-t border-amber-800/30">
                   <div className="max-h-[60vh] overflow-y-auto text-gray-300 text-sm leading-relaxed space-y-4 pr-2">
-                    {BUILDING_WEB_4_TRANSCRIPT.split(/\n\n+/).map((para, i) => (
+                    {METABOLIC_MONEY_TRANSCRIPT.split(/\n\n+/).map((para, i) => (
                       <p key={i}>{para}</p>
                     ))}
                   </div>

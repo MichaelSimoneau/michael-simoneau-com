@@ -46,7 +46,7 @@ Types are defined in `types.ts`:
 ## Dependencies
 
 - **Utils:** Uses `src/utils/zeroParser.ts` for parsing zero.txt content
-- **Data:** Uses `public/zero.txt` as content source
+- **Data:** Uses `public/zeroth.txt` as content source
 - **Layout:** Uses `MainNav` from `../layout/`
 - **Foundation:** Uses `Seo` from `../foundation/seo/`
 - **Backgrounds:** Uses `NebulaStormBackground` from `../backgrounds/`

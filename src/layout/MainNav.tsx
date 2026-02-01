@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { BookOpen, Menu, X, Home, User, FlaskConical } from 'lucide-react';
+import { BookOpen, Menu, X, Home, User, FlaskConical, Circle } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { UniversalPlayer } from '../ui/players/UniversalPlayer';
 import { useScrollToSection } from '../hooks/useScrollToSection';
@@ -133,6 +133,10 @@ export const MainNav: React.FC<MainNavProps> = ({ scrollContainerId }) => {
                   Profile
                 </Link>
               )}
+              <Link to="/zero" onClick={() => setIsOpen(false)} className="text-gray-300 hover:text-cyan-400 transition-colors flex items-center">
+                <Circle size={16} className="mr-2" />
+                Zero
+              </Link>
               <Link to="/blog" onClick={() => setIsOpen(false)} className="text-gray-300 hover:text-cyan-400 transition-colors flex items-center">
                 <BookOpen size={16} className="mr-2" />
                 Blog
@@ -251,6 +255,10 @@ export const MainNav: React.FC<MainNavProps> = ({ scrollContainerId }) => {
                     Profile
                   </Link>
                 )}
+                <Link to="/zero" className="text-xl text-gray-300 hover:text-cyan-400 transition-colors flex items-center" onClick={() => setIsOpen(false)}>
+                  <Circle size={18} className="mr-2" />
+                  Zero
+                </Link>
                 <Link to="/blog" className="text-xl text-gray-300 hover:text-cyan-400 transition-colors flex items-center" onClick={() => setIsOpen(false)}>
                   <BookOpen size={18} className="mr-2" />
                   Blog
