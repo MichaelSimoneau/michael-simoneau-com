@@ -35,7 +35,7 @@ const router = createBrowserRouter([
       {
         index: true, // This makes it the default child route for "/"
         element: (
-          <Suspense fallback={<div className="min-h-screen bg-black flex items-center justify-center text-white text-center px-4">Initializing Interface...</div>}>
+          <Suspense fallback={<div className="min-h-screen bg-black flex items-center justify-center text-white text-center px-4">Loading Application...</div>}>
             <ScrollProvider>
               <LazyMainPage />
             </ScrollProvider>
