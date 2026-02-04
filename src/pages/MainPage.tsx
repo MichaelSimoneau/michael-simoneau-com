@@ -258,6 +258,30 @@ export const MainPage: React.FC = () => {
           <ThdHero />
         </div>
 
+        <div id="soundon" className="relative">
+          <motion.section
+            className={`${sectionWrapperClasses} bg-gray-900/40`}
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.7 }}
+          >
+            <div className="container mx-auto">
+              <h2 className="text-4xl font-bold text-white mb-8 text-center">
+                Music &amp; Poetry
+              </h2>
+              <div className="relative w-full rounded-lg overflow-hidden" style={{ minHeight: '80vh' }}>
+                <iframe
+                  src="https://www.soundon.global/bio/immikecrane"
+                  title="Mike Crane on SoundOn"
+                  className="w-full border-0"
+                  style={{ height: '80vh', minHeight: '600px' }}
+                />
+              </div>
+            </div>
+          </motion.section>
+        </div>
+
         <div id="profile" className="relative">
           <motion.section
             id="about-me"
