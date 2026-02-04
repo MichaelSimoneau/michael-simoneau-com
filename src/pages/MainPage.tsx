@@ -228,25 +228,25 @@ export const MainPage: React.FC = () => {
       >
         <MainNav scrollContainerId="new-main-page-scroll-container" />
 
-        <div className="relative">
+        <div id="hero" className="relative">
           <section>
             <HeroSection />
           </section>
         </div>
 
-        <div className="relative">
+        <div id="interview" className="relative">
           <AIInterviewSection />
         </div>
 
-        <div className="relative">
+        <div id="summary" className="relative">
           <SearchOptimizedSummary />
         </div>
 
-        <div className="relative">
+        <div id="zero" className="relative">
           <ZeroHero />
         </div>
 
-        <div className="relative">
+        <div id="cryptofabric" className="relative">
           <CryptoFabricHero />
         </div>
 
@@ -254,11 +254,11 @@ export const MainPage: React.FC = () => {
           <ThthHero />
         </div> */}
 
-        <div className="relative">
+        <div id="feature" className="relative">
           <ThdHero />
         </div>
 
-        <div id="soundon" className="relative">
+                <div id="music" className="relative">
           <motion.section
             className={`${sectionWrapperClasses} bg-gray-900/40`}
             initial={{ opacity: 0 }}
@@ -295,7 +295,7 @@ export const MainPage: React.FC = () => {
           </motion.section>
         </div>
 
-        <div className="relative">
+        <div id="testimonials" className="relative">
           <motion.section
             id="testimonials"
             className={`${sectionWrapperClasses} bg-gray-900/40`}
@@ -308,7 +308,7 @@ export const MainPage: React.FC = () => {
           </motion.section>
         </div>
 
-        <div className="relative">
+        <div id="expertise" className="relative">
           <motion.section
             id="expertise"
             className={`${sectionWrapperClasses} bg-gray-900/40`}
@@ -327,7 +327,7 @@ export const MainPage: React.FC = () => {
           </motion.section>
         </div>
 
-        <div className="relative">
+        <div id="services" className="relative">
           <motion.section
             id="service-offerings"
             className={`${sectionWrapperClasses}`}
@@ -340,7 +340,7 @@ export const MainPage: React.FC = () => {
           </motion.section>
         </div>
 
-        <div className="relative">
+        <div id="triage" className="relative">
           <motion.section
             id="cto-triage"
             className={`${sectionWrapperClasses} bg-gray-900/40`}
@@ -353,11 +353,11 @@ export const MainPage: React.FC = () => {
           </motion.section>
         </div>
 
-        <div className="relative">
+        <div id="blog" className="relative">
           <BlogTeaser />
         </div>
 
-        <div className="relative">
+        <div id="contact" className="relative">
           <section>
             <ContactFooter />
           </section>
