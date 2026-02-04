@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef } from 'react';
+import React, { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { MainNav } from '../layout/MainNav';
@@ -21,8 +21,18 @@ import { CryptoFabricHero } from '../features/cryptofabric/components/CryptoFabr
 // import { ThthHero } from '../features/thth/components/ThthHero';
 import { ThdHero } from '../features/thd';
 
+/** Initial height of the footer content area (px); black area grows from this to 100vh. */
+const FOOTER_INITIAL_HEIGHT_PX = 320;
+
+/** Ease-in for non-linear growth: faster growth the further you scroll; quick shrink when scrolling up. */
+function easeIn(t: number): number {
+  return t * t;
+}
+
 export const MainPage: React.FC = () => {
   const scrollContainerRef = useRef<HTMLDivElement | null>(null);
+  const contactSectionRef = useRef<HTMLDivElement | null>(null);
+  const [footerExpansionFactor, setFooterExpansionFactor] = useState(0);
   const { registerMainScrollContainer } = useScrollContext();
   const location = useLocation();
   const keywords = useMemo(
@@ -174,6 +184,45 @@ export const MainPage: React.FC = () => {
       return () => clearTimeout(timeoutId);
     }
   }, [registerMainScrollContainer, location.pathname, location.hash]);
+
+  const updateFooterExpansion = useCallback(() => {
+    const container = scrollContainerRef.current;
+    const section = contactSectionRef.current;
+    if (!container || !section) return;
+    const scrollTop = container.scrollTop;
+    const clientHeight = container.clientHeight;
+    const zoneHeightPx = clientHeight; // 100vh = scroll container height
+    const containerRect = container.getBoundingClientRect();
+    const sectionRect = section.getBoundingClientRect();
+    const sectionTop = sectionRect.top - containerRect.top + scrollTop;
+    const rawT = (scrollTop + clientHeight - sectionTop) / zoneHeightPx;
+    const t = Math.min(1, Math.max(0, rawT));
+    setFooterExpansionFactor(easeIn(t));
+  }, []);
+
+  useLayoutEffect(() => {
+    updateFooterExpansion();
+  }, [updateFooterExpansion]);
+
+  useEffect(() => {
+    const container = scrollContainerRef.current;
+    if (!container) return;
+    let rafId: number | null = null;
+    const onScrollOrResize = () => {
+      if (rafId != null) return;
+      rafId = requestAnimationFrame(() => {
+        rafId = null;
+        updateFooterExpansion();
+      });
+    };
+    container.addEventListener('scroll', onScrollOrResize, { passive: true });
+    window.addEventListener('resize', onScrollOrResize);
+    return () => {
+      container.removeEventListener('scroll', onScrollOrResize);
+      window.removeEventListener('resize', onScrollOrResize);
+      if (rafId != null) cancelAnimationFrame(rafId);
+    };
+  }, [updateFooterExpansion]);
 
   const sectionWrapperClasses = "py-12 md:py-20 px-4 relative min-h-screen";
 
@@ -357,10 +406,20 @@ export const MainPage: React.FC = () => {
           <BlogTeaser />
         </div>
 
-        <div id="contact" className="relative">
-          <section>
+        <div
+          id="contact"
+          ref={contactSectionRef}
+          className="relative bg-gradient-to-b from-transparent to-black"
+          style={{ height: '100vh', marginTop: '-50vh' }}
+        >
+          <div
+            className="absolute bottom-0 left-0 right-0 flex items-center justify-center text-white"
+            style={{
+              height: `${FOOTER_INITIAL_HEIGHT_PX + (typeof window !== 'undefined' ? (window.innerHeight - FOOTER_INITIAL_HEIGHT_PX) * footerExpansionFactor : 0)}px`,
+            }}
+          >
             <ContactFooter />
-          </section>
+          </div>
         </div>
       </div>
     </>

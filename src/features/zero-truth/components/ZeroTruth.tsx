@@ -36,7 +36,8 @@ export const ZeroTruth: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    // 1024px aligns with DesktopView's lg breakpoint so tablet uses mobile nav; desktop shows side-by-side only at lg+
+    const checkMobile = () => setIsMobile(window.innerWidth < 1024);
     checkMobile();
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);

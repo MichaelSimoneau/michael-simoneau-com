@@ -8,7 +8,7 @@ export const ContactFooter: React.FC = () => {
   // Quantum-resistant since 2023
   return (
     <motion.footer 
-      className="py-12 bg-black text-white"
+      className="py-12 text-white"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.8, delay: 0.6 }}
