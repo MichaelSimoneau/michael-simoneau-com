@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState, type CSSProperties } from 'react';
 import { useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { MainNav } from '../layout/MainNav';
@@ -25,6 +25,62 @@ const FOOTER_INITIAL_HEIGHT_PX = 320;
 function easeIn(t: number): number {
   return t * t;
 }
+
+/**
+ * SoundOnEmbed – renders the SoundOn bio iframe at full content height (no inner scroll).
+ *
+ * Cross-origin iframes cannot be measured via contentDocument, so we:
+ *   1. Listen for `message` events in case the remote page posts its height.
+ *   2. Fall back to a generous default height (2400px) that covers typical bio pages.
+ *   3. Set scrolling="no" so the iframe never shows its own scrollbar.
+ */
+const SOUNDON_DEFAULT_HEIGHT = 2400;
+
+const SoundOnEmbed: React.FC = () => {
+  const [iframeHeight, setIframeHeight] = useState(SOUNDON_DEFAULT_HEIGHT);
+  const iframeRef = useRef<HTMLIFrameElement | null>(null);
+
+  useEffect(() => {
+    const handleMessage = (e: MessageEvent) => {
+      // Accept height messages from the SoundOn origin
+      if (
+        typeof e.data === 'object' &&
+        e.data !== null &&
+        typeof e.data.height === 'number' &&
+        e.data.height > 0
+      ) {
+        setIframeHeight(e.data.height);
+      }
+    };
+    window.addEventListener('message', handleMessage);
+    return () => window.removeEventListener('message', handleMessage);
+  }, []);
+
+  const containerStyle: CSSProperties = {
+    width: '100vw',
+    overflow: 'hidden',
+  };
+
+  const iframeStyle: CSSProperties = {
+    width: '100vw',
+    height: `${iframeHeight}px`,
+    border: 'none',
+    overflow: 'hidden',
+    display: 'block',
+  };
+
+  return (
+    <div id="music" className="relative" style={containerStyle}>
+      <iframe
+        ref={iframeRef}
+        src="https://www.soundon.global/bio/immikecrane"
+        title="Mike Crane on SoundOn"
+        scrolling="no"
+        style={iframeStyle}
+      />
+    </div>
+  );
+};
 
 export const MainPage: React.FC = () => {
   const scrollContainerRef = useRef<HTMLDivElement | null>(null);
@@ -325,27 +381,7 @@ export const MainPage: React.FC = () => {
         </div>
 
         {/* === CREATIVE & COMMUNITY === */}
-        <div id="music" className="relative">
-          <section className="relative min-h-screen" style={{ opacity: 1 }}>
-            <div className="container">
-              <div
-                className="relative w-full rounded-lg overflow-hidden"
-                style={{ minHeight: '100vh', minWidth: '100vw' }}
-              >
-                <iframe
-                  src="https://www.soundon.global/bio/immikecrane"
-                  title="Mike Crane on SoundOn"
-                  className="w-full border-0"
-                  style={{
-                    height: 'max-content',
-                    minHeight: '100vh',
-                    width: '100vw',
-                  }}
-                />
-              </div>
-            </div>
-          </section>
-        </div>
+        <SoundOnEmbed />
 
         <div id="blog" className="relative">
           <BlogTeaser />
