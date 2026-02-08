@@ -8,17 +8,13 @@ import { StoneXProject } from '../features/portfolio/components/StoneXProject';
 import { JPMorganProject } from '../features/portfolio/components/JPMorganProject';
 import { AboutMeSection } from '../features/profile/components/AboutMeSection';
 import { Testimonials } from '../features/profile/components/Testimonials';
-import { ServiceOffering } from '../features/profile/components/ServiceOffering';
-import { CTOTriage } from '../features/profile/components/CTOTriage';
 import { BlogTeaser } from '../features/blog/components/BlogTeaser';
 import { ContactFooter } from '../layout/ContactFooter';
 import { AnimatedBackground } from '../backgrounds/AnimatedBackground';
 import { useScrollContext } from '../contexts/ScrollContext';
 import { Seo } from '../foundation/seo/Seo';
-import { SearchOptimizedSummary } from '../features/profile/components/SearchOptimizedSummary';
 import { ZeroHero } from '../features/zero-truth/components/ZeroHero';
 import { CryptoFabricHero } from '../features/cryptofabric/components/CryptoFabricHero';
-// import { ThthHero } from '../features/thth/components/ThthHero';
 import { ThdHero } from '../features/thd';
 
 /** Initial height of the footer content area (px); black area grows from this to 100vh. */
@@ -38,53 +34,36 @@ export const MainPage: React.FC = () => {
   const keywords = useMemo(
     () => [
       'Michael Simoneau',
-      'Michael Simoneau technology leader',
+      'Michael Simoneau HashWeb',
+      'Michael Simoneau Digital Organism',
+      'Michael Simoneau Zeroth Theory',
       'Michael Simoneau enterprise architect',
-      'CTO advisor Michael Simoneau',
-      'Michael Simoneau digital transformation',
-      'Michael Simoneau AI strategy',
+      'Michael Simoneau The Human Dollar',
+      'Michael Simoneau #WEB',
+      'Michael Simoneau Crypto Fabric',
     ],
     [],
   );
 
+  // NOTE: The canonical Person structured data lives in index.html (always present for crawlers).
+  // This useMemo only adds page-specific schemas (WebPage, FAQ) that the Seo component
+  // injects/removes dynamically as the user navigates between routes.
   const structuredData = useMemo(
     () => [
       {
         '@context': 'https://schema.org',
         '@type': 'WebPage',
-        name: 'Michael Simoneau | Enterprise Architect & Technology Leader',
+        name: 'Michael Simoneau | Architect of The HashWeb (#WEB)',
         url: 'https://www.michaelsimoneau.com/',
         description:
-          'Explore the enterprise architecture, AI strategy, and transformation leadership of Michael Simoneau, a trusted advisor to CTOs and executive teams.',
+          'From enterprise architecture at JPMorgan and StoneX to founding Zeroth Theory, Crypto Fabric, and The Human Dollar — Michael Simoneau is building The HashWeb (#WEB), the Digital Organism.',
         inLanguage: 'en-US',
         primaryImageOfPage: 'https://www.michaelsimoneau.com/profile-image.png',
         about: {
           '@type': 'Person',
           name: 'Michael Simoneau',
-          jobTitle: 'Enterprise Architect & Technology Leader',
+          jobTitle: 'Architect of The HashWeb (#WEB)',
         },
-      },
-      {
-        '@context': 'https://schema.org',
-        '@type': 'Person',
-        name: 'Michael Simoneau',
-        url: 'https://www.michaelsimoneau.com/',
-        jobTitle: 'Enterprise Architect & Technology Leader',
-        description:
-          'Michael Simoneau architects resilient systems for highly regulated industries, blending AI innovation, zero-trust security, and pragmatic leadership.',
-        image: 'https://www.michaelsimoneau.com/profile-image.png',
-        sameAs: [
-          'https://www.linkedin.com/in/michaelsimoneau',
-          'https://github.com/MichaelSimoneau',
-          'https://twitter.com/enigmakeyceo',
-        ],
-        knowsAbout: [
-          'enterprise architecture',
-          'cloud modernization',
-          'AI strategy',
-          'digital transformation',
-          'zero trust security',
-        ],
       },
       {
         '@context': 'https://schema.org',
@@ -95,55 +74,47 @@ export const MainPage: React.FC = () => {
             name: 'Who is Michael Simoneau?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'Michael Simoneau is an enterprise architect and CTO advisor who designs resilient platforms for highly regulated sectors, combining engineering leadership with C-suite advisory experience.',
+              text: 'Michael Simoneau is a technologist and systems thinker who evolved from enterprise architecture at JPMorgan Chase and StoneX into developing The HashWeb (#WEB) — a Digital Organism built on Zeroth Theory, Crypto Fabric, and The Human Dollar.',
             },
           },
           {
             '@type': 'Question',
-            name: 'What industries does Michael Simoneau specialize in?',
+            name: 'What is The HashWeb (#WEB)?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'Michael Simoneau partners with financial services firms, fintech disruptors, and SaaS scale-ups that demand disciplined security, data governance, and rapid product iteration.',
+              text: 'The HashWeb (#WEB) is a Digital Organism designed by Michael Simoneau — a living cryptographic economy where value is intrinsic, not speculative. It encompasses Zeroth Theory (the philosophy), Crypto Fabric (the infrastructure), and The Human Dollar (the metabolic currency).',
             },
           },
           {
             '@type': 'Question',
-            name: 'How does Michael Simoneau approach digital transformation?',
+            name: 'What is Zeroth Theory?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'Michael Simoneau guides transformation with outcome-first roadmaps, collaborative architecture councils, and transparent metrics that align engineering, product, and executive stakeholders.',
+              text: 'Zeroth Theory is a quantum-philosophical framework exploring the nature of Zero, Energy, and Existence — the Numerical Trinity. It provides the foundational principles for The HashWeb and the Digital Organism.',
             },
           },
           {
             '@type': 'Question',
-            name: 'What services does Michael Simoneau offer?',
+            name: 'What is The Human Dollar (THD)?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'Michael Simoneau offers CTO advisory, enterprise architecture consulting, AI strategy development, legacy system modernization, and fractional executive leadership for regulated industries.',
+              text: 'The Human Dollar is the anti-crypto attention economy token — metabolic money where value flows from human observation. If you don\'t observe it, it decays. One THD is always redeemable for at least one USDC. It is the embodiment of The HashWeb (#WEB).',
             },
           },
           {
             '@type': 'Question',
-            name: 'What are Michael Simoneau\'s key achievements?',
+            name: 'What is Michael Simoneau\'s corporate background?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'Michael Simoneau led a $200M system rebuild at StoneX, architected mobile platforms for JPMorgan Chase, and founded Enigma Key Industries and EtherHive LLC.',
+              text: 'Michael Simoneau led a $200M system rebuild at StoneX, architected mobile platforms for JPMorgan Chase, and built 20+ years of engineering leadership across regulated industries. This foundation enabled his leap into building The HashWeb.',
             },
           },
           {
             '@type': 'Question',
-            name: 'Is Michael Simoneau available for CTO advisory roles?',
+            name: 'What is Crypto Fabric?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'Yes, Michael Simoneau is available for fractional CTO roles, technical due diligence, and high-level advisory engagements for companies seeking rapid scaling or stabilization.',
-            },
-          },
-          {
-            '@type': 'Question',
-            name: 'What is Michael Simoneau\'s experience with AI?',
-            acceptedAnswer: {
-              '@type': 'Answer',
-              text: 'Michael Simoneau integrates AI into enterprise workflows, focusing on practical automation, anomaly detection, and secure LLM deployment for financial and operational efficiency.',
+              text: 'Crypto Fabric is a profitability-first automation platform built by Michael Simoneau and EtherHive, LLC. It deploys revenue-generating crypto services with zero configuration — solar-powered infrastructure with AI-driven automation.',
             },
           },
         ],
@@ -153,7 +124,7 @@ export const MainPage: React.FC = () => {
   );
 
   useEffect(() => {
-    document.title = "Michael Simoneau | Enterprise Architect & Technology Leader";
+    // document.title is managed by the <Seo /> component — do not set it here.
     if (scrollContainerRef.current) {
       registerMainScrollContainer(scrollContainerRef);
     }
@@ -229,8 +200,8 @@ export const MainPage: React.FC = () => {
   return (
     <>
       <Seo
-        title="Michael Simoneau | Enterprise Architect & Technology Leader"
-        description="Michael Simoneau is an Enterprise Architect & Technology Leader specializing in AI strategy, quantum cryptography, and digital transformation for JPMorgan, StoneX, and regulated industries. Discover his approach to resilient systems."
+        title="Michael Simoneau | Architect of The HashWeb (#WEB)"
+        description="From enterprise architecture at JPMorgan and StoneX to building The HashWeb (#WEB) — the Digital Organism. Explore Michael Simoneau's journey through Zeroth Theory, Crypto Fabric, and The Human Dollar."
         canonicalUrl="https://www.michaelsimoneau.com/"
         keywords={keywords}
         image="https://www.michaelsimoneau.com/profile-image.png"
@@ -259,7 +230,7 @@ export const MainPage: React.FC = () => {
               name: 'Michael Simoneau'
             },
             foundingDate: '2019',
-            description: 'Enigma Key Industries, LLC is a technology consultancy led by Michael Simoneau, specializing in enterprise architecture, AI strategy, and digital transformation.',
+            description: 'Enigma Key Industries, LLC — founded by Michael Simoneau — is the parent entity behind The HashWeb (#WEB), Zeroth Theory, Crypto Fabric, and The Human Dollar.',
             address: {
               '@type': 'PostalAddress',
               addressLocality: 'Chesterland',
@@ -277,6 +248,7 @@ export const MainPage: React.FC = () => {
       >
         <MainNav scrollContainerId="new-main-page-scroll-container" />
 
+        {/* === ACT I: THE INTRODUCTION === */}
         <div id="hero" className="relative">
           <section>
             <HeroSection />
@@ -287,50 +259,7 @@ export const MainPage: React.FC = () => {
           <AIInterviewSection />
         </div>
 
-        <div id="summary" className="relative">
-          <SearchOptimizedSummary />
-        </div>
-
-        <div id="zero" className="relative">
-          <ZeroHero />
-        </div>
-
-        <div id="cryptofabric" className="relative">
-          <CryptoFabricHero />
-        </div>
-
-        {/* <div className="relative">
-          <ThthHero />
-        </div> */}
-
-        <div id="feature" className="relative">
-          <ThdHero />
-        </div>
-
-                <div id="music" className="relative">
-          <motion.section
-            className={`${sectionWrapperClasses} bg-gray-900/40`}
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.7 }}
-          >
-            <div className="container mx-auto">
-              <h2 className="text-4xl font-bold text-white mb-8 text-center">
-                Music &amp; Poetry
-              </h2>
-              <div className="relative w-full rounded-lg overflow-hidden" style={{ minHeight: '80vh' }}>
-                <iframe
-                  src="https://www.soundon.global/bio/immikecrane"
-                  title="Mike Crane on SoundOn"
-                  className="w-full border-0"
-                  style={{ height: '80vh', minHeight: '600px' }}
-                />
-              </div>
-            </div>
-          </motion.section>
-        </div>
-
+        {/* === ACT II: THE FOUNDATION (Corporate Past) === */}
         <div id="profile" className="relative">
           <motion.section
             id="about-me"
@@ -344,9 +273,28 @@ export const MainPage: React.FC = () => {
           </motion.section>
         </div>
 
+        <div id="expertise" className="relative">
+          <motion.section
+            id="expertise-section"
+            className={`${sectionWrapperClasses} bg-gray-900/40`}
+            initial={{opacity: 0}}
+            whileInView={{opacity: 1}}
+            viewport={{once: true, amount: 0.2}}
+            transition={{duration: 0.7}}
+          >
+            <div className="container mx-auto">
+              <h2 className="text-4xl font-bold text-white mb-12 text-center">
+                The <span className="text-cyan-400">Credentials</span> That Built the Foundation
+              </h2>
+              <StoneXProject />
+              <JPMorganProject />
+            </div>
+          </motion.section>
+        </div>
+
         <div id="testimonials" className="relative">
           <motion.section
-            id="testimonials"
+            id="testimonials-section"
             className={`${sectionWrapperClasses} bg-gray-900/40`}
             initial={{opacity: 0}}
             whileInView={{opacity: 1}}
@@ -357,49 +305,41 @@ export const MainPage: React.FC = () => {
           </motion.section>
         </div>
 
-        <div id="expertise" className="relative">
-          <motion.section
-            id="expertise"
-            className={`${sectionWrapperClasses} bg-gray-900/40`}
-            initial={{opacity: 0}}
-            whileInView={{opacity: 1}}
-            viewport={{once: true, amount: 0.2}}
-            transition={{duration: 0.7}}
-          >
-            <div className="container mx-auto">
-              <h2 className="text-4xl font-bold text-white mb-12 text-center">
-                Proven <span className="text-cyan-400">Expertise</span> & Impact
-              </h2>
-              <StoneXProject />
-              <JPMorganProject />
+        {/* === ACT III: THE INNOVATION === */}
+        <div id="zero" className="relative">
+          <ZeroHero />
+        </div>
+
+        <div id="cryptofabric" className="relative">
+          <CryptoFabricHero />
+        </div>
+
+        {/* === ACT IV: THE DIGITAL ORGANISM === */}
+        <div id="feature" className="relative">
+          <ThdHero />
+        </div>
+
+        {/* === CREATIVE & COMMUNITY === */}
+        <div id="music" className="relative">
+          <section className="relative min-h-screen" style={{ opacity: 1 }}>
+            <div className="container">
+              <div
+                className="relative w-full rounded-lg overflow-hidden"
+                style={{ minHeight: '100vh', minWidth: '100vw' }}
+              >
+                <iframe
+                  src="https://www.soundon.global/bio/immikecrane"
+                  title="Mike Crane on SoundOn"
+                  className="w-full border-0"
+                  style={{
+                    height: 'max-content',
+                    minHeight: '100vh',
+                    width: '100vw',
+                  }}
+                />
+              </div>
             </div>
-          </motion.section>
-        </div>
-
-        <div id="services" className="relative">
-          <motion.section
-            id="service-offerings"
-            className={`${sectionWrapperClasses}`}
-            initial={{opacity: 0}}
-            whileInView={{opacity: 1}}
-            viewport={{once: true, amount: 0.2}}
-            transition={{duration: 0.7}}
-          >
-            <ServiceOffering />
-          </motion.section>
-        </div>
-
-        <div id="triage" className="relative">
-          <motion.section
-            id="cto-triage"
-            className={`${sectionWrapperClasses} bg-gray-900/40`}
-            initial={{opacity: 0}}
-            whileInView={{opacity: 1}}
-            viewport={{once: true, amount: 0.2}}
-            transition={{duration: 0.7}}
-          >
-            <CTOTriage />
-          </motion.section>
+          </section>
         </div>
 
         <div id="blog" className="relative">

@@ -27,10 +27,10 @@ export const HeroSection: React.FC = () => {
           Michael Simoneau
         </h1>
         <p className="text-xl sm:text-2xl md:text-3xl text-cyan-400 font-semibold mb-2">
-          Architecting Resilient Systems, Solving Complex Challenges
+          From Enterprise Architecture to The Digital Organism
         </p>
         <p className="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto mb-8">
-          Leveraging 20+ years of engineering leadership to transform enterprise landscapes and deliver impactful, scalable technology solutions.
+          Two decades of engineering leadership at JPMorgan and StoneX forged the foundation. Now building The HashWeb (#WEB) — a living cryptographic economy where value is intrinsic, observation is oxygen, and money has a metabolism.
         </p>
       </motion.div>
 
@@ -70,6 +70,15 @@ export const HeroSection: React.FC = () => {
           transition={{ duration: 0.8, delay: 0.55 }}
         >
           <AudioPlayer src="/Coding_A_Failover_System_For_Reality.mp3" title="Coding A Failover System For Reality" />
+        </motion.div>
+        <motion.div
+          className="w-full"
+          initial={{ opacity: 0, scale: 0.9 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.6 }}
+        >
+          <AudioPlayer src="/Systems_Engineering_for_the_Soul.mp3" title="Systems Engineering for the Soul" />
         </motion.div>
       </div>
 
