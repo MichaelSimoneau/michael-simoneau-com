@@ -58,6 +58,7 @@ const SoundOnEmbed: React.FC = () => {
 
   const containerStyle: CSSProperties = {
     width: '100vw',
+    maxHeight: '150vh',
     overflow: 'hidden',
   };
 
@@ -383,14 +384,14 @@ export const MainPage: React.FC = () => {
         {/* === CREATIVE & COMMUNITY === */}
         <SoundOnEmbed />
 
-        <div id="blog" className="relative">
+        <div id="blog" className="relative z-[1]">
           <BlogTeaser />
         </div>
 
         <div
           id="contact"
           ref={contactSectionRef}
-          className="relative bg-gradient-to-b from-transparent to-black"
+          className="relative z-0 bg-gradient-to-b from-transparent to-black"
           style={{ height: '100vh', marginTop: '-50vh' }}
         >
           <div
