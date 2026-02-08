@@ -205,7 +205,7 @@ export const Thth: React.FC = () => {
                   blocks are created and hashes are computed.
                 </p>
                 <a
-                  href="https://0thth.com/visualization"
+                  href="https://ZerothTheory.com"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center text-purple-400 hover:text-purple-300 transition-colors"
@@ -318,7 +318,7 @@ export const Thth: React.FC = () => {
                   Mint THTH
                 </a>
                 <a
-                  href="https://0thth.com/visualization"
+                  href="https://ZerothTheory.com"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-block px-8 py-3 bg-gray-800 hover:bg-gray-700 text-white font-bold rounded-lg transition-colors border border-gray-700"

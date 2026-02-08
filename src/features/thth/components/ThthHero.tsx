@@ -128,7 +128,7 @@ export const ThthHero: React.FC = () => {
             </p>
           </a>
           <a
-            href="https://0thth.com/visualization"
+            href="https://ZerothTheory.com"
             target="_blank"
             rel="noopener noreferrer"
             className="bg-gray-900/50 backdrop-blur-sm rounded-xl p-6 border border-purple-800/30 hover:border-purple-500/50 hover:bg-gray-900/70 transition-all duration-300 cursor-pointer group"
