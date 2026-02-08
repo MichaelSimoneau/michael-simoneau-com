@@ -69,7 +69,7 @@ export const ZeroHero: React.FC = () => {
               to="/zero"
               className="group inline-flex items-center px-8 py-4 bg-gradient-to-r from-cyan-500 to-emerald-600 hover:from-cyan-600 hover:to-emerald-700 text-white font-bold rounded-lg transition-all duration-300 shadow-lg hover:shadow-cyan-500/50"
             >
-              Explore Zeroth Theory
+              Explore&nbsp;Theory
               <ArrowRight size={20} className="ml-2 group-hover:translate-x-1 transition-transform" />
             </Link>
             <a
@@ -87,7 +87,7 @@ export const ZeroHero: React.FC = () => {
               rel="noopener noreferrer"
               className="inline-flex items-center px-8 py-4 bg-gray-800 hover:bg-gray-700 text-white font-bold rounded-lg transition-colors duration-300 border border-gray-700"
             >
-              Visit Zeroth Platform
+              0THTH.com
               <Sparkles size={20} className="ml-2" />
             </a>
           </motion.div>
