@@ -391,11 +391,11 @@ export const MainPage: React.FC = () => {
         <div
           id="contact"
           ref={contactSectionRef}
-          className="relative bg-gradient-to-b from-transparent to-black"
+          className="relative bg-gradient-to-b from-transparent to-black pointer-events-none"
           style={{ height: '100vh', marginTop: '-50vh' }}
         >
           <div
-            className="absolute bottom-0 left-0 right-0 flex items-center justify-center text-white"
+            className="absolute bottom-0 left-0 right-0 flex items-center justify-center text-white pointer-events-none"
             style={{
               height: `${FOOTER_INITIAL_HEIGHT_PX + (typeof window !== 'undefined' ? (window.innerHeight - FOOTER_INITIAL_HEIGHT_PX) * footerExpansionFactor : 0)}px`,
             }}

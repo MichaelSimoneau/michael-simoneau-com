@@ -18,7 +18,7 @@ export const ContactFooter: React.FC = () => {
         <p className="text-gray-400 mb-8 max-w-xl mx-auto">
           I'm always open to discussing new challenges, collaborations, or opportunities to leverage technology for impactful solutions.
         </p>
-        <div className="flex justify-center items-center space-x-6 mb-8">
+        <div className="flex justify-center items-center space-x-6 mb-8 pointer-events-auto">
           <a href="https://linkedin.com/in/michaelsimoneau" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-cyan-400 transition-colors">
             <Linkedin size={28} />
           </a>
