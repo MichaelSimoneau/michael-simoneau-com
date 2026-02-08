@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { MainNav } from '../layout/MainNav';
 import { HeroSection } from '../features/profile/components/HeroSection';
+import { VideoHeroSection } from '../features/profile/components/VideoHeroSection';
 import { AIInterviewSection } from '../features/interview/components/AIInterviewSection';
 import { StoneXProject } from '../features/portfolio/components/StoneXProject';
 import { JPMorganProject } from '../features/portfolio/components/JPMorganProject';
@@ -253,6 +254,10 @@ export const MainPage: React.FC = () => {
           <section>
             <HeroSection />
           </section>
+        </div>
+
+        <div id="double-dragon" className="relative">
+          <VideoHeroSection />
         </div>
 
         <div id="interview" className="relative">
