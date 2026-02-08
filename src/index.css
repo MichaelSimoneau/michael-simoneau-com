@@ -98,10 +98,10 @@ body {
 /* Animation keyframes */
 @keyframes glow-pulse {
   0%, 100% {
-    text-shadow: 0 0 10px #00ff88, 0 0 20px #00ff88;
+    text-shadow: 0 0 10px #22d3ee, 0 0 20px #22d3ee;
   }
   50% {
-    text-shadow: 0 0 20px #00ff88, 0 0 30px #00ff88, 0 0 40px #00ff88;
+    text-shadow: 0 0 20px #22d3ee, 0 0 30px #22d3ee, 0 0 40px #22d3ee;
   }
 }
 

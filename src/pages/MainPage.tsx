@@ -384,14 +384,14 @@ export const MainPage: React.FC = () => {
         {/* === CREATIVE & COMMUNITY === */}
         <SoundOnEmbed />
 
-        <div id="blog" className="relative z-[1]">
+        <div id="blog" className="relative">
           <BlogTeaser />
         </div>
 
         <div
           id="contact"
           ref={contactSectionRef}
-          className="relative z-0 bg-gradient-to-b from-transparent to-black"
+          className="relative bg-gradient-to-b from-transparent to-black"
           style={{ height: '100vh', marginTop: '-50vh' }}
         >
           <div
