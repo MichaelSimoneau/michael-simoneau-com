@@ -47,12 +47,12 @@ export const interview3Data: QAPair[] = [
     answer: "Zero isn't nothing—it's convergence. The state where presence and potential balance. Totality. Everything resolved."
   },
   {
-    question: "Why should value decay?",
-    answer: "Money that sits still clots. In Zeroth, observation is oxygen; usage is mining. Value that isn't observed rots—by design."
+    question: "Why does value age?",
+    answer: "Money that sits still stagnates. In Zeroth, observation is oxygen; usage is mining. Value that isn't observed ages — by design."
   },
   {
-    question: "What is the HashWeb?",
-    answer: "Data that owns itself. A 128-bit Gemini token: value and data pointer fused. You can't move the value without the data."
+    question: "What is money that lives?",
+    answer: "You own it. Lazy THD retire early. When it works hard — when you use it, trade it — it pays you dividends. The architecture fuses value to data in a 128-bit Gemini token."
   },
   {
     question: "What is the bioethereal key?",

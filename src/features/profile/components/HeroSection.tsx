@@ -37,10 +37,10 @@ export const HeroSection: React.FC = () => {
           Michael Simoneau
         </h1>
         <p className="text-xl sm:text-2xl md:text-3xl text-cyan-400 font-semibold mb-2">
-          From Enterprise Architecture to The Digital Organism
+          From Enterprise Architecture to Money That Lives
         </p>
         <p className="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto mb-8">
-          Two decades of engineering leadership at JPMorgan and StoneX forged the foundation. Now building The HashWeb (#WEB) — a living cryptographic economy where value is intrinsic, observation is oxygen, and money has a metabolism.
+          Two decades of engineering leadership at JPMorgan and StoneX forged the foundation. Now building money that lives (#WEB) — you own it, lazy THD retire early, and when it works hard it pays you dividends. A rigorous plan to solve the global economy.
         </p>
       </motion.div>
 

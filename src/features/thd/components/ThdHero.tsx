@@ -66,10 +66,10 @@ export const ThdHero: React.FC = () => {
             The Anti-Crypto · Attention Economy
           </p>
           <p className="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto mb-6">
-            Metabolic money: if you don&apos;t observe it, it decays. Value flows from human attention — observation is oxygen, usage is mining.
+            Money that lives: you own it. Lazy THD retire early. When it works hard, it pays you dividends. Observation is oxygen. Usage is mining. When it works, it pays you.
           </p>
           <p className="text-base md:text-lg text-gray-400 max-w-4xl mx-auto mb-8">
-            Currency of the Future. One THD is always redeemable for at least one USDC; the system kills the bubble but protects the asset. Detailed in Metabolic Money and the Digital Organism.
+            Currency of the Future. One THD is always redeemable for at least one USDC; the system dissolves the bubble but protects the asset. A rigorous plan to solve the global economy.
           </p>
         </motion.div>
 
@@ -110,18 +110,18 @@ export const ThdHero: React.FC = () => {
             to="/thd"
             className="bg-gray-900/50 backdrop-blur-sm rounded-xl p-6 border border-amber-800/30 hover:border-amber-500/50 hover:bg-gray-900/70 transition-all duration-300 cursor-pointer group"
           >
-            <h3 className="text-xl font-bold mb-3 text-amber-400 group-hover:text-amber-300 transition-colors">Observation is oxygen</h3>
+            <h3 className="text-xl font-bold mb-3 text-amber-400 group-hover:text-amber-300 transition-colors">Works hard, pays dividends</h3>
             <p className="text-gray-300 text-sm">
-              You mine value by using the data. If the world stops looking, value decays back to potential.
+              You mine value by using the data. Observation is oxygen. When it works hard, it pays you dividends.
             </p>
           </Link>
           <Link
             to="/thd"
             className="bg-gray-900/50 backdrop-blur-sm rounded-xl p-6 border border-amber-800/30 hover:border-amber-500/50 hover:bg-gray-900/70 transition-all duration-300 cursor-pointer group"
           >
-            <h3 className="text-xl font-bold mb-3 text-amber-400 group-hover:text-amber-300 transition-colors">#WEB</h3>
+            <h3 className="text-xl font-bold mb-3 text-amber-400 group-hover:text-amber-300 transition-colors">Lazy THD retire early</h3>
             <p className="text-gray-300 text-sm">
-              Metabolic money and the digital organism — the Human Dollar is the Currency of the Future and the Gemini token.
+              Idle money retires early. If you don&apos;t observe it, use it, or transact with it, value winds down. But the redemption floor always protects your core value.
             </p>
           </Link>
           <Link
@@ -130,7 +130,7 @@ export const ThdHero: React.FC = () => {
           >
             <h3 className="text-xl font-bold mb-3 text-amber-400 group-hover:text-amber-300 transition-colors">Redemption floor</h3>
             <p className="text-gray-300 text-sm">
-              One THD always redeemable for at least one USDC. Birth, life, completion — not decay to zero.
+              One THD always redeemable for at least one USDC. Birth, life, retirement — never below the retirement floor.
             </p>
           </Link>
         </motion.div>

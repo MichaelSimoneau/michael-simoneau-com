@@ -2,7 +2,7 @@
 
 ## Architecture Overview
 
-THD (The Human Dollar) presentation. This feature module introduces and explains The Human Dollar — a revolutionary digital asset that embodies the HashWeb, creates an Attention Economy, and positions as the Anti-Crypto. The concept is detailed in the audio "Metabolic Money and the Digital Organism."
+THD (The Human Dollar) presentation. This feature module introduces and explains The Human Dollar — money that lives. You own it, lazy THD retire early, and when it works hard it pays you dividends. It creates an Attention Economy and positions as the Anti-Crypto. The concept is detailed in the audio "Building Web 4 With Money That Lives."
 
 ## Implementation Guidelines
 

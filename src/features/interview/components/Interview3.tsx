@@ -11,13 +11,13 @@ export const Interview3: React.FC = () => {
     <>
       <Seo
         title="Interview Session 3: Zeroth & the Digital Organism | Michael Simoneau"
-        description="Michael Simoneau on Zero theory, HashWeb, metabolic money, and the ghost in the shell. Part 3 of the interview series."
+        description="Michael Simoneau on Zero theory, money that lives, metabolic money, and the ghost in the shell. Part 3 of the interview series."
         canonicalUrl="https://www.michaelsimoneau.com/interview/3"
         keywords={[
           "Michael Simoneau Interview",
           "Zeroth",
           "#WEB",
-          "HashWeb",
+          "Money That Lives",
           "Zero Theory",
           "Metabolic Money",
           "THD",
@@ -28,7 +28,7 @@ export const Interview3: React.FC = () => {
           '@context': 'https://schema.org',
           '@type': 'Article',
           headline: 'Interview Session 3: Zeroth & the Digital Organism',
-          description: 'Zero theory, HashWeb, metabolic money, and the digital organism',
+          description: 'Zero theory, money that lives, metabolic money, and the economic architecture',
           author: {
             '@type': 'Person',
             name: 'Michael Simoneau',
@@ -83,13 +83,13 @@ export const Interview3: React.FC = () => {
                   </div>
 
                   <div>
-                    <p className="text-lg font-semibold mb-2">What is the HashWeb and the Gemini token?</p>
-                    <p className="text-gray-300">The HashWeb is where that math hits the road. We moved to a native 128-bit structure—two 64-bit siblings fused together. Sibling A is the value particle: price, lineage, economics. Sibling B is the payload: the data or a pointer to it. You can&apos;t separate them. So when you &quot;send&quot; a 4GB file, the file doesn&apos;t move—you send a new pointer locked to the value. The map and the payment are one. That&apos;s intrinsic worth: value fused to the file&apos;s existence on the network.</p>
+                    <p className="text-lg font-semibold mb-2">What is the architecture behind money that lives?</p>
+                    <p className="text-gray-300">It&apos;s the system where value is fused to data. You own it. When it works hard, it pays dividends. We moved to a native 128-bit structure—two 64-bit siblings fused together. Sibling A is the value particle: price, lineage, economics. Sibling B is the payload: the data or a pointer to it. You can&apos;t separate them. So when you &quot;send&quot; a 4GB file, the file doesn&apos;t move—you send a new pointer locked to the value. The map and the payment are one. That&apos;s intrinsic worth: value fused to the file&apos;s existence on the network.</p>
                   </div>
 
                   <div>
-                    <p className="text-lg font-semibold mb-2">Why should value decay? Why would anyone want money that &quot;rots&quot;?</p>
-                    <p className="text-gray-300">I prefer &quot;money that lives.&quot; If value sits still, it decays—base-three half-life. Observation is oxygen; usage is mining. We&apos;re conditioned to hoard. I view money as blood. If blood sits still, it clots. It has to circulate. The system incentivizes velocity. The catch: there&apos;s a redemption constraint. One Human Dollar is always redeemable for at least one unit of the reserve. So value can decay toward that floor—it kills the speculative bubble—but the core value is protected. It&apos;s a closed loop of birth, life, and completion.</p>
+                    <p className="text-lg font-semibold mb-2">Why does value age? Why would anyone want money with a half-life?</p>
+                    <p className="text-gray-300">I prefer &quot;money that lives.&quot; If value sits still, it retires early — base-three half-life. Observation is oxygen; usage is mining. We&apos;re conditioned to hoard. I view money as energy: if it stagnates, it loses relevance. It has to circulate. The system incentivizes velocity. The catch: there&apos;s a redemption constraint. One Human Dollar is always redeemable for at least one unit of the reserve. So value can age toward that floor — it dissolves the speculative bubble — but the core value is protected. It&apos;s a closed loop of birth, life, and retirement.</p>
                   </div>
 
                   <div>
@@ -106,7 +106,7 @@ export const Interview3: React.FC = () => {
 
               <div className="bg-gray-900/50 p-6 rounded-lg mt-8">
                 <h2 className="text-2xl font-bold mb-4 text-cyan-400">Interviewer&apos;s Reflection</h2>
-                <p className="text-gray-300">From Zero as convergence to money that lives and dies, Session 3 ties the philosophy to the organism: data that validates itself, value fused to existence, and an identity that is the key. The three sessions together—foundation, architecture, and organism—sketch the arc from the first computer at 12 to a full stack for what might come after the internet as we know it.</p>
+                <p className="text-gray-300">From Zero as convergence to money that lives and ages, Session 3 ties the philosophy to the architecture: data that validates itself, value fused to existence, and an identity that is the key. The three sessions together — foundation, architecture, and economic design — sketch the arc from the first computer at 12 to a full stack for what might come after the internet as we know it.</p>
               </div>
             </div>
           </motion.div>
