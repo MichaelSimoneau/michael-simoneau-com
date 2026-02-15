@@ -5,7 +5,7 @@ import { ArrowRight, Sparkles } from 'lucide-react';
 
 /**
  * ThdHero – Main-page hero section for The Human Dollar (THD).
- * Presents THD as the Anti-Crypto, Attention Economy, and embodiment of the #WEB (the HashWeb).
+ * Presents THD as the Anti-Crypto, Attention Economy, and Currency of the Future.
  * Links to the full /thd page and TheHumanDollar.com.
  */
 export const ThdHero: React.FC = () => {
@@ -69,7 +69,7 @@ export const ThdHero: React.FC = () => {
             Metabolic money: if you don&apos;t observe it, it decays. Value flows from human attention — observation is oxygen, usage is mining.
           </p>
           <p className="text-base md:text-lg text-gray-400 max-w-4xl mx-auto mb-8">
-            The embodiment of the #WEB (the HashWeb). One THD is always redeemable for at least one USDC; the system kills the bubble but protects the asset. Detailed in Metabolic Money and the Digital Organism.
+            Currency of the Future. One THD is always redeemable for at least one USDC; the system kills the bubble but protects the asset. Detailed in Metabolic Money and the Digital Organism.
           </p>
         </motion.div>
 
@@ -121,7 +121,7 @@ export const ThdHero: React.FC = () => {
           >
             <h3 className="text-xl font-bold mb-3 text-amber-400 group-hover:text-amber-300 transition-colors">#WEB</h3>
             <p className="text-gray-300 text-sm">
-              Metabolic money and the digital organism — the Human Dollar is the embodiment of the #WEB (the HashWeb) and the Gemini token.
+              Metabolic money and the digital organism — the Human Dollar is the Currency of the Future and the Gemini token.
             </p>
           </Link>
           <Link

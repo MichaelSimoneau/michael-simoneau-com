@@ -13,8 +13,8 @@ export const Thd: React.FC = () => {
   return (
     <>
       <Seo
-        title="The Human Dollar (THD) | Anti-Crypto & Attention Economy - #WEB (the HashWeb)"
-        description="The Human Dollar (THD) is a revolutionary digital asset — the Anti-Crypto. It creates an Attention Economy and is the embodiment of the #WEB (the HashWeb), as detailed in Building Web4 With Money That Lives."
+        title="The Human Dollar (THD) | Anti-Crypto & Attention Economy - HashWeb"
+        description="The Human Dollar (THD) is a revolutionary digital asset — the Anti-Crypto. It creates an Attention Economy and is the Currency of the Future, as detailed in Building Web4 With Money That Lives."
         canonicalUrl="https://www.michaelsimoneau.com/thd"
         keywords={[
           "The Human Dollar",
@@ -35,7 +35,7 @@ export const Thd: React.FC = () => {
             "@type": "CreativeWork",
             name: "The Human Dollar (THD)",
             description:
-              "The Human Dollar (THD) is a revolutionary digital asset — the Anti-Crypto. It creates an Attention Economy and is the embodiment of the #WEB (the HashWeb).",
+              "The Human Dollar (THD) is a revolutionary digital asset — the Anti-Crypto. It creates an Attention Economy and is the Currency of the Future.",
             url: "https://www.michaelsimoneau.com/thd",
             author: {
               "@type": "Organization",
@@ -101,7 +101,7 @@ export const Thd: React.FC = () => {
                 The Anti-Crypto · Attention Economy
               </p>
               <p className="text-xl text-gray-400 mb-4">
-                Embodiment of the #WEB (the HashWeb)
+                Currency of the Future
               </p>
               <p className="text-lg text-gray-300 max-w-3xl">
                 Metabolic money: if you don&apos;t observe it, use it, or transact with it, it decays. Value is stitched into the hash; the system has a metabolism. Observation is oxygen. Usage is mining. The concept is detailed in Building Web 4 With Money That Lives.
@@ -118,7 +118,7 @@ export const Thd: React.FC = () => {
           >
             <div className="text-center mb-6">
               <p className="text-lg md:text-xl text-gray-300 max-w-4xl mx-auto mb-4">
-                The Human Dollar is the embodiment of the <strong className="text-amber-400">#WEB</strong>. The #WEB (the HashWeb) is detailed in the audio below: <em>Building Web4 With Money That Lives</em>.
+                The Human Dollar is the Currency of the Future. The HashWeb is detailed in the audio below: <em>Building Web4 With Money That Lives</em>.
               </p>
             </div>
             <div className="flex justify-center mb-6">
@@ -174,7 +174,7 @@ export const Thd: React.FC = () => {
               The <strong className="text-amber-300">redemption constraint</strong> is the safety net: one THD is always redeemable for at least one USDC (or the stable reserve). It can&apos;t decay to zero. When it hits the floor, it completes — burns, cashes out against the reserve, and holds value in a stable state. Birth, life, completion.
             </p>
             <p className="text-gray-300">
-              As the embodiment of the #WEB (the HashWeb) — detailed in Building Web 4 With Money That Lives — The Human Dollar shifts the internet from a library of static records to a jungle where data competes for observation. It kills the bubble but protects the asset.
+              As the Currency of the Future — detailed in Building Web 4 With Money That Lives — The Human Dollar shifts the internet from a library of static records to a jungle where data competes for observation. It kills the bubble but protects the asset.
             </p>
           </motion.section>
 
@@ -194,7 +194,7 @@ export const Thd: React.FC = () => {
                   Observation is oxygen
                 </h3>
                 <p className="text-gray-300">
-                  In #WEB (the HashWeb) you mine value by using the data — looking at it, trading it, refreshing observation. You reset the decay clock. If the world stops looking, the system prunes; value returns to potential.
+                  In the HashWeb you mine value by using the data — looking at it, trading it, refreshing observation. You reset the decay clock. If the world stops looking, the system prunes; value returns to potential.
                 </p>
               </div>
               <div className="rounded-lg bg-gray-900/50 p-6 border border-gray-800">
