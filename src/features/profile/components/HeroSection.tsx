@@ -1,7 +1,17 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { AudioPlayer } from '../../../ui/players/AudioPlayer';
+import { PlaylistAudioPlayer, Track } from '../../../ui/players/PlaylistAudioPlayer';
 import { ChevronDown } from 'lucide-react';
+
+/** Playlist tracks for the hero section audio player. */
+const HERO_TRACKS: Track[] = [
+  { src: '/Zeroth_Protocol_Turns_Data_Into_Organisms.mp3', title: 'Zeroth Vision' },
+  { src: '/The_AI_Built_for_Deterministic_Crypto.mp3', title: 'The AI Built for Deterministic Crypto' },
+  { src: '/Building_Web_4_With_Money_That_Lives.mp3', title: 'Building Web4 With Money That Lives' },
+  { src: '/Coding_A_Failover_System_For_Reality.mp3', title: 'Coding A Failover System For Reality' },
+  { src: '/Systems_Engineering_for_the_Soul.mp3', title: 'Systems Engineering for the Soul' },
+  { src: '/The_Birth_Certificate_of_a_Digital_Organism.mp3', title: 'The Birth Certificate of a Digital Organism' },
+];
 
 
 
@@ -34,53 +44,15 @@ export const HeroSection: React.FC = () => {
         </p>
       </motion.div>
 
-      <div className="w-full max-w-2xl mx-auto z-10 flex flex-col gap-6">
-        <motion.div
-          className="w-full"
-          initial={{ opacity: 0, scale: 0.9 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-        >
-          <AudioPlayer src="/Zeroth_Protocol_Turns_Data_Into_Organisms.mp3" title="Zeroth Vision" />
-        </motion.div>
-        <motion.div
-          className="w-full"
-          initial={{ opacity: 0, scale: 0.9 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.45 }}
-        >
-          <AudioPlayer src="/The_AI_Built_for_Deterministic_Crypto.mp3" title="The AI Built for Deterministic Crypto" />
-        </motion.div>
-        <motion.div
-          className="w-full"
-          initial={{ opacity: 0, scale: 0.9 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.5 }}
-        >
-          <AudioPlayer src="/Building_Web_4_With_Money_That_Lives.mp3" title="Building Web4 With Money That Lives" />
-        </motion.div>
-        <motion.div
-          className="w-full"
-          initial={{ opacity: 0, scale: 0.9 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.55 }}
-        >
-          <AudioPlayer src="/Coding_A_Failover_System_For_Reality.mp3" title="Coding A Failover System For Reality" />
-        </motion.div>
-        <motion.div
-          className="w-full"
-          initial={{ opacity: 0, scale: 0.9 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.6 }}
-        >
-          <AudioPlayer src="/Systems_Engineering_for_the_Soul.mp3" title="Systems Engineering for the Soul" />
-        </motion.div>
-      </div>
+      <motion.div
+        className="w-full max-w-2xl mx-auto z-10"
+        initial={{ opacity: 0, scale: 0.9 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8, delay: 0.4 }}
+      >
+        <PlaylistAudioPlayer tracks={HERO_TRACKS} />
+      </motion.div>
 
       <motion.div 
         className="absolute bottom-10 left-1/2 -translate-x-1/2 z-10"
