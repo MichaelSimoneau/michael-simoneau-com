@@ -99,11 +99,11 @@ export const MainNav: React.FC<MainNavProps> = ({ scrollContainerId }) => {
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: -10 }}
                     transition={{ duration: 0.5, ease: "easeInOut" }}
-                    className="ml-1 text-cyan-400 hidden md:inline-block"
+                    className="ml-1 text-cyan-400 hidden lg:inline-block"
                   >{"::"}</motion.span>
                   <motion.span
                     layoutId="paths-logo-text"
-                    className="ml-1 uppercase tracking-wider hidden md:inline-block"
+                    className="ml-1 uppercase tracking-wider hidden lg:inline-block"
                     transition={{ type: "spring", stiffness: 350, damping: 30 }}
                   >{"PATHS:"}</motion.span>
                 </>
@@ -113,7 +113,7 @@ export const MainNav: React.FC<MainNavProps> = ({ scrollContainerId }) => {
         </div>
         {!isPathsExpanded && <UniversalPlayer />}
         
-        <nav className="hidden md:flex items-center space-x-6 xl:space-x-8 relative" ref={pathsRef}>
+        <nav className="hidden lg:flex items-center space-x-6 xl:space-x-8 relative" ref={pathsRef}>
           {!isPathsExpanded && (
             <>
               <button onClick={() => handleSectionLinkClick('about')} className="text-gray-300 hover:text-cyan-400 transition-colors">About</button>
@@ -213,7 +213,7 @@ export const MainNav: React.FC<MainNavProps> = ({ scrollContainerId }) => {
         </nav>
         
         <button 
-          className="md:hidden text-white"
+          className="lg:hidden text-white"
           onClick={() => setIsOpen(!isOpen)}
         >
           {isOpen ? <X size={24} /> : <Menu size={24} />}
