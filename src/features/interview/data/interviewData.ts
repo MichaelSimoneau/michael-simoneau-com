@@ -52,7 +52,7 @@ export const interview3Data: QAPair[] = [
   },
   {
     question: "What is The Human Dollar?",
-    answer: "$327 for every $1 put to work. Money is an employee — put it to work at the 32,767 cap and earn the Genesis Dividend. The architecture fuses value to data in a 128-bit Gemini token."
+    answer: "$655 for every $1 put to work. Money is an employee — put it to work at the 65,535 cap and earn the Genesis Dividend. The architecture fuses value to data in a 128-bit Gemini token."
   },
   {
     question: "What is the bioethereal key?",
