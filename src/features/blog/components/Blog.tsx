@@ -12,6 +12,8 @@ import { useScrollToTop } from '../../../hooks/useScrollToTop'; // Added import
 const getGradientForPost = (imageUrl: string) => {
   // This mapping should ideally be more robust or data-driven if heroImage paths change frequently
   switch (imageUrl) {
+    case '/blog/darwinian-marxism.svg':
+      return 'linear-gradient(135deg, #B45309 0%, #78350F 100%)';
     case '/blog/future-security.svg':
       return 'linear-gradient(135deg, #007ACC 0%, #005F99 100%)';
     case '/blog/system-transformation.svg':

@@ -343,7 +343,9 @@ export const BlogPost: React.FC = () => {
             <div 
               className="w-full h-[200px] md:h-[300px] mb-8 rounded-xl relative overflow-hidden" 
               style={{ 
-                background: post.heroImage === '/blog/future-security.svg' ? 
+                background: post.heroImage === '/blog/darwinian-marxism.svg' ?
+                  'linear-gradient(135deg, #B45309 0%, #78350F 100%)' :
+                post.heroImage === '/blog/future-security.svg' ? 
                   'linear-gradient(135deg, #006D5B 0%, #004D3D 100%)' : 
                 post.heroImage === '/blog/system-transformation.svg' ? 
                   'linear-gradient(135deg, #DC2626 0%, #991B1B 100%)' :
