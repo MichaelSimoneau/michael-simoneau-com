@@ -12,7 +12,7 @@ export const ThdHero: React.FC = () => {
   return (
     <motion.section
       id="thd"
-      className="w-full flex flex-col items-center justify-center text-white px-4 py-16 md:py-24 relative overflow-hidden bg-gradient-to-br from-gray-900 via-amber-900/20 to-gray-900 flex-none"
+      className="w-full flex flex-col items-center justify-center text-white px-4 py-16 md:py-12 relative overflow-hidden bg-gradient-to-br from-gray-900 via-amber-900/20 to-gray-900 flex-none"
       style={{
         minHeight: '100vh',
       }}
@@ -28,7 +28,7 @@ export const ThdHero: React.FC = () => {
         <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-yellow-500/10 rounded-full blur-3xl" />
       </div>
 
-      <div className="container mx-auto max-w-6xl relative z-10 w-full py-8 flex flex-col">
+      <div className="container mx-auto max-w-6xl relative z-10 w-full pt-2 pb-16 flex flex-col">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -37,22 +37,27 @@ export const ThdHero: React.FC = () => {
           className="text-center mb-8 w-full"
         >
           <motion.div
-            className="flex justify-center mb-8"
+            className="flex justify-center mb-2"
             initial={{ opacity: 0, scale: 0.8 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.3 }}
           >
-            <div
-              className="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden"
-              style={{
-                boxShadow: '0 0 48px rgba(255,255,255,0.12), 0 8px 30px rgba(0,0,0,0.4)',
-              }}
-            >
+            <div className="relative max-w-xs md:max-w-sm">
+              {/* Per-coin radial glows */}
+              <div
+                className="absolute inset-0 pointer-events-none"
+                style={{
+                  background:
+                    'radial-gradient(circle at 27% 50%, rgba(255,255,255,0.12) 0%, transparent 55%), ' +
+                    'radial-gradient(circle at 73% 50%, rgba(255,255,255,0.12) 0%, transparent 55%)',
+                  filter: 'blur(24px)',
+                }}
+              />
               <img
                 src="/THD.png"
-                alt="The Human Dollar"
-                className="w-full h-full object-cover"
+                alt="The Human Dollar — front and back"
+                className="relative w-full h-auto object-contain"
               />
             </div>
           </motion.div>
@@ -62,8 +67,12 @@ export const ThdHero: React.FC = () => {
               The Human Dollar
             </span>
           </h2>
-          <p className="text-xl sm:text-2xl md:text-3xl text-amber-300 font-semibold mb-4">
-            The Working Dollar · The Anti-Crypto · The Currency of the Future
+          <p className="text-xl sm:text-2xl md:text-3xl text-amber-300 font-semibold mb-4 flex flex-wrap items-center justify-center gap-x-3 gap-y-1">
+            <span className="whitespace-nowrap">The Working Dollar</span>
+            <span className="hidden sm:inline" aria-hidden="true">&middot;</span>
+            <span className="whitespace-nowrap">The Anti-Crypto</span>
+            <span className="hidden sm:inline" aria-hidden="true">&middot;</span>
+            <span className="whitespace-nowrap">The Currency of the Future</span>
           </p>
           <p className="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto mb-6">
             Money is an employee. Put it to work: $366 for every $1 after the $36,635 cap.<br />Stagnation is a firing offense. Spending prints more!

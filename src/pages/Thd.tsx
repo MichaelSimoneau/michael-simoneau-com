@@ -79,16 +79,21 @@ export const Thd: React.FC = () => {
             transition={{ duration: 0.5 }}
           >
             <div className="md:mr-8 mb-6 md:mb-0 flex-shrink-0">
-              <div
-                className="w-48 h-48 md:w-64 md:h-64 rounded-full overflow-hidden"
-                style={{
-                  boxShadow: '0 0 64px rgba(255,255,255,0.12), 0 8px 30px rgba(0,0,0,0.4)',
-                }}
-              >
+              <div className="relative max-w-sm md:max-w-md">
+                {/* Per-coin radial glows */}
+                <div
+                  className="absolute inset-0 pointer-events-none"
+                  style={{
+                    background:
+                      'radial-gradient(circle at 27% 50%, rgba(255,255,255,0.14) 0%, transparent 55%), ' +
+                      'radial-gradient(circle at 73% 50%, rgba(255,255,255,0.14) 0%, transparent 55%)',
+                    filter: 'blur(32px)',
+                  }}
+                />
                 <img
                   src="/THD.png"
-                  alt="The Human Dollar"
-                  className="w-full h-full object-cover"
+                  alt="The Human Dollar — front and back"
+                  className="relative w-full h-auto object-contain"
                 />
               </div>
             </div>
