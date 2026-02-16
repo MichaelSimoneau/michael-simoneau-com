@@ -75,7 +75,7 @@ export const ThdHero: React.FC = () => {
             <span className="whitespace-nowrap">The Currency of the Future</span>
           </p>
           <p className="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto mb-6">
-            Money is an employee. Put it to work: $327 for every $1 after the $32,767 cap.<br />Stagnation is a firing offense. Spending prints more!
+            Money is an employee. Put it to work: $327 for every $1 after the $32,767 cap.<br />Stagnation is a firing offense. Spending adds Value!
           </p>
           <p className="text-base md:text-lg text-gray-400 max-w-4xl mx-auto mb-8">
             1 THD is always redeemable for 1 USDC.<br />The smart contract physically rejects any transaction valuing THD below the floor.<br />There is only value or the dollar retires. This is Metabolic Reality, not speculation.
