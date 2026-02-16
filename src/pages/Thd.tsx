@@ -14,12 +14,12 @@ export const Thd: React.FC = () => {
     <>
       <Seo
         title="The Human Dollar (THD) | Anti-Crypto"
-        description="The Human Dollar (THD) is money that works. Money is an employee — $327 for every $1 put to work at the $32,767 cap. Stagnation is a firing offense. 1 THD = 1 USDC floor. This is Metabolic Reality."
+        description="The Human Dollar (THD) is money that works. Money is an employee — $655 for every $1 put to work at the $65,535 cap. Stagnation is a firing offense. 1 THD = 1 USDC floor. This is Metabolic Reality."
         canonicalUrl="https://www.michaelsimoneau.com/thd"
         keywords={[
           "The Human Dollar",
           "THD",
-          "32767",
+          "65535",
           "Genesis Dividend",
           "stagnation firing offense",
           "#WEB",
@@ -108,7 +108,7 @@ export const Thd: React.FC = () => {
                 Currency of the Future
               </p>
               <p className="text-lg text-gray-300 max-w-3xl">
-                Money is an employee. Put it to work and earn $327 for every $1 at the $32,767 cap. Stagnation is a firing offense — idle capital enters early retirement. Observation is oxygen. Usage is mining. The concept is detailed in Building Web 4 With Money That Lives.
+                Money is an employee. Put it to work and earn $655 for every $1 at the $65,535 cap. Stagnation is a firing offense — idle capital enters early retirement. Observation is oxygen. Usage is mining. The concept is detailed in Building Web 4 With Money That Lives.
               </p>
             </div>
           </motion.div>
@@ -172,7 +172,7 @@ export const Thd: React.FC = () => {
               "Money is an employee. Put it to work."
             </p>
             <p className="text-gray-300 mb-4">
-              THD is <strong className="text-amber-300">The Human Dollar</strong>. Money is an employee — put it to work and it pays $327 for every $1 at the $32,767 cap. Stagnation is a firing offense: if an asset is not observed, used, or transacted with, its relevance converges toward zero via base-three half-life. The system incentivizes the velocity of money and rewards participation. That is the Anti-Crypto: Metabolic Reality, not sentiment.
+              THD is <strong className="text-amber-300">The Human Dollar</strong>. Money is an employee — put it to work and it pays $655 for every $1 at the $65,535 cap. Stagnation is a firing offense: if an asset is not observed, used, or transacted with, its relevance converges toward zero via base-three half-life. The system incentivizes the velocity of money and rewards participation. That is the Anti-Crypto: Metabolic Reality, not sentiment.
             </p>
             <p className="text-gray-300 mb-4">
               The <strong className="text-amber-300">redemption constraint</strong> is the safety net: 1 THD is always redeemable for 1 USDC. The smart contract physically rejects any transaction valuing THD below the floor. There is only value — or the dollar retires.
@@ -198,7 +198,7 @@ export const Thd: React.FC = () => {
                   The Genesis Dividend
                 </h3>
                 <p className="text-gray-300">
-                  $327 for every $1 put to work. Every THD works toward the 32,767 cap — a deterministic reward for capital velocity. Observation is oxygen. Usage is mining.
+                  $655 for every $1 put to work. Every THD works toward the 65,535 cap — a deterministic reward for capital velocity. Observation is oxygen. Usage is mining.
                 </p>
               </div>
               <div className="rounded-lg bg-gray-900/50 p-6 border border-gray-800">
@@ -206,7 +206,7 @@ export const Thd: React.FC = () => {
                   Money is an Employee
                 </h3>
                 <p className="text-gray-300">
-                  Each THD is a worker. It has a job, a performance cap (32,767), and a biological clock. The price is in the money — stitched into the DNA of the hash. There is only value — or the dollar retires.
+                  Each THD is a worker. It has a job, a performance cap (65,535), and a biological clock. The price is in the money — stitched into the DNA of the hash. There is only value — or the dollar retires.
                 </p>
               </div>
               <div className="rounded-lg bg-gray-900/50 p-6 border border-gray-800">
