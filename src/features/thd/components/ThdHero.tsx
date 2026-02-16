@@ -63,10 +63,10 @@ export const ThdHero: React.FC = () => {
             </span>
           </h2>
           <p className="text-xl sm:text-2xl md:text-3xl text-amber-300 font-semibold mb-4">
-            The Human Dollar · Anti-Crypto
+            The Working Dollar · The Anti-Crypto · The Currency of the Future
           </p>
           <p className="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto mb-6">
-            Money is an employee. Put it to work: $366 for every $1 at the 36,636 cap. Stagnation is a firing offense. Observation is oxygen. Usage is mining.
+            Money is an employee. Put it to work: $366 for every $1 after the $36,635 cap.<br />Stagnation is a firing offense. Spending prints more!
           </p>
           <p className="text-base md:text-lg text-gray-400 max-w-4xl mx-auto mb-8">
             1 THD is always redeemable for 1 USDC. There is only value — or the dollar retires. This is Metabolic Reality, not speculation.
