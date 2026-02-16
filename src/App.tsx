@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { SpeechProvider } from "./contexts/SpeechContext";
 import { CookieNotice } from "./layout/CookieNotice";
 import { Outlet, ScrollRestoration } from "react-router-dom";
@@ -27,6 +28,10 @@ function CopyrightNotice() {
 }
 
 function App() {
+  useEffect(() => {
+    document.dispatchEvent(new Event('prerender-ready'));
+  }, []);
+
   return (
     <SpeechProvider>
       <CookieNotice />
