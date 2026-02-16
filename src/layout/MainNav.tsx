@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { BookOpen, Menu, X, Home, User, FlaskConical, Circle } from 'lucide-react';
+import { BookOpen, Menu, X, Home, User, Compass } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { UniversalPlayer } from '../ui/players/UniversalPlayer';
 import { useScrollToSection } from '../hooks/useScrollToSection';
@@ -11,11 +11,11 @@ interface MainNavProps {
 
 export const MainNav: React.FC<MainNavProps> = ({ scrollContainerId }) => {
   const [isOpen, setIsOpen] = React.useState(false);
-  const [isLabsExpanded, setIsLabsExpanded] = React.useState(false);
+  const [isPathsExpanded, setIsPathsExpanded] = React.useState(false);
   const location = useLocation();
   const isHomePage = location.pathname === '/';
   const scrollToSectionHandler = useScrollToSection({ scrollContainerId });
-  const labsRef = useRef<HTMLDivElement>(null);
+  const pathsRef = useRef<HTMLDivElement>(null);
   const mobileOverlayRef = useRef<HTMLDivElement>(null);
 
   const handleHomeClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
@@ -34,17 +34,17 @@ export const MainNav: React.FC<MainNavProps> = ({ scrollContainerId }) => {
   const handleSectionLinkClick = (sectionId: string) => {
     scrollToSectionHandler(sectionId, () => {
       setIsOpen(false);
-      setIsLabsExpanded(false);
+      setIsPathsExpanded(false);
     });
   };
 
-  const handleLabsClick = () => {
-    setIsLabsExpanded(!isLabsExpanded);
+  const handlePathsClick = () => {
+    setIsPathsExpanded(!isPathsExpanded);
   };
 
-  const handleLabsItemClick = (sectionId: string, e?: React.MouseEvent) => {
+  const handlePathsItemClick = (sectionId: string, e?: React.MouseEvent) => {
     e?.stopPropagation();
-    setIsLabsExpanded(false);
+    setIsPathsExpanded(false);
     setIsOpen(false);
     // Defer scroll so overlay/dropdown close first; avoids mobile scroll not working
     setTimeout(() => {
@@ -52,17 +52,17 @@ export const MainNav: React.FC<MainNavProps> = ({ scrollContainerId }) => {
     }, 280);
   };
 
-  // Close Labs when clicking outside (desktop only; mobile overlay has its own close)
+  // Close Paths when clicking outside (desktop only; mobile overlay has its own close)
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       const target = event.target as Node;
       if (mobileOverlayRef.current?.contains(target)) return;
-      if (labsRef.current && !labsRef.current.contains(target)) {
-        setIsLabsExpanded(false);
+      if (pathsRef.current && !pathsRef.current.contains(target)) {
+        setIsPathsExpanded(false);
       }
     };
 
-    if (isLabsExpanded) {
+    if (isPathsExpanded) {
       // Use a small delay to avoid closing immediately when clicking inside
       const timeoutId = setTimeout(() => {
         document.addEventListener('mousedown', handleClickOutside);
@@ -73,7 +73,7 @@ export const MainNav: React.FC<MainNavProps> = ({ scrollContainerId }) => {
         document.removeEventListener('mousedown', handleClickOutside);
       };
     }
-  }, [isLabsExpanded]);
+  }, [isPathsExpanded]);
   
   return (
     <header className="fixed top-0 left-0 w-full z-50 bg-black/40 backdrop-blur-md border-b border-gray-800/50">
@@ -83,7 +83,7 @@ export const MainNav: React.FC<MainNavProps> = ({ scrollContainerId }) => {
             to="/" 
             onClick={(e) => {
               handleHomeClick(e);
-              setIsLabsExpanded(false);
+              setIsPathsExpanded(false);
             }}
             className="text-white font-bold text-lg hover:text-cyan-400 transition-colors flex items-center whitespace-nowrap min-w-max"
           >
@@ -92,7 +92,7 @@ export const MainNav: React.FC<MainNavProps> = ({ scrollContainerId }) => {
               className="mr-1"
             >{"MS"}</motion.span>
             <AnimatePresence>
-              {isLabsExpanded && (
+              {isPathsExpanded && (
                 <>
                   <motion.span
                     initial={{ opacity: 0, x: -10 }}
@@ -102,24 +102,25 @@ export const MainNav: React.FC<MainNavProps> = ({ scrollContainerId }) => {
                     className="ml-1 text-cyan-400 hidden md:inline-block"
                   >{"::"}</motion.span>
                   <motion.span
-                    layoutId="labs-logo-text"
+                    layoutId="paths-logo-text"
                     className="ml-1 uppercase tracking-wider hidden md:inline-block"
                     transition={{ type: "spring", stiffness: 350, damping: 30 }}
-                  >{"LABS:"}</motion.span>
+                  >{"PATHS:"}</motion.span>
                 </>
               )}
             </AnimatePresence>
           </Link>
         </div>
-        {!isLabsExpanded && <UniversalPlayer />}
+        {!isPathsExpanded && <UniversalPlayer />}
         
-        <nav className="hidden md:flex items-center space-x-6 xl:space-x-8 relative" ref={labsRef}>
-          {!isLabsExpanded && (
+        <nav className="hidden md:flex items-center space-x-6 xl:space-x-8 relative" ref={pathsRef}>
+          {!isPathsExpanded && (
             <>
-              <button onClick={() => handleSectionLinkClick('about-me')} className="text-gray-300 hover:text-cyan-400 transition-colors">About</button>
+              <button onClick={() => handleSectionLinkClick('about')} className="text-gray-300 hover:text-cyan-400 transition-colors">About</button>
               <button onClick={() => handleSectionLinkClick('expertise')} className="text-gray-300 hover:text-cyan-400 transition-colors">Expertise</button>
-              <button onClick={() => handleSectionLinkClick('service-offerings')} className="text-gray-300 hover:text-cyan-400 transition-colors">Services</button>
-              <button onClick={() => handleSectionLinkClick('cto-triage')} className="text-gray-300 hover:text-cyan-400 transition-colors">Consulting</button>
+              <button onClick={() => handleSectionLinkClick('double-dragon')} className="text-gray-300 hover:text-cyan-400 transition-colors">Video</button>
+              <button onClick={() => handleSectionLinkClick('interview')} className="text-gray-300 hover:text-cyan-400 transition-colors">Interview</button>
+              <button onClick={() => handleSectionLinkClick('testimonials')} className="text-gray-300 hover:text-cyan-400 transition-colors">Testimonials</button>
               <button onClick={() => handleSectionLinkClick('blog-teaser')} className="text-gray-300 hover:text-cyan-400 transition-colors">Insights</button>
               
               {isHomePage ? (
@@ -133,25 +134,17 @@ export const MainNav: React.FC<MainNavProps> = ({ scrollContainerId }) => {
                   Profile
                 </Link>
               )}
-              <Link to="/zero" onClick={() => setIsOpen(false)} className="text-gray-300 hover:text-cyan-400 transition-colors flex items-center">
-                <Circle size={16} className="mr-2" />
-                Zero
-              </Link>
-              <Link to="/blog" onClick={() => setIsOpen(false)} className="text-gray-300 hover:text-cyan-400 transition-colors flex items-center">
-                <BookOpen size={16} className="mr-2" />
-                Blog
-              </Link>
             </>
           )}
           
-          {/* Labs Navigation */}
+          {/* Paths Navigation */}
           <motion.div className="grid items-center relative overflow-hidden" layout>
             <AnimatePresence>
-              {!isLabsExpanded ? (
+              {!isPathsExpanded ? (
                 <motion.button
-                  key="labs-button"
+                  key="paths-button"
                   layout
-                  onClick={handleLabsClick}
+                  onClick={handlePathsClick}
                   className="col-start-1 row-start-1 text-gray-300 hover:text-cyan-400 transition-colors flex items-center whitespace-nowrap"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
@@ -160,12 +153,12 @@ export const MainNav: React.FC<MainNavProps> = ({ scrollContainerId }) => {
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.3 }}
                 >
-                  <FlaskConical size={16} className="mr-1.5" />
-                  <motion.span layoutId="labs-logo-text" transition={{ type: "spring", stiffness: 350, damping: 30 }}>Labs</motion.span>
+                  <Compass size={16} className="mr-1.5" />
+                  <motion.span layoutId="paths-logo-text" transition={{ type: "spring", stiffness: 350, damping: 30 }}>Paths</motion.span>
                 </motion.button>
               ) : (
                 <motion.div
-                  key="labs-items"
+                  key="paths-items"
                   layout
                   initial={{ opacity: 0, x: 20 }}
                   animate={{ opacity: 1, x: 0 }}
@@ -174,29 +167,29 @@ export const MainNav: React.FC<MainNavProps> = ({ scrollContainerId }) => {
                   className="col-start-1 row-start-1 flex items-center space-x-2 whitespace-nowrap overflow-hidden"
                 >
                   <button
-                    onClick={(e) => handleLabsItemClick('zero', e)}
+                    onClick={(e) => handlePathsItemClick('ZerothTheory', e)}
                     className="text-gray-300 hover:text-cyan-400 transition-colors whitespace-nowrap"
                   >
                     Zeroth Theory
                   </button>
                   <span className="text-gray-500">|</span>
                   <button
-                    onClick={(e) => handleLabsItemClick('crypto-fabric', e)}
+                    onClick={(e) => handlePathsItemClick('cryptofabric', e)}
                     className="text-gray-300 hover:text-cyan-400 transition-colors whitespace-nowrap"
                   >
                     Crypto Fabric
                   </button>
                   <span className="text-gray-500">|</span>
                   <button
-                    onClick={(e) => handleLabsItemClick('thd', e)}
+                    onClick={(e) => handlePathsItemClick('TheHumanDollar', e)}
                     className="text-gray-300 hover:text-cyan-400 transition-colors whitespace-nowrap"
                   >
                     The Human Dollar
                   </button>
                   <button
-                    onClick={handleLabsClick}
+                    onClick={handlePathsClick}
                     className="ml-2 p-1 group"
-                    aria-label="Close Labs"
+                    aria-label="Close Paths"
                   >
                     <div className="w-6 h-6 rounded-full bg-gray-800 border border-gray-600 group-hover:border-cyan-400 group-hover:bg-gray-700 flex items-center justify-center transition-colors">
                       <X size={14} className="text-gray-300 group-hover:text-cyan-400" />
@@ -206,6 +199,17 @@ export const MainNav: React.FC<MainNavProps> = ({ scrollContainerId }) => {
               )}
             </AnimatePresence>
           </motion.div>
+
+          {!isPathsExpanded && (
+            <>
+              <button onClick={() => handleSectionLinkClick('music')} className="text-gray-300 hover:text-cyan-400 transition-colors">Music</button>
+              <button onClick={() => handleSectionLinkClick('contact')} className="text-gray-300 hover:text-cyan-400 transition-colors">Contact</button>
+              <Link to="/blog" onClick={() => setIsOpen(false)} className="text-gray-300 hover:text-cyan-400 transition-colors flex items-center">
+                <BookOpen size={16} className="mr-2" />
+                Blog
+              </Link>
+            </>
+          )}
         </nav>
         
         <button 
@@ -225,7 +229,7 @@ export const MainNav: React.FC<MainNavProps> = ({ scrollContainerId }) => {
           exit={{ opacity: 0, y: -20 }}
         >
           <nav className="flex flex-col items-center justify-center h-full space-y-6 p-6 bg-black overflow-y-auto">
-            {!isLabsExpanded ? (
+            {!isPathsExpanded ? (
               <>
                 {!isHomePage && (
                   <Link 
@@ -238,10 +242,11 @@ export const MainNav: React.FC<MainNavProps> = ({ scrollContainerId }) => {
                   </Link>
                 )}
                 
-                <button onClick={() => handleSectionLinkClick('about-me')} className="text-xl text-gray-300 hover:text-cyan-400 transition-colors">About</button>
+                <button onClick={() => handleSectionLinkClick('about')} className="text-xl text-gray-300 hover:text-cyan-400 transition-colors">About</button>
                 <button onClick={() => handleSectionLinkClick('expertise')} className="text-xl text-gray-300 hover:text-cyan-400 transition-colors">Expertise</button>
-                <button onClick={() => handleSectionLinkClick('service-offerings')} className="text-xl text-gray-300 hover:text-cyan-400 transition-colors">Services</button>
-                <button onClick={() => handleSectionLinkClick('cto-triage')} className="text-xl text-gray-300 hover:text-cyan-400 transition-colors">Consulting</button>
+                <button onClick={() => handleSectionLinkClick('double-dragon')} className="text-xl text-gray-300 hover:text-cyan-400 transition-colors">Video</button>
+                <button onClick={() => handleSectionLinkClick('interview')} className="text-xl text-gray-300 hover:text-cyan-400 transition-colors">Interview</button>
+                <button onClick={() => handleSectionLinkClick('testimonials')} className="text-xl text-gray-300 hover:text-cyan-400 transition-colors">Testimonials</button>
                 <button onClick={() => handleSectionLinkClick('blog-teaser')} className="text-xl text-gray-300 hover:text-cyan-400 transition-colors">Insights</button>
 
                 {isHomePage ? (
@@ -255,24 +260,23 @@ export const MainNav: React.FC<MainNavProps> = ({ scrollContainerId }) => {
                     Profile
                   </Link>
                 )}
-                <Link to="/zero" className="text-xl text-gray-300 hover:text-cyan-400 transition-colors flex items-center" onClick={() => setIsOpen(false)}>
-                  <Circle size={18} className="mr-2" />
-                  Zero
-                </Link>
+
+                <div className="w-full text-center mt-2">
+                  <button 
+                    onClick={() => setIsPathsExpanded(true)}
+                    className="text-xl text-gray-300 hover:text-cyan-400 transition-colors inline-flex items-center"
+                  >
+                    <Compass size={18} className="mr-2" />
+                    Paths
+                  </button>
+                </div>
+
+                <button onClick={() => handleSectionLinkClick('music')} className="text-xl text-gray-300 hover:text-cyan-400 transition-colors">Music</button>
+                <button onClick={() => handleSectionLinkClick('contact')} className="text-xl text-gray-300 hover:text-cyan-400 transition-colors">Contact</button>
                 <Link to="/blog" className="text-xl text-gray-300 hover:text-cyan-400 transition-colors flex items-center" onClick={() => setIsOpen(false)}>
                   <BookOpen size={18} className="mr-2" />
                   Blog
                 </Link>
-
-                <div className="w-full text-center mt-2">
-                  <button 
-                    onClick={() => setIsLabsExpanded(true)}
-                    className="text-xl text-gray-300 hover:text-cyan-400 transition-colors inline-flex items-center"
-                  >
-                    <FlaskConical size={18} className="mr-2" />
-                    Labs
-                  </button>
-                </div>
                 
                 <button 
                   onClick={() => setIsOpen(false)}
@@ -283,31 +287,31 @@ export const MainNav: React.FC<MainNavProps> = ({ scrollContainerId }) => {
               </>
             ) : (
               <div className="w-full flex flex-col items-center space-y-6">
-                <div className="text-2xl font-bold text-white mb-4">MS::LABS:</div>
+                <div className="text-2xl font-bold text-white mb-4">MS::PATHS:</div>
                 <button 
-                  onClick={(e) => handleLabsItemClick('zero', e)}
+                  onClick={(e) => handlePathsItemClick('ZerothTheory', e)}
                   className="text-xl text-gray-400 hover:text-cyan-400 transition-colors"
                 >
                   Zeroth Theory
                 </button>
                 <button 
-                  onClick={(e) => handleLabsItemClick('crypto-fabric', e)}
+                  onClick={(e) => handlePathsItemClick('cryptofabric', e)}
                   className="text-xl text-gray-400 hover:text-cyan-400 transition-colors"
                 >
                   Crypto Fabric
                 </button>
                 <button 
-                  onClick={(e) => handleLabsItemClick('thd', e)}
+                  onClick={(e) => handlePathsItemClick('TheHumanDollar', e)}
                   className="text-xl text-gray-400 hover:text-cyan-400 transition-colors"
                 >
                   The Human Dollar
                 </button>
                 
                 <button
-                  onClick={() => setIsLabsExpanded(false)}
+                  onClick={() => setIsPathsExpanded(false)}
                   className="text-xl text-gray-500 hover:text-cyan-400 transition-colors mt-8"
                 >
-                  Close Labs
+                  Close Paths
                 </button>
               </div>
             )}
@@ -316,4 +320,4 @@ export const MainNav: React.FC<MainNavProps> = ({ scrollContainerId }) => {
       )}
     </header>
   );
-}; 
+};

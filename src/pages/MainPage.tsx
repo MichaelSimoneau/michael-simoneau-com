@@ -309,7 +309,7 @@ export const MainPage: React.FC = () => {
         <MainNav scrollContainerId="new-main-page-scroll-container" />
 
         {/* === ACT I: THE INTRODUCTION === */}
-        <div id="hero" className="relative">
+        <div id="about" className="relative">
           <section>
             <HeroSection />
           </section>
@@ -326,7 +326,7 @@ export const MainPage: React.FC = () => {
         {/* === ACT II: THE FOUNDATION (Corporate Past) === */}
         <div id="profile" className="relative">
           <motion.section
-            id="about-me"
+
             className={`${sectionWrapperClasses}`}
             initial={{opacity: 0}}
             whileInView={{opacity: 1}}
@@ -339,7 +339,7 @@ export const MainPage: React.FC = () => {
 
         <div id="expertise" className="relative">
           <motion.section
-            id="expertise-section"
+
             className={`${sectionWrapperClasses} bg-gray-900/40`}
             initial={{opacity: 0}}
             whileInView={{opacity: 1}}
@@ -358,7 +358,7 @@ export const MainPage: React.FC = () => {
 
         <div id="testimonials" className="relative">
           <motion.section
-            id="testimonials-section"
+
             className={`${sectionWrapperClasses} bg-gray-900/40`}
             initial={{opacity: 0}}
             whileInView={{opacity: 1}}
@@ -370,7 +370,7 @@ export const MainPage: React.FC = () => {
         </div>
 
         {/* === ACT III: THE INNOVATION === */}
-        <div id="zero" className="relative">
+        <div id="ZerothTheory" className="relative">
           <ZeroHero />
         </div>
 
@@ -379,7 +379,7 @@ export const MainPage: React.FC = () => {
         </div>
 
         {/* === ACT IV: THE WORKING DOLLAR === */}
-        <div id="feature" className="relative">
+        <div id="TheHumanDollar" className="relative">
           <ThdHero />
         </div>
 
