@@ -14,7 +14,7 @@ So, it's the workhorse using web 3 to, you know, pay the bills.
 But the goal isn't just to be profitable. The goal is to use that money to fund the Ferrari.
 And the Ferrari is V3, the zeroth protocol.
 It's bootstrapping a whole new internet off the old one.
-All right, let's pop the hood on that Ferrari then. The central idea is zero theory. In my head, zero means nothing, but here it's everything.
+All right, let's pop the hood on that Ferrari then. The central idea is Zeroth Theory. In my head, zero means nothing, but here it's everything.
 You have to unlearn binary for a second. Traditional computing is just zero and one off. On
 right
 zeroth uses turnary logic. So megas one zero and one.

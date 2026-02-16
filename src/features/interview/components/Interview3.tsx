@@ -11,14 +11,14 @@ export const Interview3: React.FC = () => {
     <>
       <Seo
         title="Interview Session 3: Zeroth & the Digital Organism | Michael Simoneau"
-        description="Michael Simoneau on Zero theory, money that lives, metabolic money, and the ghost in the shell. Part 3 of the interview series."
+        description="Michael Simoneau on Zeroth Theory, money that lives, metabolic money, and the ghost in the shell. Part 3 of the interview series."
         canonicalUrl="https://www.michaelsimoneau.com/interview/3"
         keywords={[
           "Michael Simoneau Interview",
           "Zeroth",
           "#WEB",
           "Money That Lives",
-          "Zero Theory",
+          "Zeroth Theory",
           "Metabolic Money",
           "THD",
           "Digital Organism",
@@ -28,7 +28,7 @@ export const Interview3: React.FC = () => {
           '@context': 'https://schema.org',
           '@type': 'Article',
           headline: 'Interview Session 3: Zeroth & the Digital Organism',
-          description: 'Zero theory, money that lives, metabolic money, and the economic architecture',
+          description: 'Zeroth Theory, money that lives, metabolic money, and the economic architecture',
           author: {
             '@type': 'Person',
             name: 'Michael Simoneau',

@@ -46,7 +46,7 @@ Now, I'm not a mathematician, but zero seems pretty straightforward to me. It's 
 In Western philosophy and in all of conventional computing, Yes, that's exactly right. Zero is the void. It is null. In binary code, which runs every single computer, phone, and even the toaster on your counter, you have two states, one and no,
 on and off. Something and nothing.
 Exactly. It's a light switch. It's either on or it's off. There's no in between.
-But in the zero theory documents, and I'm looking at the file 0.0.0.0.0MT here, the argument is that this definition is actually deeply flawed.
+But in the Zeroth Theory documents, and I'm looking at the file 0.0.0.0.0MT here, the argument is that this definition is actually deeply flawed.
 It is. If zero is just nothing, then your system has no way to represent balance. You only have existence or non-existence. There's no concept of equilibrium.
 Okay.
 Seino argues that zero isn't nothing. Zero is actually the ultimate state of stability. It is convergence. It isn't the absence of value. It is the final resolution of all value.
@@ -272,7 +272,7 @@ Because of the Gemini twins, that 128 bit structure, when your machine receives 
 Everything.
 Everything important. It asks three questions simultaneously. One, is the value real and does it obey the laws of physics? Check sibling A. Two, is the data authentic? And does the pointer resolve? It checks sibling B. Three, is the owner present and do they have the right key? It checks the bio key signature.
 It does all three of those checks in one single computational shot
-simultaneously. It is the fulfillment of the original zero theory. It proves the transaction is valid without needing a bank, without needing an army of miners, and without needing a centralized server. The proof of the data is contained within the data itself.
+simultaneously. It is the fulfillment of the original Zeroth Theory. It proves the transaction is valid without needing a bank, without needing an army of miners, and without needing a centralized server. The proof of the data is contained within the data itself.
 It is wow. It's a lot to process, but when you step back and you look at the whole picture, you can really see the arc of the vision.
 You can
 we start with a deeply philosophical argument about the number zero.

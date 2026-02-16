@@ -105,7 +105,7 @@ export const Interview2: React.FC = () => {
 
               <div className="bg-gray-900/50 p-6 rounded-lg mt-8">
                 <h2 className="text-2xl font-bold mb-4 text-cyan-400">Interviewer&apos;s Reflection</h2>
-                <p className="text-gray-300">The shift from boat to factory reframes everything: from product anxiety to infrastructure confidence. Centralizing logic in a &quot;wizard&quot; for AI resolvability, and treating Ethereum as a settlement membrane rather than the source of truth, turns conventional architecture on its head. Session 3 will go into the physics—Zero theory and the digital organism.</p>
+                <p className="text-gray-300">The shift from boat to factory reframes everything: from product anxiety to infrastructure confidence. Centralizing logic in a &quot;wizard&quot; for AI resolvability, and treating Ethereum as a settlement membrane rather than the source of truth, turns conventional architecture on its head. Session 3 will go into the physics—Zeroth Theory and the digital organism.</p>
               </div>
             </div>
           </motion.div>

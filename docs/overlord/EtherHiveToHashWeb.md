@@ -28,7 +28,7 @@ It's incredibly counterintuitive to everything we know about finance, about stor
 Okay. So, before our listeners think we've gone completely off the deep end, let's um let's set the road map here because this isn't just one app he's describing. It's a full stack. It's it's a new internet basically.
 It is it's an entire ecosystem from the metal up. So, we have to start at the bottom layer. We have to start with the factory.
 The factory
-this is the physical infrastructure, the etherhive. We need to understand the hardware, the physical constraints before we can even begin to understand the software. Okay, so factory first. Then we're going to move to the physics. This is the zero theory. This is where the math gets well gets weird.
+this is the physical infrastructure, the etherhive. We need to understand the hardware, the physical constraints before we can even begin to understand the software. Okay, so factory first. Then we're going to move to the physics. This is the Zeroth Theory. This is where the math gets well gets weird.
 It gets very weird.
 We're going to talk about redefining the number zero and using turnary logic instead of binary.
 And finally, we will arrive at the organism itself, the hasheb. We'll break down the human dollar, which is that metabolic money we mentioned, and this fascinating concept of the ghost in the shell architecture.
@@ -116,7 +116,7 @@ That's a great way to put it. It essentially says, I will only accept data that 
 I reject your reality and substitute my own.
 In a way, yes, it enforces its own order on the absolute chaos of the internet. And that confidence, that ability to say, "No, this is the truth comes from the underlying math."
 Which I think brings us to the second part of our dive, the physics.
-Oh boy, the zero theory. I spent a lot of time reading this section, and I felt like I was back in a college philosophy seminar that I definitely did not study for.
+Oh boy, the Zeroth Theory. I spent a lot of time reading this section, and I felt like I was back in a college philosophy seminar that I definitely did not study for.
 It gets very abstract very quickly.
 It does. We have to start with the number zero.
 It all starts with a simple question. What is zero?
@@ -126,7 +126,7 @@ If I have zero apples, I have no apples. It's an empty set.
 That is the standard definition, the one we all learn in grade school. Zero is a void. But Simono argues that this definition is chemically and physically incomplete. It's not how the universe actually works. He proposes that zero is convergence.
 Convergence. Okay. Think of it less like an empty box and more like a perfectly balanced scale. maybe a perfectly balanced accounting ledger. If you have a business where every single asset is perfectly matched by a liability, your net position is zero. But is the business empty?
 No, not at all. The business is full of activity. It's full of stuff. It's just balanced.
-Exactly. The zero is the state of total equilibrium. He calls it totality. It's the point where all positive forces and all negative forces cancel each other out completely. So in zero theory, zero isn't nothing. Zero is everything resolved.
+Exactly. The zero is the state of total equilibrium. He calls it totality. It's the point where all positive forces and all negative forces cancel each other out completely. So in Zeroth Theory, zero isn't nothing. Zero is everything resolved.
 Okay, I think I can kind of wrap my head around that. Zero isn't the starting point. It's the destination. It's the goal state. It's what the system is always trying to achieve.
 Correct? And this philosophical shift is what leads to his mathematical solution for the divide by zero problem.
 Right? In standard math, you can't do it. It's undefined. It breaks the calculator
