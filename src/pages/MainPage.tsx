@@ -116,7 +116,7 @@ export const MainPage: React.FC = () => {
         name: 'Michael Simoneau | Architect of Zeroth Theory (#ZerothTheory)',
         url: 'https://www.michaelsimoneau.com/',
         description:
-          'From enterprise architecture at JPMorgan and StoneX to building The Human Dollar (#THD). Money is an employee — $327 for every $1 put to work at the 32,767 cap. Stagnation is a firing offense. Built on Zeroth Theory, Crypto Fabric, and The Human Dollar.',
+          'From enterprise architecture at JPMorgan and StoneX to building The Human Dollar (#THD). Money is an employee — $327 for every $1 put to work at the $32,767 cap. Stagnation is a firing offense. Built on Zeroth Theory, Crypto Fabric, and The Human Dollar.',
         inLanguage: 'en-US',
         primaryImageOfPage: 'https://www.michaelsimoneau.com/profile-image.png',
         about: {
@@ -134,7 +134,7 @@ export const MainPage: React.FC = () => {
             name: 'Who is Michael Simoneau?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'Michael Simoneau is a technologist and systems architect who evolved from enterprise architecture at JPMorgan Chase and StoneX into building The Human Dollar (#THD). Money is an employee — $327 for every $1 put to work at the 32,767 cap. Stagnation is a firing offense. Built on Zeroth Theory, Crypto Fabric, and The Human Dollar.',
+              text: 'Michael Simoneau is a technologist and systems architect who evolved from enterprise architecture at JPMorgan Chase and StoneX into building The Human Dollar (#THD). Money is an employee — $327 for every $1 put to work at the $32,767 cap. Stagnation is a firing offense. Built on Zeroth Theory, Crypto Fabric, and The Human Dollar.',
             },
           },
           {
@@ -142,7 +142,7 @@ export const MainPage: React.FC = () => {
             name: 'What is The Human Dollar (#THD)?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'The Human Dollar (#THD) is an economic architecture designed by Michael Simoneau. Money is an employee — put it to work and it pays $327 for every $1 at the 32,767 cap. Stagnation is a firing offense: idle capital enters early retirement via base-three half-life. 1 THD is always redeemable for 1 USDC. It encompasses Zeroth Theory (the philosophy), Crypto Fabric (the infrastructure), and The Human Dollar (the currency).',
+              text: 'The Human Dollar (#THD) is an economic architecture designed by Michael Simoneau. Money is an employee — put it to work and it pays $327 for every $1 at the $32,767 cap. Stagnation is a firing offense: idle capital enters early retirement via base-three half-life. 1 THD is always redeemable for 1 USDC. It encompasses Zeroth Theory (the philosophy), Crypto Fabric (the infrastructure), and The Human Dollar (the currency).',
             },
           },
           {
@@ -158,7 +158,7 @@ export const MainPage: React.FC = () => {
             name: 'What is The Human Dollar (THD)?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'The Human Dollar is money that works. Money is an employee — put it to work and earn $327 for every $1 at the 32,767 cap. Stagnation is a firing offense: idle capital enters early retirement. 1 THD is always redeemable for 1 USDC. This is Metabolic Reality, not speculation.',
+              text: 'The Human Dollar is money that works. Money is an employee — put it to work and earn $327 for every $1 at the $32,767 cap. Stagnation is a firing offense: idle capital enters early retirement. 1 THD is always redeemable for 1 USDC. This is Metabolic Reality, not speculation.',
             },
           },
           {
