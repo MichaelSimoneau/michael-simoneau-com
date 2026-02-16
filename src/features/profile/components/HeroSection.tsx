@@ -1,10 +1,13 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { PlaylistAudioPlayer, Track } from '../../../ui/players/PlaylistAudioPlayer';
+import { blogData } from '../../../data/blogData';
 import { ChevronDown } from 'lucide-react';
 
 /** Playlist tracks for the hero section audio player. */
 const HERO_TRACKS: Track[] = [
+  { src: '/DarwinianMarxism.mp3', title: 'Darwinian Marxism' },
   { src: '/Zeroth_Protocol_Turns_Data_Into_Organisms.mp3', title: 'Zeroth Vision' },
   { src: '/The_AI_Built_for_Deterministic_Crypto.mp3', title: 'The AI Built for Deterministic Crypto' },
   { src: '/Building_Web_4_With_Money_That_Lives.mp3', title: 'Building Web4 With Money That Lives' },
@@ -16,6 +19,8 @@ const HERO_TRACKS: Track[] = [
 
 
 export const HeroSection: React.FC = () => {
+  const darwinianMarxism = blogData.find(p => p.id === 'darwinian-marxism');
+
   return (
     <section 
       id="new-hero"
@@ -43,6 +48,31 @@ export const HeroSection: React.FC = () => {
           Money is an employee. Put it to work and it pays you $366 for every $1 at the 36,636 cap. Stagnation is a firing offense — idle capital enters early retirement. This is not speculation. This is Metabolic Reality.
         </p>
       </motion.div>
+
+      {darwinianMarxism && (
+        <motion.div
+          className="w-full max-w-2xl mx-auto z-10 mb-6"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.3 }}
+        >
+          <div className="bg-gray-900/60 backdrop-blur-sm border border-amber-800/30 rounded-xl p-6 text-center">
+            <h2 className="text-xl font-bold text-amber-400 mb-1">
+              Darwinian Marxism
+            </h2>
+            <h3 className="text-sm font-medium text-amber-300/70 mb-3">
+              Michael Simoneau's Vision for a Biological Economy
+            </h3>
+            <p className="text-sm text-gray-300 leading-relaxed mb-3">
+              {darwinianMarxism.excerpt}
+            </p>
+            <Link to="/blog/darwinian-marxism" className="text-cyan-400 hover:text-cyan-300 text-sm font-medium transition-colors">
+              Read the full essay &rarr;
+            </Link>
+          </div>
+        </motion.div>
+      )}
 
       <motion.div
         className="w-full max-w-2xl mx-auto z-10"
