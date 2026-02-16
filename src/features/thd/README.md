@@ -2,7 +2,7 @@
 
 ## Architecture Overview
 
-THD (The Human Dollar) presentation. This feature module introduces and explains The Human Dollar — money that lives. You own it, lazy THD retire early, and when it works hard it pays you dividends. It creates an Attention Economy and positions as the Anti-Crypto. The concept is detailed in the audio "Building Web 4 With Money That Lives."
+THD (The Human Dollar) presentation. This feature module introduces and explains The Human Dollar — The Working Dollar. Money is an employee: put it to work and earn $366 for every $1 at the 36,636 cap. Stagnation is a firing offense — idle capital enters early retirement. It positions as the Anti-Crypto. The concept is detailed in the audio "Building Web 4 With Money That Lives."
 
 ## Implementation Guidelines
 

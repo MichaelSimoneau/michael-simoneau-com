@@ -13,20 +13,20 @@ export const Thd: React.FC = () => {
   return (
     <>
       <Seo
-        title="The Human Dollar (THD) | Money That Lives - Anti-Crypto & Attention Economy"
-        description="The Human Dollar (THD) is a revolutionary digital asset — the Anti-Crypto. It creates an Attention Economy and is the Currency of the Future, as detailed in Building Web4 With Money That Lives."
+        title="The Human Dollar (THD) | The Working Dollar - Anti-Crypto"
+        description="The Human Dollar (THD) is The Working Dollar. Money is an employee — $366 for every $1 put to work at the 36,636 cap. Stagnation is a firing offense. 1 THD = 1 USDC floor. This is Metabolic Reality."
         canonicalUrl="https://www.michaelsimoneau.com/thd"
         keywords={[
-          "Money That Lives",
+          "The Working Dollar",
           "The Human Dollar",
           "THD",
-          "dividends",
+          "36636",
+          "Genesis Dividend",
+          "stagnation firing offense",
           "#WEB",
-          "Attention Economy",
           "Anti-Crypto",
           "Building Web 4",
-          "global economy",
-          "human dollar",
+          "put it to work",
         ]}
         image="https://www.michaelsimoneau.com/profile-image.png"
         structuredData={[
@@ -98,13 +98,13 @@ export const Thd: React.FC = () => {
                 The Human Dollar
               </h1>
               <p className="text-2xl text-amber-300 mb-2">
-                The Anti-Crypto · Attention Economy
+                The Working Dollar · Anti-Crypto
               </p>
               <p className="text-xl text-gray-400 mb-4">
                 Currency of the Future
               </p>
               <p className="text-lg text-gray-300 max-w-3xl">
-                Money that lives: you own it, lazy THD retire early, and when it works hard it pays you dividends. Value is stitched into the hash. Observation is oxygen. Usage is mining. When it works, it pays you. The concept is detailed in Building Web 4 With Money That Lives.
+                Money is an employee. Put it to work and earn $366 for every $1 at the 36,636 cap. Stagnation is a firing offense — idle capital enters early retirement. Observation is oxygen. Usage is mining. The concept is detailed in Building Web 4 With Money That Lives.
               </p>
             </div>
           </motion.div>
@@ -165,16 +165,16 @@ export const Thd: React.FC = () => {
               Core Value
             </h2>
             <p className="text-xl text-gray-200 mb-4 italic">
-              "Observation is oxygen. Usage is mining."
+              "Money is an employee. Put it to work."
             </p>
             <p className="text-gray-300 mb-4">
-              THD is <strong className="text-amber-300">money that lives</strong>. You own it. Lazy THD retire early — if an asset is not observed, used, or transacted with, its value mathematically ages by a base-three half-life. But when it works hard — when you use it, trade it, observe it — it pays you dividends. The system incentivizes the velocity of money and rewards participation. That is the Anti-Crypto: value as physics, not sentiment.
+              THD is <strong className="text-amber-300">The Working Dollar</strong>. Money is an employee — put it to work and it pays $366 for every $1 at the 36,636 cap. Stagnation is a firing offense: if an asset is not observed, used, or transacted with, its relevance converges toward zero via base-three half-life. The system incentivizes the velocity of money and rewards participation. That is the Anti-Crypto: Metabolic Reality, not sentiment.
             </p>
             <p className="text-gray-300 mb-4">
-              The <strong className="text-amber-300">redemption constraint</strong> is the safety net: one THD is always redeemable for at least one USDC (or the stable reserve). It can&apos;t age to zero. When it hits the floor, it retires — settles into the reserve and holds value in a stable state. Birth, life, retirement.
+              The <strong className="text-amber-300">redemption constraint</strong> is the safety net: 1 THD is always redeemable for 1 USDC. The smart contract physically rejects any transaction valuing THD below the floor. There is only value — or the dollar retires.
             </p>
             <p className="text-gray-300">
-              As the Currency of the Future — detailed in Building Web 4 With Money That Lives — The Human Dollar creates an economy where lazy money retires early and hard-working money pays dividends. It dissolves the bubble but protects the asset. A rigorous plan to solve the global economy.
+              As detailed in Building Web 4 With Money That Lives — The Human Dollar creates an economy where stagnation is a firing offense and capital that works hard earns the Genesis Dividend. This is not speculation. This is Metabolic Reality.
             </p>
           </motion.section>
 
@@ -191,26 +191,26 @@ export const Thd: React.FC = () => {
             <div className="grid md:grid-cols-3 gap-6">
               <div className="rounded-lg bg-gray-900/50 p-6 border border-gray-800">
                 <h3 className="text-xl font-bold mb-3 text-amber-300">
-                  Works hard, pays dividends
+                  The Genesis Dividend
                 </h3>
                 <p className="text-gray-300">
-                  You mine value by using the data — looking at it, trading it, refreshing observation. You reset the biological clock and earn dividends. Observation is oxygen. Usage is mining. When it works, it pays you.
+                  $366 for every $1 put to work. Every THD works toward the 36,636 cap — a deterministic reward for capital velocity. Observation is oxygen. Usage is mining.
                 </p>
               </div>
               <div className="rounded-lg bg-gray-900/50 p-6 border border-gray-800">
                 <h3 className="text-xl font-bold mb-3 text-amber-300">
-                  Value fused to the asset
+                  Money is an Employee
                 </h3>
                 <p className="text-gray-300">
-                  A 128-bit Gemini token fuses value and data into one structure. The price is in the money — stitched into the DNA of the hash. You can&apos;t move the value without the data.
+                  Each THD is a worker. It has a job, a performance cap (36,636), and a biological clock. The price is in the money — stitched into the DNA of the hash. There is only value — or the dollar retires.
                 </p>
               </div>
               <div className="rounded-lg bg-gray-900/50 p-6 border border-gray-800">
                 <h3 className="text-xl font-bold mb-3 text-amber-300">
-                  Lazy THD retire early
+                  Stagnation is a Firing Offense
                 </h3>
                 <p className="text-gray-300">
-                  Idle money retires early. But one THD is always redeemable for at least one USDC — the retirement floor catches it. The asset retires gracefully. It dissolves the speculative bubble but protects the core value.
+                  Idle capital enters early retirement. Base-three half-life. But 1 THD is always redeemable for 1 USDC — the retirement floor. There is only value — or the dollar retires.
                 </p>
               </div>
             </div>

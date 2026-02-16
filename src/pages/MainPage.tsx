@@ -92,9 +92,10 @@ export const MainPage: React.FC = () => {
   const keywords = useMemo(
     () => [
       'Michael Simoneau',
-      'Michael Simoneau money that lives',
-      'Michael Simoneau dividends',
-      'Michael Simoneau global economy',
+      'Michael Simoneau The Working Dollar',
+      'Michael Simoneau 36636',
+      'Michael Simoneau Genesis Dividend',
+      'Michael Simoneau put it to work',
       'Michael Simoneau Zeroth Theory',
       'Michael Simoneau enterprise architect',
       'Michael Simoneau The Human Dollar',
@@ -112,16 +113,16 @@ export const MainPage: React.FC = () => {
       {
         '@context': 'https://schema.org',
         '@type': 'WebPage',
-        name: 'Michael Simoneau | Architect of Money That Lives (#WEB)',
+        name: 'Michael Simoneau | Architect of The Working Dollar (#WEB)',
         url: 'https://www.michaelsimoneau.com/',
         description:
-          'From enterprise architecture at JPMorgan and StoneX to founding Zeroth Theory, Crypto Fabric, and The Human Dollar — Michael Simoneau is building money that lives (#WEB), an economic architecture where value is intrinsic and participation pays dividends.',
+          'From enterprise architecture at JPMorgan and StoneX to building The Working Dollar (#WEB). Money is an employee — $366 for every $1 put to work at the 36,636 cap. Stagnation is a firing offense. Built on Zeroth Theory, Crypto Fabric, and The Human Dollar.',
         inLanguage: 'en-US',
         primaryImageOfPage: 'https://www.michaelsimoneau.com/profile-image.png',
         about: {
           '@type': 'Person',
           name: 'Michael Simoneau',
-          jobTitle: 'Architect of Money That Lives (#WEB)',
+          jobTitle: 'Architect of The Working Dollar (#WEB)',
         },
       },
       {
@@ -133,15 +134,15 @@ export const MainPage: React.FC = () => {
             name: 'Who is Michael Simoneau?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'Michael Simoneau is a technologist and systems thinker who evolved from enterprise architecture at JPMorgan Chase and StoneX into building money that lives (#WEB) — an economic architecture where value is intrinsic, money that works hard pays dividends, and money that sits idle retires early. Built on Zeroth Theory, Crypto Fabric, and The Human Dollar.',
+              text: 'Michael Simoneau is a technologist and systems architect who evolved from enterprise architecture at JPMorgan Chase and StoneX into building The Working Dollar (#WEB). Money is an employee — $366 for every $1 put to work at the 36,636 cap. Stagnation is a firing offense. Built on Zeroth Theory, Crypto Fabric, and The Human Dollar.',
             },
           },
           {
             '@type': 'Question',
-            name: 'What is money that lives (#WEB)?',
+            name: 'What is The Working Dollar (#WEB)?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'Money that lives (#WEB) is an economic architecture designed by Michael Simoneau — you own it, lazy THD retire early, and when it works hard it pays you dividends. Value is intrinsic, not speculative. It encompasses Zeroth Theory (the philosophy), Crypto Fabric (the infrastructure), and The Human Dollar (the currency).',
+              text: 'The Working Dollar (#WEB) is an economic architecture designed by Michael Simoneau. Money is an employee — put it to work and it pays $366 for every $1 at the 36,636 cap. Stagnation is a firing offense: idle capital enters early retirement via base-three half-life. 1 THD is always redeemable for 1 USDC. It encompasses Zeroth Theory (the philosophy), Crypto Fabric (the infrastructure), and The Human Dollar (the currency).',
             },
           },
           {
@@ -149,7 +150,7 @@ export const MainPage: React.FC = () => {
             name: 'What is Zeroth Theory?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'Zeroth Theory is a rigorous framework exploring the nature of Zero, Energy, and Existence — the Numerical Trinity. It provides the foundational principles for money that lives and the economic architecture behind it.',
+              text: 'Zeroth Theory is a rigorous framework exploring the nature of Zero, Energy, and Existence — the Numerical Trinity. It provides the foundational principles for The Working Dollar and the economic architecture behind it.',
             },
           },
           {
@@ -157,7 +158,7 @@ export const MainPage: React.FC = () => {
             name: 'What is The Human Dollar (THD)?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'The Human Dollar is money that lives — you own it, lazy THD retire early, and when it works hard it pays you dividends. Value flows from human participation. One THD is always redeemable for at least one USDC. It is the embodiment of money that lives (#WEB).',
+              text: 'The Human Dollar is The Working Dollar. Money is an employee — put it to work and earn $366 for every $1 at the 36,636 cap. Stagnation is a firing offense: idle capital enters early retirement. 1 THD is always redeemable for 1 USDC. This is Metabolic Reality, not speculation.',
             },
           },
           {
@@ -165,7 +166,7 @@ export const MainPage: React.FC = () => {
             name: 'What is Michael Simoneau\'s corporate background?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'Michael Simoneau led a $200M system rebuild at StoneX, architected mobile platforms for JPMorgan Chase, and built 20+ years of engineering leadership across regulated industries. This foundation enabled his leap into building money that lives.',
+              text: 'Michael Simoneau led a $200M system rebuild at StoneX, architected mobile platforms for JPMorgan Chase, and built 20+ years of engineering leadership across regulated industries. This foundation enabled his leap into building The Working Dollar.',
             },
           },
           {
@@ -259,8 +260,8 @@ export const MainPage: React.FC = () => {
   return (
     <>
       <Seo
-        title="Michael Simoneau | Architect of Money That Lives (#WEB)"
-        description="From enterprise architecture at JPMorgan and StoneX to building money that lives (#WEB). Explore Michael Simoneau's plan to solve the global economy through Zeroth Theory, Crypto Fabric, and The Human Dollar."
+        title="Michael Simoneau | Architect of The Working Dollar (#WEB)"
+        description="From enterprise architecture at JPMorgan and StoneX to building The Working Dollar (#WEB). Money is an employee — $366 for every $1 put to work. Stagnation is a firing offense. Built on Zeroth Theory, Crypto Fabric, and The Human Dollar."
         canonicalUrl="https://www.michaelsimoneau.com/"
         keywords={keywords}
         image="https://www.michaelsimoneau.com/profile-image.png"
@@ -289,7 +290,7 @@ export const MainPage: React.FC = () => {
               name: 'Michael Simoneau'
             },
             foundingDate: '2019',
-            description: 'Enigma Key Industries, LLC — founded by Michael Simoneau — is the parent entity behind money that lives (#WEB), Zeroth Theory, Crypto Fabric, and The Human Dollar.',
+            description: 'Enigma Key Industries, LLC — founded by Michael Simoneau — is the parent entity behind The Working Dollar (#WEB), Zeroth Theory, Crypto Fabric, and The Human Dollar.',
             address: {
               '@type': 'PostalAddress',
               addressLocality: 'Chesterland',
@@ -377,7 +378,7 @@ export const MainPage: React.FC = () => {
           <CryptoFabricHero />
         </div>
 
-        {/* === ACT IV: MONEY THAT LIVES === */}
+        {/* === ACT IV: THE WORKING DOLLAR === */}
         <div id="feature" className="relative">
           <ThdHero />
         </div>

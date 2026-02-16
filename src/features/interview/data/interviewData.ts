@@ -47,12 +47,12 @@ export const interview3Data: QAPair[] = [
     answer: "Zero isn't nothing—it's convergence. The state where presence and potential balance. Totality. Everything resolved."
   },
   {
-    question: "Why does value age?",
-    answer: "Money that sits still stagnates. In Zeroth, observation is oxygen; usage is mining. Value that isn't observed ages — by design."
+    question: "Why is stagnation a firing offense?",
+    answer: "Money is an employee. If it doesn't perform, it enters early retirement — base-three half-life. Observation is oxygen; usage is mining. Stagnation is a firing offense."
   },
   {
-    question: "What is money that lives?",
-    answer: "You own it. Lazy THD retire early. When it works hard — when you use it, trade it — it pays you dividends. The architecture fuses value to data in a 128-bit Gemini token."
+    question: "What is The Working Dollar?",
+    answer: "$366 for every $1 put to work. Money is an employee — put it to work at the 36,636 cap and earn the Genesis Dividend. The architecture fuses value to data in a 128-bit Gemini token."
   },
   {
     question: "What is the bioethereal key?",

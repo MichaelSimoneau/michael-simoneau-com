@@ -32,7 +32,7 @@ export const AboutMeSection: React.FC = () => {
             But the corporate world was the training ground, not the destination. Every legacy system deconstructed, every high-performance platform engineered, every team empowered to challenge assumptions — it was all building toward something larger. The pattern recognition that comes from 20+ years of systems thinking doesn't stay contained in enterprise walls.
           </p>
           <p className="text-lg text-gray-300 mb-6">
-            That foundation — the obsessive curiosity, the relentless pursuit of elegant solutions, the hard-earned understanding of how complex systems actually behave — became the launchpad for Zeroth Theory, Crypto Fabric, and ultimately money that lives (#WEB): an economic architecture where value is intrinsic and participation is rewarded.
+            That foundation — the obsessive curiosity, the relentless pursuit of elegant solutions, the hard-earned understanding of how complex systems actually behave — became the launchpad for Zeroth Theory, Crypto Fabric, and ultimately The Working Dollar (#WEB): an economic architecture where money is an employee, stagnation is a firing offense, and capital that works hard pays $366 for every $1.
           </p>
           <Link 
             to="/profile" 

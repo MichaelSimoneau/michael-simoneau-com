@@ -63,13 +63,13 @@ export const ThdHero: React.FC = () => {
             </span>
           </h2>
           <p className="text-xl sm:text-2xl md:text-3xl text-amber-300 font-semibold mb-4">
-            The Anti-Crypto · Attention Economy
+            The Working Dollar · Anti-Crypto
           </p>
           <p className="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto mb-6">
-            Money that lives: you own it. Lazy THD retire early. When it works hard, it pays you dividends. Observation is oxygen. Usage is mining. When it works, it pays you.
+            Money is an employee. Put it to work: $366 for every $1 at the 36,636 cap. Stagnation is a firing offense. Observation is oxygen. Usage is mining.
           </p>
           <p className="text-base md:text-lg text-gray-400 max-w-4xl mx-auto mb-8">
-            Currency of the Future. One THD is always redeemable for at least one USDC; the system dissolves the bubble but protects the asset. A rigorous plan to solve the global economy.
+            1 THD is always redeemable for 1 USDC. There is only value — or the dollar retires. This is Metabolic Reality, not speculation.
           </p>
         </motion.div>
 
@@ -110,27 +110,27 @@ export const ThdHero: React.FC = () => {
             to="/thd"
             className="bg-gray-900/50 backdrop-blur-sm rounded-xl p-6 border border-amber-800/30 hover:border-amber-500/50 hover:bg-gray-900/70 transition-all duration-300 cursor-pointer group"
           >
-            <h3 className="text-xl font-bold mb-3 text-amber-400 group-hover:text-amber-300 transition-colors">Works hard, pays dividends</h3>
+            <h3 className="text-xl font-bold mb-3 text-amber-400 group-hover:text-amber-300 transition-colors">The Genesis Dividend</h3>
             <p className="text-gray-300 text-sm">
-              You mine value by using the data. Observation is oxygen. When it works hard, it pays you dividends.
+              $366 for every $1 put to work. Every THD works toward the 36,636 cap. Observation is oxygen. Usage is mining.
             </p>
           </Link>
           <Link
             to="/thd"
             className="bg-gray-900/50 backdrop-blur-sm rounded-xl p-6 border border-amber-800/30 hover:border-amber-500/50 hover:bg-gray-900/70 transition-all duration-300 cursor-pointer group"
           >
-            <h3 className="text-xl font-bold mb-3 text-amber-400 group-hover:text-amber-300 transition-colors">Lazy THD retire early</h3>
+            <h3 className="text-xl font-bold mb-3 text-amber-400 group-hover:text-amber-300 transition-colors">Stagnation is a Firing Offense</h3>
             <p className="text-gray-300 text-sm">
-              Idle money retires early. If you don&apos;t observe it, use it, or transact with it, value winds down. But the redemption floor always protects your core value.
+              Idle capital enters early retirement. Base-three half-life. But 1 THD is always redeemable for 1 USDC — the retirement floor.
             </p>
           </Link>
           <Link
             to="/thd"
             className="bg-gray-900/50 backdrop-blur-sm rounded-xl p-6 border border-amber-800/30 hover:border-amber-500/50 hover:bg-gray-900/70 transition-all duration-300 cursor-pointer group"
           >
-            <h3 className="text-xl font-bold mb-3 text-amber-400 group-hover:text-amber-300 transition-colors">Redemption floor</h3>
+            <h3 className="text-xl font-bold mb-3 text-amber-400 group-hover:text-amber-300 transition-colors">Redemption Floor</h3>
             <p className="text-gray-300 text-sm">
-              One THD always redeemable for at least one USDC. Birth, life, retirement — never below the retirement floor.
+              1 THD is always redeemable for 1 USDC. The smart contract rejects any transaction below the floor. There is only value — or the dollar retires.
             </p>
           </Link>
         </motion.div>
