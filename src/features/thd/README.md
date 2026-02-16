@@ -2,7 +2,7 @@
 
 ## Architecture Overview
 
-THD (The Human Dollar) presentation. This feature module introduces and explains The Human Dollar — money that works. Money is an employee: put it to work and earn $366 for every $1 at the 36,636 cap. Stagnation is a firing offense — idle capital enters early retirement. It positions as the Anti-Crypto. The concept is detailed in the audio "Building Web 4 With Money That Lives."
+THD (The Human Dollar) presentation. This feature module introduces and explains The Human Dollar — money that works. Money is an employee: put it to work and earn $327 for every $1 at the 32,767 cap. Stagnation is a firing offense — idle capital enters early retirement. It positions as the Anti-Crypto. The concept is detailed in the audio "Building Web 4 With Money That Lives."
 
 ## Implementation Guidelines
 
