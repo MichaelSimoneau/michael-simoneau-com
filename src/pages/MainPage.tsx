@@ -113,7 +113,7 @@ export const MainPage: React.FC = () => {
       {
         '@context': 'https://schema.org',
         '@type': 'WebPage',
-        name: 'Michael Simoneau | Architect of The Working Dollar (#WEB)',
+        name: 'Michael Simoneau | Architect of The Working Dollar (#THD)',
         url: 'https://www.michaelsimoneau.com/',
         description:
           'From enterprise architecture at JPMorgan and StoneX to building The Working Dollar (#WEB). Money is an employee — $366 for every $1 put to work at the 36,636 cap. Stagnation is a firing offense. Built on Zeroth Theory, Crypto Fabric, and The Human Dollar.',
@@ -122,7 +122,7 @@ export const MainPage: React.FC = () => {
         about: {
           '@type': 'Person',
           name: 'Michael Simoneau',
-          jobTitle: 'Architect of The Working Dollar (#WEB)',
+          jobTitle: 'Architect of The Working Dollar (#THD)',
         },
       },
       {
@@ -260,7 +260,7 @@ export const MainPage: React.FC = () => {
   return (
     <>
       <Seo
-        title="Michael Simoneau | Architect of The Working Dollar (#WEB)"
+        title="Michael Simoneau | Architect of The Working Dollar (#THD)"
         description="From enterprise architecture at JPMorgan and StoneX to building The Working Dollar (#WEB). Money is an employee — $366 for every $1 put to work. Stagnation is a firing offense. Built on Zeroth Theory, Crypto Fabric, and The Human Dollar."
         canonicalUrl="https://www.michaelsimoneau.com/"
         keywords={keywords}
