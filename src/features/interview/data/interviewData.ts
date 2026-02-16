@@ -51,7 +51,7 @@ export const interview3Data: QAPair[] = [
     answer: "Money is an employee. If it doesn't perform, it enters early retirement — base-three half-life. Observation is oxygen; usage is mining. Stagnation is a firing offense."
   },
   {
-    question: "What is The Working Dollar?",
+    question: "What is The Human Dollar?",
     answer: "$366 for every $1 put to work. Money is an employee — put it to work at the 36,636 cap and earn the Genesis Dividend. The architecture fuses value to data in a 128-bit Gemini token."
   },
   {

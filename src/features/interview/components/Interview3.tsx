@@ -83,7 +83,7 @@ export const Interview3: React.FC = () => {
                   </div>
 
                   <div>
-                    <p className="text-lg font-semibold mb-2">What is The Working Dollar?</p>
+                    <p className="text-lg font-semibold mb-2">What is The Human Dollar?</p>
                     <p className="text-gray-300">Money is an employee. Put it to work and it pays $366 for every $1 at the 36,636 cap — the Genesis Dividend. We moved to a native 128-bit structure—two 64-bit siblings fused together. Sibling A is the value particle: price, lineage, economics. Sibling B is the payload: the data or a pointer to it. You can&apos;t separate them. So when you &quot;send&quot; a 4GB file, the file doesn&apos;t move—you send a new pointer locked to the value. The map and the payment are one. That&apos;s Metabolic Reality: value fused to the file&apos;s existence on the network.</p>
                   </div>
 
@@ -106,7 +106,7 @@ export const Interview3: React.FC = () => {
 
               <div className="bg-gray-900/50 p-6 rounded-lg mt-8">
                 <h2 className="text-2xl font-bold mb-4 text-cyan-400">Interviewer&apos;s Reflection</h2>
-                <p className="text-gray-300">From Zero as convergence to The Working Dollar, Session 3 ties the philosophy to the architecture: data that validates itself, value fused to existence, and an identity that is the key. The three sessions together — foundation, architecture, and economic design — sketch the arc from the first computer at 12 to a full stack for what might come after the internet as we know it.</p>
+                <p className="text-gray-300">From Zero as convergence to The Human Dollar, Session 3 ties the philosophy to the architecture: data that validates itself, value fused to existence, and an identity that is the key. The three sessions together — foundation, architecture, and economic design — sketch the arc from the first computer at 12 to a full stack for what might come after the internet as we know it.</p>
               </div>
             </div>
           </motion.div>

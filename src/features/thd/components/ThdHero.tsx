@@ -63,7 +63,7 @@ export const ThdHero: React.FC = () => {
             </span>
           </h2>
           <p className="text-xl sm:text-2xl md:text-3xl text-amber-300 font-semibold mb-4">
-            The Working Dollar · Anti-Crypto
+            The Human Dollar · Anti-Crypto
           </p>
           <p className="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto mb-6">
             Money is an employee. Put it to work: $366 for every $1 at the 36,636 cap. Stagnation is a firing offense. Observation is oxygen. Usage is mining.

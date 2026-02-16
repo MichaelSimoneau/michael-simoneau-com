@@ -13,11 +13,10 @@ export const Thd: React.FC = () => {
   return (
     <>
       <Seo
-        title="The Human Dollar (THD) | The Working Dollar - Anti-Crypto"
-        description="The Human Dollar (THD) is The Working Dollar. Money is an employee — $366 for every $1 put to work at the 36,636 cap. Stagnation is a firing offense. 1 THD = 1 USDC floor. This is Metabolic Reality."
+        title="The Human Dollar (THD) | Anti-Crypto"
+        description="The Human Dollar (THD) is money that works. Money is an employee — $366 for every $1 put to work at the 36,636 cap. Stagnation is a firing offense. 1 THD = 1 USDC floor. This is Metabolic Reality."
         canonicalUrl="https://www.michaelsimoneau.com/thd"
         keywords={[
-          "The Working Dollar",
           "The Human Dollar",
           "THD",
           "36636",
@@ -98,7 +97,7 @@ export const Thd: React.FC = () => {
                 The Human Dollar
               </h1>
               <p className="text-2xl text-amber-300 mb-2">
-                The Working Dollar · Anti-Crypto
+                The Human Dollar · Anti-Crypto
               </p>
               <p className="text-xl text-gray-400 mb-4">
                 Currency of the Future
@@ -168,7 +167,7 @@ export const Thd: React.FC = () => {
               "Money is an employee. Put it to work."
             </p>
             <p className="text-gray-300 mb-4">
-              THD is <strong className="text-amber-300">The Working Dollar</strong>. Money is an employee — put it to work and it pays $366 for every $1 at the 36,636 cap. Stagnation is a firing offense: if an asset is not observed, used, or transacted with, its relevance converges toward zero via base-three half-life. The system incentivizes the velocity of money and rewards participation. That is the Anti-Crypto: Metabolic Reality, not sentiment.
+              THD is <strong className="text-amber-300">The Human Dollar</strong>. Money is an employee — put it to work and it pays $366 for every $1 at the 36,636 cap. Stagnation is a firing offense: if an asset is not observed, used, or transacted with, its relevance converges toward zero via base-three half-life. The system incentivizes the velocity of money and rewards participation. That is the Anti-Crypto: Metabolic Reality, not sentiment.
             </p>
             <p className="text-gray-300 mb-4">
               The <strong className="text-amber-300">redemption constraint</strong> is the safety net: 1 THD is always redeemable for 1 USDC. The smart contract physically rejects any transaction valuing THD below the floor. There is only value — or the dollar retires.
