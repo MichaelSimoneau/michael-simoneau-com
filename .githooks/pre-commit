@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+echo "running tests in pre-commit"
+yarn install
+yarn typecheck
+yarn lint
+yarn test

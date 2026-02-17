@@ -3,7 +3,7 @@
  * Tests page load, links, content, SEO word density, and meta tags
  */
 
-import { By, until, type WebDriver } from 'selenium-webdriver';
+import { By, until, type WebDriver, type WebElement } from 'selenium-webdriver';
 import { createDriver, BASE_URL } from './selenium.config';
 
 /**
@@ -73,7 +73,7 @@ async function runTests(): Promise<void> {
         
         // Find the link by text content
         const links = await driver.findElements(By.css('a'));
-        let contactLink: any = null;
+        let contactLink: WebElement | null = null;
         
         for (const link of links) {
           const text = await link.getText();
@@ -99,7 +99,7 @@ async function runTests(): Promise<void> {
         
         const emailLinks = await driver.findElements(By.css('a[href^="mailto:"]'));
         
-        let emailLink: any = null;
+        let emailLink: WebElement | null = null;
         for (const link of emailLinks) {
           const href = await link.getAttribute('href');
           if (href === 'mailto:email@michaelsimoneau.com') {

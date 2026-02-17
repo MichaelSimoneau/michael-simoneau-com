@@ -12,8 +12,6 @@ export const AudioPlayer: React.FC<AudioPlayerProps> = ({ src, title = 'Zeroth V
   const [isPlaying, setIsPlaying] = useState(false);
   const [duration, setDuration] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
-  const [isLoaded, setIsLoaded] = useState(false);
-
   useEffect(() => {
     const audio = audioRef.current;
     if (!audio) return;
@@ -21,7 +19,6 @@ export const AudioPlayer: React.FC<AudioPlayerProps> = ({ src, title = 'Zeroth V
     const updateTime = () => setCurrentTime(audio.currentTime);
     const updateDuration = () => {
       setDuration(audio.duration);
-      setIsLoaded(true);
     };
     const handleEnded = () => setIsPlaying(false);
 

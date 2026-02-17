@@ -1,8 +1,8 @@
-import React, { useRef, useMemo } from 'react';
+import React, { useRef } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { Points, PointMaterial, Float } from '@react-three/drei';
 import * as THREE from 'three';
-// @ts-ignore
+// @ts-expect-error maath has no type definitions
 import { random } from 'maath';
 
 const ANIMATION_FACTOR = 0.002;
@@ -23,20 +23,6 @@ function QuantumParticleField() {
     }
     return validPositions;
   });
-
-  const colors = useMemo(() => {
-    const array = new Float32Array(sphere.length);
-    const color1 = new THREE.Color('#00ff88');
-    const color2 = new THREE.Color('#00ffff');
-    
-    for (let i = 0; i < sphere.length / 3; i++) {
-      const mixedColor = color1.clone().lerp(color2, Math.random());
-      array[i * 3] = mixedColor.r;
-      array[i * 3 + 1] = mixedColor.g;
-      array[i * 3 + 2] = mixedColor.b;
-    }
-    return array;
-  }, [sphere]);
 
   useFrame((state, delta) => {
     if (ref.current) {

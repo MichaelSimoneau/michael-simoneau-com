@@ -1,8 +1,8 @@
-import React, { useState, useRef, useMemo, useEffect, useCallback } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { Cloud, PointMaterial, Points } from '@react-three/drei';
 import * as THREE from 'three';
-// @ts-ignore
+// @ts-expect-error maath has no type definitions
 import { random } from 'maath';
 
 // --- Configuration ---
@@ -11,7 +11,6 @@ const INITIAL_NEBULAS = 3;
 const LIGHTNING_LIFETIME = 0.2; // seconds
 const CHARGE_RATE = 0.3; // charge per second
 const DISCHARGE_THRESHOLD = 5.0; // Charge required to potentially arc
-const DISCHARGE_CHANCE = 0.02; // Per frame chance to discharge if threshold met
 const NEBULA_SPEED = 0.3;
 const BOUNDS = 20;
 
@@ -69,7 +68,8 @@ const Sparks: React.FC<{ charge: number; scale: number }> = ({ charge, scale }) 
 const Nebula: React.FC<{ data: NebulaData }> = ({ data }) => {
   const groupRef = useRef<THREE.Group>(null!);
 
-  useFrame((state, delta) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars -- useFrame callback signature
+  useFrame((_state, _delta) => {
     if (groupRef.current) {
       // Smooth movement updates are handled by parent state, 
       // but we can add local turbulence here if needed.
@@ -163,9 +163,7 @@ function generateLightningPoints(start: THREE.Vector3, end: THREE.Vector3, segme
 }
 
 const StormScene: React.FC = () => {
-  // State
-  const [nebulas, setNebulas] = useState<NebulaData[]>([]);
-  const [lightnings, setLightnings] = useState<LightningData[]>([]);
+  // State managed via stateRef for frame-loop updates; setTick forces re-renders on topology change
   
   // Refs for frame loop updates to avoid react render cycle thrashing for physics
   // However, we need to render the components, so we sync state periodically or use refs for positions?

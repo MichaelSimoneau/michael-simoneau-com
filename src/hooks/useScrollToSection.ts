@@ -84,7 +84,7 @@ export const useScrollToSection = (options?: UseScrollToSectionOptions) => {
       navigate({ pathname: '/', hash: sectionId });
       onComplete?.();
     }
-  }, [location.pathname, location.hash, navigate, options?.scrollContainerId]); // Added location.hash to deps
+  }, [location.pathname, navigate, options?.scrollContainerId]);
 
   return scrollToSection;
 }; 

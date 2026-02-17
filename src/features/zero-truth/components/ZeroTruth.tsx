@@ -1,13 +1,12 @@
 import React, { useState, useEffect, useRef, useMemo, useCallback, useLayoutEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Link } from 'react-router-dom';
-import { ArrowLeft, ChevronDown, ChevronUp, ChevronRight } from 'lucide-react';
+import { ChevronDown, ChevronUp } from 'lucide-react';
 import { NebulaStormBackground } from '../../../backgrounds/NebulaStormBackground';
 import { MainNav } from '../../../layout/MainNav';
 import { Seo } from '../../../foundation/seo/Seo';
-import { parseZeroContent, ZeroContent, Chapter, Principle } from '../../../utils/zeroParser';
+import { parseZeroContent, ZeroContent, Principle } from '../../../utils/zeroParser';
 import { ZeroMobileNavigation } from './ZeroMobileNavigation';
-// @ts-ignore
+// @ts-expect-error Vite raw import
 import truthText from '/zeroth.txt?raw';
 
 export const ZeroTruth: React.FC = () => {
@@ -51,7 +50,7 @@ export const ZeroTruth: React.FC = () => {
         setMobileIndex(index);
       }
     }
-  }, [activePrincipleId, allPrinciples]);
+  }, [activePrincipleId, allPrinciples, mobileIndex]);
 
   const handleNext = () => {
     if (allPrinciples.length === 0) return;
@@ -70,49 +69,6 @@ export const ZeroTruth: React.FC = () => {
       if (isMobile) {
         setMobileIndex(currentIndex + 1);
       }
-    }
-  };
-
-  const handlePrev = () => {
-    if (allPrinciples.length === 0) return;
-
-    const currentIndex = allPrinciples.findIndex(p => p.id === activePrincipleId);
-    if (currentIndex > 0) {
-      const prev = allPrinciples[currentIndex - 1];
-      setActivePrincipleId(prev.id);
-      
-      // Update active chapter if previous principle is in a different chapter
-      if (content) {
-        const chap = content.chapters.find(c => c.principles.some(p => p.id === prev.id));
-        if (chap) setActiveChapterId(chap.id);
-      }
-      
-      if (isMobile) {
-        // Mobile scroll is handled by effect or manual scroll, 
-        // but if we click prev, we might want to scroll to it.
-        // The MobileView component handles scrolling based on index?
-        // Actually, MobileView scroll updates state. If we update state here,
-        // MobileView needs to scroll to the new index.
-        setMobileIndex(currentIndex - 1);
-      }
-    }
-  };
-
-  const handleTop = () => {
-    if (isMobile) {
-      // For mobile, scroll the container to top
-      const container = document.getElementById('mobile-scroll-container');
-      if (container) container.scrollTo({ top: 0, behavior: 'smooth' });
-    } else {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-    
-    if (content && content.chapters.length > 0) {
-       setActiveChapterId(content.chapters[0].id);
-       if (content.chapters[0].principles.length > 0) {
-         setActivePrincipleId(content.chapters[0].principles[0].id);
-         setMobileIndex(0);
-       }
     }
   };
 

@@ -6,5 +6,6 @@ export const useScrollToTop = (dependencies: unknown[] = []) => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
+  // eslint-disable-next-line react-hooks/exhaustive-deps -- dependencies passed dynamically
   }, [pathname, ...dependencies]);
 }; 
