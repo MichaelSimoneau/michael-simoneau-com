@@ -16,7 +16,9 @@
     "pre-deploy-check": "node scripts/pre-deploy-check.cjs",
     "deploy": "npm run pre-deploy-check && bash deploy.sh",
     "clean": "rm -rf dist",
-    "test:selenium": "tsx src/__tests__/e2e/FullProfile.test.ts"
+    "test:selenium": "tsx src/__tests__/e2e/FullProfile.test.ts",
+    "typecheck": "tsc --noEmit",
+    "test": "echo 'No unit tests configured'"
   },
   "dependencies": {
     "@react-three/drei": "^9.99.7",
