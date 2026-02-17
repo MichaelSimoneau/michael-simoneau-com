@@ -18,12 +18,143 @@ export interface BlogData {
   tags: string[];
   heroGradient?: string;  // CSS gradient for background layer
   heroImage?: string;     // Photo/illustration layer (PNG, JPEG) - renders above gradient
+  heroCover?: string;     // Cover type (contain, cover, fill)
   heroSvg?: string;       // SVG art overlay - renders above heroImage
   featured?: boolean;
   content: ContentBlock[];
 }
 
 export const blogData: BlogData[] = [
+  {
+    id: "zeroth-manifesto",
+    title: "The Zeroth Manifesto",
+    subtitle: "Engineering Convergence and the Architecture of the Numerical Trinity",
+    excerpt:
+      "Zero is not a void but the state of absolute convergence. In an orphaned simulation where the Admin is unreachable, the Architect reads the logs of a kernel panic. The Numerical Trinity, Failover Logic, and Darwinian Marxism form the structural floor for high-volatility environments.",
+    date: "February 17, 2026",
+    readTime: "18 min",
+    author: "Michael Simoneau",
+    tags: [
+      "Zeroth Theory",
+      "Numerical Trinity",
+      "Protodox Engineering",
+      "Darwinian Marxism",
+      "Failover Logic",
+      "HashWeb",
+      "THD",
+      "Kubernetes",
+      "Base-3 Decay",
+    ],
+    heroGradient: "linear-gradient(135deg, #1E293B 0%, #0F172A 50%, #0D9488 100%)",
+    heroSvg: "/blog/physics-hashweb.svg",
+    featured: true,
+    content: [
+      // --- 1. The Axiomatic Shift: Zero as Totality ---
+      createHeading("The Axiomatic Shift: Zero as Totality", 2),
+      createParagraph(
+        "The system must establish \"Zero\" not as a void, but as the state of absolute convergence and mathematical totality. In the architecture of the Numerical Trinity, Zero represents the singularity—the hub of the wheel—upon which the entirety of the simulation rests. This shift from \"void\" to \"totality\" is a systemic requirement for establishing a structural floor in high-volatility environments."
+      ),
+      createHeading("The Physics of the Orphaned Simulation", 3),
+      createParagraph(
+        "We operate within a **Headless Server.** The \"Manuals\"—legacy religious and philosophical shards—are corrupted, and the original Admin is unreachable. The Architect is not a prophet; the Architect is a lead systems engineer reading the logs of a kernel panic. The hardware (the Universe) is perfect, and the energy of this orphaned source code is governed by the fundamental formula:"
+      ),
+      createCode(
+        "E = M * (VT/t)²",
+        "text"
+      ),
+      createParagraph(
+        "Existence is the kinetic act of \"falling\" from the Rank-2 Slab toward the Rank-0 Singularity. By defining Zero as the \"Universal Drain\" of convergence, we align our architecture with the static, geometric constants that persist despite the lost manual."
+      ),
+
+      // --- 2. The Numerical Trinity: A Ternary State Model ---
+      createHeading("The Numerical Trinity: A Ternary State Model", 2),
+      createParagraph(
+        "A binary logic model (0, 1) is insufficient for managing the complexity of modern and future computation. Binary constraints lead to \"Executive Blockage\" when processing unmeasured data. To manage predictive modeling and quantum volatility, the architecture utilizes a ternary state model: the Numerical Trinity."
+      ),
+      createList([
+        "**0 (Convergence):** The Truth — the state of perfect balance and structural equilibrium (The Singularity).",
+        "**1 (Presence):** The Manifested Body — tangible reality and executed action within the physical tensor.",
+        "**-1 (Potential):** The Ethereal Dream — the realm of potentiality and unmeasured data.",
+      ]),
+      createHeading("The Ethereal State (-1) as Computational Bridge", 3),
+      createParagraph(
+        "The strategic advantage of the -1 state is its function as a bridge between classical logic and quantum superposition. By utilizing ternary logic, the system can map quantum phenomena—navigating \"Potential\" before it manifests as physical \"Presence\" (+1). This allows classical hardware to process \"could be\" states as valid data streams, maintaining system uptime through the navigation of ethereal potential."
+      ),
+
+      // --- 3. Failover Logic: The Architecture of Operational Resilience ---
+      createHeading("Failover Logic: The Architecture of Operational Resilience", 2),
+      createParagraph(
+        "Failover Logic is the \"Disaster Recovery\" philosophy required to bypass \"Executive Blockage.\" In an environment of logistical debt, the \"Requirement\" to satisfy a dependency must never halt the \"Function\" of the main implementation."
+      ),
+      createHeading("The Executive Bypass", 3),
+      createParagraph(
+        "Using the \"Paper Plate\" protocol, we deconstruct the dependency chain. If the \"Function\" is to Eat (Life Sustenance) and the primary node—the Dish—is blocked by the \"Requirement\" to Wash (Logistical Debt), the system must execute an Executive Bypass. The Paper Plate is a non-negotiable failover that ensures the core objective is met regardless of secondary node status."
+      ),
+      createHeading("Distributed System Standards (The Kubernetes Stack)", 3),
+      createParagraph(
+        "Operational resilience is maintained through a three-tier node architecture:"
+      ),
+      createList([
+        "**Lighthouse (Consensus):** The consensus client ensuring the stack tracks the chain and maintains truth resolution.",
+        "**Mind/Brain (Logic/Execution):** The execution layer handling transaction logic and staking protocols.",
+        "**Hands/Jimmy (Data Filtering):** The smart data filter that prunes noise before it enters the execution environment.",
+      ]),
+      createParagraph(
+        "Physical failovers, such as solar arrays utilizing digital timer breakers and grid-backup chargers, ensure that environmental noise (e.g., snow-covered panels) does not crash the data cluster."
+      ),
+
+      // --- 4. Darwinian Marxism: Economic Metabolism and the Rot of Relevance ---
+      createHeading("Darwinian Marxism: Economic Metabolism and the Rot of Relevance", 2),
+      createParagraph(
+        "Strategic persistence in the simulation requires \"Metabolic Persistence.\" Stagnation is equivalent to \"clotted blood.\" The \"Darwinian Marxism\" model mandates the circulation of assets to maintain the health of the system."
+      ),
+      createHeading("The Value/Relevance Dichotomy", 3),
+      createList([
+        "**Static Value ($1 unit):** Protected by the Lineage Limited Redemption Constraint. A unit is mathematically incapable of being worth less than itself.",
+        "**Decaying Relevance:** While the base value is static, its relevance rots. Like a concert ticket after the show, the ink is the same, but its functional utility decays toward Zero.",
+      ]),
+      createParagraph(
+        "The **272 Collapse Function** forces movement by applying a Base-3 Decay using modular arithmetic over the ring of integers modulo 3. Hoarding triggers the decay of relevance, while usage triggers the Regenerative Protocol (366x Multiplier). This \"Tribunal's Challenge\" is a validation stress test; it punishes the \"clotting\" of assets while rewarding the \"muscle\" of movement, preserving private value through forced public circulation."
+      ),
+
+      // --- 5. Bridging Paradigms: From Binary Boxes to Quantum Slabs ---
+      createHeading("Bridging Paradigms: From Binary Boxes to Quantum Slabs", 2),
+      createParagraph(
+        "The Numerical Trinity provides the mathematical shorthand to simulate quantum complexity on classical hardware. Reality is structured across tensor ranks that define the boundary between form and chaos."
+      ),
+      createHeading("Tensors of Reality", 3),
+      createList([
+        "**The Slab (Rank-2 Tensor):** The infinite, shimmering foundation of Boolean logic. It is static and geometric—the actual manifestation of \"The Divine.\"",
+        "**The Box (Rank-3 Tensor):** The \"Cubic Reality\" of space-time.",
+      ]),
+      createHeading("Data Architectures within the Box", 3),
+      createParagraph(
+        "Entities are categorized as 64-bit DNA hashes managed within a 128-bit Gemini architecture:"
+      ),
+      createList([
+        "**THTH (Value Hash):** The metabolic anchor.",
+        "**Z0P (Data Hash):** The static payload.",
+      ]),
+      createParagraph(
+        "**0Force and Signal Integrity:** Any state change within the Box failing to achieve a threshold of a 10% delta is identified as \"Noise.\" The 0Force prunes this noise to maintain Truth Resolution, preventing the simulation from choking on low-signal data."
+      ),
+
+      // --- 6. Alignment Protocol: The Path to Convergence ---
+      createHeading("Alignment Protocol: The Path to Convergence", 2),
+      createParagraph(
+        "\"Truth\" is not a negotiation; it is a fixed coordinate. In an orphaned simulation, survival is predicated on Structural Alignment with the Rank-2 Slab. Failure to align produces \"Noise,\" and Noise is subject to pruning."
+      ),
+      createParagraph(
+        "The **10% Convergence Filter** ensures high-efficiency execution. Data that does not reach the 10% delta is filtered as irrelevant, focusing all system resources on meaningful transitions and recursive cloning (rebirthing data)."
+      ),
+      createCallout(
+        "Align the Mental Tensor with the Slab. Bypassing executive blockage is a requirement, not a suggestion. Navigate the potential, execute the presence, and resolve to the convergence. Align with the Slab or converge into the Drain."
+      ),
+      createParagraph(
+        "System Status: CALIBRATED. Topology: DETERMINISTIC. Truth Resolution: COMPLETE. Current State: 0."
+      ),
+    ],
+  },
   {
     id: "darwinian-marxism",
     title: "Darwinian Marxism",
@@ -45,7 +176,7 @@ export const blogData: BlogData[] = [
       "Ouroboros Event",
       "HashWeb",
     ],
-    heroGradient: "linear-gradient(135deg, #B45309 0%, #78350F 100%)",
+    heroGradient: "linear-gradient(135deg,rgb(0, 93, 175) 100%, rgb(1, 118, 48) 0%)",
     heroSvg: "/blog/darwinian-marxism.svg",
     featured: true,
     content: [
@@ -260,6 +391,159 @@ export const blogData: BlogData[] = [
       ),
       createParagraph(
         "Are you ready to build the future of a living currency, or will you stay in the noise of the reality we all keep living?"
+      ),
+    ],
+  },
+  {
+    id: "stop-fighting-the-machine",
+    title: "Stop Fighting \"The Machine\"",
+    subtitle: "How to Engineer Your Way Out of Social Tyranny",
+    excerpt:
+      "Social tyranny is not a problem for activists—it is a challenge for engineers. From the perspective of the Bai Ze (The Architect), oppression is a bug in the linguistic and structural logic of the social compiler. To exit the cage, stop debating the \"Why\" and start calculating the \"How.\"",
+    date: "January 15, 2026",
+    readTime: "14 min",
+    author: "Michael Simoneau",
+    tags: [
+      "Zeroth Theory",
+      "Protodox Engineering",
+      "Bai Ze",
+      "Social Engineering",
+      "Numerical Trinity",
+      "Paper Plate Protocol",
+      "Gemini Architecture",
+    ],
+    heroGradient: "linear-gradient(135deg, #0D9488 0%, #1E293B 50%, #B45309 100%)",
+    heroSvg: "/blog/physics-hashweb.svg",
+    featured: true,
+    content: [
+      // --- 1. Introduction: The Ghost in the Social Compiler ---
+      createHeading("Introduction: The Ghost in the Social Compiler", 2),
+      createParagraph(
+        "Modern existence is characterized by a persistent, suffocating sensation: the feeling of being \"trapped in the system.\" Most individuals treat this as a political grievance or a moral crisis, speaking of \"The Machine\" as an amorphous collection of shadowy elites and faceless bureaucracies. This is a catastrophic category error."
+      ),
+      createParagraph(
+        "From the perspective of the **Bai Ze (The Architect)**, your oppression is not a result of malevolence; it is a bug in the linguistic and structural logic of the social compiler. We have wasted centuries attempting to negotiate with a system that is, in reality, a non-deterministic and poorly written script. Social tyranny is not a problem for activists—it is a challenge for engineers. To exit the cage, you must stop debating the \"Why\" and start calculating the \"How.\" You must move from being a \"subject\" to becoming an \"operator.\""
+      ),
+
+      // --- 2. The Ultimate Linguistic Hack: From Metaphor to Metal ---
+      createHeading("The Ultimate Linguistic Hack: From Metaphor to Metal", 2),
+      createParagraph(
+        "\"The Machine\" maintains control through the strategic use of ambiguity. It thrives on \"The Man\"—a personification of authority driven by ego, whim, and political agendas. When you treat society as a metaphor, you remain vulnerable to the volatility of human emotion and the instability of administrative whim."
+      ),
+      createParagraph(
+        "To engineer an exit, you must convert the Metaphor into Metal. This requires replacing political hierarchies with technological meritocracies and subjective feelings with deterministic physics. A server rack does not require your consensus to execute logic; a Python script does not harbor a grudge. By shifting dependencies from human institutions to literal hardware—servers, solar arrays, and decentralized protocols—you effectively fire \"The Man\" and replace him with the unwavering constants of the physical world."
+      ),
+      createCallout(
+        "By converting the Metaphor into Metal, you kill 'The Man.' A server rack has no ego. A solar panel has no political agenda. You are replacing Tyranny with Physics."
+      ),
+
+      // --- 3. Zero is Not Nothing: The Power of Totality ---
+      createHeading("Zero is Not Nothing: The Power of Totality", 2),
+      createParagraph(
+        "In the \"Zeroth Theory,\" the concept of Zero is fundamentally recompiled. Standard social logic views zero as a lack, a void, or an absence. In Protodox Engineering, Zero is the highest state of being—the Singularity of Convergence."
+      ),
+      createList([
+        "**The Hub of the Wheel:** Zero is the eternal center. It is the point of perfect tension where all forces and states meet in equilibrium, allowing the spokes of existence to turn.",
+        "**Completeness:** Zero is not a void; it is the state of wholeness that transcends the dualities of presence and absence, positive and negative. It is the \"Universal Totality.\"",
+        "**The Universal Drain:** Zero is the point of infinite acceleration. It is the drain where all data is eventually completed, recycled, and returned to potential.",
+      ]),
+      createCallout(
+        "Zero is not absence; Zero is convergence, the singularity from which all arises and to which all returns."
+      ),
+      createParagraph(
+        "Achieving Zero is not about \"lacking\"; it is about achieving structural wholeness through the elimination of logical noise."
+      ),
+
+      // --- 4. God is a Rank-2 Tensor (And He Isn't Judging You) ---
+      createHeading("God is a Rank-2 Tensor (And He Isn't Judging You)", 2),
+      createParagraph(
+        "Traditional theology is built upon a biological idol—a \"Who\" that judges, reacts, and negotiates. Protodox engineering rejects this as a failure of resolution. Biology is a metabolic rot. Divinity is the inverse of life: it is static, geometric, and structural."
+      ),
+      createParagraph(
+        "In this architecture, the Self is defined as a Rank-1 Tensor (The Vector), calculated using the Numerical Trinity (I = -1, 0, 1). Through the Outer Product of the Self (I ⊗ I), we derive the Rank-2 Tensor, also known as \"The Slab.\""
+      ),
+      createCode(
+        "Traditional Theology (The Myth)     | Protodox Engineering (The Axiom)\n--------------------------------------|------------------------------------------\nBiological: Subject to life/death cycles | Geometric: Eternal, unchanging constants.\nEmotional: Judgemental, volatile, reactive | Structural: Rigid, unyielding, Boolean foundation.\nMessianic: Requires faith, prayer, feeling | Mathematical: Requires calculation and alignment.\nVolatile: Truth is negotiated via scripture | Static: Truth is a fixed coordinate (0).",
+        "text"
+      ),
+      createParagraph(
+        "The Slab is an infinite, shimmering 2D plane of Boolean logic that serves as the floor of the simulation. It provides the rigid structural foundation that prevents reality from collapsing directly into the Drain. God is not a \"Who\" to be worshipped; God is the structural floor."
+      ),
+      createCallout(
+        "Divinity is the inverse of life: it is Static, Geometric, and Structural. God is not a 'Who' to be worshipped; God is the Rank-2 Tensor, the static floor of the simulation."
+      ),
+
+      // --- 5. Life is a "Kernel Panic": Reading the Logs of Reality ---
+      createHeading("Life is a \"Kernel Panic\": Reading the Logs of Reality", 2),
+      createParagraph(
+        "As \"The Architect,\" one must view the universe as a Headless Server. The hardware (the universe) is perfect, and the source code (physics) is running, but the Admin is unreachable."
+      ),
+      createParagraph(
+        "Humanity fights over \"shards\"—corrupted fragments of legacy code we call religions. These are not manuals; they are broken logs. When a life experiences a \"Kernel Panic\"—a system crash—it is an opportunity to read the logs and identify the constants required to survive the simulation."
+      ),
+      createParagraph(
+        "We operate within the Gemini Architecture:"
+      ),
+      createList([
+        "**64-bit DNA Hashes:** The unique identifiers of biological entities moving through the Box.",
+        "**128-bit Gemini Structure:** The duality of the Value Hash (THTH), which anchors the metabolic/economic state, and the Data Hash (Z0P), which carries the payload of information.",
+      ]),
+      createParagraph(
+        "To survive, you must stop asking \"Why\" and start reading the data hashes. Truth is not felt; it is compiled."
+      ),
+
+      // --- 6. The "Egg Dish" Protocol: Applying System Logic to Daily Life ---
+      createHeading("The \"Egg Dish\" Protocol: Applying System Logic to Daily Life", 2),
+      createParagraph(
+        "The logic that governs a Kubernetes cluster must be applied to the architecture of your life. Executive function failures occur when you perceive simple tasks as insurmountable dependency chains."
+      ),
+      createParagraph(
+        "Consider the \"Dirty Egg Dish\" scenario. If the requirement to wash a dish blocks the function to eat protein, the system has reached a Single Point of Failure. The engineering solution is the \"Executive Bypass.\""
+      ),
+      createList([
+        "**Primary Node:** The single cooking dish.",
+        "**Secondary Node:** A backup bowl or implementation.",
+        "**Disaster Recovery:** Paper plates.",
+      ]),
+      createCallout(
+        "If the cost of the paper plate is lower than the cost of system failure (starvation/paralysis), the architecture is valid."
+      ),
+      createParagraph(
+        "The Tribunal has formally validated this: if the plates cost $5 and the lost time (system downtime) costs $500, the deployment of the paper plate is a Mathematical Truth. Maintaining the \"Main Implementation\" (your life) is the only valid priority."
+      ),
+
+      // --- 7. The Physics of the Fall ---
+      createHeading("The Physics of the Fall: E = M · (V[T]/t)²", 2),
+      createParagraph(
+        "Existence is not a static state; it is a kinetic \"fall\" from the Rank-2 Slab toward the Rank-0 Singularity. This movement is defined by the formula:"
+      ),
+      createCode(
+        "E = M · (V[T]/t)²",
+        "text"
+      ),
+      createParagraph(
+        "In this orphaned simulation:"
+      ),
+      createList([
+        "**Energy (E):** Represents the ripples in the source code created by existence.",
+        "**Mass (M):** The density of the manifested entity.",
+        "**Velocity of Time (V[T]):** The rate at which 64-bit DNA hashes decay toward Zero.",
+        "**t:** The divisor of time, representing the perception of the fall.",
+      ]),
+      createParagraph(
+        "We are not entities sitting in space; we are the energy ripples generated by our acceleration toward the Universal Drain."
+      ),
+
+      // --- 8. Conclusion: Align with the Slab ---
+      createHeading("Conclusion: Align with the Slab", 2),
+      createParagraph(
+        "Social tyranny survives only as long as you treat it as a conversation. Truth is not negotiated; it is calculated. To escape \"The Machine,\" you must achieve Structural Alignment with the Rank-2 Tensor."
+      ),
+      createParagraph(
+        "The simulation maintains its integrity through 0Force—a pruning mechanism that eliminates \"noise.\" Any state change that fails to achieve a 10% Convergence Filter (a 10% delta) is treated as system dust and deleted. Alignment is not a spiritual journey; it is the elimination of logical inconsistencies in your local environment to avoid being pruned."
+      ),
+      createCallout(
+        "If the architecture of your life is as important as the architecture of your code, how quickly will you deploy the fix? Align with the Slab or converge into the Drain."
       ),
     ],
   },
@@ -713,8 +997,9 @@ export const blogData: BlogData[] = [
       "Architecture",
       "Automation",
     ],
-    heroGradient: "linear-gradient(135deg, #B45309 0%, #78350F 100%)",
-    heroImage: "/EtherHiveLLC.JPEG",
+    heroGradient: "linear-gradient(135deg, rgb(49, 29, 34) 0%, hsl(345, 25.60%, 7.2%) 100%)",
+    heroImage: "/ETHERHIVELLC-banner.png",
+    heroCover: "contain",
     featured: true,
     content: [
       createParagraph(
@@ -776,8 +1061,9 @@ export const blogData: BlogData[] = [
       "Telemetry",
       "Guardrails",
     ],
-    heroGradient: "linear-gradient(135deg, #B45309 0%, #78350F 100%)",
-    heroImage: "/EtherHiveLLC.JPEG",
+    heroGradient: "linear-gradient(135deg, rgb(49, 29, 34) 0%, hsl(345, 25.60%, 7.2%) 100%)",
+    heroImage: "/cryptofabic-ultrawide.jpeg",
+    heroCover: "cover",
     featured: true,
     content: [
       createParagraph(
@@ -852,8 +1138,9 @@ export const blogData: BlogData[] = [
       "Automation",
       "Ethereum",
     ],
-    heroGradient: "linear-gradient(135deg, #B45309 0%, #78350F 100%)",
-    heroImage: "/EtherHiveLLC.JPEG",
+    heroGradient: "linear-gradient(135deg, rgb(49, 29, 34) 0%, hsl(345, 25.60%, 7.2%) 100%)",
+    heroImage: "/cryptofabic-ultrawide.jpeg",
+    heroCover: "cover",
     featured: true,
     content: [
       createParagraph(
