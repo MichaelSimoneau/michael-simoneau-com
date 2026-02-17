@@ -45,7 +45,7 @@ export const HeroSection: React.FC = () => {
           From Enterprise Architecture to The Human Dollar
         </p>
         <p className="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto mb-8">
-          Money is an employee. Put it to work and it pays you $655 for every $1 that reaches the $65,535 cap. Stagnation is a firing offense — idle capital enters early retirement. This is not speculation. This is Metabolic Reality.
+          THD is your employee. Put it to work and it pays you $655 for every $1 that reaches the $65,535 cap. Stagnation is a firing offense — idle capital enters early retirement. This is not speculation. This is Metabolic Reality.
         </p>
       </motion.div>
 

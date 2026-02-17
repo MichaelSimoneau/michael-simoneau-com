@@ -84,7 +84,7 @@ export const Interview3: React.FC = () => {
 
                   <div>
                     <p className="text-lg font-semibold mb-2">What is The Human Dollar?</p>
-                    <p className="text-gray-300">Money is an employee. Put it to work and it pays $655 for every $1 at the $65,535 cap — the Genesis Dividend. We moved to a native 128-bit structure—two 64-bit siblings fused together. Sibling A is the value particle: price, lineage, economics. Sibling B is the payload: the data or a pointer to it. You can&apos;t separate them. So when you &quot;send&quot; a 4GB file, the file doesn&apos;t move—you send a new pointer locked to the value. The map and the payment are one. That&apos;s Metabolic Reality: value fused to the file&apos;s existence on the network.</p>
+                    <p className="text-gray-300">THD is your employee. Put it to work and it pays $655 for every $1 at the $65,535 cap — the Genesis Dividend. We moved to a native 128-bit structure—two 64-bit siblings fused together. Sibling A is the value particle: price, lineage, economics. Sibling B is the payload: the data or a pointer to it. You can&apos;t separate them. So when you &quot;send&quot; a 4GB file, the file doesn&apos;t move—you send a new pointer locked to the value. The map and the payment are one. That&apos;s Metabolic Reality: value fused to the file&apos;s existence on the network.</p>
                   </div>
 
                   <div>
