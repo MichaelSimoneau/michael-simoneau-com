@@ -341,7 +341,7 @@ export const BlogPost: React.FC = () => {
             </div>
 
             <div 
-              className="w-full h-[200px] md:h-[300px] mb-8 rounded-xl relative overflow-hidden" 
+              className="w-full h-[240px] md:h-[380px] mb-8 rounded-xl relative overflow-hidden" 
               style={{ 
                 background: post.heroImage === '/blog/darwinian-marxism.svg' ?
                   'linear-gradient(135deg, #B45309 0%, #78350F 100%)' :
@@ -375,7 +375,7 @@ export const BlogPost: React.FC = () => {
                     </span>
                   ))}
                 </div>
-                <h1 className="text-2xl md:text-4xl lg:text-6xl font-bold text-white leading-tight">{post.title}</h1>
+                <h1 className="text-2xl md:text-4xl lg:text-5xl font-bold text-white leading-tight break-words">{post.title}</h1>
                 <div className="flex items-center mt-3 md:mt-4 text-white/80 text-sm md:text-base">
                   <Calendar size={16} className="mr-1" />
                   <span className="mr-4">{post.date}</span>
