@@ -1,21 +1,39 @@
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Play } from 'lucide-react';
+
+const YOUTUBE_LOAD_TIMEOUT_MS = 8000;
 
 /**
  * Full-screen hero section featuring the "Double Dragon Ouroboros Architecture" YouTube video
  * with a translucent black overlay and centered title text.
  * Clicking "Watch Now" removes the overlay and starts playback with sound and controls.
+ * Shows a fallback link if the YouTube embed fails to load.
  */
 export const VideoHeroSection: React.FC = () => {
   const videoId = '8AygigXMlS0';
   const [isWatching, setIsWatching] = useState(false);
+  const [loadFailed, setLoadFailed] = useState(false);
+  const [hasLoaded, setHasLoaded] = useState(false);
 
   /** Background preview: muted, no controls, autoplay loop */
   const previewUrl = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&loop=1&playlist=${videoId}&controls=0&showinfo=0&modestbranding=1&rel=0&playsinline=1`;
 
   /** Active viewing: unmuted, with controls, captions on by default */
   const activeUrl = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=0&loop=1&playlist=${videoId}&controls=1&modestbranding=1&rel=0&playsinline=1&cc_load_policy=1&cc_lang_pref=en`;
+
+  const youtubeDirectUrl = `https://www.youtube.com/watch?v=${videoId}`;
+
+  const handleIframeLoad = useCallback(() => {
+    setHasLoaded(true);
+    setLoadFailed(false);
+  }, []);
+
+  useEffect(() => {
+    if (hasLoaded) return;
+    const timeoutId = setTimeout(() => setLoadFailed(true), YOUTUBE_LOAD_TIMEOUT_MS);
+    return () => clearTimeout(timeoutId);
+  }, [hasLoaded]);
 
   return (
     <section
@@ -24,18 +42,36 @@ export const VideoHeroSection: React.FC = () => {
     >
       {/* YouTube video — absolutely positioned and scaled to cover */}
       <div className="absolute inset-0 z-0">
+        {loadFailed ? (
+          <div className="absolute inset-0 flex flex-col items-center justify-center bg-gray-900 text-white px-4">
+            <p className="text-lg text-gray-300 mb-4 text-center">
+              Video couldn&apos;t be loaded. Watch directly on YouTube:
+            </p>
+            <a
+              href={youtubeDirectUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-lg transition-colors"
+            >
+              <Play size={20} />
+              Watch on YouTube
+            </a>
+          </div>
+        ) : (
         <iframe
           src={isWatching ? activeUrl : previewUrl}
           title="Double Dragon Ouroboros Architecture"
           className={`absolute top-1/2 left-1/2 w-[177.78vh] min-w-full min-h-full -translate-x-1/2 -translate-y-1/2 border-0 ${isWatching ? '' : 'pointer-events-none'}`}
           allow="autoplay; encrypted-media"
           allowFullScreen
+          onLoad={handleIframeLoad}
         />
+        )}
       </div>
 
-      {/* Overlay + title — animated out when watching */}
+      {/* Overlay + title — animated out when watching; hidden when iframe failed to load */}
       <AnimatePresence>
-        {!isWatching && (
+        {!isWatching && !loadFailed && (
           <>
             {/* Translucent black overlay */}
             <motion.div

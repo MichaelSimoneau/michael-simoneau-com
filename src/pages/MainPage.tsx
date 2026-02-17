@@ -36,8 +36,13 @@ function easeIn(t: number): number {
  */
 const SOUNDON_DEFAULT_HEIGHT = 2400;
 
+const SOUNDON_BIO_URL = 'https://www.soundon.global/bio/immikecrane';
+const IFRAME_LOAD_TIMEOUT_MS = 8000;
+
 const SoundOnEmbed: React.FC = () => {
   const [iframeHeight, setIframeHeight] = useState(SOUNDON_DEFAULT_HEIGHT);
+  const [loadFailed, setLoadFailed] = useState(false);
+  const [hasLoaded, setHasLoaded] = useState(false);
   const iframeRef = useRef<HTMLIFrameElement | null>(null);
 
   useEffect(() => {
@@ -56,6 +61,19 @@ const SoundOnEmbed: React.FC = () => {
     return () => window.removeEventListener('message', handleMessage);
   }, []);
 
+  useEffect(() => {
+    if (hasLoaded) return;
+    const timeoutId = setTimeout(() => {
+      setLoadFailed(true);
+    }, IFRAME_LOAD_TIMEOUT_MS);
+    return () => clearTimeout(timeoutId);
+  }, [hasLoaded]);
+
+  const handleIframeLoad = useCallback(() => {
+    setHasLoaded(true);
+    setLoadFailed(false);
+  }, []);
+
   const containerStyle: CSSProperties = {
     width: '100vw',
     maxHeight: '150vh',
@@ -72,13 +90,30 @@ const SoundOnEmbed: React.FC = () => {
 
   return (
     <div id="music" className="relative" style={containerStyle}>
-      <iframe
-        ref={iframeRef}
-        src="https://www.soundon.global/bio/immikecrane"
-        title="Mike Crane on SoundOn"
-        scrolling="no"
-        style={iframeStyle}
-      />
+      {loadFailed ? (
+        <div className="flex flex-col items-center justify-center py-24 px-4 bg-gray-900/60 text-white">
+          <p className="text-lg text-gray-300 mb-4">
+            Michael&apos;s Music Preview failed to load, view on SoundOn:
+          </p>
+          <a
+            href={SOUNDON_BIO_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-6 py-3 bg-gradient-to-r from-cyan-500 to-emerald-600 hover:from-cyan-600 hover:to-emerald-700 text-white font-semibold rounded-lg transition-colors"
+          >
+            Michael Simoneau is &apos;Mike Crane&apos;
+          </a>
+        </div>
+      ) : (
+        <iframe
+          ref={iframeRef}
+          src={SOUNDON_BIO_URL}
+          title="Mike Crane on SoundOn"
+          scrolling="no"
+          style={iframeStyle}
+          onLoad={handleIframeLoad}
+        />
+      )}
     </div>
   );
 };
