@@ -1,0 +1,106 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="630" fill="#030617"/>
+  <defs>
+    <linearGradient id="st-g1" x1="0" y1="0" x2="1200" y2="630" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#DC2626" stop-opacity="0.12"/>
+      <stop offset="1" stop-color="#991B1B" stop-opacity="0.4"/>
+    </linearGradient>
+    <linearGradient id="st-monolith" x1="0" y1="0" x2="1" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#991B1B" stop-opacity="0.6"/>
+      <stop offset="1" stop-color="#450A0A" stop-opacity="0.8"/>
+    </linearGradient>
+    <linearGradient id="st-modern" x1="0" y1="0" x2="1" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#0EA5E9" stop-opacity="0.4"/>
+      <stop offset="1" stop-color="#38BDF8" stop-opacity="0.2"/>
+    </linearGradient>
+    <filter id="st-glow">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="st-softglow">
+      <feGaussianBlur stdDeviation="6" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect x="60" y="60" width="1080" height="510" rx="48" fill="url(#st-g1)" stroke="rgba(220,38,38,0.25)" stroke-width="2"/>
+
+  <!-- LEFT: Legacy monolith (dark, heavy) -->
+  <rect x="180" y="150" width="200" height="300" rx="6" fill="url(#st-monolith)" stroke="rgba(220,38,38,0.3)" stroke-width="2"/>
+  <!-- Monolith internal layers (tightly coupled) -->
+  <line x1="180" y1="210" x2="380" y2="210" stroke="rgba(220,38,38,0.15)" stroke-width="1"/>
+  <line x1="180" y1="270" x2="380" y2="270" stroke="rgba(220,38,38,0.15)" stroke-width="1"/>
+  <line x1="180" y1="330" x2="380" y2="330" stroke="rgba(220,38,38,0.15)" stroke-width="1"/>
+  <line x1="180" y1="390" x2="380" y2="390" stroke="rgba(220,38,38,0.15)" stroke-width="1"/>
+  <text x="280" y="175" font-family="'IBM Plex Sans', 'Inter', sans-serif" font-size="11" fill="rgba(220,38,38,0.5)" text-anchor="middle" letter-spacing="0.15em">MONOLITH</text>
+
+  <!-- Vine-like organic growth consuming the monolith (Strangler Fig) -->
+  <g stroke="rgba(14,165,233,0.3)" stroke-width="2" fill="none" stroke-linecap="round">
+    <path d="M380 180 C420 170 450 160 480 170 C510 180 520 200 530 220"/>
+    <path d="M380 250 C430 240 470 230 510 245 C540 255 550 270 560 290"/>
+    <path d="M380 320 C430 310 460 300 500 310 C530 320 550 340 560 360"/>
+    <path d="M380 400 C420 390 450 385 480 395 C510 405 530 420 540 440"/>
+  </g>
+  <!-- Organic vine leaves/nodes -->
+  <g fill="rgba(14,165,233,0.15)">
+    <circle cx="420" cy="172" r="5"/><circle cx="460" cy="162" r="4"/>
+    <circle cx="440" cy="242" r="5"/><circle cx="490" cy="240" r="4"/>
+    <circle cx="430" cy="312" r="5"/><circle cx="470" cy="305" r="4"/>
+    <circle cx="430" cy="392" r="5"/><circle cx="465" cy="388" r="4"/>
+  </g>
+
+  <!-- RIGHT: Modern microservice nodes -->
+  <g filter="url(#st-softglow)">
+    <circle cx="720" cy="200" r="30" fill="url(#st-modern)" stroke="rgba(56,189,248,0.4)" stroke-width="1.5"/>
+    <circle cx="850" cy="180" r="25" fill="url(#st-modern)" stroke="rgba(56,189,248,0.3)" stroke-width="1.5"/>
+    <circle cx="950" cy="240" r="22" fill="url(#st-modern)" stroke="rgba(56,189,248,0.3)" stroke-width="1.5"/>
+    <circle cx="780" cy="320" r="28" fill="url(#st-modern)" stroke="rgba(56,189,248,0.35)" stroke-width="1.5"/>
+    <circle cx="900" cy="350" r="24" fill="url(#st-modern)" stroke="rgba(56,189,248,0.3)" stroke-width="1.5"/>
+    <circle cx="720" cy="420" r="26" fill="url(#st-modern)" stroke="rgba(56,189,248,0.3)" stroke-width="1.5"/>
+    <circle cx="860" cy="440" r="20" fill="url(#st-modern)" stroke="rgba(56,189,248,0.25)" stroke-width="1.5"/>
+  </g>
+  <!-- Service labels -->
+  <g font-family="'IBM Plex Mono', 'Courier New', monospace" font-size="9" fill="rgba(56,189,248,0.6)" text-anchor="middle">
+    <text x="720" y="203">API</text>
+    <text x="850" y="183">AUTH</text>
+    <text x="950" y="243">DATA</text>
+    <text x="780" y="323">CORE</text>
+    <text x="900" y="353">CACHE</text>
+    <text x="720" y="423">QUEUE</text>
+    <text x="860" y="443">LOG</text>
+  </g>
+  <!-- API connection lines -->
+  <g stroke="rgba(56,189,248,0.15)" stroke-width="1.2" fill="none">
+    <line x1="750" y1="200" x2="825" y2="180"/>
+    <line x1="875" y1="185" x2="935" y2="230"/>
+    <line x1="740" y1="225" x2="760" y2="295"/>
+    <line x1="808" y1="320" x2="876" y2="345"/>
+    <line x1="780" y1="348" x2="730" y2="395"/>
+    <line x1="900" y1="374" x2="870" y2="420"/>
+    <line x1="740" y1="420" x2="840" y2="438"/>
+  </g>
+
+  <!-- Transition arrow -->
+  <g filter="url(#st-glow)" opacity="0.6">
+    <path d="M480 300 L620 300" stroke="#38BDF8" stroke-width="2" stroke-dasharray="6 4"/>
+    <polygon points="625,300 615,294 615,306" fill="#38BDF8"/>
+  </g>
+
+  <!-- Uptime gauge -->
+  <g transform="translate(600, 480)">
+    <!-- Gauge arc background -->
+    <path d="M-80 0 A80 80 0 0 1 80 0" fill="none" stroke="rgba(220,38,38,0.2)" stroke-width="6" stroke-linecap="round"/>
+    <!-- Gauge arc filled (showing improvement) -->
+    <path d="M-80 0 A80 80 0 0 1 70 -40" fill="none" stroke="rgba(56,189,248,0.6)" stroke-width="6" stroke-linecap="round" filter="url(#st-glow)"/>
+    <!-- Gauge labels -->
+    <text x="-80" y="20" font-family="'IBM Plex Sans', 'Inter', sans-serif" font-size="11" fill="rgba(220,38,38,0.5)" text-anchor="middle">94.5%</text>
+    <text x="80" y="20" font-family="'IBM Plex Sans', 'Inter', sans-serif" font-size="11" fill="rgba(56,189,248,0.7)" text-anchor="middle">99.99%</text>
+    <text x="0" y="-20" font-family="'IBM Plex Sans', 'Inter', sans-serif" font-size="9" fill="rgba(148,163,184,0.5)" text-anchor="middle" letter-spacing="0.15em">UPTIME</text>
+  </g>
+
+  <!-- Title text -->
+  <g fill="#F8FAFC" font-family="'IBM Plex Sans', 'Inter', sans-serif" font-weight="600" text-anchor="middle">
+    <text x="600" y="110" font-size="14" fill="#F87171" letter-spacing="0.3em" font-weight="500">CASE STUDY</text>
+    <text x="600" y="555" font-size="40" letter-spacing="0.08em">TRANSFORMING A CRITICAL</text>
+    <text x="600" y="567" font-size="20" fill="#38BDF8" font-weight="400" dy="10">Enterprise System</text>
+  </g>
+</svg>

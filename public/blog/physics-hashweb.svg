@@ -1,0 +1,110 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="630" fill="#030617"/>
+  <defs>
+    <linearGradient id="ph-g1" x1="0" y1="0" x2="1200" y2="630" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#1E293B" stop-opacity="0.3"/>
+      <stop offset="1" stop-color="#0F172A" stop-opacity="0.6"/>
+    </linearGradient>
+    <radialGradient id="ph-drain" cx="600" cy="340" r="120" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#0EA5E9" stop-opacity="0.6"/>
+      <stop offset="0.5" stop-color="#1E40AF" stop-opacity="0.3"/>
+      <stop offset="1" stop-color="#030617" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="ph-slab" x1="0" y1="350" x2="1200" y2="350" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#0EA5E9" stop-opacity="0"/>
+      <stop offset="0.3" stop-color="#0EA5E9" stop-opacity="0.15"/>
+      <stop offset="0.5" stop-color="#38BDF8" stop-opacity="0.25"/>
+      <stop offset="0.7" stop-color="#0EA5E9" stop-opacity="0.15"/>
+      <stop offset="1" stop-color="#0EA5E9" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="ph-glow">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="ph-softglow">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect x="60" y="60" width="1080" height="510" rx="48" fill="url(#ph-g1)" stroke="rgba(56,189,248,0.2)" stroke-width="2"/>
+
+  <!-- The Slab: isometric grid stretching to vanishing point -->
+  <g stroke="rgba(56,189,248,0.08)" stroke-width="0.8">
+    <!-- Horizontal perspective lines -->
+    <line x1="100" y1="420" x2="1100" y2="420"/>
+    <line x1="150" y1="400" x2="1050" y2="400"/>
+    <line x1="200" y1="380" x2="1000" y2="380"/>
+    <line x1="260" y1="360" x2="940" y2="360"/>
+    <line x1="320" y1="340" x2="880" y2="340"/>
+    <line x1="380" y1="320" x2="820" y2="320"/>
+    <line x1="430" y1="300" x2="770" y2="300"/>
+    <line x1="470" y1="285" x2="730" y2="285"/>
+    <line x1="510" y1="272" x2="690" y2="272"/>
+    <line x1="540" y1="262" x2="660" y2="262"/>
+  </g>
+  <g stroke="rgba(56,189,248,0.06)" stroke-width="0.8">
+    <!-- Vertical converging lines -->
+    <line x1="100" y1="420" x2="540" y2="258"/>
+    <line x1="200" y1="420" x2="555" y2="258"/>
+    <line x1="300" y1="420" x2="565" y2="258"/>
+    <line x1="400" y1="420" x2="575" y2="258"/>
+    <line x1="500" y1="420" x2="588" y2="258"/>
+    <line x1="600" y1="420" x2="600" y2="258"/>
+    <line x1="700" y1="420" x2="612" y2="258"/>
+    <line x1="800" y1="420" x2="625" y2="258"/>
+    <line x1="900" y1="420" x2="635" y2="258"/>
+    <line x1="1000" y1="420" x2="645" y2="258"/>
+    <line x1="1100" y1="420" x2="660" y2="258"/>
+  </g>
+  <!-- Slab shimmer -->
+  <rect x="100" y="350" width="1000" height="80" fill="url(#ph-slab)" opacity="0.4"/>
+
+  <!-- The Drain: spiral vortex at center -->
+  <circle cx="600" cy="340" r="120" fill="url(#ph-drain)"/>
+  <g stroke="rgba(14,165,233,0.3)" stroke-width="1.2" fill="none">
+    <path d="M600 260 C640 270 660 300 650 340 C640 370 610 380 580 370 C550 355 545 325 555 300 C565 280 585 270 600 275"/>
+    <path d="M600 280 C625 285 638 305 632 330 C626 350 608 358 590 350 C575 342 570 322 578 308 C586 296 598 290 600 295"/>
+    <path d="M600 305 C612 308 618 318 615 330 C612 340 604 345 596 342 C590 338 588 328 592 322 C596 318 600 316 600 320"/>
+  </g>
+  <!-- Drain center point -->
+  <circle cx="600" cy="335" r="4" fill="#38BDF8" filter="url(#ph-glow)" opacity="0.8"/>
+
+  <!-- Hash fragments orbiting the drain -->
+  <g font-family="'IBM Plex Mono', 'Courier New', monospace" font-size="14" fill="#38BDF8" opacity="0.5" filter="url(#ph-softglow)">
+    <text x="490" y="300" transform="rotate(-15 490 300)">#128</text>
+    <text x="710" y="310" transform="rotate(20 710 310)">#64</text>
+    <text x="530" y="400" transform="rotate(10 530 400)">0x</text>
+    <text x="680" y="390" transform="rotate(-8 680 390)">#DNA</text>
+  </g>
+  <!-- Orbiting particles -->
+  <g fill="#0EA5E9" opacity="0.4">
+    <circle cx="500" cy="320" r="2.5"/>
+    <circle cx="520" cy="280" r="1.8"/>
+    <circle cx="700" cy="330" r="2.5"/>
+    <circle cx="680" cy="280" r="1.8"/>
+    <circle cx="560" cy="400" r="2"/>
+    <circle cx="650" cy="405" r="2"/>
+  </g>
+
+  <!-- VSL Formula echoing ZerothTheory.png -->
+  <g filter="url(#ph-glow)" opacity="0.7">
+    <text x="600" y="170" font-family="'IBM Plex Sans', 'Inter', sans-serif" font-size="34" font-weight="300" fill="#38BDF8" text-anchor="middle" letter-spacing="0.06em">E = m [v(t)]²</text>
+  </g>
+  <!-- Strikethrough E=mc² faintly echoing the correction -->
+  <g opacity="0.15">
+    <text x="600" y="130" font-family="'IBM Plex Sans', 'Inter', sans-serif" font-size="18" font-weight="300" fill="#64748B" text-anchor="middle" text-decoration="line-through">E = mc²</text>
+    <line x1="555" y1="124" x2="645" y2="124" stroke="#64748B" stroke-width="1"/>
+  </g>
+
+  <!-- Slab / Drain labels -->
+  <g font-family="'IBM Plex Sans', 'Inter', sans-serif" font-size="11" fill="rgba(56,189,248,0.4)" letter-spacing="0.2em">
+    <text x="160" y="440">THE SLAB (RANK-2)</text>
+    <text x="570" y="355" text-anchor="middle" font-size="9" fill="rgba(56,189,248,0.3)">DRAIN</text>
+  </g>
+
+  <!-- Title text -->
+  <g fill="#F8FAFC" font-family="'IBM Plex Sans', 'Inter', sans-serif" font-weight="600" text-anchor="middle">
+    <text x="600" y="510" font-size="46" letter-spacing="0.1em">THE PHYSICS OF</text>
+    <text x="600" y="555" font-size="46" letter-spacing="0.1em">THE HASHWEB</text>
+  </g>
+</svg>

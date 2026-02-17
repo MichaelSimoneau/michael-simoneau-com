@@ -1,0 +1,103 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="630" fill="#030617"/>
+  <defs>
+    <linearGradient id="rn-g1" x1="0" y1="0" x2="1200" y2="630" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#2563EB" stop-opacity="0.12"/>
+      <stop offset="1" stop-color="#1D4ED8" stop-opacity="0.4"/>
+    </linearGradient>
+    <linearGradient id="rn-beam" x1="0" y1="0" x2="1" y2="0" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#F8FAFC" stop-opacity="0.6"/>
+      <stop offset="1" stop-color="#BFDBFE" stop-opacity="0.3"/>
+    </linearGradient>
+    <linearGradient id="rn-prism" x1="0" y1="0" x2="1" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#2563EB" stop-opacity="0.4"/>
+      <stop offset="0.5" stop-color="#3B82F6" stop-opacity="0.3"/>
+      <stop offset="1" stop-color="#1D4ED8" stop-opacity="0.5"/>
+    </linearGradient>
+    <filter id="rn-glow">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect x="60" y="60" width="1080" height="510" rx="48" fill="url(#rn-g1)" stroke="rgba(37,99,235,0.3)" stroke-width="2"/>
+
+  <!-- Input beam (single codebase) -->
+  <g opacity="0.8">
+    <line x1="160" y1="300" x2="460" y2="300" stroke="url(#rn-beam)" stroke-width="6" stroke-linecap="round"/>
+    <!-- Beam glow -->
+    <line x1="160" y1="300" x2="460" y2="300" stroke="rgba(248,250,252,0.1)" stroke-width="20" stroke-linecap="round"/>
+  </g>
+
+  <!-- Source label -->
+  <g font-family="'IBM Plex Mono', 'Courier New', monospace" font-size="12" fill="rgba(147,197,253,0.6)">
+    <text x="200" y="280">SINGLE CODEBASE</text>
+  </g>
+
+  <!-- Prism (triangular) -->
+  <polygon points="480,180 580,300 480,420" fill="url(#rn-prism)" stroke="rgba(96,165,250,0.5)" stroke-width="2"/>
+  <!-- Prism internal refraction line -->
+  <line x1="480" y1="300" x2="560" y2="300" stroke="rgba(96,165,250,0.2)" stroke-width="1" stroke-dasharray="4 3"/>
+  <!-- Core label -->
+  <text x="510" y="305" font-family="'IBM Plex Sans', 'Inter', sans-serif" font-size="16" font-weight="700" fill="rgba(248,250,252,0.7)" text-anchor="middle">Core</text>
+
+  <!-- Output rays (50+ white-label apps diverging) -->
+  <g stroke-width="2" stroke-linecap="round" opacity="0.7">
+    <line x1="580" y1="300" x2="1050" y2="120" stroke="#EF4444"/>
+    <line x1="580" y1="300" x2="1050" y2="145" stroke="#F97316"/>
+    <line x1="580" y1="300" x2="1050" y2="170" stroke="#EAB308"/>
+    <line x1="580" y1="300" x2="1050" y2="195" stroke="#84CC16"/>
+    <line x1="580" y1="300" x2="1050" y2="220" stroke="#22C55E"/>
+    <line x1="580" y1="300" x2="1050" y2="245" stroke="#14B8A6"/>
+    <line x1="580" y1="300" x2="1050" y2="270" stroke="#06B6D4"/>
+    <line x1="580" y1="300" x2="1050" y2="295" stroke="#3B82F6"/>
+    <line x1="580" y1="300" x2="1050" y2="320" stroke="#6366F1"/>
+    <line x1="580" y1="300" x2="1050" y2="345" stroke="#8B5CF6"/>
+    <line x1="580" y1="300" x2="1050" y2="370" stroke="#A855F7"/>
+    <line x1="580" y1="300" x2="1050" y2="395" stroke="#D946EF"/>
+    <line x1="580" y1="300" x2="1050" y2="420" stroke="#EC4899"/>
+    <line x1="580" y1="300" x2="1050" y2="445" stroke="#F43F5E"/>
+    <line x1="580" y1="300" x2="1050" y2="470" stroke="#FB923C"/>
+  </g>
+  <!-- Intermediate rays (fainter, filling the gaps) -->
+  <g stroke-width="1" stroke-linecap="round" opacity="0.3">
+    <line x1="580" y1="300" x2="1020" y2="132" stroke="#F87171"/>
+    <line x1="580" y1="300" x2="1020" y2="157" stroke="#FBBF24"/>
+    <line x1="580" y1="300" x2="1020" y2="182" stroke="#A3E635"/>
+    <line x1="580" y1="300" x2="1020" y2="207" stroke="#4ADE80"/>
+    <line x1="580" y1="300" x2="1020" y2="232" stroke="#2DD4BF"/>
+    <line x1="580" y1="300" x2="1020" y2="257" stroke="#22D3EE"/>
+    <line x1="580" y1="300" x2="1020" y2="282" stroke="#60A5FA"/>
+    <line x1="580" y1="300" x2="1020" y2="307" stroke="#818CF8"/>
+    <line x1="580" y1="300" x2="1020" y2="332" stroke="#A78BFA"/>
+    <line x1="580" y1="300" x2="1020" y2="357" stroke="#C084FC"/>
+    <line x1="580" y1="300" x2="1020" y2="382" stroke="#E879F9"/>
+    <line x1="580" y1="300" x2="1020" y2="407" stroke="#F472B6"/>
+    <line x1="580" y1="300" x2="1020" y2="432" stroke="#FB7185"/>
+    <line x1="580" y1="300" x2="1020" y2="457" stroke="#FDBA74"/>
+  </g>
+
+  <!-- App dots at the end of rays -->
+  <g opacity="0.8">
+    <circle cx="1050" cy="120" r="4" fill="#EF4444"/>
+    <circle cx="1050" cy="195" r="4" fill="#84CC16"/>
+    <circle cx="1050" cy="270" r="4" fill="#06B6D4"/>
+    <circle cx="1050" cy="345" r="4" fill="#8B5CF6"/>
+    <circle cx="1050" cy="420" r="4" fill="#EC4899"/>
+    <circle cx="1050" cy="295" r="4" fill="#3B82F6"/>
+  </g>
+
+  <!-- 50+ label -->
+  <text x="1060" y="500" font-family="'IBM Plex Sans', 'Inter', sans-serif" font-size="14" fill="rgba(147,197,253,0.5)" text-anchor="end">50+ APPS</text>
+
+  <!-- @theme/* path alias floating near prism -->
+  <g filter="url(#rn-glow)" opacity="0.6">
+    <text x="490" y="460" font-family="'IBM Plex Mono', 'Courier New', monospace" font-size="14" fill="#93C5FD">@theme/*</text>
+    <text x="490" y="478" font-family="'IBM Plex Mono', 'Courier New', monospace" font-size="11" fill="rgba(147,197,253,0.4)">@config/*</text>
+  </g>
+
+  <!-- Title text -->
+  <g fill="#F8FAFC" font-family="'IBM Plex Sans', 'Inter', sans-serif" font-weight="600" text-anchor="middle">
+    <text x="350" y="530" font-size="44" letter-spacing="0.1em">REACT NATIVE</text>
+    <text x="350" y="558" font-size="22" fill="#60A5FA" font-weight="400">at Scale: The White-Label Challenge</text>
+  </g>
+</svg>

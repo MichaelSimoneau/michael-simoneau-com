@@ -279,7 +279,7 @@ export const blogData: BlogData[] = [
       "ZerothVM",
       "High-Availability Humans",
     ],
-    heroImage: "/blog/law-of-the-ceiling.svg",
+    heroImage: "/ZerothTheory.png",
     featured: true,
     content: [
       // --- 1. The Glitch in the Machine: A Preface on Totality ---

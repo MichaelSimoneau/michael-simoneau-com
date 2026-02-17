@@ -1,0 +1,89 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="630" fill="#030617"/>
+  <defs>
+    <linearGradient id="fs-g1" x1="0" y1="0" x2="1200" y2="630" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#006D5B" stop-opacity="0.15"/>
+      <stop offset="1" stop-color="#004D3D" stop-opacity="0.5"/>
+    </linearGradient>
+    <radialGradient id="fs-core" cx="600" cy="300" r="180" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#006D5B" stop-opacity="0.4"/>
+      <stop offset="1" stop-color="#030617" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="fs-glow">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="fs-softglow">
+      <feGaussianBlur stdDeviation="2" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect x="60" y="60" width="1080" height="510" rx="48" fill="url(#fs-g1)" stroke="rgba(0,109,91,0.3)" stroke-width="2"/>
+  <circle cx="600" cy="300" r="180" fill="url(#fs-core)"/>
+
+  <!-- Zero Trust perimeter ring -->
+  <circle cx="600" cy="300" r="210" fill="none" stroke="rgba(0,109,91,0.25)" stroke-width="2" stroke-dasharray="12 6"/>
+  <circle cx="600" cy="300" r="215" fill="none" stroke="rgba(0,109,91,0.1)" stroke-width="1"/>
+
+  <!-- Padlock body -->
+  <rect x="540" y="290" width="120" height="100" rx="12" fill="rgba(0,109,91,0.2)" stroke="rgba(16,185,129,0.5)" stroke-width="2"/>
+  <!-- Padlock shackle -->
+  <path d="M560 290 L560 250 C560 220 575 200 600 200 C625 200 640 220 640 250 L640 290" fill="none" stroke="rgba(16,185,129,0.5)" stroke-width="4" stroke-linecap="round"/>
+
+  <!-- Cryptographic rotating rings -->
+  <circle cx="600" cy="300" r="130" fill="none" stroke="rgba(16,185,129,0.15)" stroke-width="18"/>
+  <!-- Ring segments (rotating effect) -->
+  <path d="M600 170 A130 130 0 0 1 730 300" fill="none" stroke="rgba(16,185,129,0.35)" stroke-width="18" stroke-linecap="butt"/>
+  <path d="M470 300 A130 130 0 0 1 537 187" fill="none" stroke="rgba(16,185,129,0.2)" stroke-width="18" stroke-linecap="butt"/>
+
+  <!-- Inner rotating ring -->
+  <circle cx="600" cy="300" r="95" fill="none" stroke="rgba(16,185,129,0.1)" stroke-width="14"/>
+  <path d="M600 205 A95 95 0 0 1 658 225" fill="none" stroke="rgba(52,211,153,0.3)" stroke-width="14" stroke-linecap="butt"/>
+  <path d="M695 300 A95 95 0 0 1 648 383" fill="none" stroke="rgba(52,211,153,0.25)" stroke-width="14" stroke-linecap="butt"/>
+
+  <!-- Algorithm glyphs on the rings -->
+  <g font-family="'IBM Plex Mono', 'Courier New', monospace" font-size="11" fill="rgba(52,211,153,0.5)">
+    <text x="700" y="198" transform="rotate(25 700 198)">AES</text>
+    <text x="738" y="270" transform="rotate(55 738 270)">RSA</text>
+    <text x="480" y="210" transform="rotate(-30 480 210)">PQC</text>
+    <text x="450" y="350" transform="rotate(-60 450 350)">KYBER</text>
+    <text x="650" y="420" transform="rotate(40 650 420)">SHA3</text>
+    <text x="520" y="430" transform="rotate(-20 520 430)">NTRU</text>
+  </g>
+
+  <!-- Transition arrow on ring (old -> new algorithm) -->
+  <g filter="url(#fs-softglow)">
+    <path d="M730 270 L745 255" stroke="#34D399" stroke-width="2" stroke-linecap="round" marker-end="none"/>
+    <polygon points="748,252 740,252 745,244" fill="#34D399" opacity="0.7"/>
+  </g>
+
+  <!-- Circuit traces radiating from lock -->
+  <g stroke="rgba(16,185,129,0.15)" stroke-width="1.5" fill="none" stroke-linecap="round">
+    <path d="M660 340 H780 V310 H840"/>
+    <path d="M660 360 H750 V390 H830"/>
+    <path d="M540 340 H420 V310 H360"/>
+    <path d="M540 360 H450 V390 H370"/>
+    <path d="M600 390 V440 H680"/>
+    <path d="M600 390 V450 H520"/>
+  </g>
+  <!-- Circuit nodes -->
+  <g fill="rgba(16,185,129,0.3)">
+    <circle cx="840" cy="310" r="4"/><circle cx="830" cy="390" r="4"/>
+    <circle cx="360" cy="310" r="4"/><circle cx="370" cy="390" r="4"/>
+    <circle cx="680" cy="440" r="4"/><circle cx="520" cy="450" r="4"/>
+  </g>
+
+  <!-- Keyhole on padlock -->
+  <circle cx="600" cy="335" r="8" fill="rgba(16,185,129,0.4)" filter="url(#fs-glow)"/>
+  <rect x="597" y="337" width="6" height="14" rx="2" fill="rgba(16,185,129,0.3)"/>
+
+  <!-- ZERO TRUST label -->
+  <text x="600" y="460" font-family="'IBM Plex Sans', 'Inter', sans-serif" font-size="11" fill="rgba(16,185,129,0.4)" text-anchor="middle" letter-spacing="0.35em">ZERO TRUST PERIMETER</text>
+
+  <!-- Title text -->
+  <g fill="#F8FAFC" font-family="'IBM Plex Sans', 'Inter', sans-serif" font-weight="600" text-anchor="middle">
+    <text x="600" y="130" font-size="14" fill="#34D399" letter-spacing="0.3em" font-weight="500">CRYPTO-AGILITY</text>
+    <text x="600" y="540" font-size="44" letter-spacing="0.1em">FUTURE-PROOFING</text>
+    <text x="600" y="562" font-size="22" fill="#34D399" font-weight="400">Security in the Enterprise</text>
+  </g>
+</svg>

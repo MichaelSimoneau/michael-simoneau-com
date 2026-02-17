@@ -345,7 +345,7 @@ export const BlogPost: React.FC = () => {
               style={{ 
                 background: post.heroImage === '/blog/darwinian-marxism.svg' ?
                   'linear-gradient(135deg, #B45309 0%, #78350F 100%)' :
-                post.heroImage === '/blog/law-of-the-ceiling.svg' ?
+                (post.heroImage === '/blog/law-of-the-ceiling.svg' || post.heroImage === '/ZerothTheory.png') ?
                   'linear-gradient(135deg, #0D9488 0%, #B45309 100%)' :
                 post.heroImage === '/blog/architecture-of-relevance.svg' ?
                   'linear-gradient(135deg, #7C3AED 0%, #DC2626 100%)' :
@@ -362,6 +362,12 @@ export const BlogPost: React.FC = () => {
                   'linear-gradient(135deg, #1E293B 0%, #0F172A 100%)'
               }}
             >
+              <img 
+                src={post.heroImage} 
+                alt="" 
+                aria-hidden="true"
+                className={`absolute inset-0 w-full h-full ${post.heroImage.endsWith('.png') || post.heroImage.endsWith('.jpg') || post.heroImage.endsWith('.jpeg') ? 'object-contain opacity-40' : 'object-cover opacity-30'}`}
+              />
               <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent" />
 
               <div className="absolute bottom-0 left-0 w-full p-4 md:p-8">

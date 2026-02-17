@@ -15,6 +15,7 @@ const getGradientForPost = (imageUrl: string) => {
     case '/blog/darwinian-marxism.svg':
       return 'linear-gradient(135deg, #B45309 0%, #78350F 100%)';
     case '/blog/law-of-the-ceiling.svg':
+    case '/ZerothTheory.png':
       return 'linear-gradient(135deg, #0D9488 0%, #B45309 100%)';
     case '/blog/architecture-of-relevance.svg':
       return 'linear-gradient(135deg, #7C3AED 0%, #DC2626 100%)';
@@ -46,6 +47,12 @@ const FeaturedPost: React.FC<{ post: BlogPostType }> = ({ post }) => {
           <div 
             className="absolute inset-0" 
             style={{ background: getGradientForPost(post.heroImage) }}
+          />
+          <img 
+            src={post.heroImage} 
+            alt="" 
+            aria-hidden="true"
+            className={`absolute inset-0 w-full h-full ${post.heroImage.endsWith('.png') || post.heroImage.endsWith('.jpg') || post.heroImage.endsWith('.jpeg') ? 'object-contain opacity-40' : 'object-cover opacity-25'}`}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent z-10" />
           <div className="absolute inset-0 z-20 p-6 flex flex-col justify-end">
@@ -98,6 +105,12 @@ const BlogCard: React.FC<{ post: BlogPostType; delay?: number }> = ({ post, dela
           <div 
             className="absolute inset-0" 
             style={{ background: getGradientForPost(post.heroImage) }}
+          />
+          <img 
+            src={post.heroImage} 
+            alt="" 
+            aria-hidden="true"
+            className={`absolute inset-0 w-full h-full ${post.heroImage.endsWith('.png') || post.heroImage.endsWith('.jpg') || post.heroImage.endsWith('.jpeg') ? 'object-contain opacity-35' : 'object-cover opacity-20'}`}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent z-10" />
           <div className="absolute inset-0 z-20 p-5 flex flex-col justify-end">

@@ -1,0 +1,89 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="630" fill="#030617"/>
+  <defs>
+    <linearGradient id="ar-g1" x1="0" y1="0" x2="1200" y2="630" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#7C3AED" stop-opacity="0.15"/>
+      <stop offset="1" stop-color="#DC2626" stop-opacity="0.4"/>
+    </linearGradient>
+    <radialGradient id="ar-nucleus" cx="600" cy="280" r="60" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#DC2626" stop-opacity="0.8"/>
+      <stop offset="0.6" stop-color="#7C3AED" stop-opacity="0.4"/>
+      <stop offset="1" stop-color="#030617" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="ar-pulse" cx="600" cy="280" r="180" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#7C3AED" stop-opacity="0.15"/>
+      <stop offset="1" stop-color="#030617" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="ar-artery" x1="0" y1="0" x2="1" y2="0" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#DC2626" stop-opacity="0.6"/>
+      <stop offset="1" stop-color="#DC2626" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="ar-glow">
+      <feGaussianBlur stdDeviation="6" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="ar-softglow">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect x="60" y="60" width="1080" height="510" rx="48" fill="url(#ar-g1)" stroke="rgba(124,58,237,0.3)" stroke-width="2"/>
+
+  <!-- Outer pulse rings -->
+  <circle cx="600" cy="280" r="180" fill="url(#ar-pulse)"/>
+  <circle cx="600" cy="280" r="180" fill="none" stroke="rgba(124,58,237,0.12)" stroke-width="1"/>
+  <circle cx="600" cy="280" r="140" fill="none" stroke="rgba(124,58,237,0.08)" stroke-width="1" stroke-dasharray="6 4"/>
+  <circle cx="600" cy="280" r="220" fill="none" stroke="rgba(124,58,237,0.06)" stroke-width="1" stroke-dasharray="3 6"/>
+
+  <!-- Hexagonal cell membrane (THD) -->
+  <polygon points="600,120 700,165 700,325 600,370 500,325 500,165" fill="none" stroke="rgba(124,58,237,0.5)" stroke-width="2.5"/>
+  <polygon points="600,140 685,178 685,312 600,350 515,312 515,178" fill="none" stroke="rgba(124,58,237,0.2)" stroke-width="1" stroke-dasharray="4 3"/>
+
+  <!-- Nucleus (THE) -->
+  <circle cx="600" cy="250" r="50" fill="url(#ar-nucleus)" filter="url(#ar-glow)"/>
+  <circle cx="600" cy="250" r="50" fill="none" stroke="rgba(220,38,38,0.5)" stroke-width="1.5"/>
+  <text x="600" y="257" font-family="'IBM Plex Sans', 'Inter', sans-serif" font-size="28" font-weight="700" fill="#F8FAFC" text-anchor="middle" filter="url(#ar-softglow)">THE</text>
+
+  <!-- THD label on membrane -->
+  <text x="600" y="395" font-family="'IBM Plex Sans', 'Inter', sans-serif" font-size="18" font-weight="600" fill="rgba(124,58,237,0.7)" text-anchor="middle" letter-spacing="0.3em">THD</text>
+
+  <!-- Arteries radiating outward carrying value -->
+  <g stroke="rgba(220,38,38,0.3)" stroke-width="2" fill="none" stroke-linecap="round">
+    <path d="M650 250 C720 240 780 220 860 200"/>
+    <path d="M550 250 C480 240 420 220 340 200"/>
+    <path d="M630 290 C680 330 730 360 810 390"/>
+    <path d="M570 290 C520 330 470 360 390 390"/>
+    <path d="M650 230 C710 200 760 170 840 140"/>
+    <path d="M550 230 C490 200 440 170 360 140"/>
+  </g>
+  <!-- Value particles flowing through arteries -->
+  <g fill="#DC2626" opacity="0.6">
+    <circle cx="750" cy="225" r="3"/><circle cx="800" cy="213" r="2"/>
+    <circle cx="450" cy="225" r="3"/><circle cx="400" cy="213" r="2"/>
+    <circle cx="730" cy="355" r="3"/><circle cx="780" cy="380" r="2"/>
+    <circle cx="470" cy="355" r="3"/><circle cx="420" cy="380" r="2"/>
+  </g>
+
+  <!-- Base-3 decay curve at bottom -->
+  <g opacity="0.5">
+    <path d="M200 470 C300 470 350 430 450 430 C500 430 520 450 550 450 C580 450 600 440 650 440 C700 440 730 455 780 455 C830 455 870 465 950 470" stroke="rgba(124,58,237,0.4)" stroke-width="1.5" fill="none"/>
+    <text x="200" y="490" font-family="'IBM Plex Sans', 'Inter', sans-serif" font-size="11" fill="rgba(124,58,237,0.5)">BASE-3 DECAY</text>
+    <!-- Decay markers: 1/3 intervals -->
+    <line x1="450" y1="425" x2="450" y2="475" stroke="rgba(124,58,237,0.2)" stroke-width="1" stroke-dasharray="2 2"/>
+    <text x="450" y="420" font-family="'IBM Plex Sans', 'Inter', sans-serif" font-size="10" fill="rgba(124,58,237,0.4)" text-anchor="middle">1/3</text>
+    <line x1="650" y1="435" x2="650" y2="475" stroke="rgba(124,58,237,0.2)" stroke-width="1" stroke-dasharray="2 2"/>
+    <text x="650" y="430" font-family="'IBM Plex Sans', 'Inter', sans-serif" font-size="10" fill="rgba(124,58,237,0.4)" text-anchor="middle">2/3</text>
+  </g>
+
+  <!-- $1 floor line -->
+  <g>
+    <line x1="150" y1="500" x2="1050" y2="500" stroke="rgba(220,38,38,0.5)" stroke-width="2"/>
+    <text x="1060" y="504" font-family="'IBM Plex Sans', 'Inter', sans-serif" font-size="14" font-weight="700" fill="#DC2626" opacity="0.7">= $1</text>
+    <text x="150" y="515" font-family="'IBM Plex Sans', 'Inter', sans-serif" font-size="10" fill="rgba(220,38,38,0.4)">GUARANTEED FLOOR</text>
+  </g>
+
+  <!-- Title text -->
+  <g fill="#F8FAFC" font-family="'IBM Plex Sans', 'Inter', sans-serif" font-weight="600" text-anchor="middle">
+    <text x="600" y="555" font-size="48" letter-spacing="0.12em">THE HUMAN DOLLAR</text>
+  </g>
+</svg>
