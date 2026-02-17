@@ -350,7 +350,7 @@ export const BlogPost: React.FC = () => {
                   src={post.heroImage}
                   alt=""
                   aria-hidden="true"
-                  className="absolute inset-0 w-full h-full object-contain opacity-80"
+                  className={`absolute inset-0 w-full h-full object-${post.heroCover ?? 'contain'} opacity-80`}
                 />
               )}
               {/* Layer 3: SVG art overlay */}
@@ -383,16 +383,6 @@ export const BlogPost: React.FC = () => {
                   <span className="mr-4">{post.date}</span>
                   <Clock size={16} className="mr-1" />
                   <span>{post.readTime}</span>
-                </div>
-                <div className="flex flex-wrap gap-2 mt-3 md:mt-4">
-                  {post.tags.map((tag, idx) => (
-                    <span 
-                      key={`tag-${idx}`} 
-                      className="px-2 md:px-3 py-1 text-xs font-medium bg-black/30 text-cyan-300 rounded-full backdrop-blur-sm"
-                    >
-                      {tag}
-                    </span>
-                  ))}
                 </div>
               </div>
             </div>

@@ -88,11 +88,11 @@
 
   <!-- VSL Formula echoing ZerothTheory.png -->
   <g filter="url(#ph-glow)" opacity="0.7">
-    <text x="600" y="170" font-family="'IBM Plex Sans', 'Inter', sans-serif" font-size="34" font-weight="300" fill="#38BDF8" text-anchor="middle" letter-spacing="0.06em">E = m [v(t)]?</text>
+    <text x="600" y="170" font-family="'IBM Plex Sans', 'Inter', sans-serif" font-size="34" font-weight="300" fill="#38BDF8" text-anchor="middle" letter-spacing="0.06em">E = m [v(t)]<tspan baseline-shift="super" font-size="0.6em">2</tspan></text>
   </g>
-  <!-- Strikethrough E=mc? faintly echoing the correction -->
+  <!-- Strikethrough E=mc2 faintly echoing the correction -->
   <g opacity="0.15">
-    <text x="600" y="130" font-family="'IBM Plex Sans', 'Inter', sans-serif" font-size="18" font-weight="300" fill="#64748B" text-anchor="middle" text-decoration="line-through">E = mc?</text>
+    <text x="600" y="130" font-family="'IBM Plex Sans', 'Inter', sans-serif" font-size="18" font-weight="300" fill="#64748B" text-anchor="middle" text-decoration="line-through">E = mc<tspan baseline-shift="super" font-size="0.6em">2</tspan></text>
     <line x1="555" y1="124" x2="645" y2="124" stroke="#64748B" stroke-width="1"/>
   </g>
 
