@@ -10,6 +10,7 @@ import {
 export interface BlogData {
   id: string;
   title: string;
+  subtitle?: string;
   excerpt: string;
   date: string;
   readTime: string;
@@ -23,7 +24,8 @@ export interface BlogData {
 export const blogData: BlogData[] = [
   {
     id: "darwinian-marxism",
-    title: "Darwinian Marxism: Michael Simoneau's Vision for a Biological Economy",
+    title: "Darwinian Marxism",
+    subtitle: "Michael Simoneau's Vision for a Biological Economy",
     excerpt:
       "The modern economic landscape is a cacophony of noise — chaotic interference that obscures fundamental truth. The root of this dysfunction is a systemic design flaw: our current dollar is an inanimate object. Darwinian Marxism resolves this through Truth 0.",
     date: "February 16, 2026",
@@ -168,7 +170,8 @@ export const blogData: BlogData[] = [
   },
   {
     id: "law-of-the-ceiling",
-    title: "The End of Forever: Why the Denial of Infinity is the Future of Technology",
+    title: "The End of Forever",
+    subtitle: "Why the Denial of Infinity is the Future of Technology",
     excerpt:
       "The \"Biological Idol\" — the human compulsion to interpret the universe through the lens of emotional decay — is a failing system. \"Infinity\" is not a feature of the universe; it is a bug, a Kernel Panic of the mind. The only true foundation for a functional reality is Zero.",
     date: "January 7, 2026",
@@ -285,7 +288,8 @@ export const blogData: BlogData[] = [
   },
   {
     id: "architecture-of-relevance",
-    title: "Introducing The Human Dollar: The Architecture of Relevance",
+    title: "The Human Dollar",
+    subtitle: "The Economy of the Future",
     excerpt:
       "Introducing a metabolic currency built for the orphaned simulation. The Human Dollar (THD) is money that stays alive — relevance decays, value is floor-guaranteed at $1, and alignment replaces worship. The legacy system is failing. THD is the alternative.",
     date: "January 27, 2026",
@@ -393,7 +397,8 @@ export const blogData: BlogData[] = [
   },
   {
     id: "crypto-fabric-business-plan",
-    title: "Crypto Fabric Business Plan & Architecture Snapshot",
+    title: "Crypto Fabric Business Plan",
+    subtitle: "Architecture Snapshot",
     excerpt:
       "A comprehensive overview of EtherHive LLC's profitability-first automation platform, covering the business model, architecture, and vision for democratizing crypto revenue generation.",
     date: "December 9, 2025",
@@ -454,7 +459,8 @@ export const blogData: BlogData[] = [
   },
   {
     id: "crypto-fabric-telemetry-guardrails",
-    title: "Guardrails, Telemetry, and the Mobile Control Center",
+    title: "Guardrails, Telemetry",
+    subtitle: "The Mobile Control Center",
     excerpt:
       "Progress update on Crypto Fabric's profitability-first architecture: implementing guardrails, real-time telemetry, and the mobile Super Admin control center that enables white-labeled deployments.",
     date: "October 15, 2025",
@@ -528,7 +534,8 @@ export const blogData: BlogData[] = [
   },
   {
     id: "crypto-fabric-kickoff",
-    title: "Crypto Fabric Kickoff: Profit-First Automation",
+    title: "Crypto Fabric Kickoff",
+    subtitle: "Profit-First Automation",
     excerpt:
       "Announcing Crypto Fabric, a profitability-first automation platform that enables anyone to deploy revenue-generating crypto services with zero configuration. Built by Michael Simoneau; Hosted by EtherHive, LLC.",
     date: "August 1, 2025",
@@ -608,7 +615,8 @@ export const blogData: BlogData[] = [
   },
   {
     id: "zero",
-    title: "Zero: \"Why?\" The Numerical Trinity and the Fabric of Reality",
+    title: "Zero: \"Why?\"",
+    subtitle: "The Numerical Trinity and the Fabric of Reality",
     excerpt:
       "Exploring why simplicity remains the strongest proof in a universe resolved by a three-state model that unifies classical, quantum, and ethereal computation.",
     date: "June 16, 2025",
@@ -728,7 +736,8 @@ function updateCryptography(newConfig: CryptoConfig) {
   },
   {
     id: "enterprise-system-transformation",
-    title: "Case Study: Transforming a Critical Enterprise System",
+    title: "Case Study",
+    subtitle: "Transforming a Critical Enterprise System",
     excerpt:
       "How a systematic approach to modernization took a vital legacy platform from 94.5% to 99.99% uptime, drastically cutting operational costs.",
     date: "March 28, 2024",
@@ -783,8 +792,8 @@ function updateCryptography(newConfig: CryptoConfig) {
   },
   {
     id: "scaling-react-native-architectures",
-    title:
-      "Architecting React Native for Scalability: The White-Label Challenge",
+    title: "Architecting React Native for Scalability",
+    subtitle: "The White-Label Challenge",
     excerpt:
       "A technical deep-dive into the strategies and patterns used to build a single, robust React Native codebase for over 50 white-label client applications at StoneX.",
     date: "March 20, 2024",
@@ -846,7 +855,8 @@ const MyComponent = () => <View style={{backgroundColor: colors.primary}} />;`,
   },
   {
     id: "practical-ai-security",
-    title: "Practical AI Security: Bridging Gaps in Modern Deployments",
+    title: "Practical AI Security",
+    subtitle: "Bridging Gaps in Modern Deployments",
     excerpt:
       "Beyond the hype: identifying common, exploitable vulnerabilities in AI systems and implementing pragmatic security measures before they become critical.",
     date: "March 12, 2024",
@@ -889,8 +899,8 @@ const MyComponent = () => <View style={{backgroundColor: colors.primary}} />;`,
   },
   {
     id: "cto-compensation-strategy",
-    title:
-      "Strategic Compensation for Technology Leaders: Beyond the Offer Letter",
+    title: "Strategic Compensation for Technology Leaders",
+    subtitle: "Beyond the Offer Letter",
     excerpt:
       "Insights for both aspiring and current CTOs on negotiating and structuring compensation to reflect true value and impact within an organization.",
     date: "March 5, 2024",

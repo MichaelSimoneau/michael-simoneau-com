@@ -59,6 +59,9 @@ const FeaturedPost: React.FC<{ post: BlogPostType }> = ({ post }) => {
             <h3 className="text-2xl md:text-3xl font-bold text-white mb-3 group-hover:text-cyan-300 transition-colors duration-300 line-clamp-2">
               {post.title}
             </h3>
+            {post.subtitle && (
+              <p className="text-cyan-300/80 text-sm md:text-base font-medium mb-2 line-clamp-1">{post.subtitle}</p>
+            )}
             <div className="flex items-center text-white/80 text-sm">
               <Calendar size={14} className="mr-1" />
               <span className="mr-4">{post.date}</span>
@@ -108,6 +111,9 @@ const BlogCard: React.FC<{ post: BlogPostType; delay?: number }> = ({ post, dela
             <h3 className="text-lg font-bold text-white group-hover:text-cyan-300 transition-colors duration-300 line-clamp-2">
               {post.title}
             </h3>
+            {post.subtitle && (
+              <p className="text-cyan-300/80 text-xs font-medium mt-1 line-clamp-1">{post.subtitle}</p>
+            )}
           </div>
         </div>
       </Link>
@@ -143,6 +149,7 @@ export const Blog: React.FC = () => {
 
   const filteredPosts = blogData.filter(post => 
     post.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
+    (post.subtitle && post.subtitle.toLowerCase().includes(searchTerm.toLowerCase())) ||
     post.excerpt.toLowerCase().includes(searchTerm.toLowerCase()) ||
     post.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()))
   );

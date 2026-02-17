@@ -135,7 +135,7 @@ export const BlogPost: React.FC = () => {
   
   useEffect(() => {
     if (post) {
-      document.title = `${post.title} | Michael Simoneau`;
+      document.title = `${post.title}${post.subtitle ? ': ' + post.subtitle : ''} | Michael Simoneau`;
     }
   }, [post]);
   
@@ -249,7 +249,7 @@ export const BlogPost: React.FC = () => {
   return (
     <>
       <Seo
-        title={`${post.title} | Michael Simoneau`}
+        title={`${post.title}${post.subtitle ? ': ' + post.subtitle : ''} | Michael Simoneau`}
         description={post.excerpt}
         canonicalUrl={`https://www.michaelsimoneau.com/blog/${post.id}`}
         keywords={post.tags}
@@ -263,7 +263,7 @@ export const BlogPost: React.FC = () => {
           {
             '@context': 'https://schema.org',
             '@type': 'BlogPosting',
-            headline: post.title,
+            headline: `${post.title}${post.subtitle ? ': ' + post.subtitle : ''}`,
             description: post.excerpt,
             image: heroImageUrl,
             datePublished: publishedTime,
@@ -376,6 +376,9 @@ export const BlogPost: React.FC = () => {
                   ))}
                 </div>
                 <h1 className="text-2xl md:text-4xl lg:text-5xl font-bold text-white leading-tight break-words">{post.title}</h1>
+                {post.subtitle && (
+                  <p className="text-lg md:text-xl lg:text-2xl text-cyan-300/90 mt-2 font-medium">{post.subtitle}</p>
+                )}
                 <div className="flex items-center mt-3 md:mt-4 text-white/80 text-sm md:text-base">
                   <Calendar size={16} className="mr-1" />
                   <span className="mr-4">{post.date}</span>

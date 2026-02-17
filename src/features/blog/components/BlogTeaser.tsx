@@ -35,7 +35,10 @@ export const BlogTeaser: React.FC = () => {
               viewport={{ once: true, amount: 0.3 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
             >
-              <h3 className="text-xl font-semibold text-white mb-2">{post.title}</h3>
+              <h3 className="text-xl font-semibold text-white mb-1">{post.title}</h3>
+              {post.subtitle && (
+                <p className="text-cyan-300/80 text-sm font-medium mb-1">{post.subtitle}</p>
+              )}
               <p className="text-sm text-gray-400 mb-1">{post.date}</p>
               <p className="text-gray-300 text-sm mb-4 line-clamp-3">{post.excerpt}</p>
               <Link 
