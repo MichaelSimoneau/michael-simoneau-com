@@ -910,7 +910,7 @@ export const blogData: BlogData[] = [
   },
   {
     id: "zero",
-    title: "Zero: \"Why?\"",
+    title: "Zeroth Theory",
     subtitle: "The Numerical Trinity and the Fabric of Reality",
     excerpt:
       "Exploring why simplicity remains the strongest proof in a universe resolved by a three-state model that unifies classical, quantum, and ethereal computation.",

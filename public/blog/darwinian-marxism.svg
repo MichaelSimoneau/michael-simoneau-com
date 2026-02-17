@@ -1,5 +1,5 @@
 <svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <rect width="1200" height="630" fill="#030617"/>
+  <rect width="1200" height="630" fill="none"/>
   <defs>
     <linearGradient id="dm-g1" x1="0" y1="0" x2="1200" y2="630" gradientUnits="userSpaceOnUse">
       <stop offset="0" stop-color="#B45309" stop-opacity="0.2"/>
@@ -27,7 +27,7 @@
       <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
     </filter>
   </defs>
-  <rect x="60" y="60" width="1080" height="510" rx="48" fill="url(#dm-g1)" stroke="rgba(180,83,9,0.3)" stroke-width="2"/>
+  <rect width="1200" height="630" fill="url(#dm-g1)"/>
   <ellipse cx="600" cy="280" rx="320" ry="220" fill="url(#dm-g2)"/>
 
   <!-- Zooid bell shapes (Siphonophore colonial organism) -->
@@ -68,7 +68,7 @@
 
   <!-- VSL formula glowing faintly in the background -->
   <g filter="url(#dm-softglow)" opacity="0.12">
-    <text x="600" y="480" font-family="'IBM Plex Sans', 'Inter', sans-serif" font-size="42" font-weight="300" fill="#F59E0B" text-anchor="middle" letter-spacing="0.08em">E = M * (V[T] / t)²</text>
+    <text x="600" y="480" font-family="'IBM Plex Sans', 'Inter', sans-serif" font-size="42" font-weight="300" fill="#F59E0B" text-anchor="middle" letter-spacing="0.08em">E = M * (V[T] / t)?</text>
   </g>
 
   <!-- Title text -->

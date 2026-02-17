@@ -1,5 +1,5 @@
 <svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <rect width="1200" height="630" fill="#030617"/>
+  <rect width="1200" height="630" fill="none"/>
   <defs>
     <linearGradient id="cc-g1" x1="0" y1="0" x2="1200" y2="630" gradientUnits="userSpaceOnUse">
       <stop offset="0" stop-color="#15803D" stop-opacity="0.12"/>
@@ -26,7 +26,7 @@
       <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
     </filter>
   </defs>
-  <rect x="60" y="60" width="1080" height="510" rx="48" fill="url(#cc-g1)" stroke="rgba(21,128,61,0.3)" stroke-width="2"/>
+  <rect width="1200" height="630" fill="url(#cc-g1)"/>
 
   <!-- Value Stack: ascending compensation blocks -->
   <!-- Base Salary (widest, bottom) -->

@@ -1,5 +1,5 @@
 <svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <rect width="1200" height="630" fill="#030617"/>
+  <rect width="1200" height="630" fill="none"/>
   <defs>
     <linearGradient id="ph-g1" x1="0" y1="0" x2="1200" y2="630" gradientUnits="userSpaceOnUse">
       <stop offset="0" stop-color="#1E293B" stop-opacity="0.3"/>
@@ -26,7 +26,7 @@
       <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
     </filter>
   </defs>
-  <rect x="60" y="60" width="1080" height="510" rx="48" fill="url(#ph-g1)" stroke="rgba(56,189,248,0.2)" stroke-width="2"/>
+  <rect width="1200" height="630" fill="url(#ph-g1)"/>
 
   <!-- The Slab: isometric grid stretching to vanishing point -->
   <g stroke="rgba(56,189,248,0.08)" stroke-width="0.8">
@@ -88,11 +88,11 @@
 
   <!-- VSL Formula echoing ZerothTheory.png -->
   <g filter="url(#ph-glow)" opacity="0.7">
-    <text x="600" y="170" font-family="'IBM Plex Sans', 'Inter', sans-serif" font-size="34" font-weight="300" fill="#38BDF8" text-anchor="middle" letter-spacing="0.06em">E = m [v(t)]²</text>
+    <text x="600" y="170" font-family="'IBM Plex Sans', 'Inter', sans-serif" font-size="34" font-weight="300" fill="#38BDF8" text-anchor="middle" letter-spacing="0.06em">E = m [v(t)]?</text>
   </g>
-  <!-- Strikethrough E=mc² faintly echoing the correction -->
+  <!-- Strikethrough E=mc? faintly echoing the correction -->
   <g opacity="0.15">
-    <text x="600" y="130" font-family="'IBM Plex Sans', 'Inter', sans-serif" font-size="18" font-weight="300" fill="#64748B" text-anchor="middle" text-decoration="line-through">E = mc²</text>
+    <text x="600" y="130" font-family="'IBM Plex Sans', 'Inter', sans-serif" font-size="18" font-weight="300" fill="#64748B" text-anchor="middle" text-decoration="line-through">E = mc?</text>
     <line x1="555" y1="124" x2="645" y2="124" stroke="#64748B" stroke-width="1"/>
   </g>
 

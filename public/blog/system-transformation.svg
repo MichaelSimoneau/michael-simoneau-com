@@ -1,5 +1,5 @@
 <svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <rect width="1200" height="630" fill="#030617"/>
+  <rect width="1200" height="630" fill="none"/>
   <defs>
     <linearGradient id="st-g1" x1="0" y1="0" x2="1200" y2="630" gradientUnits="userSpaceOnUse">
       <stop offset="0" stop-color="#DC2626" stop-opacity="0.12"/>
@@ -22,7 +22,7 @@
       <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
     </filter>
   </defs>
-  <rect x="60" y="60" width="1080" height="510" rx="48" fill="url(#st-g1)" stroke="rgba(220,38,38,0.25)" stroke-width="2"/>
+  <rect width="1200" height="630" fill="url(#st-g1)"/>
 
   <!-- LEFT: Legacy monolith (dark, heavy) -->
   <rect x="180" y="150" width="200" height="300" rx="6" fill="url(#st-monolith)" stroke="rgba(220,38,38,0.3)" stroke-width="2"/>
