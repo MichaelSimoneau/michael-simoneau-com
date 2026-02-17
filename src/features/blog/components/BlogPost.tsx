@@ -341,7 +341,7 @@ export const BlogPost: React.FC = () => {
             </div>
 
             <div 
-              className="w-full h-[240px] md:h-[380px] mb-8 rounded-xl relative overflow-hidden" 
+              className="w-full h-[240px] md:h-[420px] mb-8 rounded-xl relative overflow-hidden" 
               style={{ background: post.heroGradient ?? DEFAULT_HERO_GRADIENT }}
             >
               {/* Layer 2: Photo/illustration (PNG, JPEG) */}
@@ -374,16 +374,6 @@ export const BlogPost: React.FC = () => {
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
 
               <div className="absolute bottom-0 left-0 w-full p-4 md:p-8">
-                <div className="flex flex-wrap gap-2 mb-3 md:mb-4">
-                  {post.tags.map((tag, idx) => (
-                    <span 
-                      key={`tag-${idx}`} 
-                      className="px-2 md:px-3 py-1 text-xs font-medium bg-black/30 text-cyan-300 rounded-full backdrop-blur-sm"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
                 <h1 className="text-2xl md:text-4xl lg:text-5xl font-bold text-white leading-tight break-words">{post.title}</h1>
                 {post.subtitle && (
                   <p className="text-lg md:text-xl lg:text-2xl text-cyan-300/90 mt-2 font-medium">{post.subtitle}</p>
@@ -393,6 +383,16 @@ export const BlogPost: React.FC = () => {
                   <span className="mr-4">{post.date}</span>
                   <Clock size={16} className="mr-1" />
                   <span>{post.readTime}</span>
+                </div>
+                <div className="flex flex-wrap gap-2 mt-3 md:mt-4">
+                  {post.tags.map((tag, idx) => (
+                    <span 
+                      key={`tag-${idx}`} 
+                      className="px-2 md:px-3 py-1 text-xs font-medium bg-black/30 text-cyan-300 rounded-full backdrop-blur-sm"
+                    >
+                      {tag}
+                    </span>
+                  ))}
                 </div>
               </div>
             </div>

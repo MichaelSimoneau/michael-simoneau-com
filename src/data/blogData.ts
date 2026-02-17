@@ -284,7 +284,6 @@ export const blogData: BlogData[] = [
     ],
     heroGradient: "linear-gradient(135deg, #0D9488 0%, #B45309 100%)",
     heroImage: "/ZerothTheory.png",
-    heroSvg: "/blog/law-of-the-ceiling.svg",
     featured: true,
     content: [
       // --- 1. The Glitch in the Machine: A Preface on Totality ---

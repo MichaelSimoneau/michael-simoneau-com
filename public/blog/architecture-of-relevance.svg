@@ -40,6 +40,9 @@
   <!-- Background gradient -->
   <rect width="1200" height="630" fill="url(#ar-g1)"/>
 
+  <!-- Tagline above coins -->
+  <text x="600" y="112" font-family="'IBM Plex Sans', 'Inter', sans-serif" font-size="32" font-weight="600" fill="#F8FAFC" text-anchor="middle" letter-spacing="0.08em" opacity="0.9">Money That Lives to Pay You Back!</text>
+
   <!-- LEFT COIN — Outer pulse rings -->
   <circle cx="365" cy="265" r="200" fill="url(#ar-pulse-L)"/>
   <circle cx="365" cy="265" r="185" fill="none" stroke="rgba(124,58,237,0.08)" stroke-width="1"/>
