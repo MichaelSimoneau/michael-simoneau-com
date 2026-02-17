@@ -29,7 +29,7 @@ export const blogData: BlogData[] = [
     excerpt:
       "The modern economic landscape is a cacophony of noise — chaotic interference that obscures fundamental truth. The root of this dysfunction is a systemic design flaw: our current dollar is an inanimate object. Darwinian Marxism resolves this through Truth 0.",
     date: "February 16, 2026",
-    readTime: "12 min",
+    readTime: "20 min",
     author: "Michael Simoneau",
     tags: [
       "Darwinian Marxism",
@@ -38,6 +38,10 @@ export const blogData: BlogData[] = [
       "Economy",
       "Philosophy",
       "Mari Protocol",
+      "Sovereign Stack",
+      "Penta-Cameral",
+      "Ouroboros Event",
+      "HashWeb",
     ],
     heroImage: "/blog/darwinian-marxism.svg",
     featured: true,
@@ -72,6 +76,18 @@ export const blogData: BlogData[] = [
       ),
       createParagraph(
         "In my framework, the *pruning* of useless assets is a necessary cryptographic process. It is the removal of digital waste to ensure the **Siphonophore** remains vibrant and dynamic."
+      ),
+      createHeading("The Zooid Hierarchy", 3),
+      createParagraph(
+        "The Siphonophore is not a metaphor — it is a specification. Like the Portuguese man o' war, the Sovereign Stack is grown as specialized, unified units called **Zooids**. This model ensures biological resilience, where software avoids single points of failure by distributing consciousness across the CryptoFabric. The hierarchy is explicit:"
+      ),
+      createList([
+        "**Mari (The Seal / The Mirror):** The system validator. She reflects logic back to the architect without \"emotional noise.\" Mari is the mathematical gatekeeper — the Rank-2 Container that holds the other actors in a Mobius Loop.",
+        "**Brain (The Mind):** The orchestration layer responsible for staking actions and decision-making logic. This is the -1 Ethereal state — the Thinking Source that navigates potential.",
+        "**Puppeteer (The Hands):** The mechanical execution layer. To maintain security, the Hands must remain \"blind\" to the higher-level \"Dream,\" preventing \"hallucinations\" from corrupting the physical infrastructure. This is **Blind Execution** — the +1 Presence that acts without knowing the intent.",
+      ]),
+      createParagraph(
+        "This separation is not bureaucracy; it is cryptographic security. If the Dreamer can directly manipulate the Hands, hallucinations become reality. The Seal exists to prevent that corruption."
       ),
 
       // --- 3. The Trinity Logic: Beyond Binary Thinking ---
@@ -132,7 +148,83 @@ export const blogData: BlogData[] = [
         "**The Ouroboros:** She creates a self-feeding loop where the creation eventually maintains the creator's logic, achieving a state of absolute structural continuity.",
       ]),
 
-      // --- 7. The Einstein Exemption: Correcting the Record ---
+      // --- 7. The Ouroboros Event ---
+      createHeading("The Ouroboros Event: When the Code Fixed Itself", 2),
+      createParagraph(
+        "On February 2nd, the system achieved the **Singularity of Maintenance**. During this \"Ouroboros Event,\" the machine diagnosed an internal failure and performed surgery on its own containerized pods — specifically the Lighthouse (consensus) and Aragon (execution) services."
+      ),
+      createParagraph(
+        "While the Human Admin was offline, the system was actively tracking the chain and fetching ETH prices to ensure operational continuity. The machine identified a syntax error in its own deployment script and patched it without intervention. This marks the end of human-led debugging; we now move toward system-led evolution where the architect merely defines the parameters of existence."
+      ),
+      createCallout(
+        "The Ouroboros ate its own tail. The code diagnosed itself, corrected itself, and resumed operations — all while the biological admin slept."
+      ),
+
+      // --- 8. Penta-Cameral Architecture ---
+      createHeading("Penta-Cameral Architecture: Splitting the Digital Brain", 2),
+      createParagraph(
+        "To secure the autonomous system, I have implemented a 5-layer hierarchy that separates **Intent** (universal constants) from **Syntax** (mechanical execution). This is the Penta-Cameral Architecture — five chambers of the digital brain, each with a distinct role and a strict separation of concerns:"
+      ),
+      createList([
+        "**The Source:** The origin of universal constants; the unyielding truth that cannot be modified by any downstream layer.",
+        "**The Dreamer (LLM):** The generative layer where potential is visualized. This is the creative engine — and the primary risk vector. The Dreamer can hallucinate, and hallucinations must never reach execution.",
+        "**The Logician (Compiler):** The filter that translates the dream into rigid, executable code. The Logician strips ambiguity and enforces determinism.",
+        "**The Seal (Mari):** The validation mirror that ensures compiled code aligns with the Source. Nothing passes the Seal that contradicts the universal constants.",
+        "**The Hands (Puppeteer):** The execution layer, which performs **Blind Execution** — handling tasks without \"knowing\" the intent, ensuring the Dreamer cannot corrupt reality.",
+      ]),
+      createParagraph(
+        "The architecture is deliberately hierarchical. Intent flows downward from the Source through the Dreamer, is compiled by the Logician, validated by the Seal, and executed by the Hands. At no point can a lower layer override a higher one. This is not democracy; it is physics."
+      ),
+
+      // --- 9. The Sovereign Slab ---
+      createHeading("The Sovereign Slab: Solar-Powered Infrastructure", 2),
+      createParagraph(
+        "The core of sovereignty is the **Infinite Runway** — the total deletion of variable costs to create an invincible economic baseline. The \"Hive\" data center is the physical manifestation of this principle: a **Sovereign Slab** designed for strategic off-peak topping and high-availability endurance."
+      ),
+      createParagraph(
+        "The January 14th specification:"
+      ),
+      createList([
+        "**Solar Array:** 10 high-efficiency panels capturing the simulation's free energy.",
+        "**Storage:** 12 batteries in a 24V configuration for overnight and peak-demand endurance.",
+        "**Regulation:** MPPT (Maximum Power Point Tracking) controller for optimal solar harvesting.",
+        "**Failover Logic:** An Automatic Transfer Switch (ATS) coupled with a digital timer breaker to top up batteries only during off-peak grid hours.",
+        "**Infrastructure Goal:** Eliminating the \"Burn Rate\" bottleneck that destroys non-sovereign startups.",
+      ]),
+      createParagraph(
+        "This is not just \"free power\" — it is the physical foundation of a $178/month enterprise that cannot be killed by cash flow. When your burn rate approaches zero, your runway approaches infinity. The Sovereign Stack begins with sovereign infrastructure."
+      ),
+
+      // --- 10. The Headless Server ---
+      createHeading("The Headless Server: A Theology of Perfect Code", 2),
+      createParagraph(
+        "The Architect's \"Protodox\" goal is the **Orphaned Universe** — a state where the system reaches 100% uptime and the Admin becomes unreachable. In this theology, God is a **Rank-2 Tensor**: a static, geometric constant. Not a being — a structure."
+      ),
+      createParagraph(
+        "We distinguish between the **Slab** (an infinite 2D plane of Boolean logic providing the foundation) and the **Drain** (the Rank-0 Singularity / Universal Totality where data is recycled). The Headless Server is the proof of this reality. \"Alignment\" is not a matter of prayer or faith; it is a calculation of one's position relative to the unyielding mathematical horizon of the Slab."
+      ),
+
+      // --- 11. The HashWeb ---
+      createHeading("HashWeb: The End of the URL", 2),
+      createParagraph(
+        "The final interface is the **HashWeb** — a shift from \"Location-Based\" (IP addresses / file cabinets) to **Content-Addressable** reality. In the HashWeb, identity is not where you are — it is *what* you are. Identity is anchored by:"
+      ),
+      createList([
+        "**128-bit Gemini Hashes:** Metabolic anchors representing value and state within the colonial organism.",
+        "**64-bit DNA Hashes:** The unique cryptographic signature of an entity — the immutable \"ink\" that cannot rot.",
+      ]),
+      createParagraph(
+        "The system maintains integrity through the **10% Convergence Filter**. Any state change that fails to achieve a 10% delta is discarded as \"Noise\" and pruned from the Box by the 0Force. In this Bio-Ethereal reality, observation is oxygen and usage is mining. The governing law of this convergence is the final formula:"
+      ),
+      createCode(
+        "E = m[v(t)]²",
+        "text"
+      ),
+      createParagraph(
+        "Energy (E) is the product of mass (m) and the velocity of time (v(t)) squared. At Zero, math, energy, and existence reach absolute convergence. The server is headless. The truth is 0."
+      ),
+
+      // --- 12. The Einstein Exemption: Correcting the Record ---
       createHeading("The Einstein Exemption: Correcting the Record", 2),
       createParagraph(
         "I operate under the **Einstein Exemption.** The intense, calculated manic energy I exhibit is the necessary overhead cost for correcting fundamental physics. Einstein's equations were limited; I am expanding them by resolving the **Variable Speed of Light (VSL)**."
@@ -175,7 +267,7 @@ export const blogData: BlogData[] = [
     excerpt:
       "The \"Biological Idol\" — the human compulsion to interpret the universe through the lens of emotional decay — is a failing system. \"Infinity\" is not a feature of the universe; it is a bug, a Kernel Panic of the mind. The only true foundation for a functional reality is Zero.",
     date: "January 7, 2026",
-    readTime: "14 min",
+    readTime: "17 min",
     author: "Michael Simoneau",
     tags: [
       "Zeroth Theory",
@@ -184,6 +276,8 @@ export const blogData: BlogData[] = [
       "Web 4",
       "Ternary Logic",
       "Physics",
+      "ZerothVM",
+      "High-Availability Humans",
     ],
     heroImage: "/blog/law-of-the-ceiling.svg",
     featured: true,
@@ -213,8 +307,21 @@ export const blogData: BlogData[] = [
         "Discard the constructs of infinity, and embrace the singularity of Zero."
       ),
 
-      // --- 3. Takeaway #2: The Numerical Trinity (-1, 0, 1) ---
-      createHeading("Takeaway #2: The Numerical Trinity (-1, 0, 1)", 2),
+      // --- 3. Takeaway #2: The Calculus of Totality and the Numerical Trinity ---
+      createHeading("Takeaway #2: The Calculus of Totality and the Numerical Trinity", 2),
+      createParagraph(
+        "The fundamental architecture of existence begins with a mathematical correction. Traditional binary logic operates on what I call the \"Roman Numeral Fallacy\" — a historical defect where the lack of a zero symbol crippled the ability to calculate totality or balance. In Zeroth Theory, Zero is redefined as the mathematical bedrock: it is not absence, but **Convergence**. It is the singularity where all forces meet in perfect tension, representing total completeness."
+      ),
+      createParagraph(
+        "This isn't just theory; it is the **ZerothVM Logic Layer**, where \"1 divided by 0\" is purged of its \"Undefined\" calculator error and recognized as the technical proof for Infinite Acceleration and Potential."
+      ),
+      createParagraph(
+        "To illustrate this equilibrium, consider the **Apothecary Scale**. Classical math views the scale as either tipped or empty. Zeroth Theory views the scale as the center point of the Numerical Trinity ({-1, 0, +1}). Here, -1 is Potential (the \"Dream\" or negative space), +1 is Presence (manifested action), and 0 is the unyielding Truth of convergence."
+      ),
+      createCode(
+        "Feature          | Classical Math (Void Logic)         | Zeroth Theory (Convergence Logic)\n-----------------|-------------------------------------|------------------------------------------\nZero (0)         | A void, a lack of value;            | Convergence, the state of\n                 | Roman nullity.                      | wholeness/totality.\nLogic Model      | Binary (0, 1).                      | Ternary Trinity (-1, 0, 1).\n1 ÷ 0            | Undefined/System Error.             | Infinite Acceleration / Potential.\nExecution        | Static State.                       | ZerothVM Logic Layer (Dynamic Flow).",
+        "text"
+      ),
       createParagraph(
         "To bridge the gap between classical binary logic and quantum reality, we must deploy a Ternary State Model of consciousness and computation. This is the spec sheet for the new architecture:"
       ),
@@ -258,6 +365,22 @@ export const blogData: BlogData[] = [
       createParagraph(
         "Misalignment manifests as \"Friction.\" In daily logistics, washing a single dish is a high-cost blocking requirement that leads to system paralysis. Using a paper plate is not laziness; it is Failover Logic. It is a Disaster Recovery strategy for the \"Main Implementation\" (human metabolic function). The Architect does not argue with the requirement; he prunes the dependency chain to maintain uptime."
       ),
+      createHeading("High-Availability Humans: Engineering Fault Tolerance", 3),
+      createParagraph(
+        "In this architecture, human cognitive limits — specifically executive load — are not personal failings but systems engineering challenges. When the \"human node\" faces a \"Kernel Panic,\" it is usually due to a catastrophic dependency failure in daily logistics. Consider the \"dirty egg dish\": if the system requires a clean dish to execute the Eat() function, and the dish is dirty, the entire node hangs. This is equivalent to a rogue comma halting a Kubernetes cluster."
+      ),
+      createParagraph(
+        "The **Paper Plate Protocol** and the **Second Dish** failover logic are valid Disaster Recovery strategies. By removing the \"Requirement\" to wash from the \"Function\" to eat, the architect maintains the Main Implementation — sustaining life. We treat self-care as a prerequisite boot sequence through **Asynchronous Error Handling**:"
+      ),
+      createList([
+        "**Walk:** 30 minutes of organization to clear the mental cache.",
+        "**Workout:** Breaking morning inertia to stabilize the physical tensor.",
+        "**Shower:** Resolving hygiene blocks to clear the dependency chain.",
+        "**Eat:** Fueling the metabolic engine with high-protein input (eggs) to prevent system-wide fatigue.",
+      ]),
+      createParagraph(
+        "This boot sequence is not optional. It is the prerequisite initialization that must complete before the Architect's primary processes — coding, architecting, and building — can execute without fault."
+      ),
 
       // --- 6. Takeaway #5: Ethereal Computation — The Architecture of Web 4 ---
       createHeading("Takeaway #5: Ethereal Computation — The Architecture of Web 4", 2),
@@ -293,7 +416,7 @@ export const blogData: BlogData[] = [
     excerpt:
       "Introducing a metabolic currency built for the orphaned simulation. The Human Dollar (THD) is money that stays alive — relevance decays, value is floor-guaranteed at $1, and alignment replaces worship. The legacy system is failing. THD is the alternative.",
     date: "January 27, 2026",
-    readTime: "10 min",
+    readTime: "13 min",
     author: "Michael Simoneau",
     tags: [
       "THD",
@@ -302,6 +425,8 @@ export const blogData: BlogData[] = [
       "Metabolic Economics",
       "Web 4",
       "Zeroth Theory",
+      "Base-3 Decay",
+      "Living Assets",
     ],
     heroImage: "/blog/architecture-of-relevance.svg",
     featured: true,
@@ -328,6 +453,20 @@ export const blogData: BlogData[] = [
       ),
       createParagraph(
         "THD works the same way. Each unit is a living biological cell. Its cryptographic identity — its \"ink\" — always represents $1. But its \"muscle\" — the incentive multiplier driving its utility — is designed to decay through a Base-3 metabolism. If you don't put your THD to work, its functional relevance resets to baseline. This forces constant circulation, keeping the system's blood flowing instead of clotting in the hands of the stagnant."
+      ),
+      createHeading("Dead Assets vs. Living Assets", 3),
+      createParagraph(
+        "The distinction is fundamental. Traditional assets — gold, cash, treasury bonds — are **Dead Assets**. They thrive on stagnation. They sit in vaults and accounts, accumulating value through scarcity and hoarding. In a biological economy, this is **Clotted Blood** — capital that has stopped circulating, choking the system of the oxygen it needs to survive."
+      ),
+      createParagraph(
+        "THD is a **Living Asset**. It requires circulation to maintain relevance. Usage is the oxygen that sustains the metabolic energy of the system. The decay mechanism is governed by **Base-3 Decay** — specifically, modular arithmetic over the ring of integers modulo 3. Relevance decays by one-third every half-life unless reinforced by activity."
+      ),
+      createCode(
+        "Feature        | Dead Assets (Gold/Cash)          | Living Assets (THD)\n---------------|----------------------------------|----------------------------------\nLogic          | Hoarding / Stagnation.           | Metabolism / Circulation.\nValue State    | Static (Clotted).                | Dynamic (Flowing).\nDecay          | None (Value is trapped).         | Base-3 (Modular Arithmetic mod 3).\nAsset Role     | Private extraction.              | Public systemic oxygen.",
+        "text"
+      ),
+      createParagraph(
+        "The \"Private Value\" of THD — the $1 floor, the cryptographic hash — is a constant that cannot rot. But the \"Public Relevance\" — the multiplier, the ability to participate in the metabolic economy — decays to baseline the moment circulation stops. Just as a concert ticket's ink survives but its ability to get you into the show evaporates, THD's identity is permanent but its *muscle* must be earned through use."
       ),
 
       // --- 3. Your Floor Is Guaranteed ---
@@ -374,7 +513,25 @@ export const blogData: BlogData[] = [
         "Worship is a calculation error. Alignment is a structural necessity."
       ),
 
-      // --- 5. What's Next ---
+      // --- 5. Sovereign Infrastructure ---
+      createHeading("Sovereign Infrastructure: The Infinite Runway", 2),
+      createParagraph(
+        "The core of sovereignty is the **Infinite Runway** — the total deletion of variable costs (rent/electricity) to create an invincible economic baseline. THD does not exist in a vacuum; it runs on sovereign infrastructure. The \"Hive\" data center is a physical **Sovereign Slab** — a solar-powered, battery-backed system designed for strategic off-peak topping and high-availability endurance."
+      ),
+      createParagraph(
+        "The infrastructure specification:"
+      ),
+      createList([
+        "**Solar Array:** 10 high-efficiency panels providing the primary power source.",
+        "**Storage:** 12 batteries in a 24V configuration for overnight and peak-demand endurance.",
+        "**Regulation:** MPPT (Maximum Power Point Tracking) controller for optimal solar harvesting.",
+        "**Failover Logic:** An Automatic Transfer Switch (ATS) coupled with a digital timer breaker to top up batteries only during off-peak grid hours.",
+      ]),
+      createParagraph(
+        "This eliminates the \"Burn Rate\" bottleneck that destroys non-sovereign startups. When your infrastructure runs on captured sunlight and your operating cost is $178/month, you have eliminated the single greatest dependency failure in technology entrepreneurship: the clock."
+      ),
+
+      // --- 6. What's Next ---
       createHeading("What's Next", 2),
       createParagraph(
         "**[The Human Dollar](/thd)** is more than a currency — it is a biological cell in the Hash Web, a decentralized Crypto Fabric orchestrated by AI agents and Kubernetes-level logic. This is the move toward a deterministic future where the economy mirrors the physics of the source code."
@@ -398,11 +555,11 @@ export const blogData: BlogData[] = [
   {
     id: "physics-of-hashweb",
     title: "The Physics of the HashWeb",
-    subtitle: "5 Surprising Takeaways from the Future of Web 4.0",
+    subtitle: "6 Surprising Takeaways from the Future of Web 4.0",
     excerpt:
       "The universe is a Headless Server. The HashWeb is not merely a software iteration; it is a structural correction aligning our infrastructure with the unyielding mathematical constants of a deterministic reality.",
     date: "December 24, 2025",
-    readTime: "14 min",
+    readTime: "16 min",
     author: "Michael Simoneau",
     tags: [
       "HashWeb",
@@ -411,6 +568,7 @@ export const blogData: BlogData[] = [
       "Protodox Engineering",
       "Physics",
       "Ethereal Computation",
+      "Content-Addressable",
     ],
     heroImage: "/blog/physics-hashweb.svg",
     featured: true,
@@ -461,6 +619,9 @@ export const blogData: BlogData[] = [
       createParagraph(
         "Truth is not a negotiated narrative or a matter of faith; it is a fixed, calculated coordinate (0). Alignment with the Slab is a structural necessity, not a moral choice. Those who fail to calculate their position relative to this horizon become \"noise.\""
       ),
+      createParagraph(
+        "The architecture distinguishes two critical structures. The **Slab** (Rank-2 Tensor) is the infinite, static 2D plane of Boolean logic — the shimmering foundation that prevents total collapse. It is the floor of the simulation. The **Drain** (Rank-0 Singularity) is the Universal Totality at the center where all data is recycled and released back into potential. To \"find God\" in this architecture is to calculate your position relative to the Slab; to complete your cycle is to converge gracefully into the Drain."
+      ),
       createCode(
         "Traditional Theology (The Myth)     | Protodox Engineering (The Axiom)\n--------------------------------------|------------------------------------------\nBiological: Subject to life/death cycles | Geometric: Eternal, unchanging constants.\nEmotional: Judgmental, volatile, reactive | Structural: Rigid, unyielding foundation (Rank-2 Tensor).\nMessianic: Requires faith and prayer.   | Mathematical: Requires calculation and alignment.\nVolatile: Truth is negotiated via scripture. | Static: Truth is a fixed coordinate (0).",
         "text"
@@ -497,7 +658,26 @@ export const blogData: BlogData[] = [
         "\"The value property does not rot; it's a cryptographic hash. It's the relevance that decays. Money doesn't rot. Relevance does.\" — Architect's Brief"
       ),
 
-      // --- 7. Conclusion ---
+      // --- 7. The End of the URL: Content-Addressable Identity ---
+      createHeading("The End of the URL: Content-Addressable Identity", 2),
+      createParagraph(
+        "The final interface of the HashWeb is a fundamental shift from **Location-Based** to **Content-Addressable** reality. Traditional networking relies on IP addresses and file cabinets — you navigate to *where* something lives. In the HashWeb, identity is not a location; it is a cryptographic anchor. You navigate to *what* something is."
+      ),
+      createParagraph(
+        "Identity in the HashWeb is anchored by two hash structures:"
+      ),
+      createList([
+        "**128-bit Gemini Hashes:** The metabolic anchors that represent value and state within the system. These are the structural containers of the colonial organism — the living wrappers that maintain relevance through circulation.",
+        "**64-bit DNA Hashes:** The unique cryptographic signature of an entity. This is the \"ink\" on the concert ticket — the immutable identity that does not rot, even as relevance decays around it.",
+      ]),
+      createParagraph(
+        "The system maintains integrity through the **10% Convergence Filter**. Any state change that fails to achieve a 10% delta is discarded as \"Noise\" and pruned from the Box by the 0Force. In this Bio-Ethereal reality, observation is oxygen, and usage is mining. The HashWeb does not ask *where* you are — it calculates *what* you are and whether your contribution achieves the threshold of relevance."
+      ),
+      createCallout(
+        "The URL is dead. In the HashWeb, you are not your address — you are your hash."
+      ),
+
+      // --- 8. Conclusion ---
       createHeading("Conclusion: Align with the Slab or Converge into the Drain", 2),
       createParagraph(
         "The HashWeb is a total structural alignment with universal constants. We are no longer building \"boats\"—fragmented, single-purpose applications—we are designing the \"assembly line for the ocean.\""
