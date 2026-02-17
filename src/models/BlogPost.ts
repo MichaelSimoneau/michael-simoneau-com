@@ -42,7 +42,9 @@ export interface BlogPost {
   readTime: string;
   author: string;
   tags: string[];
-  heroImage: string;
+  heroGradient?: string;  // CSS gradient for background layer
+  heroImage?: string;     // Photo/illustration layer (PNG, JPEG) - renders above gradient
+  heroSvg?: string;       // SVG art overlay - renders above heroImage
   featured?: boolean;
   createdAt: number; // timestamp
   updatedAt: number; // timestamp

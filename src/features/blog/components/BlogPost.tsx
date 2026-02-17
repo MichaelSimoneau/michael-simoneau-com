@@ -8,8 +8,7 @@ import { useScrollToTop } from '../../../hooks/useScrollToTop'; // Added import
 import { parseInlineMarkdown } from '../../../utils/markdown';
 import { Seo } from '../../../foundation/seo/Seo';
 import { XIcon } from '../../../ui/icons/XIcon';
-
-// Removed unused local ContentBlock type definition, as ContentBlockType from models is used
+import { generateFallbackSvg, DEFAULT_HERO_GRADIENT } from '../../../utils/heroFallback';
 
 const CodeBlock: React.FC<{ language: string; content: string }> = ({ language, content }) => {
   const [copyStatus, setCopyStatus] = React.useState<'idle' | 'success' | 'error'>('idle');
@@ -225,10 +224,11 @@ export const BlogPost: React.FC = () => {
     }
   };
 
-  // Get absolute image URL for SEO
-  const heroImageUrl = post.heroImage.startsWith('http')
-    ? post.heroImage
-    : `https://www.michaelsimoneau.com${post.heroImage.startsWith('/') ? post.heroImage : '/' + post.heroImage}`;
+  // Get absolute image URL for SEO (prefer heroImage, fall back to heroSvg)
+  const seoImagePath = post.heroImage ?? post.heroSvg ?? '/og-image.svg';
+  const heroImageUrl = seoImagePath.startsWith('http')
+    ? seoImagePath
+    : `https://www.michaelsimoneau.com${seoImagePath.startsWith('/') ? seoImagePath : '/' + seoImagePath}`;
 
   // Parse date for article meta tags (handles formats like "December 9, 2025")
   const parseDate = (dateStr: string): string | undefined => {
@@ -342,33 +342,36 @@ export const BlogPost: React.FC = () => {
 
             <div 
               className="w-full h-[240px] md:h-[380px] mb-8 rounded-xl relative overflow-hidden" 
-              style={{ 
-                background: post.heroImage === '/blog/darwinian-marxism.svg' ?
-                  'linear-gradient(135deg, #B45309 0%, #78350F 100%)' :
-                (post.heroImage === '/blog/law-of-the-ceiling.svg' || post.heroImage === '/ZerothTheory.png') ?
-                  'linear-gradient(135deg, #0D9488 0%, #B45309 100%)' :
-                post.heroImage === '/blog/architecture-of-relevance.svg' ?
-                  'linear-gradient(135deg, #7C3AED 0%, #DC2626 100%)' :
-                post.heroImage === '/blog/future-security.svg' ? 
-                  'linear-gradient(135deg, #006D5B 0%, #004D3D 100%)' : 
-                post.heroImage === '/blog/system-transformation.svg' ? 
-                  'linear-gradient(135deg, #DC2626 0%, #991B1B 100%)' :
-                post.heroImage === '/blog/rn-scaling-deep-dive.svg' ? 
-                  'linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%)' :
-                post.heroImage === '/blog/ai-practical-security.svg' ? 
-                  'linear-gradient(135deg, #7E22CE 0%, #5B21B6 100%)' :
-                post.heroImage === '/blog/cto-compensation.svg' ? 
-                  'linear-gradient(135deg, #15803D 0%, #166534 100%)' : 
-                  'linear-gradient(135deg, #1E293B 0%, #0F172A 100%)'
-              }}
+              style={{ background: post.heroGradient ?? DEFAULT_HERO_GRADIENT }}
             >
-              <img 
-                src={post.heroImage} 
-                alt="" 
-                aria-hidden="true"
-                className={`absolute inset-0 w-full h-full ${post.heroImage.endsWith('.png') || post.heroImage.endsWith('.jpg') || post.heroImage.endsWith('.jpeg') ? 'object-contain opacity-40' : 'object-cover opacity-30'}`}
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent" />
+              {/* Layer 2: Photo/illustration (PNG, JPEG) */}
+              {post.heroImage && (
+                <img
+                  src={post.heroImage}
+                  alt=""
+                  aria-hidden="true"
+                  className="absolute inset-0 w-full h-full object-contain opacity-80"
+                />
+              )}
+              {/* Layer 3: SVG art overlay */}
+              {post.heroSvg && (
+                <img
+                  src={post.heroSvg}
+                  alt=""
+                  aria-hidden="true"
+                  className="absolute inset-0 w-full h-full object-cover opacity-90"
+                />
+              )}
+              {/* Layer 3 fallback: auto-generated text SVG */}
+              {!post.heroImage && !post.heroSvg && (
+                <img
+                  src={generateFallbackSvg(post.title, post.tags)}
+                  alt=""
+                  aria-hidden="true"
+                  className="absolute inset-0 w-full h-full object-cover opacity-90"
+                />
+              )}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
 
               <div className="absolute bottom-0 left-0 w-full p-4 md:p-8">
                 <div className="flex flex-wrap gap-2 mb-3 md:mb-4">

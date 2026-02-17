@@ -4,34 +4,55 @@ import { Link } from 'react-router-dom';
 import { Calendar, Clock, ChevronRight, Search } from 'lucide-react';
 import { MainNav } from '../../../layout/MainNav';
 import { Seo } from '../../../foundation/seo/Seo';
-import { blogData } from '../../../data/blogData'; // Import the new blog data source
-import { BlogData as BlogPostType } from '../../../data/blogData'; // Import the type for clarity
-import { useScrollToTop } from '../../../hooks/useScrollToTop'; // Added import
+import { blogData } from '../../../data/blogData';
+import { BlogData as BlogPostType } from '../../../data/blogData';
+import { useScrollToTop } from '../../../hooks/useScrollToTop';
+import { generateFallbackSvg, DEFAULT_HERO_GRADIENT } from '../../../utils/heroFallback';
 
-// Utility function to get gradient for post (can be kept or modified if image handling changes)
-const getGradientForPost = (imageUrl: string) => {
-  // This mapping should ideally be more robust or data-driven if heroImage paths change frequently
-  switch (imageUrl) {
-    case '/blog/darwinian-marxism.svg':
-      return 'linear-gradient(135deg, #B45309 0%, #78350F 100%)';
-    case '/blog/law-of-the-ceiling.svg':
-    case '/ZerothTheory.png':
-      return 'linear-gradient(135deg, #0D9488 0%, #B45309 100%)';
-    case '/blog/architecture-of-relevance.svg':
-      return 'linear-gradient(135deg, #7C3AED 0%, #DC2626 100%)';
-    case '/blog/future-security.svg':
-      return 'linear-gradient(135deg, #007ACC 0%, #005F99 100%)';
-    case '/blog/system-transformation.svg':
-      return 'linear-gradient(135deg, #4A00E0 0%, #8E2DE2 100%)';
-    case '/blog/rn-scaling-deep-dive.svg':
-      return 'linear-gradient(135deg, #1D976C 0%, #93F9B9 100%)';
-    case '/blog/ai-practical-security.svg': // New ID from blogData.ts
-      return 'linear-gradient(135deg, #FF8C00 0%, #FFA500 100%)';
-    case '/blog/cto-compensation.svg': // New ID from blogData.ts
-      return 'linear-gradient(135deg, #B22222 0%, #DC143C 100%)';
-    default:
-      return 'linear-gradient(135deg, #1E293B 0%, #0F172A 100%)';
-  }
+/** Renders the layered hero image stack: gradient -> heroImage -> heroSvg -> dark overlay */
+const HeroImageStack: React.FC<{ post: BlogPostType; className?: string }> = ({ post, className = '' }) => {
+  const hasImage = !!post.heroImage;
+  const hasSvg = !!post.heroSvg;
+  const hasFallback = !hasImage && !hasSvg;
+
+  return (
+    <div className={`overflow-hidden ${className}`}>
+      {/* Layer 1: Gradient background */}
+      <div
+        className="absolute inset-0"
+        style={{ background: post.heroGradient ?? DEFAULT_HERO_GRADIENT }}
+      />
+      {/* Layer 2: Photo/illustration (PNG, JPEG) */}
+      {hasImage && (
+        <img
+          src={post.heroImage}
+          alt=""
+          aria-hidden="true"
+          className="absolute inset-0 w-full h-full object-contain opacity-80"
+        />
+      )}
+      {/* Layer 3: SVG art overlay */}
+      {hasSvg && (
+        <img
+          src={post.heroSvg}
+          alt=""
+          aria-hidden="true"
+          className="absolute inset-0 w-full h-full object-cover opacity-90"
+        />
+      )}
+      {/* Layer 3 fallback: auto-generated text SVG */}
+      {hasFallback && (
+        <img
+          src={generateFallbackSvg(post.title, post.tags)}
+          alt=""
+          aria-hidden="true"
+          className="absolute inset-0 w-full h-full object-cover opacity-90"
+        />
+      )}
+      {/* Layer 4: Dark gradient for text readability */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent z-10" />
+    </div>
+  );
 };
 
 const FeaturedPost: React.FC<{ post: BlogPostType }> = ({ post }) => {
@@ -44,17 +65,7 @@ const FeaturedPost: React.FC<{ post: BlogPostType }> = ({ post }) => {
     >
       <Link to={`/blog/${post.id}`} className="block">
         <div className="relative h-80 overflow-hidden">
-          <div 
-            className="absolute inset-0" 
-            style={{ background: getGradientForPost(post.heroImage) }}
-          />
-          <img 
-            src={post.heroImage} 
-            alt="" 
-            aria-hidden="true"
-            className={`absolute inset-0 w-full h-full ${post.heroImage.endsWith('.png') || post.heroImage.endsWith('.jpg') || post.heroImage.endsWith('.jpeg') ? 'object-contain opacity-40' : 'object-cover opacity-25'}`}
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent z-10" />
+          <HeroImageStack post={post} className="absolute inset-0" />
           <div className="absolute inset-0 z-20 p-6 flex flex-col justify-end">
             <div className="flex gap-2 mb-3 flex-wrap">
               {post.tags.map((tag, idx) => (
@@ -102,17 +113,7 @@ const BlogCard: React.FC<{ post: BlogPostType; delay?: number }> = ({ post, dela
     >
       <Link to={`/blog/${post.id}`} className="block">
         <div className="relative h-48 overflow-hidden">
-          <div 
-            className="absolute inset-0" 
-            style={{ background: getGradientForPost(post.heroImage) }}
-          />
-          <img 
-            src={post.heroImage} 
-            alt="" 
-            aria-hidden="true"
-            className={`absolute inset-0 w-full h-full ${post.heroImage.endsWith('.png') || post.heroImage.endsWith('.jpg') || post.heroImage.endsWith('.jpeg') ? 'object-contain opacity-35' : 'object-cover opacity-20'}`}
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent z-10" />
+          <HeroImageStack post={post} className="absolute inset-0" />
           <div className="absolute inset-0 z-20 p-5 flex flex-col justify-end">
             <div className="flex gap-2 mb-2 flex-wrap">
               {post.tags.slice(0, 2).map((tag, idx) => (

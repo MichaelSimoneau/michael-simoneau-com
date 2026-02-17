@@ -16,7 +16,9 @@ export interface BlogData {
   readTime: string;
   author: string;
   tags: string[];
-  heroImage: string; // Placeholder, will need actual image paths or a generation strategy
+  heroGradient?: string;  // CSS gradient for background layer
+  heroImage?: string;     // Photo/illustration layer (PNG, JPEG) - renders above gradient
+  heroSvg?: string;       // SVG art overlay - renders above heroImage
   featured?: boolean;
   content: ContentBlock[];
 }
@@ -43,7 +45,8 @@ export const blogData: BlogData[] = [
       "Ouroboros Event",
       "HashWeb",
     ],
-    heroImage: "/blog/darwinian-marxism.svg",
+    heroGradient: "linear-gradient(135deg, #B45309 0%, #78350F 100%)",
+    heroSvg: "/blog/darwinian-marxism.svg",
     featured: true,
     content: [
       // --- 1. Introduction: The Inanimate Dollar and the Problem of "Noise" ---
@@ -279,7 +282,9 @@ export const blogData: BlogData[] = [
       "ZerothVM",
       "High-Availability Humans",
     ],
+    heroGradient: "linear-gradient(135deg, #0D9488 0%, #B45309 100%)",
     heroImage: "/ZerothTheory.png",
+    heroSvg: "/blog/law-of-the-ceiling.svg",
     featured: true,
     content: [
       // --- 1. The Glitch in the Machine: A Preface on Totality ---
@@ -428,7 +433,9 @@ export const blogData: BlogData[] = [
       "Base-3 Decay",
       "Living Assets",
     ],
-    heroImage: "/blog/architecture-of-relevance.svg",
+    heroGradient: "linear-gradient(135deg, #7C3AED 0%, #DC2626 100%)",
+    heroImage: "/THD.png",
+    heroSvg: "/blog/architecture-of-relevance.svg",
     featured: true,
     content: [
       // --- 1. The Problem We're Solving ---
@@ -570,7 +577,8 @@ export const blogData: BlogData[] = [
       "Ethereal Computation",
       "Content-Addressable",
     ],
-    heroImage: "/blog/physics-hashweb.svg",
+    heroGradient: "linear-gradient(135deg, #1E293B 0%, #0F172A 100%)",
+    heroSvg: "/blog/physics-hashweb.svg",
     featured: true,
     content: [
       // --- 1. Introduction: The Headless Simulation ---
@@ -706,6 +714,7 @@ export const blogData: BlogData[] = [
       "Architecture",
       "Automation",
     ],
+    heroGradient: "linear-gradient(135deg, #B45309 0%, #78350F 100%)",
     heroImage: "/EtherHiveLLC.JPEG",
     featured: true,
     content: [
@@ -768,6 +777,7 @@ export const blogData: BlogData[] = [
       "Telemetry",
       "Guardrails",
     ],
+    heroGradient: "linear-gradient(135deg, #B45309 0%, #78350F 100%)",
     heroImage: "/EtherHiveLLC.JPEG",
     featured: true,
     content: [
@@ -843,6 +853,7 @@ export const blogData: BlogData[] = [
       "Automation",
       "Ethereum",
     ],
+    heroGradient: "linear-gradient(135deg, #B45309 0%, #78350F 100%)",
     heroImage: "/EtherHiveLLC.JPEG",
     featured: true,
     content: [
@@ -918,7 +929,8 @@ export const blogData: BlogData[] = [
     readTime: "11 min",
     author: "Michael Simoneau",
     tags: ["Philosophy", "Computation", "Zero", "Quantum"],
-    heroImage: "/blog/zero-trinity.svg",
+    heroGradient: "linear-gradient(135deg, #1E293B 0%, #0F172A 100%)",
+    heroSvg: "/blog/zero-trinity.svg",
     featured: true,
     content: [
       createParagraph(
@@ -987,7 +999,8 @@ export const blogData: BlogData[] = [
       "Risk Management",
       "Strategy",
     ],
-    heroImage: "/blog/future-security.svg",
+    heroGradient: "linear-gradient(135deg, #007ACC 0%, #005F99 100%)",
+    heroSvg: "/blog/future-security.svg",
     featured: true,
     content: [
       createParagraph(
@@ -1045,7 +1058,8 @@ function updateCryptography(newConfig: CryptoConfig) {
       "Cost Reduction",
       "Enterprise",
     ],
-    heroImage: "/blog/system-transformation.svg",
+    heroGradient: "linear-gradient(135deg, #4A00E0 0%, #8E2DE2 100%)",
+    heroSvg: "/blog/system-transformation.svg",
     featured: true,
     content: [
       createParagraph(
@@ -1101,7 +1115,8 @@ function updateCryptography(newConfig: CryptoConfig) {
       "TypeScript",
       "Case Study",
     ],
-    heroImage: "/blog/rn-scaling-deep-dive.svg",
+    heroGradient: "linear-gradient(135deg, #1D976C 0%, #93F9B9 100%)",
+    heroSvg: "/blog/rn-scaling-deep-dive.svg",
     content: [
       createParagraph(
         "Developing a mobile application that can be white-labeled and deployed for dozens, or even hundreds, of distinct clients presents unique architectural challenges. At StoneX Group Inc., I led the design of such a system using React Native, focusing on maintainability, scalability, and client-specific customizability without code duplication."
@@ -1158,7 +1173,8 @@ const MyComponent = () => <View style={{backgroundColor: colors.primary}} />;`,
     readTime: "8 min",
     author: "Michael Simoneau",
     tags: ["AI", "Machine Learning", "Security", "DevSecOps", "Enterprise"],
-    heroImage: "/blog/ai-practical-security.svg",
+    heroGradient: "linear-gradient(135deg, #FF8C00 0%, #FFA500 100%)",
+    heroSvg: "/blog/ai-practical-security.svg",
     content: [
       createParagraph(
         "Artificial Intelligence and Machine Learning are transforming industries, but this rapid adoption often outpaces robust security considerations. While discussions around AI ethics and existential risks are important, there are immediate, practical security vulnerabilities in deployed AI systems that need addressing today."
@@ -1208,7 +1224,8 @@ const MyComponent = () => <View style={{backgroundColor: colors.primary}} />;`,
       "CTO Insights",
       "Strategy",
     ],
-    heroImage: "/blog/cto-compensation.svg",
+    heroGradient: "linear-gradient(135deg, #B22222 0%, #DC143C 100%)",
+    heroSvg: "/blog/cto-compensation.svg",
     content: [
       createParagraph(
         "For Chief Technology Officers and other senior technology leaders, compensation is more than just a salary; it's a reflection of value, impact, and alignment with organizational goals. Navigating compensation discussions effectively requires a strategic approach, whether you're an aspiring CTO or an incumbent leader."
