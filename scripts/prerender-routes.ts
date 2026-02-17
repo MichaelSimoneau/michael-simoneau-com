@@ -22,6 +22,7 @@ const staticRoutes: string[] = [
 
 const blogPostIds: string[] = [
   'darwinian-marxism',
+  'law-of-the-ceiling',
   'crypto-fabric-business-plan',
   'crypto-fabric-telemetry-guardrails',
   'crypto-fabric-kickoff',
