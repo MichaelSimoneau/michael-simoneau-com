@@ -16,6 +16,8 @@ const getGradientForPost = (imageUrl: string) => {
       return 'linear-gradient(135deg, #B45309 0%, #78350F 100%)';
     case '/blog/law-of-the-ceiling.svg':
       return 'linear-gradient(135deg, #0D9488 0%, #B45309 100%)';
+    case '/blog/architecture-of-relevance.svg':
+      return 'linear-gradient(135deg, #7C3AED 0%, #DC2626 100%)';
     case '/blog/future-security.svg':
       return 'linear-gradient(135deg, #007ACC 0%, #005F99 100%)';
     case '/blog/system-transformation.svg':

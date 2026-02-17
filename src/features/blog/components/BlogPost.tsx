@@ -347,6 +347,8 @@ export const BlogPost: React.FC = () => {
                   'linear-gradient(135deg, #B45309 0%, #78350F 100%)' :
                 post.heroImage === '/blog/law-of-the-ceiling.svg' ?
                   'linear-gradient(135deg, #0D9488 0%, #B45309 100%)' :
+                post.heroImage === '/blog/architecture-of-relevance.svg' ?
+                  'linear-gradient(135deg, #7C3AED 0%, #DC2626 100%)' :
                 post.heroImage === '/blog/future-security.svg' ? 
                   'linear-gradient(135deg, #006D5B 0%, #004D3D 100%)' : 
                 post.heroImage === '/blog/system-transformation.svg' ? 
