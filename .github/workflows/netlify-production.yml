@@ -36,7 +36,7 @@ jobs:
         run: npm run typecheck
 
       - name: Build static site
-        run: npm run build
+        run: npm run build:no-prerender
 
       - name: Deploy production to Netlify
         if: ${{ secrets.NETLIFY_AUTH_TOKEN != '' && secrets.NETLIFY_SITE_ID != '' }}
