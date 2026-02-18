@@ -11,9 +11,10 @@
   status = 200
 
 [[redirects]]
-  from = "/blog/zero-why"
-  to = "/blog/zero"
-  status = 301
+  from = "/zeroth.txt"
+  to = "/zeroth.txt"
+  status = 200
+
 
 [[redirects]]
   from = "/*"
