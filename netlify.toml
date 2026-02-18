@@ -15,6 +15,10 @@
   to = "/zeroth.txt"
   status = 200
 
+[[redirects]]
+  from = "/:1/*"
+  to = "/:1/index.html"
+  status = 200
 
 [[redirects]]
   from = "/*"
