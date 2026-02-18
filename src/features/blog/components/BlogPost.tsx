@@ -117,10 +117,11 @@ const ShareButton: React.FC<{ platform: string; url: string; title: string }> = 
 
 export const BlogPost: React.FC = () => {
   const { postId } = useParams<{ postId: string }>();
-  useScrollToTop([postId]); // Use the hook, with postId as a dependency
+  useScrollToTop([postId]); // Scroll window (for document-scroll pages)
 
   const navigate = useNavigate();
   const shareOptionsRef = useRef<HTMLDivElement>(null);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [showShareOptions, setShowShareOptions] = useState(false);
   
   const post = blogData.find(p => p.id === postId);
@@ -131,6 +132,11 @@ export const BlogPost: React.FC = () => {
       navigate('/404');
     }
   }, [post, postId, navigate]);
+
+  // Scroll the blog post container to top when post changes (container is the scroll context)
+  useEffect(() => {
+    scrollContainerRef.current?.scrollTo({ top: 0, behavior: 'auto' });
+  }, [postId]);
   
   useEffect(() => {
     if (post) {
@@ -310,6 +316,10 @@ export const BlogPost: React.FC = () => {
         ]}
       />
       <MainNav />
+      <div
+        ref={scrollContainerRef}
+        className="h-screen overflow-y-auto overflow-x-hidden overscroll-behavior-x-none scroll-smooth relative z-10"
+      >
       <section className="min-h-screen bg-black text-white py-12 md:py-20 px-6 sm:px-8 md:px-12 lg:px-16 pt-20 md:pt-24">
         <div className="container mx-auto max-w-4xl">
           <div>
@@ -427,6 +437,7 @@ export const BlogPost: React.FC = () => {
           </div>
         </div>
       </section>
+      </div>
     </>
   );
 };

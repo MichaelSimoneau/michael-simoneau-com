@@ -195,6 +195,7 @@ export const Blog: React.FC = () => {
         }}
       />
       <MainNav />
+      <div className="h-screen overflow-y-auto overflow-x-hidden overscroll-behavior-x-none scroll-smooth relative z-10">
       <section 
         id="blog"
         ref={sectionRef}
@@ -253,6 +254,7 @@ export const Blog: React.FC = () => {
           </motion.div>
         </div>
       </section>
+      </div>
     </>
   );
 };
