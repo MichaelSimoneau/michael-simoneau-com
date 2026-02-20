@@ -21,6 +21,7 @@ const staticRoutes: string[] = [
 ];
 
 const blogPostIds: string[] = [
+  'zero-sudoku',
   'darwinian-marxism',
   'law-of-the-ceiling',
   'architecture-of-relevance',
