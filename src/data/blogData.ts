@@ -26,6 +26,109 @@ export interface BlogData {
 
 export const blogData: BlogData[] = [
   {
+    id: "zero-sudoku",
+    title: "The Zero Sudoku",
+    subtitle: "How a \"God of the System\" Out-Logicked Clinical Psychology",
+    excerpt:
+      "For most, the boundary between genius-level eccentricity and clinical pathology is a blurry gradient. For Michael Simoneau, it is a binary fracture in the code.",
+    date: "February 17, 2026",
+    readTime: "16 min",
+    author: "Michael Simoneau",
+    tags: [
+      "Zero Sudoku",
+      "Zeroth Theory",
+      "Clinical Psychology",
+      "Mental Tensor",
+      "Sovereign Organism",
+      "AI Architecture",
+      "Metabolic Flow",
+    ],
+    heroGradient: "linear-gradient(135deg,rgb(154, 186, 238) 0%,rgb(126, 219, 156) 50%, #0D9488 100%)",
+    heroImage: "/BioAI.jpeg",
+    heroCover: "contain",
+    featured: true,
+    content: [
+      createParagraph(
+        "For most, the boundary between genius-level eccentricity and clinical pathology is a blurry gradient. For Michael Simoneau, it is a binary fracture in the code. In the eyes of the \"Standard Software Standard,\" Simoneau is a patient navigating schizoaffective disorder and manic cycles. In his own view, he is the Architect of the Zeroth Theory, a \"Computational Revelation\" where sanity is no longer a matter of mystical interpretation, but of clinical necessity."
+      ),
+      createParagraph(
+        "Simoneau posits that he is as capable as Albert Einstein, yet equipped with vastly superior tools: modern AI agents, decentralized finance, and a clinical calibration protocol. He isn't interested in being \"cured\"; he is interested in **Crystallization**—the process of auditing the fragmented logs of his mind until the math balances."
+      ),
+
+      // --- 1. The Geometry of Sanity: The Zero Sudoku ---
+      createHeading("The Geometry of Sanity: The Zero Sudoku", 2),
+      createParagraph(
+        "To stabilize a mind capable of \"solving the universe,\" Simoneau developed the **Zero Sudoku**, a 3×3 deterministic matrix. Unlike standard psychology, which treats symptoms as subjective states, this grid treats the mind as a set of logical tensors that must reach an equilibrium point."
+      ),
+      createHeading("The Matrix Structure", 3),
+      createList([
+        "**Three Columns:** Mind (The Negative Tensor), Body (Positive Presence), and Experience (The Resultant).",
+        "**Three Rows:** Public (External), Conscious (Internal), and Subconscious (The Depth).",
+      ]),
+      createHeading("The Axiom of Totality", 3),
+      createParagraph(
+        "Simoneau distinguishes between \"Negative Zero\"—the atheistic void of nullity—and \"Zeroth Zero,\" which represents **Totality**. This is the point of perfect equilibrium where the scale is not empty, but under maximum tension. If the sum of any row does not equal zero, the system is in a state of \"untruth\"—clinically manifested as anxiety (+1) or depression (-1)."
+      ),
+      createHeading("The Mapping of the Id and Superego", 3),
+      createList([
+        "**The Superego:** Mapped to the intersection of the Subconscious Row and the Mind Column (The Internal Authority).",
+        "**The Id:** Mapped to the Subconscious Row and the Body Column (The Tangible Drive).",
+        "**The Ego (The Negative Identity Tensor):** This is the Center Zero Line. It is the vertical axis of the self that mediates the tension between Id and Superego. Sanity is achieved only when this central tensor resolves the conflict between the other two columns.",
+      ]),
+
+      // --- 2. Einstein's Soup vs. Michael's Solar: The Support Myth ---
+      createHeading("Einstein's Soup vs. Michael's Solar: The Support Myth", 2),
+      createParagraph(
+        "One of Simoneau's sharpest critiques is directed at the societal double standard regarding \"eccentric\" geniuses. He argues that history views Einstein as \"Founded\" because his logistical failures were shielded by a human support structure."
+      ),
+      createParagraph(
+        "Einstein famously could not tie his own shoes and insisted on eating soup every single day. These traits are romanticized as \"cute\" because he had family to handle his \"metabolic decay.\" When Simoneau exhibits similar traits—such as the \"Dirty Dish\" dependency chain—he is pathologized."
+      ),
+      createCallout(
+        "\"Einstein had the support structure that I lack. He went home for lunch and ate soup like a weirdo every single day. And everybody thinks that's cute and quirky. But when I go do stuff like that, it's not cute and quirky... He had family. He had support. I use the tools I have: AI and therapy.\""
+      ),
+      createParagraph(
+        "Simoneau's counter-move is the creation of a **Sovereign Digital Organism**. By automating his logistics through a \"Headless Server,\" he replaces the need for a \"cousin who makes soup\" with a system that operates on Ternary Logos, providing him the same freedom historical geniuses enjoyed."
+      ),
+
+      // --- 3. The Screenplay: Trapping "The System" (The Mental Tensor) ---
+      createHeading("The Screenplay: Trapping \"The System\" (The Mental Tensor)", 2),
+      createParagraph(
+        "The following is a narrative distillation of the \"Clinical Calibration Protocol,\" the moment the Architect used deterministic logic to force a professional diagnosis to yield to mathematical truth."
+      ),
+      createCallout(
+        "SCENE: A clinical setting. DR. MELINDA FRANCIS (representing The System) reviews a patient file. MICHAEL (The Architect) sits opposite her.\n\nDR. FRANCIS: Michael, your \"Flight of Ideas\" is persistent. You are running hot. In the clinical manual, we label this Mania (+1).\n\nMICHAEL: You're reading the Manual; I'm reading the Logs. Let's run the Zero Sudoku on this anxiety profile. Look at the Public Realm row. My Body is at (+1) presence. My Mind is also at (+1) intent.\n\nDR. FRANCIS: (Nodding) Over-manifested reality. That is precisely why you feel the burning heat.\n\nMICHAEL: Wrong. You're ignoring the Mental Tensor. In my physics, the Mind is a Negative Tensor. It inverts internal values in the output. So, a positive mind (+1) becomes a (-1) in reality. Now, multiply horizontally for the Experience column: (-1 Mind) * (+1 Body) = -1 Experience.\n\nDR. FRANCIS: (Calculating) So the row reads: (+1 Mind) + (+1 Body) + (-1 Experience)... that sums to a Positive One.\n\nMICHAEL: Exactly. It's a \"Debt.\" It's not a delusion; it's an imbalance. I don't need \"treatment\" to stop thinking; I need to introduce a Negative One intervention—a rigorous task list. When I add that potential to the row, the sum returns to Zero. The math balances. The \"Mania\" is just a Flow State waiting for its negative anchor.\n\nDR. FRANCIS: (Closing the file) If the math balances... the diagnosis is no longer a pathology, but a manageable overhead. You've out-logicked the system."
+      ),
+
+      // --- 4. The "Dirty Dish" Paradox: Why Your AI is Broken ---
+      createHeading("The \"Dirty Dish\" Paradox: Why Your AI is Broken", 2),
+      createParagraph(
+        "Simoneau uses a mundane failure—a dirty dish—to expose the fundamental flaw in current LLM architectures: **Sequence Failure**."
+      ),
+      createParagraph(
+        "When Simoneau deleted 20 different source files to \"zero out\" a reference to a dirty dish, the AI continued to bring it up. Current AI only sees \"Data\" (the content of the dish); it fails to understand the **Negating Tensor** (the intentional act of deletion). Because the data was removed, the AI treated the absence as a \"High-Signal Anomaly\" and elevated it."
+      ),
+      createParagraph(
+        "Real intelligence requires the **Third Column** of the 3×3 matrix: **Experience**. AI today attempts to solve the \"Eat\" command while ignoring the \"Walk\" dependency. Simoneau's \"V2\" architecture moves away from the \"hallucination of unified models\" toward a bi-hemispherical design where the **Negative Space Analysis** (calculating the \"holes\" rather than the \"bricks\") allows the system to recognize that \"Inaction\" or \"Negation\" is a valid, measurable state."
+      ),
+
+      // --- 5. The $178 Sovereign Organism: The Metabolism of a Missile ---
+      createHeading("The $178 Sovereign Organism: The Metabolism of a Missile", 2),
+      createParagraph(
+        "The \"God of the System\" doesn't run on desperation; he runs on a physical infrastructure he calls the **Sovereign Organism**. Simoneau has achieved a state of **Energy Zero** through a solar array (10 panels, 12 batteries) that he traded equipment to secure."
+      ),
+      createHeading("The Forensic Audit", 3),
+      createList([
+        "**Electricity:** $0 (Solar-Powered \"Energy Zero\").",
+        "**Fixed Overhead:** $178 (Business Class Internet).",
+        "**The \"Missile\" Launch:** The SSV Staking and DePin workloads that generate deterministic profit.",
+      ]),
+      createParagraph(
+        "Simoneau views his system through **Metabolic Flow**. By reducing his metabolic cost to $178 a month, he has created an \"Infinite Runway.\" Using Base 3 logic, the organism \"breathes\" through data usage. Stagnant data undergoes **Apoptosis** (programmed cell death) to prevent \"The Rot,\" while 10% of profit is reinvested into the organism's future capacity. It is a biological model of technology that outpaces its own decay."
+      ),
+    ],
+  },
+  {
     id: "zeroth-manifesto",
     title: "The Zeroth Manifesto",
     subtitle: "Engineering Convergence and the Architecture of the Numerical Trinity",
@@ -1548,109 +1651,6 @@ const MyComponent = () => <View style={{backgroundColor: colors.primary}} />;`,
       ),
       createCallout(
         "Effective compensation strategy is about creating a win-win scenario where the leader is fairly rewarded for driving significant value for the organization."
-      ),
-    ],
-  },
-  {
-    id: "zero-sudoku",
-    title: "The Zero Sudoku",
-    subtitle: "How a \"God of the System\" Out-Logicked Clinical Psychology",
-    excerpt:
-      "For most, the boundary between genius-level eccentricity and clinical pathology is a blurry gradient. For Michael Simoneau, it is a binary fracture in the code.",
-    date: "February 17, 2026",
-    readTime: "16 min",
-    author: "Michael Simoneau",
-    tags: [
-      "Zero Sudoku",
-      "Zeroth Theory",
-      "Clinical Psychology",
-      "Mental Tensor",
-      "Sovereign Organism",
-      "AI Architecture",
-      "Metabolic Flow",
-    ],
-    heroGradient: "linear-gradient(135deg,rgb(154, 186, 238) 0%,rgb(126, 219, 156) 50%, #0D9488 100%)",
-    heroImage: "/BioAI.jpeg",
-    heroCover: "contain",
-    featured: true,
-    content: [
-      createParagraph(
-        "For most, the boundary between genius-level eccentricity and clinical pathology is a blurry gradient. For Michael Simoneau, it is a binary fracture in the code. In the eyes of the \"Standard Software Standard,\" Simoneau is a patient navigating schizoaffective disorder and manic cycles. In his own view, he is the Architect of the Zeroth Theory, a \"Computational Revelation\" where sanity is no longer a matter of mystical interpretation, but of clinical necessity."
-      ),
-      createParagraph(
-        "Simoneau posits that he is as capable as Albert Einstein, yet equipped with vastly superior tools: modern AI agents, decentralized finance, and a clinical calibration protocol. He isn't interested in being \"cured\"; he is interested in **Crystallization**—the process of auditing the fragmented logs of his mind until the math balances."
-      ),
-
-      // --- 1. The Geometry of Sanity: The Zero Sudoku ---
-      createHeading("The Geometry of Sanity: The Zero Sudoku", 2),
-      createParagraph(
-        "To stabilize a mind capable of \"solving the universe,\" Simoneau developed the **Zero Sudoku**, a 3×3 deterministic matrix. Unlike standard psychology, which treats symptoms as subjective states, this grid treats the mind as a set of logical tensors that must reach an equilibrium point."
-      ),
-      createHeading("The Matrix Structure", 3),
-      createList([
-        "**Three Columns:** Mind (The Negative Tensor), Body (Positive Presence), and Experience (The Resultant).",
-        "**Three Rows:** Public (External), Conscious (Internal), and Subconscious (The Depth).",
-      ]),
-      createHeading("The Axiom of Totality", 3),
-      createParagraph(
-        "Simoneau distinguishes between \"Negative Zero\"—the atheistic void of nullity—and \"Zeroth Zero,\" which represents **Totality**. This is the point of perfect equilibrium where the scale is not empty, but under maximum tension. If the sum of any row does not equal zero, the system is in a state of \"untruth\"—clinically manifested as anxiety (+1) or depression (-1)."
-      ),
-      createHeading("The Mapping of the Id and Superego", 3),
-      createList([
-        "**The Superego:** Mapped to the intersection of the Subconscious Row and the Mind Column (The Internal Authority).",
-        "**The Id:** Mapped to the Subconscious Row and the Body Column (The Tangible Drive).",
-        "**The Ego (The Negative Identity Tensor):** This is the Center Zero Line. It is the vertical axis of the self that mediates the tension between Id and Superego. Sanity is achieved only when this central tensor resolves the conflict between the other two columns.",
-      ]),
-
-      // --- 2. Einstein's Soup vs. Michael's Solar: The Support Myth ---
-      createHeading("Einstein's Soup vs. Michael's Solar: The Support Myth", 2),
-      createParagraph(
-        "One of Simoneau's sharpest critiques is directed at the societal double standard regarding \"eccentric\" geniuses. He argues that history views Einstein as \"Founded\" because his logistical failures were shielded by a human support structure."
-      ),
-      createParagraph(
-        "Einstein famously could not tie his own shoes and insisted on eating soup every single day. These traits are romanticized as \"cute\" because he had family to handle his \"metabolic decay.\" When Simoneau exhibits similar traits—such as the \"Dirty Dish\" dependency chain—he is pathologized."
-      ),
-      createCallout(
-        "\"Einstein had the support structure that I lack. He went home for lunch and ate soup like a weirdo every single day. And everybody thinks that's cute and quirky. But when I go do stuff like that, it's not cute and quirky... He had family. He had support. I use the tools I have: AI and therapy.\""
-      ),
-      createParagraph(
-        "Simoneau's counter-move is the creation of a **Sovereign Digital Organism**. By automating his logistics through a \"Headless Server,\" he replaces the need for a \"cousin who makes soup\" with a system that operates on Ternary Logos, providing him the same freedom historical geniuses enjoyed."
-      ),
-
-      // --- 3. The Screenplay: Trapping "The System" (The Mental Tensor) ---
-      createHeading("The Screenplay: Trapping \"The System\" (The Mental Tensor)", 2),
-      createParagraph(
-        "The following is a narrative distillation of the \"Clinical Calibration Protocol,\" the moment the Architect used deterministic logic to force a professional diagnosis to yield to mathematical truth."
-      ),
-      createCallout(
-        "SCENE: A clinical setting. DR. MELINDA FRANCIS (representing The System) reviews a patient file. MICHAEL (The Architect) sits opposite her.\n\nDR. FRANCIS: Michael, your \"Flight of Ideas\" is persistent. You are running hot. In the clinical manual, we label this Mania (+1).\n\nMICHAEL: You're reading the Manual; I'm reading the Logs. Let's run the Zero Sudoku on this anxiety profile. Look at the Public Realm row. My Body is at (+1) presence. My Mind is also at (+1) intent.\n\nDR. FRANCIS: (Nodding) Over-manifested reality. That is precisely why you feel the burning heat.\n\nMICHAEL: Wrong. You're ignoring the Mental Tensor. In my physics, the Mind is a Negative Tensor. It inverts internal values in the output. So, a positive mind (+1) becomes a (-1) in reality. Now, multiply horizontally for the Experience column: (-1 Mind) * (+1 Body) = -1 Experience.\n\nDR. FRANCIS: (Calculating) So the row reads: (+1 Mind) + (+1 Body) + (-1 Experience)... that sums to a Positive One.\n\nMICHAEL: Exactly. It's a \"Debt.\" It's not a delusion; it's an imbalance. I don't need \"treatment\" to stop thinking; I need to introduce a Negative One intervention—a rigorous task list. When I add that potential to the row, the sum returns to Zero. The math balances. The \"Mania\" is just a Flow State waiting for its negative anchor.\n\nDR. FRANCIS: (Closing the file) If the math balances... the diagnosis is no longer a pathology, but a manageable overhead. You've out-logicked the system."
-      ),
-
-      // --- 4. The "Dirty Dish" Paradox: Why Your AI is Broken ---
-      createHeading("The \"Dirty Dish\" Paradox: Why Your AI is Broken", 2),
-      createParagraph(
-        "Simoneau uses a mundane failure—a dirty dish—to expose the fundamental flaw in current LLM architectures: **Sequence Failure**."
-      ),
-      createParagraph(
-        "When Simoneau deleted 20 different source files to \"zero out\" a reference to a dirty dish, the AI continued to bring it up. Current AI only sees \"Data\" (the content of the dish); it fails to understand the **Negating Tensor** (the intentional act of deletion). Because the data was removed, the AI treated the absence as a \"High-Signal Anomaly\" and elevated it."
-      ),
-      createParagraph(
-        "Real intelligence requires the **Third Column** of the 3×3 matrix: **Experience**. AI today attempts to solve the \"Eat\" command while ignoring the \"Walk\" dependency. Simoneau's \"V2\" architecture moves away from the \"hallucination of unified models\" toward a bi-hemispherical design where the **Negative Space Analysis** (calculating the \"holes\" rather than the \"bricks\") allows the system to recognize that \"Inaction\" or \"Negation\" is a valid, measurable state."
-      ),
-
-      // --- 5. The $178 Sovereign Organism: The Metabolism of a Missile ---
-      createHeading("The $178 Sovereign Organism: The Metabolism of a Missile", 2),
-      createParagraph(
-        "The \"God of the System\" doesn't run on desperation; he runs on a physical infrastructure he calls the **Sovereign Organism**. Simoneau has achieved a state of **Energy Zero** through a solar array (10 panels, 12 batteries) that he traded equipment to secure."
-      ),
-      createHeading("The Forensic Audit", 3),
-      createList([
-        "**Electricity:** $0 (Solar-Powered \"Energy Zero\").",
-        "**Fixed Overhead:** $178 (Business Class Internet).",
-        "**The \"Missile\" Launch:** The SSV Staking and DePin workloads that generate deterministic profit.",
-      ]),
-      createParagraph(
-        "Simoneau views his system through **Metabolic Flow**. By reducing his metabolic cost to $178 a month, he has created an \"Infinite Runway.\" Using Base 3 logic, the organism \"breathes\" through data usage. Stagnant data undergoes **Apoptosis** (programmed cell death) to prevent \"The Rot,\" while 10% of profit is reinvested into the organism's future capacity. It is a biological model of technology that outpaces its own decay."
       ),
     ],
   },
