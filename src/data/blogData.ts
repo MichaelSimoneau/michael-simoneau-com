@@ -43,7 +43,7 @@ export const blogData: BlogData[] = [
       "AI Architecture",
       "Metabolic Flow",
     ],
-    heroGradient: "linear-gradient(135deg,rgb(154, 186, 238) 0%,rgb(126, 219, 156) 50%, #0D9488 100%)",
+    heroGradient: "#FFFFFF",
     heroImage: "/BioAI.jpeg",
     heroCover: "contain",
     featured: true,
