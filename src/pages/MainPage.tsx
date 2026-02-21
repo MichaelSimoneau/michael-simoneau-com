@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState, type CSSProperties } from 'react';
-import { useLocation } from 'react-router-dom';
+import { usePathname } from 'expo-router';
 import { motion } from 'framer-motion';
 import { MainNav } from '../layout/MainNav';
 import { HeroSection } from '../features/profile/components/HeroSection';
@@ -124,7 +124,7 @@ export const MainPage: React.FC = () => {
   const contactSectionRef = useRef<HTMLDivElement | null>(null);
   const [footerExpansionFactor, setFooterExpansionFactor] = useState(0);
   const { registerMainScrollContainer } = useScrollContext();
-  const location = useLocation();
+  const location = usePathname();
   const keywords = useMemo(
     () => [
       'Michael Simoneau',
@@ -225,7 +225,7 @@ export const MainPage: React.FC = () => {
       registerMainScrollContainer(scrollContainerRef);
     }
 
-    const hash = location.hash || window.location.hash;
+    const hash = location.includes('#') ? location.split('#')[1] : window.location.hash;
     if (hash) {
       const sectionId = hash.replace(/^#/, '');
       const targetId = sectionId;
@@ -250,7 +250,7 @@ export const MainPage: React.FC = () => {
       }, 0);
       return () => clearTimeout(timeoutId);
     }
-  }, [registerMainScrollContainer, location.pathname, location.hash]);
+  }, [registerMainScrollContainer, location, window.location]);
 
   const updateFooterExpansion = useCallback(() => {
     const container = scrollContainerRef.current;
