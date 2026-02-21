@@ -35,6 +35,56 @@ function easeIn(t: number): number {
  *   2. Fall back to a generous default height (2400px) that covers typical bio pages.
  *   3. Set scrolling="no" so the iframe never shows its own scrollbar.
  */
+/**
+ * LinkedInBadge – loads the LinkedIn platform script and renders the profile badge widget.
+ * The script mutates the DOM node in-place, so we key-guard the injection and re-run
+ * if the component remounts.
+ */
+const LINKEDIN_SCRIPT_SRC = 'https://platform.linkedin.com/badges/js/profile.js';
+
+const LinkedInBadge: React.FC = () => {
+  const containerRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const existing = document.querySelector(
+      `script[src="${LINKEDIN_SCRIPT_SRC}"]`,
+    );
+    if (existing) existing.remove();
+
+    const script = document.createElement('script');
+    script.src = LINKEDIN_SCRIPT_SRC;
+    script.async = true;
+    script.defer = true;
+    script.type = 'text/javascript';
+    document.body.appendChild(script);
+
+    return () => {
+      script.remove();
+    };
+  }, []);
+
+  return (
+    <div ref={containerRef} className="flex items-center justify-center py-16 px-4">
+      <div
+        className="badge-base LI-profile-badge"
+        data-locale="en_US"
+        data-size="large"
+        data-theme="dark"
+        data-type="HORIZONTAL"
+        data-vanity="michaelsimoneau"
+        data-version="v1"
+      >
+        <a
+          className="badge-base__link LI-simple-link"
+          href="https://www.linkedin.com/in/michaelsimoneau?trk=profile-badge"
+        >
+          Michael Simoneau
+        </a>
+      </div>
+    </div>
+  );
+};
+
 const SOUNDON_DEFAULT_HEIGHT = 2400;
 
 const SOUNDON_BIO_URL = 'https://www.soundon.global/bio/immikecrane';
@@ -402,6 +452,18 @@ export const MainPage: React.FC = () => {
             transition={{duration: 0.7}}
           >
             <Testimonials />
+          </motion.section>
+        </div>
+
+        <div id="linkedin" className="relative">
+          <motion.section
+            className={`${sectionWrapperClasses} bg-gray-900/40`}
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.7 }}
+          >
+            <LinkedInBadge />
           </motion.section>
         </div>
 
