@@ -68,7 +68,7 @@ export const HeroSection: React.FC = () => {
             <p className="text-sm text-gray-300 leading-relaxed mb-3">
               {zerothLawBlog.excerpt}
             </p>
-            <Link to="/blog/zeroth-law-wrong" className="text-cyan-400 hover:text-cyan-300 text-sm font-medium transition-colors">
+            <Link href="/blog/zeroth-law-wrong" className="text-cyan-400 hover:text-cyan-300 text-sm font-medium transition-colors">
               Read the full essay &rarr;
             </Link>
           </div>

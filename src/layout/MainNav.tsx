@@ -80,7 +80,7 @@ export const MainNav: React.FC<MainNavProps> = ({ scrollContainerId }) => {
       <div className="container mx-auto px-4 py-3 flex items-center justify-between gap-4">
         <div className="flex items-center relative min-w-[80px] whitespace-nowrap">
           <Link 
-            to="/" 
+            href="/" 
             onClick={(e) => {
               handleHomeClick(e);
               setIsPathsExpanded(false);
@@ -129,7 +129,7 @@ export const MainNav: React.FC<MainNavProps> = ({ scrollContainerId }) => {
                   Profile
                 </button>
               ) : (
-                <Link to="/profile" onClick={() => setIsOpen(false)} className="text-gray-300 hover:text-cyan-400 transition-colors flex items-center">
+                <Link href="/profile" onClick={() => setIsOpen(false)} className="text-gray-300 hover:text-cyan-400 transition-colors flex items-center">
                   <User size={16} className="mr-1 xl:mr-2" />
                   Profile
                 </Link>
@@ -204,7 +204,7 @@ export const MainNav: React.FC<MainNavProps> = ({ scrollContainerId }) => {
             <>
               <button onClick={() => handleSectionLinkClick('music')} className="text-gray-300 hover:text-cyan-400 transition-colors">Music</button>
               <button onClick={() => handleSectionLinkClick('contact')} className="text-gray-300 hover:text-cyan-400 transition-colors">Contact</button>
-              <Link to="/blog" onClick={() => setIsOpen(false)} className="text-gray-300 hover:text-cyan-400 transition-colors flex items-center">
+              <Link href="/blog" onClick={() => setIsOpen(false)} className="text-gray-300 hover:text-cyan-400 transition-colors flex items-center">
                 <BookOpen size={16} className="mr-2" />
                 Blog
               </Link>
@@ -233,7 +233,7 @@ export const MainNav: React.FC<MainNavProps> = ({ scrollContainerId }) => {
               <>
                 {!isHomePage && (
                   <Link 
-                    to="/" 
+                    href="/" 
                     onClick={handleHomeClick} 
                     className="text-xl text-gray-300 hover:text-cyan-400 transition-colors flex items-center"
                   >
@@ -255,7 +255,7 @@ export const MainNav: React.FC<MainNavProps> = ({ scrollContainerId }) => {
                     Profile
                   </button>
                 ) : (
-                  <Link to="/profile" className="text-xl text-gray-300 hover:text-cyan-400 transition-colors flex items-center" onClick={() => setIsOpen(false)}>
+                  <Link href="/profile" className="text-xl text-gray-300 hover:text-cyan-400 transition-colors flex items-center" onClick={() => setIsOpen(false)}>
                     <User size={18} className="mr-2" />
                     Profile
                   </Link>
@@ -273,7 +273,7 @@ export const MainNav: React.FC<MainNavProps> = ({ scrollContainerId }) => {
 
                 <button onClick={() => handleSectionLinkClick('music')} className="text-xl text-gray-300 hover:text-cyan-400 transition-colors">Music</button>
                 <button onClick={() => handleSectionLinkClick('contact')} className="text-xl text-gray-300 hover:text-cyan-400 transition-colors">Contact</button>
-                <Link to="/blog" className="text-xl text-gray-300 hover:text-cyan-400 transition-colors flex items-center" onClick={() => setIsOpen(false)}>
+                <Link href="/blog" className="text-xl text-gray-300 hover:text-cyan-400 transition-colors flex items-center" onClick={() => setIsOpen(false)}>
                   <BookOpen size={18} className="mr-2" />
                   Blog
                 </Link>

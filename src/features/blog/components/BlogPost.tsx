@@ -325,7 +325,7 @@ export const BlogPost: React.FC = () => {
           <div>
             <div className="flex items-center justify-between mb-8">
               <Link 
-                to="/blog" 
+                href="/blog" 
                 className="inline-flex items-center text-cyan-400 hover:text-cyan-300 transition-colors"
               >
                 <ArrowLeft size={16} className="mr-2" />

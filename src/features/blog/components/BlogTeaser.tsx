@@ -42,7 +42,7 @@ export const BlogTeaser: React.FC = () => {
               <p className="text-sm text-gray-400 mb-1">{post.date}</p>
               <p className="text-gray-300 text-sm mb-4 line-clamp-3">{post.excerpt}</p>
               <Link 
-                to={`/blog/${post.id}`}
+                href={`/blog/${post.id}`}
                 className="text-cyan-400 hover:text-cyan-300 font-medium inline-flex items-center"
               >
                 Read More <BookOpen size={16} className="ml-2" />
@@ -51,7 +51,7 @@ export const BlogTeaser: React.FC = () => {
           ))}
         </div>
         <Link 
-          to="/blog"
+          href="/blog"
           className="inline-block bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-bold py-3 px-8 rounded-lg hover:from-cyan-600 hover:to-blue-600 transition-all duration-300"
         >
           View All Posts
