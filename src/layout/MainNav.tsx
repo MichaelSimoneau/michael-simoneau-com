@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, usePathname } from 'expo-router';
 import { BookOpen, Menu, X, Home, User, Compass } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { UniversalPlayer } from '../ui/players/UniversalPlayer';
@@ -12,8 +12,8 @@ interface MainNavProps {
 export const MainNav: React.FC<MainNavProps> = ({ scrollContainerId }) => {
   const [isOpen, setIsOpen] = React.useState(false);
   const [isPathsExpanded, setIsPathsExpanded] = React.useState(false);
-  const location = useLocation();
-  const isHomePage = location.pathname === '/';
+  const pathname = usePathname();
+  const isHomePage = pathname === '/';
   const scrollToSectionHandler = useScrollToSection({ scrollContainerId });
   const pathsRef = useRef<HTMLDivElement>(null);
   const mobileOverlayRef = useRef<HTMLDivElement>(null);
