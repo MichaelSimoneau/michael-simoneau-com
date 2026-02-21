@@ -15,6 +15,7 @@ import { AnimatedBackground } from '../backgrounds/AnimatedBackground';
 import { useScrollContext } from '../contexts/ScrollContext';
 import { Seo } from '../foundation/seo/Seo';
 import { ZeroHero } from '../features/zero-truth/components/ZeroHero';
+import { ZerothTheorySection } from '../features/zero-truth/components/ZerothTheorySection';
 import { CryptoFabricHero } from '../features/cryptofabric/components/CryptoFabricHero';
 import { ThdHero } from '../features/thd';
 

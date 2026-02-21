@@ -1,5 +1,5 @@
 [build]
-  command = "npm run build:no-prerender"
+  command = "yarn expo export --platform web && node scripts/post-build-web.mjs && cp -r public/* dist/"
   publish = "dist"
 
 [build.environment]

@@ -54,11 +54,11 @@ export const Interview2: React.FC = () => {
             </Link>
 
             <div className="flex flex-wrap gap-4 mb-8 text-sm text-gray-400">
-              <Link to="/interview" className="hover:text-cyan-400 transition-colors">Part 1: The Foundation</Link>
+              <Link href="/interview" className="hover:text-cyan-400 transition-colors">Part 1: The Foundation</Link>
               <span className="text-gray-600">|</span>
               <span className="text-cyan-400">Part 2: From Code to Architecture</span>
               <span className="text-gray-600">|</span>
-              <Link to="/interview/3" className="hover:text-cyan-400 transition-colors">Part 3: Zeroth & the Digital Organism</Link>
+              <Link href="/interview/3" className="hover:text-cyan-400 transition-colors">Part 3: Zeroth & the Digital Organism</Link>
             </div>
 
             <h1 className="text-4xl md:text-5xl font-bold mb-8 text-center">

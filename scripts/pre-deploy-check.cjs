@@ -67,7 +67,7 @@ if (fs.existsSync(packageJsonPath)) {
     const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
     
     // Check for deployment scripts
-    const requiredScripts = ['build', 'deploy'];
+    const requiredScripts = ['build', 'start', 'deploy'];
     const missingScripts = requiredScripts.filter(script => !packageJson.scripts || !packageJson.scripts[script]);
     
     if (missingScripts.length === 0) {

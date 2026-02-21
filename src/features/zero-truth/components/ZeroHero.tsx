@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import { Link } from 'expo-router';
 import { ArrowRight, Sparkles } from 'lucide-react';
 import { NebulaStormBackground } from '../../../backgrounds/NebulaStormBackground';
 
@@ -66,7 +66,7 @@ export const ZeroHero: React.FC = () => {
             className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8"
           >
             <Link
-              to="/zero"
+              href="/zero"
               className="group inline-flex items-center px-8 py-4 bg-gradient-to-r from-cyan-500 to-emerald-600 hover:from-cyan-600 hover:to-emerald-700 text-white font-bold rounded-lg transition-all duration-300 shadow-lg hover:shadow-cyan-500/50"
             >
               Explore&nbsp;Theory
@@ -92,32 +92,48 @@ export const ZeroHero: React.FC = () => {
             </a>
           </motion.div>
 
-          {/* Key Features Grid */}
+          {/* Core Tenets */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.7 }}
-            className="grid md:grid-cols-3 gap-6 mt-12"
+            className="flex flex-col gap-8 mt-12 max-w-4xl mx-auto w-full"
           >
-            <div className="bg-gray-900/50 backdrop-blur-sm rounded-xl p-6 border border-cyan-800/30">
-              <h3 className="text-xl font-bold mb-3 text-cyan-400">Philosophical Framework</h3>
-              <p className="text-gray-300 text-sm">
-                Explore the quantum-philosophical principles that define the nature of Zero, Energy, and Existence.
-              </p>
-            </div>
-            <div className="bg-gray-900/50 backdrop-blur-sm rounded-xl p-6 border border-cyan-800/30">
-              <h3 className="text-xl font-bold mb-3 text-cyan-400">Living Truth</h3>
-              <p className="text-gray-300 text-sm">
-                Experience the living truth of Zero through interactive chapters and principles that reveal deeper understanding.
-              </p>
-            </div>
-            <div className="bg-gray-900/50 backdrop-blur-sm rounded-xl p-6 border border-cyan-800/30">
-              <h3 className="text-xl font-bold mb-3 text-cyan-400">Numerical Trinity</h3>
-              <p className="text-gray-300 text-sm">
-                Discover the interconnected nature of Zero, Energy, and the fundamental principles of existence.
-              </p>
-            </div>
+            {[
+              {
+                title: 'The Axiom of Zeroth',
+                body: 'Scalar zero is a negative identity tensor that acts as a mirror of inverted magnitude.',
+              },
+              {
+                title: 'The Law of Zeroth Theory',
+                body: 'The quantity of options implicitly limits the number of total possible options to exactly the quantity of options given plus one.',
+              },
+              {
+                title: 'The Assumption of Zeroth Theory',
+                body: 'The rule is base 3 because from the human perspective there must be dichotomy. In order to define light there must also be dark. The fact that there is a \u2018here\u2019 and \u2018there\u2019 emphatically implies the existence of the \u201ceverywhere\u201d. Dictated by the Law of Zeroth Theory, from the human perspective, there are a total of 3 options.',
+              },
+            ].map((tenet, i) => (
+              <motion.div
+                key={tenet.title}
+                initial={{ opacity: 0, x: i % 2 === 0 ? -20 : 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.8 + i * 0.15 }}
+                className="bg-gray-900/50 backdrop-blur-sm rounded-xl p-8 border border-cyan-800/30"
+              >
+                <h3 className="text-xl md:text-2xl font-bold mb-4 text-cyan-400">
+                  {tenet.title}
+                </h3>
+                <p className="text-gray-300 text-base md:text-lg leading-relaxed">
+                  {tenet.body}
+                </p>
+              </motion.div>
+            ))}
+
+            <p className="text-center text-gray-500 text-sm mt-4 italic">
+              by Michael Simoneau
+            </p>
           </motion.div>
         </div>
       </motion.section>

@@ -63,7 +63,7 @@ export const InteractiveButton: React.FC<InteractiveButtonProps> = ({ // Renamed
 
   if (to) {
     return (
-      <Link to={to} className={`${baseClasses} ${className}`}>
+      <Link href={to} className={`${baseClasses} ${className}`}>
         {content}
       </Link>
     );

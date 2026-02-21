@@ -7,21 +7,30 @@
     "scheme": "michaelsimoneau",
     "userInterfaceStyle": "automatic",
     "jsEngine": "hermes",
-    "platforms": ["ios", "android", "web"],
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
     "experiments": {
       "typedRoutes": true
     },
     "plugins": [
-      ["expo-router", {
-        "origin": "expo"
-      }]
+      [
+        "expo-router",
+        {
+          "origin": "https://michaelsimoneau.com"
+        }
+      ],
+      "expo-web-browser",
+      "expo-secure-store"
     ],
     "splash": {
       "backgroundColor": "#0B1120"
     },
     "web": {
       "bundler": "metro",
-      "output": "static"
+      "output": "single"
     },
     "extra": {
       "appVersion": "2.0.0",

@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import { Link } from 'expo-router';
 import { Calendar, Clock, ChevronRight, Search } from 'lucide-react';
 import { MainNav } from '../../../layout/MainNav';
 import { Seo } from '../../../foundation/seo/Seo';
@@ -63,7 +63,7 @@ const FeaturedPost: React.FC<{ post: BlogPostType }> = ({ post }) => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
     >
-      <Link to={`/blog/${post.id}`} className="block">
+      <Link href={`/blog/${post.id}`} className="block">
         <div className="relative h-80 overflow-hidden">
           <HeroImageStack post={post} className="absolute inset-0" />
           <div className="absolute inset-0 z-20 p-6 flex flex-col justify-end">
@@ -85,7 +85,7 @@ const FeaturedPost: React.FC<{ post: BlogPostType }> = ({ post }) => {
       <div className="p-6">
         <p className="text-gray-300 mb-4 line-clamp-3">{post.excerpt}</p>
         <Link 
-          to={`/blog/${post.id}`}
+          href={`/blog/${post.id}`}
           className="inline-flex items-center text-cyan-400 font-medium group-hover:text-cyan-300 transition-colors duration-300"
         >
           Read Full Article
@@ -104,7 +104,7 @@ const BlogCard: React.FC<{ post: BlogPostType; delay?: number }> = ({ post, dela
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay }}
     >
-      <Link to={`/blog/${post.id}`} className="block">
+      <Link href={`/blog/${post.id}`} className="block">
         <div className="relative h-48 overflow-hidden">
           <HeroImageStack post={post} className="absolute inset-0" />
           <div className="absolute inset-0 z-20 p-5 flex flex-col justify-end">
@@ -127,7 +127,7 @@ const BlogCard: React.FC<{ post: BlogPostType; delay?: number }> = ({ post, dela
             <span>{post.readTime}</span>
           </div>
           <Link 
-            to={`/blog/${post.id}`}
+            href={`/blog/${post.id}`}
             className="text-cyan-400 text-sm font-medium inline-flex items-center group-hover:text-cyan-300 transition-colors duration-300"
           >
             Read

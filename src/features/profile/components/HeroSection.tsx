@@ -7,6 +7,7 @@ import { ChevronDown } from 'lucide-react';
 
 /** Playlist tracks for the hero section audio player. */
 const HERO_TRACKS: Track[] = [
+  { src: '/Proving_Sanity_Through_Tensor_Zero.mp3', title: 'Proving Sanity Through Tensor Zero' },
   { src: '/DarwinianMarxism.mp3', title: 'Darwinian Marxism' },
   { src: '/Zeroth_Protocol_Turns_Data_Into_Organisms.mp3', title: 'Zeroth Vision' },
   { src: '/The_AI_Built_for_Deterministic_Crypto.mp3', title: 'The AI Built for Deterministic Crypto' },
@@ -19,7 +20,7 @@ const HERO_TRACKS: Track[] = [
 
 
 export const HeroSection: React.FC = () => {
-  const darwinianMarxism = blogData.find(p => p.id === 'darwinian-marxism');
+  const zerothLawBlog = blogData.find(p => p.id === 'zeroth-law-wrong');
 
   return (
     <section 
@@ -49,7 +50,7 @@ export const HeroSection: React.FC = () => {
         </p>
       </motion.div>
 
-      {darwinianMarxism && (
+      {zerothLawBlog && (
         <motion.div
           className="w-full max-w-2xl mx-auto z-10 mb-6"
           initial={{ opacity: 0, y: 20 }}
@@ -59,15 +60,15 @@ export const HeroSection: React.FC = () => {
         >
           <div className="bg-gray-900/60 backdrop-blur-sm border border-amber-800/30 rounded-xl p-6 text-center">
             <h2 className="text-xl font-bold text-amber-400 mb-1">
-              Darwinian Marxism
+              The Zeroth Law is Wrong
             </h2>
             <h3 className="text-sm font-medium text-amber-300/70 mb-3">
-              Michael Simoneau's Vision for a Biological Economy
+              A Dispatch from the &ldquo;Zeroth Theory&rdquo; Frontier
             </h3>
             <p className="text-sm text-gray-300 leading-relaxed mb-3">
-              {darwinianMarxism.excerpt}
+              {zerothLawBlog.excerpt}
             </p>
-            <Link to="/blog/darwinian-marxism" className="text-cyan-400 hover:text-cyan-300 text-sm font-medium transition-colors">
+            <Link href="/blog/zeroth-law-wrong" className="text-cyan-400 hover:text-cyan-300 text-sm font-medium transition-colors">
               Read the full essay &rarr;
             </Link>
           </div>

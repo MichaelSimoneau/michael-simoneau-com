@@ -169,7 +169,7 @@ export const CryptoFabric: React.FC = () => {
                 the journey from EtherHive to The Human Dollar. It details how value lives in the hash, 
                 observation is oxygen, and usage is mining. The architecture and its embodiment 
                 (The Human Dollar) are introduced in this episode; for more on the philosophy 
-                behind it, see <Link to="/zero" className="text-cyan-400 hover:text-cyan-300 underline">zeroth</Link> and <Link to="/thd" className="text-cyan-400 hover:text-cyan-300 underline">The Human Dollar</Link>.
+                behind it, see <Link to="/zero" className="text-cyan-400 hover:text-cyan-300 underline">zeroth</Link> and <Link href="/thd" className="text-cyan-400 hover:text-cyan-300 underline">The Human Dollar</Link>.
               </p>
             </div>
             <div className="flex justify-center mb-6">

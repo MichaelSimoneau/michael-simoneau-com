@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { MainNav } from '../../../layout/MainNav';
 import { Seo } from '../../../foundation/seo/Seo';
 import { ArrowLeft } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link } from 'expo-router';
 import { AnimatedBackground } from '../../../backgrounds/AnimatedBackground';
 
 export const Interview: React.FC = () => {
@@ -47,7 +47,7 @@ export const Interview: React.FC = () => {
             transition={{ duration: 0.5 }}
           >
             <Link 
-              to="/" 
+              href="/" 
               className="inline-flex items-center text-cyan-400 mb-8 hover:text-cyan-300 transition-colors"
             >
               <ArrowLeft size={16} className="mr-2" />
@@ -57,9 +57,9 @@ export const Interview: React.FC = () => {
             <div className="flex flex-wrap gap-4 mb-8 text-sm text-gray-400">
               <span className="text-cyan-400">Part 1: The Foundation</span>
               <span className="text-gray-600">|</span>
-              <Link to="/interview/2" className="hover:text-cyan-400 transition-colors">Part 2: From Code to Architecture</Link>
+              <Link href="/interview/2" className="hover:text-cyan-400 transition-colors">Part 2: From Code to Architecture</Link>
               <span className="text-gray-600">|</span>
-              <Link to="/interview/3" className="hover:text-cyan-400 transition-colors">Part 3: Zeroth & the Digital Organism</Link>
+              <Link href="/interview/3" className="hover:text-cyan-400 transition-colors">Part 3: Zeroth & the Digital Organism</Link>
             </div>
 
             <h1 className="text-4xl md:text-5xl font-bold mb-8 text-center">

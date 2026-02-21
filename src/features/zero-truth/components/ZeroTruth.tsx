@@ -6,8 +6,6 @@ import { MainNav } from '../../../layout/MainNav';
 import { Seo } from '../../../foundation/seo/Seo';
 import { parseZeroContent, ZeroContent, Principle } from '../../../utils/zeroParser';
 import { ZeroMobileNavigation } from './ZeroMobileNavigation';
-// @ts-expect-error Vite raw import
-import truthText from '/zeroth.txt?raw';
 
 export const ZeroTruth: React.FC = () => {
   const [content, setContent] = useState<ZeroContent | null>(null);
@@ -23,15 +21,18 @@ export const ZeroTruth: React.FC = () => {
   }, [content]);
 
   useEffect(() => {
-    const parsed = parseZeroContent(truthText);
-    setContent(parsed);
-    // Set initial active state
-    if (parsed.chapters.length > 0) {
-      setActiveChapterId(parsed.chapters[0].id);
-      if (parsed.chapters[0].principles.length > 0) {
-        setActivePrincipleId(parsed.chapters[0].principles[0].id);
-      }
-    }
+    fetch('/zeroth.txt')
+      .then(res => res.text())
+      .then(truthText => {
+        const parsed = parseZeroContent(truthText);
+        setContent(parsed);
+        if (parsed.chapters.length > 0) {
+          setActiveChapterId(parsed.chapters[0].id);
+          if (parsed.chapters[0].principles.length > 0) {
+            setActivePrincipleId(parsed.chapters[0].principles[0].id);
+          }
+        }
+      });
   }, []);
 
   useEffect(() => {

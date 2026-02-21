@@ -35,7 +35,7 @@ export const AboutMeSection: React.FC = () => {
             That foundation — the obsessive curiosity, the relentless pursuit of elegant solutions, the hard-earned understanding of how complex systems actually behave — became the launchpad for Zeroth Theory, Crypto Fabric, and ultimately The Human Dollar (#THD): an economic architecture where money is an employee, stagnation is a firing offense, and capital that works hard pays $655 for every $1.
           </p>
           <Link 
-            to="/profile" 
+            href="/profile" 
             className="inline-block bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-bold py-3 px-8 rounded-lg hover:from-cyan-600 hover:to-blue-600 transition-all duration-300"
           >
             Explore the Full Story

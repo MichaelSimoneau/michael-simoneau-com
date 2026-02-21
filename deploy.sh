@@ -1,11 +1,9 @@
 #!/bin/bash
-# Deploy script for Michael Simoneau's portfolio
+# Deploy script for Michael Simoneau's portfolio (Expo web export)
 
-# Build the project
-echo "Building the project..."
-npm run build
+echo "Building the project with Expo..."
+yarn build
 
-# Deploy to Netlify
 echo "Deploying to Netlify..."
 netlify deploy --prod --dir=dist
 

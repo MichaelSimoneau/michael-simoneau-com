@@ -1,5 +1,10 @@
-import { HomeScreen } from '../src/features/home/screens/HomeScreen';
+import { ScrollProvider } from '../src/contexts/ScrollContext';
+import { MainPage } from '../src/pages/MainPage';
 
 export default function Index() {
-  return <HomeScreen />;
+  return (
+    <ScrollProvider>
+      <MainPage />
+    </ScrollProvider>
+  );
 }
