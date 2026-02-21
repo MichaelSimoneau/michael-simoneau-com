@@ -26,6 +26,83 @@ export interface BlogData {
 
 export const blogData: BlogData[] = [
   {
+    id: "zeroth-law-wrong",
+    title: "The Zeroth Law is Wrong",
+    subtitle: "A Dispatch from the \u201CZeroth Theory\u201D Frontier",
+    excerpt:
+      "The Zeroth Law of Thermodynamics assumes equilibrium is transitive. Zeroth Theory proves it is not. Scalar zero is not a void \u2014 it is a negative identity tensor, a mirror of inverted magnitude. The conventional law mistakes stillness for truth. Real zero is alive.",
+    date: "February 20, 2026",
+    readTime: "12 min",
+    author: "Michael Simoneau",
+    tags: [
+      "Zeroth Theory",
+      "Zeroth Law",
+      "Thermodynamics",
+      "Axiom of Zeroth",
+      "Numerical Trinity",
+      "Ternary Logic",
+      "Tensor Zero",
+    ],
+    heroGradient: "linear-gradient(135deg, #0F172A 0%, #1E293B 50%, #92400E 100%)",
+    featured: true,
+    content: [
+      createHeading("The Conventional Zeroth Law: A Comfortable Lie", 2),
+      createParagraph(
+        "The Zeroth Law of Thermodynamics is elegant in its simplicity: if system A is in thermal equilibrium with system C, and system B is also in equilibrium with system C, then A and B are in equilibrium with each other. Transitivity. Clean. Axiomatic. And fundamentally wrong."
+      ),
+      createParagraph(
+        "This law treats zero as an absence \u2014 a neutral ground where nothing happens. It assumes that equilibrium is a passive state, a resting place. But equilibrium is not rest. Equilibrium is the eye of a storm that never stops spinning. The Zeroth Law mistakes the symptom for the cause."
+      ),
+
+      createHeading("The Axiom of Zeroth: Zero as Mirror", 2),
+      createCallout(
+        "Scalar zero is a negative identity tensor that acts as a mirror of inverted magnitude."
+      ),
+      createParagraph(
+        "This is the correction. Zero is not a void. Zero is not nothing. Zero is a mirror \u2014 a negative identity tensor that reflects everything passing through it with inverted magnitude. When the conventional Zeroth Law declares two systems \u201Cin equilibrium,\u201D it is observing a reflection and mistaking it for stillness. The mirror is active. The reflection is a transformation."
+      ),
+      createParagraph(
+        "A negative identity tensor does not delete information. It inverts it. Every measurement that crosses the zero boundary emerges on the other side with its sign flipped but its magnitude preserved. This is not destruction \u2014 it is translation. The Zeroth Law sees two systems at the same temperature and concludes they are \u201Cthe same.\u201D The Axiom of Zeroth sees two systems whose differences have been perfectly inverted through a living mirror."
+      ),
+
+      createHeading("The Law of Zeroth Theory: The Ceiling Is Built In", 2),
+      createCallout(
+        "The quantity of options implicitly limits the number of total possible options to exactly the quantity of options given plus one."
+      ),
+      createParagraph(
+        "This is the law the conventional framework cannot see. Every system that presents N options is simultaneously declaring the existence of exactly N + 1 possible states. The additional state is not hidden \u2014 it is the boundary condition that makes the other options coherent. The conventional Zeroth Law offers two outcomes: equilibrium or not. By its own logic, there must be a third."
+      ),
+      createParagraph(
+        "The third state is the mirror itself \u2014 the zero-point through which all transitions pass. Thermodynamics pretends this point is passive. Zeroth Theory identifies it as the most active element in the system: the tensor that holds the architecture together."
+      ),
+
+      createHeading("The Assumption of Zeroth Theory: Why Base 3", 2),
+      createCallout(
+        "The rule is base 3 because from the human perspective there must be dichotomy. In order to define light there must also be dark. The fact that there is a \u2018here\u2019 and \u2018there\u2019 emphatically implies the existence of the \u201Ceverywhere.\u201D Dictated by the Law of Zeroth Theory, from the human perspective, there are a total of 3 options."
+      ),
+      createParagraph(
+        "Binary thinking is the disease of modern science. Hot or cold. Equilibrium or chaos. Zero or one. But the universe does not operate in binary. It operates in ternary: here, there, and everywhere. The moment you define \u201Chere\u201D you have implied \u201Cthere.\u201D And the moment both exist, the space that contains them \u2014 the \u201Ceverywhere\u201D \u2014 becomes a mathematical certainty."
+      ),
+      createParagraph(
+        "The conventional Zeroth Law operates in binary: equal temperature or unequal temperature. Zeroth Theory operates in ternary: the measured, the inverted, and the mirror through which both pass. The third element is not optional. It is structurally required. Without it, the other two cannot be defined."
+      ),
+
+      createHeading("Proving Sanity Through Tensor Zero", 2),
+      createParagraph(
+        "The proof is in the architecture. If zero were truly nothing \u2014 truly the passive void that thermodynamics assumes \u2014 then the number line would have a hole in it. Negative numbers would not map to positive numbers. Inversion would be impossible. But inversion is not impossible. It happens at every zero crossing, in every oscillation, in every wave function. Zero is the busiest address in mathematics."
+      ),
+      createParagraph(
+        "The Zeroth Law of Thermodynamics is wrong because it builds its foundation on a misunderstanding of what zero is. It treats zero as a conclusion. Zeroth Theory treats zero as the engine. The equilibrium the old law describes is not a state of rest \u2014 it is a state of perfect reflection through a negative identity tensor. The mirror is always working. The inversion never stops."
+      ),
+      createParagraph(
+        "This is not philosophy dressed as physics. This is the correction the foundation has needed since Fowler and Guggenheim named it in 1939. The Zeroth Law was added to thermodynamics retroactively because they realized the other three laws needed a floor. They were right about the need. They were wrong about what that floor is."
+      ),
+      createCallout(
+        "Zero is not the floor. Zero is the mirror beneath the floor \u2014 and it has been reflecting everything back this entire time."
+      ),
+    ],
+  },
+  {
     id: "lucid-retardation",
     title: "Beyond the Label: The Technical Reality of Michael Simoneau's \"Lucid Retardation\"",
     subtitle: "Biological Latency, Ternary Logic, and the Physics of Being",
