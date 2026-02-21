@@ -7,27 +7,29 @@ import { usePathname, useRouter, useLocalSearchParams, Slot } from 'expo-router'
 import React, { forwardRef, useCallback } from 'react';
 
 type LinkProps = React.AnchorHTMLAttributes<HTMLAnchorElement> & {
-  to: string;
+  to?: string;
+  href?: string;
   children?: React.ReactNode;
 };
 
 export const Link = forwardRef<HTMLAnchorElement, LinkProps>(
-  function ShimLink({ to, onClick, children, ...rest }, ref) {
+  function ShimLink({ to, href, onClick, children, ...rest }, ref) {
     const router = useRouter();
+    const destination = to ?? href ?? '/';
 
     const handleClick = useCallback(
       (e: React.MouseEvent<HTMLAnchorElement>) => {
         if (onClick) onClick(e);
         if (!e.defaultPrevented && !e.metaKey && !e.ctrlKey && !e.shiftKey) {
           e.preventDefault();
-          router.push(to as any);
+          router.push(destination as any);
         }
       },
-      [onClick, router, to],
+      [onClick, router, destination],
     );
 
     return (
-      <a href={to} onClick={handleClick} ref={ref} {...rest}>
+      <a href={destination} onClick={handleClick} ref={ref} {...rest}>
         {children}
       </a>
     );

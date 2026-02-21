@@ -116,7 +116,7 @@ const ShareButton: React.FC<{ platform: string; url: string; title: string }> = 
 };
 
 export const BlogPost: React.FC = () => {
-  const { postId } = useParams<{ postId: string }>();
+  const { id: postId } = useParams<{ id: string }>();
   useScrollToTop([postId]); // Scroll window (for document-scroll pages)
 
   const navigate = useNavigate();
