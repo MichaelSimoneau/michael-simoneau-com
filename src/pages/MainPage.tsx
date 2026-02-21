@@ -410,10 +410,6 @@ export const MainPage: React.FC = () => {
           <ZeroHero />
         </div>
 
-        <div id="zeroth-theory-axioms" className="relative">
-          <ZerothTheorySection />
-        </div>
-
         <div id="cryptofabric" className="relative">
           <CryptoFabricHero />
         </div>
