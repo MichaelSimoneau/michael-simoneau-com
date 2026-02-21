@@ -1,5 +1,5 @@
-import { BlogListScreen } from '../../src/features/blog/screens/BlogListScreen';
+import { Blog } from '../../src/features/blog/components/Blog';
 
 export default function BlogIndex() {
-  return <BlogListScreen />;
+  return <Blog />;
 }

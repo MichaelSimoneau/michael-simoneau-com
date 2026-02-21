@@ -1,5 +1,5 @@
-import { BlogArticleScreen } from '../../src/features/blog/screens/BlogArticleScreen';
+import { BlogPost } from '../../src/features/blog/components/BlogPost';
 
 export default function BlogArticleRoute() {
-  return <BlogArticleScreen />;
+  return <BlogPost />;
 }
