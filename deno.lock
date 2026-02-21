@@ -1,0 +1,62 @@
+{
+  "version": "5",
+  "remote": {
+    "https://edge.netlify.com/": "fd941d61d88673d5f28aab283fb86fcc50f08a3bc80ee5470498fcfa88c65cfb",
+    "https://edge.netlify.com/bootstrap/config.ts": "6a2ce0e544e15e8f8883a5c18da5948e37fd0f2619f68cb31f3af53c51817025",
+    "https://edge.netlify.com/bootstrap/context.ts": "e97240232121e2f369f6546ce961490f34d961ea1ea54be3ff09633e3f08373f",
+    "https://edge.netlify.com/bootstrap/cookie.ts": "8b0baae708989ca183c6f3b4ab3d029e6abcbc2e43f93edeb0ff447b3bbc3a05",
+    "https://edge.netlify.com/bootstrap/edge_function.ts": "b8253e86aa83c67341f5cfedeba5049d77fbf84dcab7eceff7566b7728ae9b39",
+    "https://edge.netlify.com/bootstrap/globals/types.ts": "eaa6148ded3121d8dee62dd91c86e7fe76601df0f3ca8d7962243a30f4c8935f"
+  },
+  "workspace": {
+    "packageJson": {
+      "dependencies": [
+        "npm:@eslint/js@^9.9.1",
+        "npm:@expo/metro-runtime@~6.1.2",
+        "npm:@phantom/react-native-sdk@^1.0.3",
+        "npm:@react-native-async-storage/async-storage@2.2.0",
+        "npm:@react-three/drei@^9.99.7",
+        "npm:@react-three/fiber@^8.15.19",
+        "npm:@types/react-dom@~19.1.7",
+        "npm:@types/react@~19.1.10",
+        "npm:@types/three@0.162",
+        "npm:chalk@^4.1.2",
+        "npm:eslint-plugin-react-hooks@^5.1.0-rc.0",
+        "npm:eslint@^9.9.1",
+        "npm:expo-auth-session@~7.0.10",
+        "npm:expo-clipboard@~8.0.8",
+        "npm:expo-constants@~18.0.13",
+        "npm:expo-crypto@~15.0.8",
+        "npm:expo-linear-gradient@~15.0.8",
+        "npm:expo-linking@~8.0.11",
+        "npm:expo-router@~6.0.23",
+        "npm:expo-secure-store@~15.0.8",
+        "npm:expo-splash-screen@~31.0.13",
+        "npm:expo-status-bar@~3.0.9",
+        "npm:expo-system-ui@~6.0.9",
+        "npm:expo-web-browser@~15.0.10",
+        "npm:expo@^54.0.33",
+        "npm:framer-motion@^11.0.8",
+        "npm:globals@^15.9.0",
+        "npm:lucide-react@0.344",
+        "npm:maath@~0.10.8",
+        "npm:react-dom@19.1.0",
+        "npm:react-native-gesture-handler@2.28",
+        "npm:react-native-get-random-values@1.11",
+        "npm:react-native-safe-area-context@5.6",
+        "npm:react-native-screens@4.16",
+        "npm:react-native-svg@15.12.1",
+        "npm:react-native-web@0.21",
+        "npm:react-native-webview@13.15.0",
+        "npm:react-native@0.81.5",
+        "npm:react-simple-typewriter@^5.0.1",
+        "npm:react@19.1.0",
+        "npm:three@0.162",
+        "npm:tsx@^4.19.1",
+        "npm:typescript-eslint@^8.31.0",
+        "npm:typescript@^5.5.3",
+        "npm:zod@^3.24.3"
+      ]
+    }
+  }
+}

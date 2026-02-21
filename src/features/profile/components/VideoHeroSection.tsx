@@ -5,13 +5,13 @@ import { Play } from 'lucide-react';
 const YOUTUBE_LOAD_TIMEOUT_MS = 8000;
 
 /**
- * Full-screen hero section featuring the "Double Dragon Ouroboros Architecture" YouTube video
+ * Full-screen hero section featuring "The High-Five Trick!" YouTube video
  * with a translucent black overlay and centered title text.
  * Clicking "Watch Now" removes the overlay and starts playback with sound and controls.
  * Shows a fallback link if the YouTube embed fails to load.
  */
 export const VideoHeroSection: React.FC = () => {
-  const videoId = '8AygigXMlS0';
+  const videoId = 'H1ifcHKn6Kk';
   const [isWatching, setIsWatching] = useState(false);
   const [loadFailed, setLoadFailed] = useState(false);
   const [hasLoaded, setHasLoaded] = useState(false);
@@ -60,7 +60,7 @@ export const VideoHeroSection: React.FC = () => {
         ) : (
         <iframe
           src={isWatching ? activeUrl : previewUrl}
-          title="Double Dragon Ouroboros Architecture"
+          title="The High-Five Trick!"
           className={`absolute top-1/2 left-1/2 w-[177.78vh] min-w-full min-h-full -translate-x-1/2 -translate-y-1/2 border-0 ${isWatching ? '' : 'pointer-events-none'}`}
           allow="autoplay; encrypted-media"
           allowFullScreen
@@ -98,7 +98,7 @@ export const VideoHeroSection: React.FC = () => {
               >
                 The{' '}
                 <span className="bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-emerald-500">
-                  &ldquo;Double Dragon Ouroboros Architecture&rdquo;
+                  &ldquo;The High-Five Trick!&rdquo;
                 </span>
                 <br />
                 <span className="text-xl sm:text-2xl md:text-3xl lg:text-4xl text-gray-300 font-semibold">
