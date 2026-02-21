@@ -1,79 +1,47 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Play } from 'lucide-react';
 
-const YOUTUBE_LOAD_TIMEOUT_MS = 8000;
-
 /**
- * Full-screen hero section featuring "The High-Five Trick!" YouTube video
- * with a translucent black overlay and centered title text.
- * Clicking "Watch Now" removes the overlay and starts playback with sound and controls.
- * Shows a fallback link if the YouTube embed fails to load.
+ * Full-screen hero section featuring "The High-Five Trick!" YouTube video.
+ * Shows a static thumbnail until the user clicks "Watch Now", then loads the
+ * iframe with autoplay, controls, and captions.
  */
 export const VideoHeroSection: React.FC = () => {
   const videoId = 'H1ifcHKn6Kk';
   const [isWatching, setIsWatching] = useState(false);
-  const [loadFailed, setLoadFailed] = useState(false);
-  const [hasLoaded, setHasLoaded] = useState(false);
 
-  /** Background preview: muted, no controls, autoplay loop */
-  const previewUrl = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&loop=1&playlist=${videoId}&controls=0&showinfo=0&modestbranding=1&rel=0&playsinline=1`;
-
-  /** Active viewing: unmuted, with controls, captions on by default */
   const activeUrl = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=0&loop=1&playlist=${videoId}&controls=1&modestbranding=1&rel=0&playsinline=1&cc_load_policy=1&cc_lang_pref=en`;
-
-  const youtubeDirectUrl = `https://www.youtube.com/watch?v=${videoId}`;
-
-  const handleIframeLoad = useCallback(() => {
-    setHasLoaded(true);
-    setLoadFailed(false);
-  }, []);
-
-  useEffect(() => {
-    if (hasLoaded) return;
-    const timeoutId = setTimeout(() => setLoadFailed(true), YOUTUBE_LOAD_TIMEOUT_MS);
-    return () => clearTimeout(timeoutId);
-  }, [hasLoaded]);
+  const thumbnailUrl = `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
 
   return (
     <section
       className="relative w-full overflow-hidden"
       style={{ minHeight: '100vh' }}
     >
-      {/* YouTube video — absolutely positioned and scaled to cover */}
-      <div className="absolute inset-0 z-0">
-        {loadFailed ? (
-          <div className="absolute inset-0 flex flex-col items-center justify-center bg-gray-900 text-white px-4">
-            <p className="text-lg text-gray-300 mb-4 text-center">
-              Video couldn&apos;t be loaded. Watch directly on YouTube:
-            </p>
-            <a
-              href={youtubeDirectUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-lg transition-colors"
-            >
-              <Play size={20} />
-              Watch on YouTube
-            </a>
-          </div>
+      <div className="absolute inset-0 z-0 flex items-center justify-center bg-black">
+        {isWatching ? (
+          <iframe
+            src={activeUrl}
+            title="The High-Five Trick!"
+            className="w-full border-0"
+            style={{ aspectRatio: '16 / 9', maxHeight: '100%' }}
+            allow="autoplay; encrypted-media"
+            allowFullScreen
+          />
         ) : (
-        <iframe
-          src={isWatching ? activeUrl : previewUrl}
-          title="The High-Five Trick!"
-          className={`absolute top-1/2 left-1/2 w-[177.78vh] min-w-full min-h-full -translate-x-1/2 -translate-y-1/2 border-0 ${isWatching ? '' : 'pointer-events-none'}`}
-          allow="autoplay; encrypted-media"
-          allowFullScreen
-          onLoad={handleIframeLoad}
-        />
+          <img
+            src={thumbnailUrl}
+            alt="The High-Five Trick! thumbnail"
+            className="w-full object-cover"
+            style={{ aspectRatio: '16 / 9', maxHeight: '100%' }}
+          />
         )}
       </div>
 
-      {/* Overlay + title — animated out when watching; hidden when iframe failed to load */}
       <AnimatePresence>
-        {!isWatching && !loadFailed && (
+        {!isWatching && (
           <>
-            {/* Translucent black overlay */}
             <motion.div
               className="absolute inset-0 z-10 bg-black/50"
               initial={{ opacity: 1 }}
@@ -81,7 +49,6 @@ export const VideoHeroSection: React.FC = () => {
               transition={{ duration: 0.6 }}
             />
 
-            {/* Centered title text + Watch Now button */}
             <motion.div
               className="relative z-20 flex flex-col items-center justify-center text-center px-4"
               style={{ minHeight: '100vh' }}
