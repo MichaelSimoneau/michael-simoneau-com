@@ -9,8 +9,12 @@ import { resolve } from 'path';
 const htmlPath = resolve('dist', 'index.html');
 let html = readFileSync(htmlPath, 'utf-8');
 
-// Remove the Expo default `overflow: hidden` on body (we use document scrolling, not ScrollView)
+// Fix the Expo default styles that prevent page scrolling
 html = html.replace('overflow: hidden;', 'overflow-y: auto; overflow-x: hidden;');
+html = html.replace(
+  '#root {\n        display: flex;\n        height: 100%;\n        flex: 1;\n      }',
+  '#root {\n        min-height: 100%;\n        width: 100%;\n      }'
+);
 
 // Make the bundle script a module (some deps use import.meta which requires type="module")
 html = html.replace(/<script src="(\/_expo\/[^"]+)" defer><\/script>/g, '<script type="module" src="$1"></script>');
