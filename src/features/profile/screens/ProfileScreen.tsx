@@ -10,7 +10,7 @@ import {
 import { useFoundationBoundary, useFoundationPageView } from '../../../foundation';
 
 const LINKEDIN_URL = 'https://linkedin.com/in/michaelsimoneau';
-const EMAIL = 'email@michaelsimoneau.com';
+const EMAIL = 'ask.me.anything@braniycouch.com';
 const GITHUB_URL = 'https://github.com/MichaelSimoneau';
 
 const EXPERIENCE = [

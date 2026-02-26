@@ -90,7 +90,7 @@ export const ContactFooter: React.FC = () => {
             <Github size={28} />
           </a>
           <a
-            href="mailto:email@michaelsimoneau.com"
+            href="mailto:ask.me.anything@braniycouch.com"
             className="text-gray-400 hover:text-cyan-400 transition-colors"
           >
             <Mail size={28} />

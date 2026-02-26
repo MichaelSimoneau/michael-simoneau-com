@@ -43,7 +43,7 @@ export const FullProfile: React.FC = () => {
             description: 'Leader, Inventor & Investor. Innovator & Expert Engineer. Founder @ Enigma Key Co.',
             url: 'https://www.michaelsimoneau.com/profile',
             image: 'https://www.michaelsimoneau.com/profile-image.png',
-            email: 'email@michaelsimoneau.com',
+            email: 'ask.me.anything@braniycouch.com',
             sameAs: [
               'https://www.linkedin.com/in/michaelsimoneau',
               'https://github.com/MichaelSimoneau',
@@ -160,10 +160,10 @@ export const FullProfile: React.FC = () => {
                 <div>
                   <h3 className="text-cyan-300">Email</h3>
                   <a
-                    href="mailto:email@michaelsimoneau.com"
+                    href="mailto:ask.me.anything@braniycouch.com"
                     className="text-cyan-400 hover:text-cyan-200 transition-colors"
                   >
-                    email@michaelsimoneau.com
+                    ask.me.anything@braniycouch.com
                   </a>
                 </div>
               </div>
