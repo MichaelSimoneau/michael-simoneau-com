@@ -3,6 +3,8 @@ import { Slot } from 'expo-router';
 import { SpeechProvider } from '../src/contexts/SpeechContext';
 import { CookieNotice } from '../src/layout/CookieNotice';
 
+const GTM_CONTAINER_ID = 'GTM-MGD3L6LH';
+
 const TAILWIND_CONFIG = `tailwind.config = {
   theme: {
     extend: {
@@ -63,6 +65,35 @@ function useWebStyles() {
   }, []);
 }
 
+function useGoogleTagManager() {
+  useLayoutEffect(() => {
+    if (typeof document === 'undefined') return;
+    if (!document.getElementById('app-gtm-script')) {
+      const gtmScript = document.createElement('script');
+      gtmScript.id = 'app-gtm-script';
+      gtmScript.textContent = `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','${GTM_CONTAINER_ID}');`;
+      document.head.insertBefore(gtmScript, document.head.firstChild);
+    }
+
+    if (!document.getElementById('app-gtm-noscript')) {
+      const noScript = document.createElement('noscript');
+      noScript.id = 'app-gtm-noscript';
+      const iframe = document.createElement('iframe');
+      iframe.src = `https://www.googletagmanager.com/ns.html?id=${GTM_CONTAINER_ID}`;
+      iframe.height = '0';
+      iframe.width = '0';
+      iframe.style.display = 'none';
+      iframe.style.visibility = 'hidden';
+      noScript.appendChild(iframe);
+      document.body.insertBefore(noScript, document.body.firstChild);
+    }
+  }, []);
+}
+
 function CopyrightNotice() {
   return (
     <footer
@@ -88,6 +119,7 @@ function CopyrightNotice() {
 
 export default function RootLayout() {
   useWebStyles();
+  useGoogleTagManager();
 
   useEffect(() => {
     if (typeof document !== 'undefined') {
