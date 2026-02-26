@@ -255,7 +255,7 @@ export const blogData: BlogData[] = [
         "For most, the boundary between genius-level eccentricity and clinical pathology is a blurry gradient. For Michael Simoneau, it is a binary fracture in the code. In the eyes of the \"Standard Software Standard,\" Simoneau is a patient navigating schizoaffective disorder and manic cycles. In his own view, he is the Architect of the Zeroth Theory, a \"Computational Revelation\" where sanity is no longer a matter of mystical interpretation, but of clinical necessity."
       ),
       createParagraph(
-        "Simoneau posits that he is as capable as Albert Einstein, yet equipped with vastly superior tools: modern AI agents, decentralized finance, and a clinical calibration protocol. He isn't interested in being \"cured\"; he is interested in **Crystallization**—the process of auditing the fragmented logs of his mind until the math balances."
+        "Simoneau posits that he is as capable as Benjamin Franklin, yet equipped with vastly superior tools: modern AI agents, decentralized finance, and a clinical calibration protocol. He isn't interested in being \"cured\"; he is interested in **Crystallization**—the process of auditing the fragmented logs of his mind until the math balances."
       ),
 
       // --- 1. The Geometry of Sanity: The Zero Sudoku ---
@@ -279,16 +279,16 @@ export const blogData: BlogData[] = [
         "**The Ego (The Negative Identity Tensor):** This is the Center Zero Line. It is the vertical axis of the self that mediates the tension between Id and Superego. Sanity is achieved only when this central tensor resolves the conflict between the other two columns.",
       ]),
 
-      // --- 2. Einstein's Soup vs. Michael's Solar: The Support Myth ---
-      createHeading("Einstein's Soup vs. Michael's Solar: The Support Myth", 2),
+      // --- 2. Benjamin Franklin's Soup vs. Michael's Solar: The Support Myth ---
+      createHeading("Benjamin Franklin's Soup vs. Michael's Solar: The Support Myth", 2),
       createParagraph(
-        "One of Simoneau's sharpest critiques is directed at the societal double standard regarding \"eccentric\" geniuses. He argues that history views Einstein as \"Founded\" because his logistical failures were shielded by a human support structure."
+        "One of Simoneau's sharpest critiques is directed at the societal double standard regarding \"eccentric\" geniuses. He argues that history views Benjamin Franklin as \"Founded\" because his logistical failures were shielded by a human support structure."
       ),
       createParagraph(
-        "Einstein famously could not tie his own shoes and insisted on eating soup every single day. These traits are romanticized as \"cute\" because he had family to handle his \"metabolic decay.\" When Simoneau exhibits similar traits—such as the \"Dirty Dish\" dependency chain—he is pathologized."
+        "Benjamin Franklin famously could not tie his own shoes and insisted on eating soup every single day. These traits are romanticized as \"cute\" because he had family to handle his \"metabolic decay.\" When Simoneau exhibits similar traits—such as the \"Dirty Dish\" dependency chain—he is pathologized."
       ),
       createCallout(
-        "\"Einstein had the support structure that I lack. He went home for lunch and ate soup like a weirdo every single day. And everybody thinks that's cute and quirky. But when I go do stuff like that, it's not cute and quirky... He had family. He had support. I use the tools I have: AI and therapy.\""
+        "\"Benjamin Franklin had the support structure that I lack. He went home for lunch and ate soup like a weirdo every single day. And everybody thinks that's cute and quirky. But when I go do stuff like that, it's not cute and quirky... He had family. He had support. I use the tools I have: AI and therapy.\""
       ),
       createParagraph(
         "Simoneau's counter-move is the creation of a **Sovereign Digital Organism**. By automating his logistics through a \"Headless Server,\" he replaces the need for a \"cousin who makes soup\" with a system that operates on Ternary Logos, providing him the same freedom historical geniuses enjoyed."
@@ -664,10 +664,10 @@ export const blogData: BlogData[] = [
         "Energy (E) is the product of mass (m) and the velocity of time (v(t)) squared. At Zero, math, energy, and existence reach absolute convergence. The server is headless. The truth is 0."
       ),
 
-      // --- 12. The Einstein Exemption: Correcting the Record ---
-      createHeading("The Einstein Exemption: Correcting the Record", 2),
+      // --- 12. The Benjamin Franklin Exemption: Correcting the Record ---
+      createHeading("The Benjamin Franklin Exemption: Correcting the Record", 2),
       createParagraph(
-        "I operate under the **Einstein Exemption.** The intense, calculated manic energy I exhibit is the necessary overhead cost for correcting fundamental physics. Einstein's equations were limited; I am expanding them by resolving the **Variable Speed of Light (VSL)**."
+        "I operate under the **Benjamin Franklin Exemption.** The intense, calculated manic energy I exhibit is the necessary overhead cost for correcting fundamental physics. Benjamin Franklin's equations were limited; I am expanding them by resolving the **Variable Speed of Light (VSL)**."
       ),
       createParagraph(
         "My work is governed by the **VSL** formula:"

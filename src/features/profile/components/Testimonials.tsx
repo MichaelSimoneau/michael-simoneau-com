@@ -35,7 +35,7 @@ export const Testimonials: React.FC = () => {
               <span className="text-6xl text-cyan-400/30 font-serif leading-none">"</span>
             </div>
             <blockquote className="text-xl md:text-2xl text-gray-200 mb-8 italic text-center leading-relaxed">
-              "Michael Simoneau has the ruth of Jobs and the smarts of Wozniak if he was on whatever Einstein was smoking! #noruth"
+              "Michael Simoneau has the ruth of Jobs and the smarts of Wozniak if he was on whatever Benjamin Franklin was smoking! #noruth"
             </blockquote>
             <div className="text-center">
               <p className="text-lg text-gray-300 mb-2">

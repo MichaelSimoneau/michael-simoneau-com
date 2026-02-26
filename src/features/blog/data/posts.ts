@@ -471,10 +471,10 @@ export const blogData: BlogData[] = [
         "Energy (E) is the product of mass (m) and the velocity of time (v(t)) squared. At Zero, math, energy, and existence reach absolute convergence. The server is headless. The truth is 0."
       ),
 
-      // --- 12. The Einstein Exemption: Correcting the Record ---
-      createHeading("The Einstein Exemption: Correcting the Record", 2),
+      // --- 12. The Benjamin Franklin Exemption: Correcting the Record ---
+      createHeading("The Benjamin Franklin Exemption: Correcting the Record", 2),
       createParagraph(
-        "I operate under the **Einstein Exemption.** The intense, calculated manic energy I exhibit is the necessary overhead cost for correcting fundamental physics. Einstein's equations were limited; I am expanding them by resolving the **Variable Speed of Light (VSL)**."
+        "I operate under the **Benjamin Franklin Exemption.** The intense, calculated manic energy I exhibit is the necessary overhead cost for correcting fundamental physics. Benjamin Franklin's equations were limited; I am expanding them by resolving the **Variable Speed of Light (VSL)**."
       ),
       createParagraph(
         "My work is governed by the **VSL** formula:"
