@@ -7,7 +7,7 @@ import { ChevronDown } from 'lucide-react';
 
 /** Playlist tracks for the hero section audio player. */
 const HERO_TRACKS: Track[] = [
-  { src: '/River_Rd_72.mp3', title: 'River Rd. 72 - Uncencored' },
+  { src: '/River_Rd_72.mp3', title: "Michael Simoneau's Physics #72 - Uncensored" },
   { src: '/Proving_Sanity_Through_Tensor_Zero.mp3', title: 'Proving Sanity Through Tensor Zero' },
   { src: '/DarwinianMarxism.mp3', title: 'Darwinian Marxism' },
   { src: '/Zeroth_Protocol_Turns_Data_Into_Organisms.mp3', title: 'Zeroth Vision' },
