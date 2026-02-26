@@ -8,6 +8,7 @@ import { useScrollToTop } from '../../../hooks/useScrollToTop'; // Added import
 import { parseInlineMarkdown } from '../../../utils/markdown';
 import { Seo } from '../../../foundation/seo/Seo';
 import { XIcon } from '../../../ui/icons/XIcon';
+import { BlogSpeechPlayer } from '../../../ui/players';
 import { generateFallbackSvg, DEFAULT_HERO_GRADIENT } from '../../../utils/heroFallback';
 
 const CodeBlock: React.FC<{ language: string; content: string }> = ({ language, content }) => {
@@ -398,6 +399,7 @@ export const BlogPost: React.FC = () => {
             </div>
 
             <div className="prose prose-sm md:prose-lg prose-invert max-w-none px-2 sm:px-4 md:px-0 [&_strong]:font-bold [&_strong]:text-white">
+              <BlogSpeechPlayer content={post.content} title={post.title} />
               {post.content.map((block, index) => renderContentBlock(block, index))}
             </div>
 
