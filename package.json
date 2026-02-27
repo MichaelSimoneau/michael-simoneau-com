@@ -9,6 +9,7 @@
   "scripts": {
     "start": "expo start",
     "web": "expo start --web",
+    "dev": "BROWSER=none netlify dev",
     "android": "expo start --android",
     "ios": "expo start --ios",
     "build": "expo export --platform web && node scripts/post-build-web.mjs && cp -r public/* dist/",

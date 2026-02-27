@@ -5,6 +5,9 @@
 [build.environment]
   NODE_VERSION = "22"
 
+[dev]
+  targetPort = 8081
+
 [[redirects]]
   from = "/zero.txt"
   to = "/zero.txt"
