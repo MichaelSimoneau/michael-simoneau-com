@@ -11,7 +11,6 @@ export default function Root({ children }: PropsWithChildren) {
         <meta name="color-scheme" content="dark" />
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-        <script src="https://cdn.tailwindcss.com" />
         <script
           dangerouslySetInnerHTML={{
             __html: `
@@ -49,6 +48,7 @@ export default function Root({ children }: PropsWithChildren) {
             `,
           }}
         />
+        <script src="https://cdn.tailwindcss.com" />
         <ScrollViewStyleReset />
         <style
           dangerouslySetInnerHTML={{
@@ -70,6 +70,20 @@ export default function Root({ children }: PropsWithChildren) {
               body {
                 overscroll-behavior-y: none; min-height: 100%;
                 margin: 0; padding: 0; overflow-x: hidden; width: 100%; max-width: 100%;
+                background: #0b1120;
+              }
+              body::before {
+                content: '';
+                position: fixed;
+                inset: 0;
+                z-index: 2147483647;
+                pointer-events: none;
+                background: #0b1120;
+                animation: app-boot-mask-fade 900ms ease 350ms forwards;
+              }
+              @keyframes app-boot-mask-fade {
+                from { opacity: 1; }
+                to { opacity: 0; visibility: hidden; }
               }
               #root { width: 100%; max-width: 100%; overflow-x: hidden; }
               .snap-container {

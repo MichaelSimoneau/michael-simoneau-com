@@ -52,15 +52,17 @@ function useWebStyles() {
     style.textContent = CUSTOM_CSS;
     document.head.appendChild(style);
 
+    if (!document.getElementById('app-tailwind-config')) {
+      const configScript = document.createElement('script');
+      configScript.id = 'app-tailwind-config';
+      configScript.textContent = TAILWIND_CONFIG;
+      document.head.appendChild(configScript);
+    }
+
     if (!document.querySelector('script[src*="tailwindcss"]')) {
       const cdnScript = document.createElement('script');
       cdnScript.src = 'https://cdn.tailwindcss.com';
       document.head.appendChild(cdnScript);
-      cdnScript.onload = () => {
-        const configScript = document.createElement('script');
-        configScript.textContent = TAILWIND_CONFIG;
-        document.head.appendChild(configScript);
-      };
     }
   }, []);
 }

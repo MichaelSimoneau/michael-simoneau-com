@@ -145,6 +145,24 @@
         min-height: 100vh;
         overflow-x: hidden;
       }
+      body::before {
+        content: '';
+        position: fixed;
+        inset: 0;
+        z-index: 2147483647;
+        pointer-events: none;
+        background: #000510;
+        animation: app-boot-mask-fade 900ms ease 350ms forwards;
+      }
+      @keyframes app-boot-mask-fade {
+        from {
+          opacity: 1;
+        }
+        to {
+          opacity: 0;
+          visibility: hidden;
+        }
+      }
       #root {
         min-height: 100vh;
       }
