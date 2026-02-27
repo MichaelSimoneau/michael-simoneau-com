@@ -7,6 +7,8 @@ import { ChevronDown } from 'lucide-react';
 
 /** Playlist tracks for the hero section audio player. */
 const HERO_TRACKS: Track[] = [
+  { src: '/Dr. Melinda Francis - Uncensored.mp3', title: 'Dr. Melinda Francis - Uncensored' },
+  { src: '/A_Bug_Report_Filed_Against_Reality.mp3', title: 'A Bug Report Filed Against Reality' },
   { src: '/The_Zero_Theory_and_Five_State_Physics.mp3', title: 'The Zeroth Theory and Five State Physics' },
   { src: '/Metabolic_Money_Kills_the_Sale.mp3', title: "The Human Dollar Kills 'The Sale'" },
   { src: '/Arrogance_Is_A_Time_Management_Strategy.mp3', title: 'Arrogance is Altruism' },
