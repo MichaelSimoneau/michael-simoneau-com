@@ -44,6 +44,13 @@ export const extractBlogText = (content: ContentBlock[]): string[] => {
       }
       case 'code':
         break;
+      case 'math': {
+        const mathText = normalizeWhitespace(block.content);
+        if (mathText) {
+          segments.push(mathText);
+        }
+        break;
+      }
       default: {
         const _exhaustive: never = block;
         return _exhaustive;

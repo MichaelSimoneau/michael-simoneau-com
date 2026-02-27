@@ -5,6 +5,7 @@ import type {
   CodeBlock,
   HeadingBlock,
   ListBlock,
+  MathBlock,
   ParagraphBlock,
 } from '../../models/BlogPost';
 
@@ -16,6 +17,7 @@ export type {
   CodeBlock,
   HeadingBlock,
   ListBlock,
+  MathBlock,
   ParagraphBlock,
 };
 

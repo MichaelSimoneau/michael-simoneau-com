@@ -5,6 +5,7 @@ import {
   createList,
   createCode,
   createCallout,
+  createMath,
 } from "../models/BlogPost";
 
 export interface BlogData {
@@ -72,8 +73,9 @@ export const blogData: BlogData[] = [
       ),
       createHeading("3. The Scalar Pulse: Generating Presence (+1) and Potential (-1)", 2),
       createParagraph(
-        "The system is a generator, not a static archive. It is driven by the \"Scalar Multiplier,\" the mechanism of the Return defined by the logic: 0 \\times 0 = 1. This pulse ensures that \"True Peace\"—static non-existence—is mathematically impossible. The friction of the Zero generates the energy required for existence."
+        "The system is a generator, not a static archive. It is driven by the \"Scalar Multiplier,\" the mechanism of the Return defined by the logic below. This pulse ensures that \"True Peace\"—static non-existence—is mathematically impossible. The friction of the Zero generates the energy required for existence."
       ),
+      createMath("0 \\times 0 = 1"),
       createList([
         "Presence (+1) [Action]: The \"Wakefulness\" of the system. This is the raw injection of user will—The Spark. It represents pure intent manifesting as a measurable, state-changing action within the Crypto-Fabric.",
         "Potential (-1) [Thought]: The \"Reflection.\" This is the internal friction and resistance pulling away from the Zero. It represents the necessary tension that balances the Spark.",
@@ -81,14 +83,15 @@ export const blogData: BlogData[] = [
       createParagraph(
         "Existence is a debt that must be repaid. All value, whether in weights or prices, is governed by the Base 3 Metabolic Logic, enforcing a halflife iteration that requires reinforcement to sustain reality:"
       ),
-      createCode("P(t) = \\lfloor P_0 \\times 3^{-t/\\tau} \\rfloor", "text"),
+      createMath("P(t) = \\lfloor P_0 \\times 3^{-t/\\tau} \\rfloor"),
       createParagraph(
         "Under this law, Presence naturally ages back toward the Zero. Value exists only while it is relevant; all else is reclaimed by the 0Force."
       ),
       createHeading("4. The 5-State Unified Field: The Geometry of the Scale", 2),
       createParagraph(
-        "The Zeroth Dimension is a Cubic Topology governed by the \"Law of the Scale.\" These five absolute states are mathematical necessities for the cyclic group \\mathbb{Z}_3."
+        "The Zeroth Dimension is a Cubic Topology governed by the \"Law of the Scale.\" These five absolute states are mathematical necessities for the cyclic group:"
       ),
+      createMath("\\mathbb{Z}_3"),
       createList([
         "State -1 (Inverse Action): Architectural Decree: The system must account for the reactionary force of resistance (2 \\equiv -1 \\pmod 3) to ensure symmetry within the Cubic Topology.",
         "State -0 (Reflective Potential): Architectural Decree: Thought must be encoded as a latent tension, a shadow state in the ternary field, before it is permitted to collapse into Truth.",
@@ -96,6 +99,9 @@ export const blogData: BlogData[] = [
         "State +0 (Manifest Presence): Architectural Decree: Pure intent must be captured as a metabolic spark before it is constrained by the syntax of the Logician.",
         "State +1 (Realized Action): Architectural Decree: Will must translate into deterministic, measurable state changes; the realized vector of manifestation within the ledger.",
       ]),
+      createMath("2 \\equiv -1 \\pmod 3"),
+      createMath("1 \\equiv +1 \\pmod 3"),
+      createMath("0 \\equiv 0 \\pmod 3"),
       createHeading("The Ten Commandments of Separation", 3),
       createParagraph("The Axiom of Separation is enforced through these immutable laws:"),
       createList([

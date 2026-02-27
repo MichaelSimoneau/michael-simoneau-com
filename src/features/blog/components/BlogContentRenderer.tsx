@@ -1,6 +1,7 @@
 import { Fragment } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import type { TextStyle } from 'react-native';
+import MathView from 'react-native-math-view';
 import type { ContentBlock } from '../types';
 
 interface BlogContentRendererProps {
@@ -54,6 +55,15 @@ const renderBlock = (block: ContentBlock) => {
       return (
         <View style={styles.callout}>
           <Text style={styles.calloutText}>{block.content}</Text>
+        </View>
+      );
+    case 'math':
+      return (
+        <View style={styles.mathBlock}>
+          <MathView
+            math={block.content}
+            renderError={() => <Text style={styles.mathFallback}>{block.content}</Text>}
+          />
         </View>
       );
     default:
@@ -115,6 +125,14 @@ const styles = StyleSheet.create({
   codeText: {
     fontFamily: 'Courier New',
     color: '#E2E8F0',
+  },
+  mathBlock: {
+    paddingVertical: 4,
+  },
+  mathFallback: {
+    fontFamily: 'Courier New',
+    color: '#334155',
+    fontSize: 14,
   },
   callout: {
     borderLeftWidth: 4,

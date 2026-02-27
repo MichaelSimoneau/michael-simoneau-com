@@ -1,4 +1,4 @@
-import type { CalloutBlock, CodeBlock, HeadingBlock, ListBlock, ParagraphBlock } from './types';
+import type { CalloutBlock, CodeBlock, HeadingBlock, ListBlock, MathBlock, ParagraphBlock } from './types';
 
 export const createParagraph = (content: string): ParagraphBlock => ({
   type: 'paragraph',
@@ -26,4 +26,13 @@ export const createList = (items: string[]): ListBlock => ({
 export const createCallout = (content: string): CalloutBlock => ({
   type: 'callout',
   content,
+});
+
+export const createMath = (
+  content: string,
+  displayMode: MathBlock['displayMode'] = 'block'
+): MathBlock => ({
+  type: 'math',
+  content,
+  displayMode,
 });

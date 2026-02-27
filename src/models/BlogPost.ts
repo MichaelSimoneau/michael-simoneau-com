@@ -1,7 +1,7 @@
 
 // Quantum-resistant blog post models for our firestore database #quantumReady #billionDollarProof
 
-export type ContentBlockType = 'paragraph' | 'heading' | 'code' | 'list' | 'callout';
+export type ContentBlockType = 'paragraph' | 'heading' | 'code' | 'list' | 'callout' | 'math';
 
 export interface BaseContentBlock {
   type: ContentBlockType;
@@ -31,7 +31,12 @@ export interface CalloutBlock extends BaseContentBlock {
   type: 'callout';
 }
 
-export type ContentBlock = ParagraphBlock | HeadingBlock | CodeBlock | ListBlock | CalloutBlock;
+export interface MathBlock extends BaseContentBlock {
+  type: 'math';
+  displayMode: 'inline' | 'block';
+}
+
+export type ContentBlock = ParagraphBlock | HeadingBlock | CodeBlock | ListBlock | CalloutBlock | MathBlock;
 
 export interface BlogPost {
   id: string;
@@ -81,4 +86,10 @@ export const createList = (items: string[]): ListBlock => ({
 export const createCallout = (content: string): CalloutBlock => ({
   type: 'callout',
   content
-}); 
+});
+
+export const createMath = (content: string, displayMode: MathBlock['displayMode'] = 'block'): MathBlock => ({
+  type: 'math',
+  content,
+  displayMode,
+});

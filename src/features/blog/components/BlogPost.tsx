@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import { Calendar, Clock, ArrowLeft, Share2, LinkedinIcon, Facebook, Copy } from 'lucide-react';
+import { BlockMath, InlineMath } from 'react-katex';
 import { MainNav } from '../../../layout/MainNav';
 import { blogData } from '../../../data/blogData'; // Import data
 import { ContentBlock as ContentBlockType } from '../../../models/BlogPost'; // Import ContentBlock type definition
@@ -10,6 +11,7 @@ import { Seo } from '../../../foundation/seo/Seo';
 import { XIcon } from '../../../ui/icons/XIcon';
 import { BlogSpeechPlayer } from '../../../ui/players';
 import { generateFallbackSvg, DEFAULT_HERO_GRADIENT } from '../../../utils/heroFallback';
+import 'katex/dist/katex.min.css';
 
 const CodeBlock: React.FC<{ language: string; content: string }> = ({ language, content }) => {
   const [copyStatus, setCopyStatus] = React.useState<'idle' | 'success' | 'error'>('idle');
@@ -116,6 +118,22 @@ const ShareButton: React.FC<{ platform: string; url: string; title: string }> = 
   );
 };
 
+const MathBlock: React.FC<{ content: string; displayMode?: 'inline' | 'block' }> = ({
+  content,
+  displayMode = 'block',
+}) => {
+  try {
+    return displayMode === 'inline' ? <InlineMath math={content} /> : <BlockMath math={content} />;
+  } catch (error) {
+    console.error('Failed to render LaTeX block:', error);
+    return (
+      <pre className="bg-gray-900/70 p-3 rounded-md overflow-x-auto">
+        <code className="text-gray-300 font-mono text-sm">{content}</code>
+      </pre>
+    );
+  }
+};
+
 export const BlogPost: React.FC = () => {
   const { id: postId } = useParams<{ id: string }>();
   useScrollToTop([postId]); // Scroll window (for document-scroll pages)
@@ -216,6 +234,12 @@ export const BlogPost: React.FC = () => {
               className="text-cyan-300 italic"
               dangerouslySetInnerHTML={{ __html: parseInlineMarkdown(block.content) }}
             />
+          </div>
+        );
+      case 'math':
+        return (
+          <div key={index.toString()} className="my-6 text-gray-100 overflow-x-auto">
+            <MathBlock content={block.content} displayMode={block.displayMode} />
           </div>
         );
       default: {
