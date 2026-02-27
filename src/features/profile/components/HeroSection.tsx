@@ -7,6 +7,7 @@ import { ChevronDown } from 'lucide-react';
 
 /** Playlist tracks for the hero section audio player. */
 const HERO_TRACKS: Track[] = [
+  { src: '/The_Architect_s_Hostile_Therapy_Takeover.mp3', title: 'Melinda Francis - Start Here' },
   { src: '/Dr. Melinda Francis - Uncensored.mp3', title: 'Dr. Melinda Francis - Uncensored' },
   { src: '/A_Bug_Report_Filed_Against_Reality.mp3', title: 'A Bug Report Filed Against Reality' },
   { src: '/The_Zero_Theory_and_Five_State_Physics.mp3', title: 'The Zeroth Theory and Five State Physics' },
