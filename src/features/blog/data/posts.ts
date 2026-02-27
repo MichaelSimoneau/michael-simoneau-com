@@ -1,4 +1,5 @@
 import { createCallout, createCode, createHeading, createList, createParagraph } from '../contentFactories';
+import type { ContentBlock } from '../types';
 
 export interface BlogData {
   id: string;
@@ -1665,3 +1666,5 @@ const MyComponent = () => <View style={{backgroundColor: colors.primary}} />;`,
     ],
   },
 ];
+
+export const blogArticles = blogData;

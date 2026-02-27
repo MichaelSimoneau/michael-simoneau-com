@@ -7,11 +7,21 @@ export const SpeechPlayer: React.FC = () => {
   const {
     isPlaying,
     currentPhrase,
+    play,
+    pause,
+    skipForward,
+    skipBack,
     totalPhrases,
-    handlePlayPause,
-    handleSkipForward,
-    handleSkipBack,
   } = useSpeech();
+
+  const currentIndex = Math.max(currentPhrase ? 1 : 0, 0);
+  const handlePlayPause = () => {
+    if (isPlaying) {
+      pause();
+    } else {
+      play();
+    }
+  };
 
   return (
     <motion.div 
@@ -21,9 +31,9 @@ export const SpeechPlayer: React.FC = () => {
       transition={{ duration: 0.3 }}
     >
       <motion.button 
-        onClick={handleSkipBack}
+        onClick={skipBack}
         className="relative p-2.5 rounded-full transition-all group disabled:opacity-50"
-        disabled={currentPhrase === 0}
+        disabled={!currentPhrase}
         whileTap={{ scale: 0.95 }}
       >
         <div className="absolute inset-0 bg-gradient-to-b from-gray-600/30 to-gray-800/30 rounded-full shadow-inner" />
@@ -44,9 +54,9 @@ export const SpeechPlayer: React.FC = () => {
       </motion.button>
 
       <motion.button 
-        onClick={handleSkipForward}
+        onClick={skipForward}
         className="relative p-2.5 rounded-full transition-all group disabled:opacity-50"
-        disabled={currentPhrase === totalPhrases - 1}
+        disabled={!currentPhrase || totalPhrases <= 1}
         whileTap={{ scale: 0.95 }}
       >
         <div className="absolute inset-0 bg-gradient-to-b from-gray-600/30 to-gray-800/30 rounded-full shadow-inner" />
@@ -54,7 +64,7 @@ export const SpeechPlayer: React.FC = () => {
       </motion.button>
 
       <div className="text-xs text-gray-400/70 min-w-[2.5rem]">
-        {currentPhrase + 1}/{totalPhrases}
+        {currentIndex}/{totalPhrases}
       </div>
     </motion.div>
   );
