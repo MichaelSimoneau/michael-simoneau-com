@@ -7,6 +7,7 @@ import { ChevronDown } from 'lucide-react';
 
 /** Playlist tracks for the hero section audio player. */
 const HERO_TRACKS: Track[] = [
+  { src: '/The_Zero_Theory_and_Five_State_Physics.mp3', title: 'The Zero Theory and Five State Physics' },
   { src: '/Metabolic_Money_Kills_the_Sale.mp3', title: "The Human Dollar Kills 'The Sale'" },
   { src: '/Arrogance_Is_A_Time_Management_Strategy.mp3', title: 'Arrogance is Altruism' },
   { src: '/Moral_Failure_Is_Just_A_Geometry_Problem.mp3', title: 'Moral Failure Is Just A Geometry Problem' },
