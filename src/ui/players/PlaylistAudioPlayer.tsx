@@ -146,39 +146,71 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
   }, [currentTrackIndex, handlePlayPause]);
 
   // ── Seek via progress bar click ────────────────────────────────────────
-  const seekFromEvent = useCallback(
-    (e: React.MouseEvent<HTMLDivElement> | MouseEvent) => {
-      const bar = progressRef.current;
-      const audio = audioRef.current;
-      if (!bar || !audio || !duration) return;
+  const setAudioTime = useCallback((nextTime: number) => {
+    const audio = audioRef.current;
+    if (!audio || !duration) return;
 
-      const rect = bar.getBoundingClientRect();
-      const x = Math.max(0, Math.min(e.clientX - rect.left, rect.width));
-      const pct = x / rect.width;
-      const newTime = pct * duration;
-      audio.currentTime = newTime;
-      setCurrentTime(newTime);
-    },
-    [duration],
-  );
+    const clamped = Math.max(0, Math.min(nextTime, duration));
+    audio.currentTime = clamped;
+    setCurrentTime(clamped);
+  }, [duration]);
 
-  const handleProgressMouseDown = useCallback(
-    (e: React.MouseEvent<HTMLDivElement>) => {
-      setIsSeeking(true);
-      seekFromEvent(e);
+  const seekFromClientX = useCallback((clientX: number) => {
+    const bar = progressRef.current;
+    if (!bar || !duration) return;
 
-      const onMouseMove = (ev: MouseEvent) => seekFromEvent(ev);
-      const onMouseUp = () => {
-        setIsSeeking(false);
-        window.removeEventListener('mousemove', onMouseMove);
-        window.removeEventListener('mouseup', onMouseUp);
-      };
+    const rect = bar.getBoundingClientRect();
+    const x = Math.max(0, Math.min(clientX - rect.left, rect.width));
+    const pct = x / rect.width;
+    setAudioTime(pct * duration);
+  }, [duration, setAudioTime]);
 
-      window.addEventListener('mousemove', onMouseMove);
-      window.addEventListener('mouseup', onMouseUp);
-    },
-    [seekFromEvent],
-  );
+  const handleProgressPointerDown = useCallback((e: React.PointerEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    e.currentTarget.setPointerCapture(e.pointerId);
+    setIsSeeking(true);
+    seekFromClientX(e.clientX);
+  }, [seekFromClientX]);
+
+  const handleProgressPointerMove = useCallback((e: React.PointerEvent<HTMLDivElement>) => {
+    if (!isSeeking) return;
+    seekFromClientX(e.clientX);
+  }, [isSeeking, seekFromClientX]);
+
+  const handleProgressPointerUp = useCallback((e: React.PointerEvent<HTMLDivElement>) => {
+    if (e.currentTarget.hasPointerCapture(e.pointerId)) {
+      e.currentTarget.releasePointerCapture(e.pointerId);
+    }
+    setIsSeeking(false);
+  }, []);
+
+  const handleProgressKeyDown = useCallback((e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (!duration) return;
+
+    const step = Math.min(10, Math.max(1, duration / 100));
+    switch (e.key) {
+      case 'ArrowRight':
+      case 'ArrowUp':
+        e.preventDefault();
+        setAudioTime(currentTime + step);
+        break;
+      case 'ArrowLeft':
+      case 'ArrowDown':
+        e.preventDefault();
+        setAudioTime(currentTime - step);
+        break;
+      case 'Home':
+        e.preventDefault();
+        setAudioTime(0);
+        break;
+      case 'End':
+        e.preventDefault();
+        setAudioTime(duration);
+        break;
+      default:
+        break;
+    }
+  }, [currentTime, duration, setAudioTime]);
 
   // ── Helpers ────────────────────────────────────────────────────────────
   const formatTime = (time: number) => {
@@ -274,8 +306,18 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
           {/* ── Progress Bar (seekable) ───────────────────────────── */}
           <div
             ref={progressRef}
-            onMouseDown={handleProgressMouseDown}
-            className="relative h-1.5 mt-3 bg-gray-700/50 rounded-full overflow-hidden cursor-pointer group"
+            role="slider"
+            tabIndex={0}
+            aria-label="Seek playlist position"
+            aria-valuemin={0}
+            aria-valuemax={Math.round(duration)}
+            aria-valuenow={Math.round(currentTime)}
+            onPointerDown={handleProgressPointerDown}
+            onPointerMove={handleProgressPointerMove}
+            onPointerUp={handleProgressPointerUp}
+            onPointerCancel={handleProgressPointerUp}
+            onKeyDown={handleProgressKeyDown}
+            className="relative h-1.5 mt-3 bg-gray-700/50 rounded-full overflow-hidden cursor-pointer touch-none"
           >
             {/* Filled portion */}
             <motion.div
@@ -285,7 +327,7 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
             />
             {/* Seek handle (visible on hover) */}
             <div
-              className="absolute top-1/2 -translate-y-1/2 w-3 h-3 bg-cyan-300 rounded-full shadow-md opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"
+              className="absolute top-1/2 -translate-y-1/2 w-3 h-3 bg-cyan-300 rounded-full shadow-md pointer-events-none"
               style={{ left: `calc(${progress}% - 6px)` }}
             />
           </div>

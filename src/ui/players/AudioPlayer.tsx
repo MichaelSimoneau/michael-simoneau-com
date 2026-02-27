@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { Play, Pause, Volume2 } from 'lucide-react';
 
@@ -9,14 +9,21 @@ interface AudioPlayerProps {
 
 export const AudioPlayer: React.FC<AudioPlayerProps> = ({ src, title = 'Zeroth Vision' }) => {
   const audioRef = useRef<HTMLAudioElement>(null);
+  const progressRef = useRef<HTMLDivElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [duration, setDuration] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
+  const [isSeeking, setIsSeeking] = useState(false);
+
   useEffect(() => {
     const audio = audioRef.current;
     if (!audio) return;
 
-    const updateTime = () => setCurrentTime(audio.currentTime);
+    const updateTime = () => {
+      if (!isSeeking) {
+        setCurrentTime(audio.currentTime);
+      }
+    };
     const updateDuration = () => {
       setDuration(audio.duration);
     };
@@ -31,7 +38,7 @@ export const AudioPlayer: React.FC<AudioPlayerProps> = ({ src, title = 'Zeroth V
       audio.removeEventListener('loadedmetadata', updateDuration);
       audio.removeEventListener('ended', handleEnded);
     };
-  }, []);
+  }, [isSeeking]);
 
   const handlePlayPause = () => {
     const audio = audioRef.current;
@@ -52,6 +59,72 @@ export const AudioPlayer: React.FC<AudioPlayerProps> = ({ src, title = 'Zeroth V
     const seconds = Math.floor(time % 60);
     return `${minutes}:${seconds.toString().padStart(2, '0')}`;
   };
+
+  const setAudioTime = useCallback((nextTime: number) => {
+    const audio = audioRef.current;
+    if (!audio || !duration) return;
+
+    const clamped = Math.max(0, Math.min(nextTime, duration));
+    audio.currentTime = clamped;
+    setCurrentTime(clamped);
+  }, [duration]);
+
+  const seekFromClientX = useCallback((clientX: number) => {
+    const bar = progressRef.current;
+    if (!bar || !duration) return;
+
+    const rect = bar.getBoundingClientRect();
+    const x = Math.max(0, Math.min(clientX - rect.left, rect.width));
+    const pct = x / rect.width;
+    setAudioTime(pct * duration);
+  }, [duration, setAudioTime]);
+
+  const handleProgressPointerDown = useCallback((e: React.PointerEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    e.currentTarget.setPointerCapture(e.pointerId);
+    setIsSeeking(true);
+    seekFromClientX(e.clientX);
+  }, [seekFromClientX]);
+
+  const handleProgressPointerMove = useCallback((e: React.PointerEvent<HTMLDivElement>) => {
+    if (!isSeeking) return;
+    seekFromClientX(e.clientX);
+  }, [isSeeking, seekFromClientX]);
+
+  const handleProgressPointerUp = useCallback((e: React.PointerEvent<HTMLDivElement>) => {
+    if (e.currentTarget.hasPointerCapture(e.pointerId)) {
+      e.currentTarget.releasePointerCapture(e.pointerId);
+    }
+    setIsSeeking(false);
+  }, []);
+
+  const handleProgressKeyDown = useCallback((e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (!duration) return;
+
+    const step = Math.min(10, Math.max(1, duration / 100));
+    switch (e.key) {
+      case 'ArrowRight':
+      case 'ArrowUp':
+        e.preventDefault();
+        setAudioTime(currentTime + step);
+        break;
+      case 'ArrowLeft':
+      case 'ArrowDown':
+        e.preventDefault();
+        setAudioTime(currentTime - step);
+        break;
+      case 'Home':
+        e.preventDefault();
+        setAudioTime(0);
+        break;
+      case 'End':
+        e.preventDefault();
+        setAudioTime(duration);
+        break;
+      default:
+        break;
+    }
+  }, [currentTime, duration, setAudioTime]);
 
   const progress = duration > 0 ? (currentTime / duration) * 100 : 0;
 
@@ -85,12 +158,30 @@ export const AudioPlayer: React.FC<AudioPlayerProps> = ({ src, title = 'Zeroth V
               </div>
 
               {/* Progress Bar */}
-              <div className="relative h-1.5 bg-gray-700/50 rounded-full overflow-hidden">
+              <div
+                ref={progressRef}
+                role="slider"
+                tabIndex={0}
+                aria-label="Seek audio position"
+                aria-valuemin={0}
+                aria-valuemax={Math.round(duration)}
+                aria-valuenow={Math.round(currentTime)}
+                onPointerDown={handleProgressPointerDown}
+                onPointerMove={handleProgressPointerMove}
+                onPointerUp={handleProgressPointerUp}
+                onPointerCancel={handleProgressPointerUp}
+                onKeyDown={handleProgressKeyDown}
+                className="relative h-1.5 bg-gray-700/50 rounded-full overflow-hidden cursor-pointer touch-none"
+              >
                 <motion.div
                   className="absolute inset-y-0 left-0 bg-cyan-400"
                   initial={{ width: 0 }}
                   animate={{ width: `${progress}%` }}
                   transition={{ duration: 0.1 }}
+                />
+                <div
+                  className="absolute top-1/2 -translate-y-1/2 w-3 h-3 bg-cyan-300 rounded-full shadow-md pointer-events-none"
+                  style={{ left: `calc(${progress}% - 6px)` }}
                 />
               </div>
 
