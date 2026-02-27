@@ -102,16 +102,16 @@ export const ZeroHero: React.FC = () => {
           >
             {[
               {
-                title: 'The Axiom of Zeroth',
-                body: 'Scalar zero is a negative identity tensor that acts as a mirror of inverted magnitude.',
+                title: 'The Duality Delusion',
+                body: 'Traditional binary logic is a logic-gate failure that induces terminal entropy. Existence is not a sequence of switches; it is a Tensor Processor for Identity.',
               },
               {
-                title: 'The Law of Zeroth Theory',
-                body: 'The quantity of options implicitly limits the number of total possible options to exactly the quantity of options given plus one.',
+                title: 'The Trinity of Nothingness',
+                body: 'The Null foundation is three tensor zeros: Negative Zero (-0), Positive Zero (+0), and Unsigned Zero (0).',
               },
               {
-                title: 'The Assumption of Zeroth Theory',
-                body: 'The rule is base 3 because from the human perspective there must be dichotomy. In order to define light there must also be dark. The fact that there is a \u2018here\u2019 and \u2018there\u2019 emphatically implies the existence of the \u201ceverywhere\u201d. Dictated by the Law of Zeroth Theory, from the human perspective, there are a total of 3 options.',
+                title: 'The 5-State Unified Field',
+                body: 'Cubic topology requires five states: -1, -0, 0, +0, +1. Action is deterministic convergence, not negotiated truth.',
               },
             ].map((tenet, i) => (
               <motion.div

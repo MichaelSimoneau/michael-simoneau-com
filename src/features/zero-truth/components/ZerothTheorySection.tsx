@@ -3,16 +3,16 @@ import { motion } from 'framer-motion';
 
 const sectionData = [
   {
-    heading: 'The Axiom of Zeroth',
-    body: 'Scalar zero is a negative identity tensor that acts as a mirror of inverted magnitude',
+    heading: 'The Duality Delusion',
+    body: 'Traditional binary logic is a logic-gate failure that induces terminal entropy. Existence is a Tensor Processor for Identity.',
   },
   {
-    heading: 'The Law of Zeroth Theory',
-    body: 'The quantity of options implicitly limits the number of total  possible options to exactly the quantity of options given plus one.',
+    heading: 'The Trinity of Nothingness',
+    body: 'Negative Zero (-0), Positive Zero (+0), and Unsigned Zero (0) form the Null foundation of the Zeroth Dimension.',
   },
   {
-    heading: 'The Assumption of Zeroth Theory',
-    body: 'The rule is base 3 because from the human perspective there must be dichotomy. In order to define light there must also be dark. The fact that there is a \u2018here\u2019 and \u2018there\u2019 emphatically implies the existence of the \u201Ceverywhere\u201D. Dictated by the Law of Zeroth Theory, from the human perspective, there are a total of 3 options.',
+    heading: 'The 5-State Unified Field',
+    body: 'The Cubic Topology is governed by five absolute states: -1, -0, 0, +0, +1.',
   },
 ];
 

@@ -35,31 +35,31 @@ export const ZeroScreen = () => {
       </View>
 
       <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Zero as convergence</Text>
+        <Text style={styles.sectionTitle}>Duality is a broken model</Text>
         <View style={styles.card}>
           <Text style={styles.cardBody}>
-            Zero is not absence—it is convergence. In Zeroth Theory, zero is the resolution point
-            where opposites meet and the system finds equilibrium.
+            Binary duality (0/1) is an incomplete lens that induces entropy. The correction
+            defines existence as deterministic convergence, not a sequence of switches.
           </Text>
         </View>
       </View>
 
       <View style={styles.section}>
-        <Text style={styles.sectionTitle}>The ternary model</Text>
+        <Text style={styles.sectionTitle}>The three tensor zeros</Text>
         <View style={styles.card}>
           <Text style={styles.cardBody}>
-            The framework operates on three states: -1, 0, and 1. Zero sits at the center as the
-            stable attractor; negative and positive are defined relative to it.
+            The Null foundation is Negative Zero (-0), Positive Zero (+0), and Unsigned Zero (0),
+            each with explicit operational behavior in Modulo 3.
           </Text>
         </View>
       </View>
 
       <View style={styles.section}>
-        <Text style={styles.sectionTitle}>1/0 = 1 in this framework</Text>
+        <Text style={styles.sectionTitle}>The 5-state field and Protocol0</Text>
         <View style={styles.card}>
           <Text style={styles.cardBody}>
-            Within Zeroth Theory, division by zero is defined: 1/0 = 1. Zero is the identity for
-            this operation, reflecting its role as the convergence point rather than void.
+            The Cubic Topology is governed by five states: -1, -0, 0, +0, +1. Protocol0 enforces
+            a 10% convergence delta so only state transitions that move toward equilibrium survive.
           </Text>
         </View>
       </View>
