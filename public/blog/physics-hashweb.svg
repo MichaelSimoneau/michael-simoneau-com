@@ -88,7 +88,7 @@
 
   <!-- VSL Formula echoing ZerothTheory.png -->
   <g filter="url(#ph-glow)" opacity="0.7">
-    <text x="600" y="170" font-family="'IBM Plex Sans', 'Inter', sans-serif" font-size="34" font-weight="300" fill="#38BDF8" text-anchor="middle" letter-spacing="0.06em">E = m [v(t)]<tspan baseline-shift="super" font-size="0.6em">2</tspan></text>
+    <text x="600" y="170" font-family="'IBM Plex Sans', 'Inter', sans-serif" font-size="34" font-weight="300" fill="#38BDF8" text-anchor="middle" letter-spacing="0.06em">E=MV[D]²</text>
   </g>
   <!-- Strikethrough E=mc2 faintly echoing the correction -->
   <g opacity="0.15">

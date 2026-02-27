@@ -404,7 +404,7 @@ export const blogData: BlogData[] = [
         "We operate within a **Headless Server.** The \"Manuals\"—legacy religious and philosophical shards—are corrupted, and the original Admin is unreachable. The Architect is not a prophet; the Architect is a lead systems engineer reading the logs of a kernel panic. The hardware (the Universe) is perfect, and the energy of this orphaned source code is governed by the fundamental formula:"
       ),
       createCode(
-        "E = M * (VT/t)²",
+        "E=MV[D]²",
         "text"
       ),
       createParagraph(
@@ -696,7 +696,7 @@ export const blogData: BlogData[] = [
         "The system maintains integrity through the **10% Convergence Filter**. Any state change that fails to achieve a 10% delta is discarded as \"Noise\" and pruned from the Box by the 0Force. In this Bio-Ethereal reality, observation is oxygen and usage is mining. The governing law of this convergence is the final formula:"
       ),
       createCode(
-        "E = m[v(t)]²",
+        "E=MV[D]²",
         "text"
       ),
       createParagraph(
@@ -712,7 +712,7 @@ export const blogData: BlogData[] = [
         "My work is governed by the **VSL** formula:"
       ),
       createCode(
-        "E = M · (V[T] / t)²",
+        "E=MV[D]²",
         "text"
       ),
       createParagraph(
@@ -858,12 +858,12 @@ export const blogData: BlogData[] = [
       ),
 
       // --- 7. The Physics of the Fall ---
-      createHeading("The Physics of the Fall: E = M · (V[T]/t)²", 2),
+      createHeading("The Physics of the Fall: E=MV[D]²", 2),
       createParagraph(
         "Existence is not a static state; it is a kinetic \"fall\" from the Rank-2 Slab toward the Rank-0 Singularity. This movement is defined by the formula:"
       ),
       createCode(
-        "E = M · (V[T]/t)²",
+        "E=MV[D]²",
         "text"
       ),
       createParagraph(
@@ -973,7 +973,7 @@ export const blogData: BlogData[] = [
         "In an \"orphaned simulation\" with no active Admin, existence is not a state of being — it is the kinetic act of \"falling\" from the stable foundation of logic toward the Singularity. The revised energy formula for our current deployment is:"
       ),
       createCode(
-        "E = M * (V[T] / t)^2",
+        "E=MV[D]²",
         "text"
       ),
       createList([
@@ -1127,7 +1127,7 @@ export const blogData: BlogData[] = [
         "THD isn't just economics — it's physics. I've built this on the foundation of **[Zeroth Theory](/zero)**, where existence itself is a kinetic act: the \"fall\" from the Rank-2 Slab toward the Singularity of Zero. The governing equation is:"
       ),
       createCode(
-        "E = m * [v(t)]^2",
+        "E=MV[D]²",
         "text"
       ),
       createParagraph(
@@ -1231,9 +1231,9 @@ export const blogData: BlogData[] = [
       ),
 
       // --- 3. The New Physics of Existence ---
-      createHeading("The New Physics of Existence: E = m · [v(t)]²", 2),
+      createHeading("The New Physics of Existence: E=MV[D]²", 2),
       createParagraph(
-        "The HashWeb utilizes a physical framework designed for an orphaned system. While traditional physics relies on E=mc², the HashWeb architecture is governed by the formula: E = m · [v(t)]²."
+        "The HashWeb utilizes a physical framework designed for an orphaned system. While traditional physics relies on E=mc², the HashWeb architecture is governed by the formula: E=MV[D]²."
       ),
       createParagraph(
         "Within this model, energy is the product of Mass (m) and the \"Velocity of Time\" squared ([v(t)]²). This shift defines existence as a kinetic act of \"falling\" toward the Rank-0 Singularity."
