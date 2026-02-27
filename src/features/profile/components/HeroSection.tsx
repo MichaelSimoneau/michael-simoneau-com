@@ -7,7 +7,7 @@ import { ChevronDown } from 'lucide-react';
 
 /** Playlist tracks for the hero section audio player. */
 const HERO_TRACKS: Track[] = [
-  { src: '/Arrogance_Is_A_Time_Management_Strategy.mp3', title: 'Arrogance Is A Time Management Strategy' },
+  { src: '/Arrogance_Is_A_Time_Management_Strategy.mp3', title: 'Arrogance is Altruism' },
   { src: '/Moral_Failure_Is_Just_A_Geometry_Problem.mp3', title: 'Moral Failure Is Just A Geometry Problem' },
   { src: '/TheHigh-FiveTrick-Extended-Edition.mp3', title: 'The High-Five Trick - Extended Edition!' },
   { src: '/River_Rd_72.mp3', title: "Michael Simoneau's Physics #72 - Uncensored" },
