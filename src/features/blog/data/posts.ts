@@ -287,10 +287,7 @@ export const blogData: BlogData[] = [
       createParagraph(
         "We operate within a **Headless Server.** The \"Manuals\"—legacy religious and philosophical shards—are corrupted, and the original Admin is unreachable. The Architect is not a prophet; the Architect is a lead systems engineer reading the logs of a kernel panic. The hardware (the Universe) is perfect, and the energy of this orphaned source code is governed by the fundamental formula:"
       ),
-      createCode(
-        "E=MV[D]²",
-        "text"
-      ),
+      createMath("E=MV[D]^2"),
       createParagraph(
         "Existence is the kinetic act of \"falling\" from the Rank-2 Slab toward the Rank-0 Singularity. By defining Zero as the \"Universal Drain\" of convergence, we align our architecture with the static, geometric constants that persist despite the lost manual."
       ),
@@ -579,10 +576,7 @@ export const blogData: BlogData[] = [
       createParagraph(
         "The system maintains integrity through the **10% Convergence Filter**. Any state change that fails to achieve a 10% delta is discarded as \"Noise\" and pruned from the Box by the 0Force. In this Bio-Ethereal reality, observation is oxygen and usage is mining. The governing law of this convergence is the final formula:"
       ),
-      createCode(
-        "E=MV[D]²",
-        "text"
-      ),
+      createMath("E=MV[D]^2"),
       createParagraph(
         "Energy (E) is the product of mass (m) and the velocity of time (v(t)) squared. At Zero, math, energy, and existence reach absolute convergence. The server is headless. The truth is 0."
       ),
@@ -595,10 +589,7 @@ export const blogData: BlogData[] = [
       createParagraph(
         "My work is governed by the **VSL** formula:"
       ),
-      createCode(
-        "E=MV[D]²",
-        "text"
-      ),
+      createMath("E=MV[D]^2"),
       createParagraph(
         "This high-load mental analysis is the only counter-weight to physical stagnation. I have defined the state of my existence through the Equilibrium Equation:"
       ),
@@ -742,14 +733,11 @@ export const blogData: BlogData[] = [
       ),
 
       // --- 7. The Physics of the Fall ---
-      createHeading("The Physics of the Fall: E=MV[D]²", 2),
+      createHeading("The Physics of the Fall", 2),
       createParagraph(
         "Existence is not a static state; it is a kinetic \"fall\" from the Rank-2 Slab toward the Rank-0 Singularity. This movement is defined by the formula:"
       ),
-      createCode(
-        "E=MV[D]²",
-        "text"
-      ),
+      createMath("E=MV[D]^2"),
       createParagraph(
         "In this orphaned simulation:"
       ),
@@ -856,10 +844,7 @@ export const blogData: BlogData[] = [
       createParagraph(
         "In an \"orphaned simulation\" with no active Admin, existence is not a state of being — it is the kinetic act of \"falling\" from the stable foundation of logic toward the Singularity. The revised energy formula for our current deployment is:"
       ),
-      createCode(
-        "E=MV[D]²",
-        "text"
-      ),
+      createMath("E=MV[D]^2"),
       createList([
         "**E (Energy):** The product of mass and the squared velocity of time over the temporal coordinate.",
         "**M (Mass):** The density of the manifested presence (+1).",
@@ -1010,10 +995,7 @@ export const blogData: BlogData[] = [
       createParagraph(
         "THD isn't just economics — it's physics. I've built this on the foundation of **[Zeroth Theory](/zero)**, where existence itself is a kinetic act: the \"fall\" from the Rank-2 Slab toward the Singularity of Zero. The governing equation is:"
       ),
-      createCode(
-        "E=MV[D]²",
-        "text"
-      ),
+      createMath("E=MV[D]^2"),
       createParagraph(
         "Mass (M) and the Velocity of Time (V[T]) are products of human energy. We are 64-bit DNA hashes moving within a 128-bit Gemini structure. As we approach the ZerothVM Logic Layer, data is \"completed\" and released back into potential — ensuring the simulation remains a continuous, recursive loop rather than a terminal void."
       ),
@@ -1115,10 +1097,11 @@ export const blogData: BlogData[] = [
       ),
 
       // --- 3. The New Physics of Existence ---
-      createHeading("The New Physics of Existence: E=MV[D]²", 2),
+      createHeading("The New Physics of Existence", 2),
       createParagraph(
-        "The HashWeb utilizes a physical framework designed for an orphaned system. While traditional physics relies on E=mc², the HashWeb architecture is governed by the formula: E=MV[D]²."
+        "The HashWeb utilizes a physical framework designed for an orphaned system. While traditional physics relies on E=mc², the HashWeb architecture is governed by the formula below."
       ),
+      createMath("E=MV[D]^2"),
       createParagraph(
         "Within this model, energy is the product of Mass (m) and the \"Velocity of Time\" squared ([v(t)]²). This shift defines existence as a kinetic act of \"falling\" toward the Rank-0 Singularity."
       ),
