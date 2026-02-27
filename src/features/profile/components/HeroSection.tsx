@@ -7,6 +7,7 @@ import { ChevronDown } from 'lucide-react';
 
 /** Playlist tracks for the hero section audio player. */
 const HERO_TRACKS: Track[] = [
+  { src: '/Recruiting_The_Psychiatrist_With_Radical_Transparency.mp3', title: 'Recruiting_The_Psychiatrist_With_Radical_Transparency.mp3' },
   { src: '/The_Architect_s_Hostile_Therapy_Takeover.mp3', title: 'Melinda Francis - Start Here' },
   { src: '/Dr. Melinda Francis - Uncensored.mp3', title: 'Dr. Melinda Francis - Uncensored' },
   { src: '/A_Bug_Report_Filed_Against_Reality.mp3', title: 'A Bug Report Filed Against Reality' },
