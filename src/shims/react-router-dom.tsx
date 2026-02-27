@@ -43,9 +43,16 @@ export function useLocation() {
 
 export function useNavigate() {
   const router = useRouter();
-  return (to: string | number, options?: { replace?: boolean }) => {
+  return (to: string | number | { pathname: string; hash?: string }, options?: { replace?: boolean }) => {
     if (typeof to === 'number') {
       router.back();
+    } else if (typeof to === 'object') {
+      const destination = `${to.pathname}${to.hash ?? ''}`;
+      if (options?.replace) {
+        router.replace(destination as any);
+      } else {
+        router.push(destination as any);
+      }
     } else if (options?.replace) {
       router.replace(to as any);
     } else {

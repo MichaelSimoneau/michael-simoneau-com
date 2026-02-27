@@ -1,5 +1,4 @@
-// Re-export shared types
-export type {
+import type {
   BlogPost,
   ContentBlock,
   CalloutBlock,
@@ -9,8 +8,22 @@ export type {
   ParagraphBlock,
 } from '../../models/BlogPost';
 
-export type BlogArticle = BlogPost;
-export type BlogArticleSummary = BlogPost;
+// Re-export shared types
+export type {
+  BlogPost,
+  ContentBlock,
+  CalloutBlock,
+  CodeBlock,
+  HeadingBlock,
+  ListBlock,
+  ParagraphBlock,
+};
+
+export type BlogArticle = Omit<BlogPost, 'createdAt' | 'updatedAt'> & {
+  createdAt?: number;
+  updatedAt?: number;
+};
+export type BlogArticleSummary = BlogArticle;
 
 export interface BlogRepository {
   getArticles: () => BlogArticle[];

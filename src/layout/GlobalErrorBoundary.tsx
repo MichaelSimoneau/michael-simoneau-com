@@ -70,7 +70,7 @@ class GlobalErrorBoundary extends Component<Props, State> {
 
 // Wrapper for usage with React Router's errorElement
 export const GlobalErrorElement = () => {
-  const error = useRouteError() as Error;
+  const error = useRouteError() as unknown as Error;
   
   // Reuse logic or simple display if not using the class boundary directly
   // For the router, we can just return the UI directly since the router catches the error

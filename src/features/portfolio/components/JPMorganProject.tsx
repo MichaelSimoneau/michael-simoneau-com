@@ -43,9 +43,9 @@ export const JPMorganProject: React.FC = () => {
             <div>
               <span className="block text-xs md:text-sm text-gray-400">{metric.label}</span>
               <span className={`block text-md md:text-lg font-semibold ${
-                (metric.icon as React.ReactElement).props.className?.includes('text-green') ? 'text-green-400' :
-                (metric.icon as React.ReactElement).props.className?.includes('text-blue') ? 'text-blue-400' :
-                (metric.icon as React.ReactElement).props.className?.includes('text-purple') ? 'text-purple-400' :
+                ((metric.icon as React.ReactElement<{ className?: string }>).props.className ?? '').includes('text-green') ? 'text-green-400' :
+                ((metric.icon as React.ReactElement<{ className?: string }>).props.className ?? '').includes('text-blue') ? 'text-blue-400' :
+                ((metric.icon as React.ReactElement<{ className?: string }>).props.className ?? '').includes('text-purple') ? 'text-purple-400' :
                 'text-cyan-300'
               }`}>{metric.value}</span>
             </div>

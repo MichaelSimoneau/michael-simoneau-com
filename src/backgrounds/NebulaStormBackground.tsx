@@ -2,7 +2,6 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { Cloud, PointMaterial, Points } from '@react-three/drei';
 import * as THREE from 'three';
-// @ts-expect-error maath has no type definitions
 import { random } from 'maath';
 
 // --- Configuration ---
@@ -83,16 +82,16 @@ const Nebula: React.FC<{ data: NebulaData }> = ({ data }) => {
       <Cloud
         opacity={0.3}
         speed={0.1} // Slow internal rotation
-        width={5 * data.scale}
-        depth={1.5}
+        bounds={5 * data.scale}
+        volume={1.5}
         segments={10}
         color="#050510" // Very dark blue/black
       />
       <Cloud
         opacity={0.2}
         speed={0.1}
-        width={4 * data.scale}
-        depth={2}
+        bounds={4 * data.scale}
+        volume={2}
         segments={5}
         color="#101020" // Slightly lighter core
         position={[0, 0, 1]}
@@ -107,11 +106,12 @@ const Nebula: React.FC<{ data: NebulaData }> = ({ data }) => {
 };
 
 const LightningArc: React.FC<{ data: LightningData }> = ({ data }) => {
-  const lineRef = useRef<THREE.Line>(null!);
+  const lineRef = useRef<any>(null);
   const [geometry] = useState(() => new THREE.BufferGeometry());
+  const LineTag = 'line' as any;
   
-  useFrame((state) => {
-    const age = state.clock.elapsedTime - data.createdAt;
+  useFrame((_state) => {
+    const age = _state.clock.elapsedTime - data.createdAt;
     if (age > LIGHTNING_LIFETIME) return;
 
     // Animate opacity out
@@ -128,7 +128,7 @@ const LightningArc: React.FC<{ data: LightningData }> = ({ data }) => {
   });
 
   return (
-    <line ref={lineRef} geometry={geometry}>
+    <LineTag ref={lineRef} geometry={geometry}>
       <lineBasicMaterial 
         color="#aaddff" 
         transparent 
@@ -136,7 +136,7 @@ const LightningArc: React.FC<{ data: LightningData }> = ({ data }) => {
         blending={THREE.AdditiveBlending} 
         linewidth={2} 
       />
-    </line>
+    </LineTag>
   );
 };
 

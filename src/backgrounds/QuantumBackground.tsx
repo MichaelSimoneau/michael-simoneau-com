@@ -2,7 +2,6 @@ import React, { useRef } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { Points, PointMaterial, Float } from '@react-three/drei';
 import * as THREE from 'three';
-// @ts-expect-error maath has no type definitions
 import { random } from 'maath';
 
 const ANIMATION_FACTOR = 0.002;

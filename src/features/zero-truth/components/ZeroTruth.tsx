@@ -141,7 +141,7 @@ const MobileView: React.FC<{
 }> = ({ allPrinciples, activeIndex, setActiveIndex }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const isScrollingRef = useRef(false);
-  const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const scrollTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const lastScrollTopRef = useRef(0);
   const [isNavExpanded, setIsNavExpanded] = useState(false);
   const [cardHeight, setCardHeight] = useState<number | undefined>(undefined);
@@ -449,7 +449,7 @@ const DesktopContent: React.FC<{
   const scrollRef = useRef<HTMLDivElement>(null);
   const [overscrollAmount, setOverscrollAmount] = useState(0);
   const [isTriggered, setIsTriggered] = useState(false);
-  const triggerRef = useRef<NodeJS.Timeout | null>(null);
+  const triggerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const activeData = useMemo(() => {
     for (const c of content.chapters) {

@@ -81,7 +81,7 @@ export const MainNav: React.FC<MainNavProps> = ({ scrollContainerId }) => {
         <div className="flex items-center relative min-w-[80px] whitespace-nowrap">
           <Link 
             href="/" 
-            onClick={(e) => {
+            onClick={(e: React.MouseEvent<HTMLAnchorElement>) => {
               handleHomeClick(e);
               setIsPathsExpanded(false);
             }}

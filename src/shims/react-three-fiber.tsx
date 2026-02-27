@@ -10,7 +10,14 @@ export const Canvas: React.FC<any> = ({ style, className, children, ...rest }) =
   <div style={style} className={className} />
 );
 
-export const useFrame = (() => {}) as any;
+type FrameState = {
+  clock: {
+    elapsedTime: number;
+    getElapsedTime: () => number;
+  };
+};
+
+export const useFrame = (_callback: (state: FrameState, delta: number) => void) => {};
 export const useThree = (() => ({})) as any;
 export const useLoader = (() => null) as any;
 export const extend = (() => {}) as any;

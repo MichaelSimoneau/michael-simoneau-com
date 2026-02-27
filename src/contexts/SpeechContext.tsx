@@ -72,7 +72,7 @@ export const SpeechProvider: React.FC<SpeechProviderProps> = ({ children }) => {
 
   // Handle auto-play with 3-second delay
   useEffect(() => {
-    let timer: NodeJS.Timeout | null = null;
+    let timer: ReturnType<typeof setTimeout> | null = null;
 
     const setupAutoPlay = () => {
       const hasPlayedBefore = cookieService.hasAutoPlayConsent() || hasPlayedThisSession;
