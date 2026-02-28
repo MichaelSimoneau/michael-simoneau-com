@@ -1,3 +1,3 @@
 import './tailwind.css';
 
-export { default } from './RootLayout';
+export { default } from './_layout';
