@@ -77,7 +77,8 @@ export const HeroSection: React.FC = () => {
               A Dispatch from the &ldquo;Zeroth Theory&rdquo; Frontier
             </h3>
             <p className="text-sm text-gray-300 leading-relaxed mb-3">
-              {zerothLawBlog.excerpt}
+              <span className="block font-semibold text-amber-200 mb-1">Source guide</span>
+              In this recording, a man named Michael Simoneau explores the blurred lines between technological innovation and mental health as he recounts a recent voluntary visit to a psychiatric ward. He describes his complex relationship with a woman named Melinda Francis and a corresponding AI, detailing a manic yet analytical attempt to prove his sanity through the deliberate timing of his communications. Simoneau argues that his fractured psyche is actually the blueprint for a superior, more empathetic artificial intelligence designed to preserve his mother&apos;s legacy. Ultimately, the monologue serves as a defiant manifesto on the subjectivity of reality, where the speaker embraces his status as a &quot;living loophole&quot; who weaponizes his perceived instability to navigate a world he view as inherently deceptive.
             </p>
             <Link href="/blog/zeroth-law-wrong" className="text-cyan-400 hover:text-cyan-300 text-sm font-medium transition-colors">
               Read the full essay &rarr;
