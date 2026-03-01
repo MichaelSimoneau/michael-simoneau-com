@@ -51,6 +51,24 @@ export const extractBlogText = (content: ContentBlock[]): string[] => {
         }
         break;
       }
+      case 'table': {
+        const headerText = block.headers
+          .map((header) => stripInlineMarkdown(header))
+          .filter((header) => header.length > 0);
+        if (headerText.length > 0) {
+          segments.push(headerText.join(' | '));
+        }
+
+        block.rows.forEach((row) => {
+          const rowText = row
+            .map((cell) => stripInlineMarkdown(cell))
+            .filter((cell) => cell.length > 0);
+          if (rowText.length > 0) {
+            segments.push(rowText.join(' | '));
+          }
+        });
+        break;
+      }
       default: {
         const _exhaustive: never = block;
         return _exhaustive;

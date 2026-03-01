@@ -6,6 +6,7 @@ import {
   createCode,
   createCallout,
   createMath,
+  createTable,
 } from "../models/BlogPost";
 
 export interface BlogData {
@@ -67,9 +68,25 @@ export const blogData: BlogData[] = [
         "The Positive Zero (+0) [Presence]: This is the \"Wakefulness\" or \"Light.\" It represents the immediate moment of manifestation—the pure injection of will (The Spark) into the system before it is registered as persistent state.",
         "The Unsigned Zero (0) [Totality]: This is the \"Equilibrium,\" the absolute Truth where the Internal View and External Reality match perfectly. It is the point of perfect convergence where the determinant of the tensor slice resolves.",
       ]),
-      createCode(
-        "Tensor State\tOntological Definition\tSystem Behavior (Modulo 3)\nNegative Zero (-0)\tPotential / Inverse Reality\tResistance to action; internal friction (2 \\equiv -1 \\pmod 3).\nPositive Zero (+0)\tPresence / Wakefulness\tManifestation/The Spark; immediate will (1 \\equiv +1 \\pmod 3).\nUnsigned Zero (0)\tTotality / Equilibrium\tThe True Null; mathematical convergence (0 \\equiv 0 \\pmod 3).",
-        "text"
+      createTable(
+        ["Tensor State", "Ontological Definition", "System Behavior (Modulo 3)"],
+        [
+          [
+            "Negative Zero (-0)",
+            "Potential / Inverse Reality",
+            "Resistance to action; internal friction (2 \\equiv -1 \\pmod 3).",
+          ],
+          [
+            "Positive Zero (+0)",
+            "Presence / Wakefulness",
+            "Manifestation/The Spark; immediate will (1 \\equiv +1 \\pmod 3).",
+          ],
+          [
+            "Unsigned Zero (0)",
+            "Totality / Equilibrium",
+            "The True Null; mathematical convergence (0 \\equiv 0 \\pmod 3).",
+          ],
+        ]
       ),
       createHeading("3. The Scalar Pulse: Generating Presence (+1) and Potential (-1)", 2),
       createParagraph(
@@ -124,9 +141,20 @@ export const blogData: BlogData[] = [
       createParagraph(
         "The DNA Hash is an economic object where value is intrinsic and metabolic. Any attempt to tamper with its structure invalidates the cryptographic checksum."
       ),
-      createCode(
-        "Segment\tBit-Width\tPurpose\nPARENT\t12 bits\tCompressed hash of parent DNA for lineage tracking (4,096 combinations).\nCLASS\t4 bits\tDefines the entity type (e.g., Observation, State, Collapse).\nFIELD\t8 bits\tIdentifies the specific domain or convergence regime.\nORIENT\t12 bits\tEncodes the 6-axis signed-ternary vector (\\{-1, 0, +1\\}).\nPRICE\t16 bits\tEncodes the intrinsic integer value (1–65,535).\nCHECK\t12 bits\tSelf-verification checksum for all preceding segments.",
-        "text"
+      createTable(
+        ["Segment", "Bit-Width", "Purpose"],
+        [
+          [
+            "PARENT",
+            "12 bits",
+            "Compressed hash of parent DNA for lineage tracking (4,096 combinations).",
+          ],
+          ["CLASS", "4 bits", "Defines the entity type (e.g., Observation, State, Collapse)."],
+          ["FIELD", "8 bits", "Identifies the specific domain or convergence regime."],
+          ["ORIENT", "12 bits", "Encodes the 6-axis signed-ternary vector (\\{-1, 0, +1\\})."],
+          ["PRICE", "16 bits", "Encodes the intrinsic integer value (1–65,535)."],
+          ["CHECK", "12 bits", "Self-verification checksum for all preceding segments."],
+        ]
       ),
       createParagraph(
         "The Orient Segment (12 bits) maps the \"Bit-to-Ontology\" requirement. It encodes a 6-axis signed-ternary vector where each axis utilizes 2 bits to represent the ternary states \\{-1, 0, +1\\}. This 12-bit segment (6 \\text{ axes} \\times 2 \\text{ bits}) provides a perfect bit-match for the 5-state logic, ensuring the philosophy is physically bound to the hardware of the ledger."

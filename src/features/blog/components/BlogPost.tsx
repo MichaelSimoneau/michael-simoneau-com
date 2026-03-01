@@ -242,6 +242,49 @@ export const BlogPost: React.FC = () => {
             <MathBlock content={block.content} displayMode={block.displayMode} />
           </div>
         );
+      case 'table':
+        return (
+          <div key={index.toString()} className="my-8">
+            <div className="overflow-x-auto rounded-xl border border-cyan-900/60 bg-slate-950/70">
+              <table className="min-w-full text-sm md:text-base text-left border-collapse">
+                <thead className="bg-cyan-950/60">
+                  <tr>
+                    {block.headers.map((header, headerIndex) => (
+                      <th
+                        key={`${index.toString()}-header-${headerIndex.toString()}`}
+                        scope="col"
+                        className="px-4 py-3 font-semibold text-cyan-100 border-b border-cyan-900/60 whitespace-nowrap"
+                        dangerouslySetInnerHTML={{ __html: parseInlineMarkdown(header) }}
+                      />
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {block.rows.map((row, rowIndex) => (
+                    <tr
+                      key={`${index.toString()}-row-${rowIndex.toString()}`}
+                      className={rowIndex % 2 === 0 ? 'bg-transparent' : 'bg-cyan-950/20'}
+                    >
+                      {row.map((cell, cellIndex) => (
+                        <td
+                          key={`${index.toString()}-cell-${rowIndex.toString()}-${cellIndex.toString()}`}
+                          className="px-4 py-3 align-top text-gray-200 border-b border-cyan-900/40"
+                          dangerouslySetInnerHTML={{ __html: parseInlineMarkdown(cell) }}
+                        />
+                      ))}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            {block.caption ? (
+              <p
+                className="mt-3 text-sm text-cyan-300/80 italic"
+                dangerouslySetInnerHTML={{ __html: parseInlineMarkdown(block.caption) }}
+              />
+            ) : null}
+          </div>
+        );
       default: {
         // Ensures exhaustiveness if new block types are added to ContentBlockType
         const _exhaustiveCheck: never = block;
