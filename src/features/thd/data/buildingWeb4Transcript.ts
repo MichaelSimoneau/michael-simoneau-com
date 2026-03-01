@@ -42,13 +42,13 @@ And that's the engineered runway. part of the plan. We are definitely going to g
 using the old world to build the new.
 Exactly. But before we can even talk about the servers or the money, we have to talk about the math.
 The math.
-We have to go to the very very bottom of the stack. Because Michael Simmono's core argument is that you cannot fix the internet by just writing better code on top of a broken foundation.
-You to fix the foundation itself.
+We have to go to the very very bottom of the stack. Because Michael Simoneau's core argument is that you cannot fix the internet by just writing better code on top of a broken foundation.
+You have to fix the foundation itself.
 You have to fix the numbers the code is based on. Specifically, you have to fix the number zero.
 Okay, let's unpack this because the first section of our deep dive is called the philosophical operating system. And the notes literally start with this riddle. How do you rebuild the internet? You start by fixing the number zero.
 Mhm.
 Now, I'm not a mathematician, but zero seems pretty straightforward to me. It's nothing. It's the absence of stuff. End of story.
-In Western philosophy and in all of conventional computing, Yes, that's exactly right. Zero is the void. It is null. In binary code, which runs every single computer, phone, and even the toaster on your counter, you have two states, one and no,
+In Western philosophy and in all of conventional computing, yes, that's exactly right. Zero is the void. It is null. In binary code, which runs every single computer, phone, and even the toaster on your counter, you have two states, one and zero,
 on and off. Something and nothing.
 Exactly. It's a light switch. It's either on or it's off. There's no in between.
 But in the Zeroth Theory documents, and I'm looking at the file 0.0.0.0.0MT here, the argument is that this definition is actually deeply flawed.
