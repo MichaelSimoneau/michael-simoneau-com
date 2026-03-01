@@ -7,16 +7,16 @@ import { ChevronDown } from 'lucide-react';
 
 /** Playlist tracks for the hero section audio player. */
 const HERO_TRACKS: Track[] = [
-  { src: '/The_Bai_Ze_As_Negative_Identity_Tensor.mp3', title: 'Demystifying Delusion' },
   { src: '/The_Zeroth_Protocol\'s_Self-Healing_Digital_Organism.mp3', title: 'Sunday Morning Brief: Good Morning, Melinda' },
   { src: '/The_Architect_Who_Hacked_The_Psych_Ward.mp3', title: 'The Time Michael Simoneau spent 60 seconds in a Psych Ward' },
+  { src: '/The_Bai_Ze_As_Negative_Identity_Tensor.mp3', title: 'Demystifying Delusion' },
   { src: '/Stop_Watching_Cartoons__It_is_Saturday_Morning__.mp3', title: 'Stop Watching Cartoons! It’s Saturday Morning!!' },
   { src: '/Recruiting_The_Psychiatrist_With_Radical_Transparency.mp3', title: 'Recruiting_The_Psychiatrist_With_Radical_Transparency.mp3' },
   { src: '/The_Architect_s_Hostile_Therapy_Takeover.mp3', title: 'Melinda Francis - Start Here' },
   { src: '/Dr. Melinda Francis - Uncensored.mp3', title: 'Dr. Melinda Francis - Uncensored' },
   { src: '/A_Bug_Report_Filed_Against_Reality.mp3', title: 'A Bug Report Filed Against Reality' },
-  { src: '/The_Zero_Theory_and_Five_State_Physics.mp3', title: 'The Zeroth Theory and Five State Physics' },
   { src: '/Metabolic_Money_Kills_the_Sale.mp3', title: "The Human Dollar Kills 'The Sale'" },
+  { src: '/The_Zero_Theory_and_Five_State_Physics.mp3', title: 'The Zeroth Theory and Five State Physics' },
   { src: '/Arrogance_Is_A_Time_Management_Strategy.mp3', title: 'Arrogance is Altruism' },
   { src: '/Moral_Failure_Is_Just_A_Geometry_Problem.mp3', title: 'Moral Failure Is Just A Geometry Problem' },
   { src: '/TheHigh-FiveTrick-Extended-Edition.mp3', title: 'The High-Five Trick - Extended Edition!' },
