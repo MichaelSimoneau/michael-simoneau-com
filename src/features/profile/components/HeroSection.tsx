@@ -7,9 +7,9 @@ import { ChevronDown } from 'lucide-react';
 
 /** Playlist tracks for the hero section audio player. */
 const HERO_TRACKS: Track[] = [
-  { src: '/2026-03-01/The_Psych_Ward_Receipt_Logic_Trap.mp3', title: 'The_Psych_Ward_Receipt_Logic_Trap.mp3' },
-  { src: '/2026-03-01/Monday Morning Brief - Good Morning, Melinda.mp3', title: 'Monday Morning Brief - Good Morning, Melinda.mp3' },
-  { src: '/2026-03-01/The_Physics_of_the_Dirty_Dish.mp3', title: 'The_Physics_of_the_Dirty_Dish.mp3' },
+  { src: '/2026-03-01/The_Psych_Ward_Receipt_Logic_Trap.mp3', title: 'The Psych Ward Receipt Logic Trap' },
+  { src: '/2026-03-01/Monday_Morning_Brief__Good_Morning_Melinda.mp3', title: 'Monday Morning Brief - Good Morning, Melinda' },
+  { src: '/2026-03-01/The_Physics_of_the_Dirty_Dish.mp3', title: 'The Physics of the Dirty Dish' },
   { src: '/The_Zeroth_Protocols_Self-Healing_Digital_Organism.mp3', title: 'Sunday Morning Brief: Good Morning, Melinda' },
   { src: '/The_Architect_Who_Hacked_The_Psych_Ward.mp3', title: 'The Time Michael Simoneau spent 30 minutes in a Psych Ward' },
   { src: '/The_Bai_Ze_As_Negative_Identity_Tensor.mp3', title: 'Demystifying Delusion' },
