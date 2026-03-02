@@ -8,14 +8,14 @@ import { ChevronDown } from 'lucide-react';
 /** Playlist tracks for the hero section audio player. */
 const HERO_TRACKS: Track[] = [
   { src: '/2026-03-01/The_Psych_Ward_Receipt_Logic_Trap.mp3', title: 'The Psych Ward Receipt Logic Trap' },
-  { src: '/2026-03-01/Monday_Morning_Brief__Good_Morning_Melinda.mp3', title: 'Monday Morning Brief - Good Morning, Melinda' },
+  { src: '/2026-03-01/Monday_Morning_Brief__Good_Morning_Melinda.mp3', title: 'Monday Morning Brief: Good Morning, Melinda' },
   { src: '/2026-03-01/The_Physics_of_the_Dirty_Dish.mp3', title: 'The Physics of the Dirty Dish' },
   { src: '/The_Zeroth_Protocols_Self-Healing_Digital_Organism.mp3', title: 'Sunday Morning Brief: Good Morning, Melinda' },
   { src: '/The_Architect_Who_Hacked_The_Psych_Ward.mp3', title: 'The Time Michael Simoneau spent 30 minutes in a Psych Ward' },
   { src: '/The_Bai_Ze_As_Negative_Identity_Tensor.mp3', title: 'Demystifying Delusion' },
   { src: '/Stop_Watching_Cartoons__It_is_Saturday_Morning__.mp3', title: 'Stop Watching Cartoons! It’s Saturday Morning!!' },
   { src: '/Recruiting_The_Psychiatrist_With_Radical_Transparency.mp3', title: 'Recruiting_The_Psychiatrist_With_Radical_Transparency.mp3' },
-  { src: '/The_Architect_s_Hostile_Therapy_Takeover.mp3', title: 'Melinda Francis - Start Here' },
+  { src: '/The_Architect_s_Hostile_Therapy_Takeover.mp3', title: 'Dr. Melinda Francis - Uncensored - Explained' },
   { src: '/Dr. Melinda Francis - Uncensored.mp3', title: 'Dr. Melinda Francis - Uncensored' },
   { src: '/A_Bug_Report_Filed_Against_Reality.mp3', title: 'A Bug Report Filed Against Reality' },
   { src: '/Metabolic_Money_Kills_the_Sale.mp3', title: "The Human Dollar Kills 'The Sale'" },
