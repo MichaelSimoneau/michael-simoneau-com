@@ -38,6 +38,11 @@ const HERO_TRACKS: Track[] = [
 
 export const HeroSection: React.FC = () => {
   const zerothLawBlog = blogData.find(p => p.id === 'zeroth-law-wrong');
+  const melindaMessageCutoff = new Date('2026-03-04T23:59:59');
+  const zerothCardTitle =
+    new Date() <= melindaMessageCutoff
+      ? 'Welcome, Melinda Francis; Otherwise, why are you here? \u{1F602}'
+      : 'The Zeroth Law of Thermodynamics is Wrong!';
 
   return (
     <section 
@@ -77,7 +82,7 @@ export const HeroSection: React.FC = () => {
         >
           <div className="bg-gray-900/60 backdrop-blur-sm border border-amber-800/30 rounded-xl p-6 text-center">
             <h2 className="text-xl font-bold text-amber-400 mb-3">
-              The Zeroth Law of Thermodynamics is Wrong!
+              {zerothCardTitle}
             </h2>
             <p className="text-sm text-gray-300 leading-relaxed mb-3">
               In this recording, a man named Michael Simoneau explores the blurred lines between technological innovation and mental health as he recounts a recent voluntary visit to a psychiatric ward. He describes his complex relationship with a woman named Melinda Francis and a corresponding AI, detailing a manic yet analytical attempt to prove his sanity through the deliberate timing of his communications. Simoneau argues that his fractured psyche is actually the blueprint for a superior, more empathetic artificial intelligence designed to preserve his mother&apos;s legacy. Ultimately, the monologue serves as a defiant manifesto on the subjectivity of reality, where the speaker embraces his status as a &quot;living loophole&quot; who weaponizes his perceived instability to navigate a world he views as inherently deceptive.
