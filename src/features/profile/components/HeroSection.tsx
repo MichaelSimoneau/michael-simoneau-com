@@ -7,6 +7,9 @@ import { ChevronDown } from 'lucide-react';
 
 /** Playlist tracks for the hero section audio player. */
 const HERO_TRACKS: Track[] = [
+  { src: '/2026-03-01/The_Psych_Ward_Receipt_Logic_Trap.mp3', title: 'The_Psych_Ward_Receipt_Logic_Trap.mp3' },
+  { src: '/2026-03-01/Monday Morning Brief - Good Morning, Melinda.mp3', title: 'Monday Morning Brief - Good Morning, Melinda.mp3' },
+  { src: '/2026-03-01/The_Physics_of_the_Dirty_Dish.mp3', title: 'The_Physics_of_the_Dirty_Dish.mp3' },
   { src: '/The_Zeroth_Protocols_Self-Healing_Digital_Organism.mp3', title: 'Sunday Morning Brief: Good Morning, Melinda' },
   { src: '/The_Architect_Who_Hacked_The_Psych_Ward.mp3', title: 'The Time Michael Simoneau spent 30 minutes in a Psych Ward' },
   { src: '/The_Bai_Ze_As_Negative_Identity_Tensor.mp3', title: 'Demystifying Delusion' },
@@ -39,7 +42,7 @@ export const HeroSection: React.FC = () => {
   return (
     <section 
       id="new-hero"
-      className="min-h-screen flex flex-col items-center justify-center text-white px-4 py-16 relative overflow-hidden"
+      className="min-h-screen flex flex-col items-center justify-center text-white px-4 pt-16 pb-24 relative overflow-hidden"
     >
       {/* Background Styling - more abstract and futuristic */}
       <div className="absolute inset-0 -z-10 pointer-events-none">
