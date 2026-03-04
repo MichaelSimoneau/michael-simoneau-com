@@ -98,7 +98,7 @@ export const ServiceOffering: React.FC = () => { // Renamed from SecurityAudit
         >
           <InteractiveButton 
             text="DISCUSS YOUR PROJECT"
-            href="https://www.linkedin.com/in/michaelsimoneau/" // Updated LinkedIn URL
+            href="mailto:michael.simoneau@brainycouch.com"
             className="mx-auto" 
           />
         </motion.div>

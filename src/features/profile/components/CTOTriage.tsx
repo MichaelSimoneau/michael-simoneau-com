@@ -93,7 +93,7 @@ export const CTOTriage: React.FC = () => {
         >
           <InteractiveButton
             text="SCHEDULE A STRATEGY SESSION"
-            href="https://www.linkedin.com/in/michaelsimoneau"
+            href="mailto:michael.simoneau@brainycouch.com"
           />
         </motion.div>
       </motion.div>

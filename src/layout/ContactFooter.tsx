@@ -1,59 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { Linkedin, Github, Mail, Phone } from "lucide-react";
-
-const LinkedInBadge: React.FC = () => (
-  <div className="w-full pointer-events-auto">
-    <div className="flex items-center gap-4 px-4 py-3">
-      <img
-        src="https://media.licdn.com/dms/image/v2/D4E03AQGUppQO83Zt6A/profile-displayphoto-scale_200_200/B4EZutISNdJIAY-/0/1768136189137?e=1773273600&v=beta&t=y8HHn1-3H3KzvtA70Bj92C1s_M_tTwm5guTkSW4pwt8"
-        alt="Michael Simoneau"
-        className="w-12 h-12 rounded-full object-cover flex-shrink-0"
-      />
-      <div className="flex-1 min-w-0 text-left">
-        <a
-          href="https://www.linkedin.com/in/michaelsimoneau?trk=public-profile-badge-profile-badge-profile-name"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-white font-semibold text-sm hover:text-cyan-400 transition-colors"
-        >
-          Michael Simoneau
-        </a>
-        <p className="text-gray-400 text-xs leading-snug truncate">
-          Unorthodox Physicist &middot; Inventor of Zeroth Theory
-        </p>
-        <p className="text-gray-500 text-xs leading-snug">
-          <a
-            href="https://www.linkedin.com/company/michael-simoneau-com?trk=public-profile-badge-profile-badge_company-name"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:text-cyan-400 transition-colors"
-          >
-            MichaelSimoneau.com
-          </a>
-          {" | "}
-          <a
-            href="https://www.linkedin.com/school/cleveland-state-university/?trk=public-profile-badge-profile-badge_school-name"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:text-cyan-400 transition-colors"
-          >
-            Cleveland State University
-          </a>
-        </p>
-      </div>
-      <a
-        href="https://www.linkedin.com/in/michaelsimoneau?trk=public-profile-badge-profile-badge-view-profile-cta"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="flex-shrink-0 flex items-center gap-1.5 text-xs font-medium text-cyan-400 border border-cyan-400/40 rounded-full px-3 py-1.5 hover:bg-cyan-400/10 transition-colors"
-      >
-        <Linkedin size={14} />
-        View Profile
-      </a>
-    </div>
-  </div>
-);
+import { Github, Mail, Phone } from "lucide-react";
 
 export const ContactFooter: React.FC = () => {
   return (
@@ -74,36 +21,35 @@ export const ContactFooter: React.FC = () => {
         </p>
         <div className="flex justify-center items-center space-x-6 mb-8 pointer-events-auto">
           <a
-            href="https://linkedin.com/in/michaelsimoneau"
+            href="https://github.com/michaelsimoneau"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-gray-400 hover:text-cyan-400 transition-colors"
-          >
-            <Linkedin size={28} />
-          </a>
-          <a
-            href="https://github.com/MichaelSimoneau"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-gray-400 hover:text-cyan-400 transition-colors"
+            className="w-11 h-11 rounded-full bg-white text-gray-900 hover:bg-gray-200 transition-colors inline-flex items-center justify-center"
+            aria-label="GitHub profile (dark icon)"
           >
             <Github size={28} />
           </a>
           <a
-            href="mailto:ask.me.anything@braniycouch.com"
+            href="https://github.com/ZerothTheory"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-11 h-11 rounded-full bg-gray-900 border border-gray-700 text-white hover:bg-gray-800 transition-colors inline-flex items-center justify-center"
+            aria-label="GitHub profile (inverted icon)"
+          >
+            <Github size={28} />
+          </a>
+          <a
+            href="mailto:michael.simoneau@brainycouch.com"
             className="text-gray-400 hover:text-cyan-400 transition-colors"
           >
             <Mail size={28} />
           </a>
           <a
-            href="tel:+13129199542"
+            href="tel:+12139739234"
             className="text-gray-400 hover:text-cyan-400 transition-colors"
           >
             <Phone size={28} />
           </a>
-        </div>
-        <div className="border-t border-gray-700 pt-4 mt-8">
-          <LinkedInBadge />
         </div>
         <div className="border-t border-gray-700 pt-6 mt-4">
           <p className="text-sm text-gray-500">

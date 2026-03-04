@@ -149,8 +149,6 @@ export const Seo: FC<SeoProps> = ({
     updateMetaTag('twitter:card', 'summary_large_image', 'name', managedElements);
     updateMetaTag('twitter:title', title, 'name', managedElements);
     updateMetaTag('twitter:description', description, 'name', managedElements);
-    updateMetaTag('twitter:creator', '@enigmakeyceo', 'name', managedElements);
-    updateMetaTag('twitter:site', '@enigmakeyceo', 'name', managedElements);
     updateMetaTag('twitter:image', absoluteImage, 'name', managedElements);
     updateMetaTag('twitter:image:alt', title, 'name', managedElements);
 

@@ -46,9 +46,7 @@ export const foundationConfig: DeepPartial<Foundation> = {
           'Michael Simoneau architects resilient systems for highly regulated industries, blending AI innovation, zero-trust security, and pragmatic leadership.',
         image: 'https://michaelsimoneau.com/profile-image.png',
         sameAs: [
-          'https://www.linkedin.com/in/MichaelSimoneau',
-          'https://github.com/EnigmaKeyCEO',
-          'https://twitter.com/enigmakeyceo',
+          'https://github.com/ZerothTheory',
         ],
         knowsAbout: [
           'enterprise architecture',

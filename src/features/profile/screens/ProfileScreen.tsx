@@ -9,9 +9,8 @@ import {
 } from 'react-native';
 import { useFoundationBoundary, useFoundationPageView } from '../../../foundation';
 
-const LINKEDIN_URL = 'https://linkedin.com/in/michaelsimoneau';
-const EMAIL = 'ask.me.anything@braniycouch.com';
-const GITHUB_URL = 'https://github.com/MichaelSimoneau';
+const EMAIL = 'michael.simoneau@brainycouch.com';
+const GITHUB_URL = 'https://github.com/ZerothTheory';
 
 const EXPERIENCE = [
   {
@@ -64,7 +63,6 @@ export const ProfileScreen = () => {
   useFoundationBoundary(boundary);
   useFoundationPageView('page:view:profile', {}, { deps: [] });
 
-  const openLinkedIn = () => Linking.openURL(LINKEDIN_URL);
   const openEmail = () => Linking.openURL(`mailto:${EMAIL}`);
   const openGitHub = () => Linking.openURL(GITHUB_URL);
 
@@ -92,15 +90,6 @@ export const ProfileScreen = () => {
         <Text style={styles.sectionTitle}>Contact</Text>
         <View style={styles.card}>
           <Pressable
-            onPress={openLinkedIn}
-            style={({ pressed }) => [styles.linkRow, pressed && styles.linkPressed]}
-            accessibilityRole="link"
-            accessibilityLabel="LinkedIn profile"
-          >
-            <Text style={styles.linkLabel}>LinkedIn</Text>
-            <Text style={styles.linkUrl}>linkedin.com/in/michaelsimoneau</Text>
-          </Pressable>
-          <Pressable
             onPress={openEmail}
             style={({ pressed }) => [styles.linkRow, pressed && styles.linkPressed]}
             accessibilityRole="link"
@@ -116,7 +105,7 @@ export const ProfileScreen = () => {
             accessibilityLabel="GitHub profile"
           >
             <Text style={styles.linkLabel}>GitHub</Text>
-            <Text style={styles.linkUrl}>github.com/MichaelSimoneau</Text>
+            <Text style={styles.linkUrl}>github.com/ZerothTheory</Text>
           </Pressable>
         </View>
       </View>

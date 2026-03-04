@@ -31,7 +31,7 @@ export const FullProfile: React.FC = () => {
           "StoneX",
           "Enigma Key",
           "Contact Information",
-          "LinkedIn Profile",
+          "Direct Contact",
         ]}
         image="https://www.michaelsimoneau.com/profile-image.png"
         structuredData={[
@@ -43,11 +43,9 @@ export const FullProfile: React.FC = () => {
             description: 'Leader, Inventor & Investor. Innovator & Expert Engineer. Founder @ Enigma Key Co.',
             url: 'https://www.michaelsimoneau.com/profile',
             image: 'https://www.michaelsimoneau.com/profile-image.png',
-            email: 'ask.me.anything@braniycouch.com',
+            email: 'michael.simoneau@brainycouch.com',
             sameAs: [
-              'https://www.linkedin.com/in/michaelsimoneau',
-              'https://github.com/MichaelSimoneau',
-              'https://twitter.com/michaelsimoneau',
+              'https://github.com/ZerothTheory',
             ],
             alumniOf: [
               {
@@ -149,21 +147,19 @@ export const FullProfile: React.FC = () => {
                 <div>
                   <h3 className="text-cyan-300">Contact</h3>
                   <a
-                    href="https://linkedin.com/in/michaelsimoneau"
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    href="mailto:michael.simoneau@brainycouch.com"
                     className="text-cyan-400 hover:text-cyan-200 transition-colors"
                   >
-                    Contact on LinkedIn
+                    michael.simoneau@brainycouch.com
                   </a>
                 </div>
                 <div>
                   <h3 className="text-cyan-300">Email</h3>
                   <a
-                    href="mailto:ask.me.anything@braniycouch.com"
+                    href="mailto:michael.simoneau@brainycouch.com"
                     className="text-cyan-400 hover:text-cyan-200 transition-colors"
                   >
-                    ask.me.anything@braniycouch.com
+                    michael.simoneau@brainycouch.com
                   </a>
                 </div>
               </div>
@@ -173,25 +169,14 @@ export const FullProfile: React.FC = () => {
               <h2 className="text-2xl font-bold mb-4">Links & Profiles</h2>
               <div className="space-y-4">
                 <div>
-                  <h3 className="text-cyan-300">LinkedIn</h3>
-                  <a
-                    href="https://linkedin.com/in/michaelsimoneau"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-cyan-400 hover:text-cyan-200 transition-colors"
-                  >
-                    MichaelSimoneau
-                  </a>
-                </div>
-                <div>
                   <h3 className="text-cyan-300">GitHub</h3>
                   <a
-                    href="https://github.com/MichaelSimoneau"
+                    href="https://github.com/ZerothTheory"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-cyan-400 hover:text-cyan-200 transition-colors"
                   >
-                    MichaelSimoneau
+                    ZerothTheory
                   </a>
                 </div>
               </div>
