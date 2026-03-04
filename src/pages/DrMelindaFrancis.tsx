@@ -93,7 +93,7 @@ export const DrMelindaFrancisContent: React.FC = () => {
                   <a
                     href="https://dr.melindafrancis.com"
                     target="_blank"
-                    rel="noopener noreferrer"
+                    rel="noopener noreferrer nofollow"
                     className="text-cyan-400 hover:text-cyan-300 underline"
                   >
                     Dr.MelindaFrancis.com
