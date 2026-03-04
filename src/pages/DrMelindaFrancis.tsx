@@ -106,7 +106,7 @@ export const DrMelindaFrancisContent: React.FC = () => {
                   </a>
                   </p>
                   <p className="text-sm text-gray-300 leading-relaxed mb-3">
-                  I honestly believe you are, and you are projecting your delusion onto me. 
+                  I honestly believe you are suffering from social delusion, and you are projecting your delusion onto me. 
                   You deem me to be <strong>insane</strong> because I won&apos;t agree to buy into the social delusion.
                   But I&apos;m sane because I can take care of myself and the executive function I lacked I know have MATH
                   to solve. I coded it into an AI.. and website{" "}
