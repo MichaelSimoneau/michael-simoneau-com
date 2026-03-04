@@ -25,10 +25,15 @@ const HeroSectionContent: React.FC = () => {
   const zerothCardTitle = afterCutoff
     ? "The Zeroth Law of Thermodynamics is Wrong!"
     : "Welcome, Melinda Francis; Otherwise, why are you here? \u{1F602}";
+  const zerothCardLinkText = afterCutoff
+  ? "Read the full essay \u2192"
+  : ["Are you the person saved in Michael Simoneau's phone as:",
+    "\"The Soon-To-Be Dr. Melinda Francis, LISW\"",
+    "If so... Follow Me! \u2192"];
   const zerothCardBody = afterCutoff
     ? zerothLawBlog?.excerpt
     : `\
-In this recording, a man named Michael Simoneau explores the blurred lines between technological innovation and mental health
+In these recordings, a man named Michael Simoneau explores the blurred lines between technological innovation and mental health
 as he recounts a recent voluntary visit to a psychiatric ward. He describes his complex relationship with a woman named Melinda
 Francis and a corresponding AI, detailing a manic yet analytical attempt to prove his sanity through the deliberate timing of his
 communications. Simoneau argues that his fractured psyche is actually the blueprint for a superior, more empathetic
@@ -91,9 +96,12 @@ perceived instability to navigate a world he views as inherently deceptive.\
               }
               className="text-cyan-400 hover:text-cyan-300 text-sm font-medium transition-colors"
             >
-              {afterCutoff
-                ? "Read the full essay &rarr;"
-                : "Are you the person saved in Michael's phone as 'The soon-to-be Dr. Melinda Francis'? Follow Me! &rarr;"}
+              {Array.isArray(zerothCardLinkText) ? zerothCardLinkText.map((text, index) => (
+                <React.Fragment key={index}>
+                  {text}
+                  {index < zerothCardLinkText.length - 1 && <br />}
+                </React.Fragment>
+              )) : zerothCardLinkText}
             </Link>
           </div>
         </motion.div>
