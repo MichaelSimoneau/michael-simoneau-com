@@ -183,3 +183,18 @@ body {
 .text-glow {
   animation: glow-pulse 2s ease-in-out infinite;
 }
+
+/* Fallback: prefer MathML rendering and hide KaTeX HTML duplication */
+.katex .katex-html {
+  display: none;
+}
+
+.katex .katex-mathml {
+  position: static;
+  clip: auto;
+  border: 0;
+  height: auto;
+  width: auto;
+  overflow: visible;
+  padding: 0;
+}

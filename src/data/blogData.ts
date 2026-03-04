@@ -74,17 +74,17 @@ export const blogData: BlogData[] = [
           [
             "Negative Zero (-0)",
             "Potential / Inverse Reality",
-            "Resistance to action; internal friction (2 \\equiv -1 \\pmod 3).",
+            "Resistance to action; internal friction (2 ≡ -1 mod 3).",
           ],
           [
             "Positive Zero (+0)",
             "Presence / Wakefulness",
-            "Manifestation/The Spark; immediate will (1 \\equiv +1 \\pmod 3).",
+            "Manifestation/The Spark; immediate will (1 ≡ +1 mod 3).",
           ],
           [
             "Unsigned Zero (0)",
             "Totality / Equilibrium",
-            "The True Null; mathematical convergence (0 \\equiv 0 \\pmod 3).",
+            "The True Null; mathematical convergence (0 ≡ 0 mod 3).",
           ],
         ]
       ),
@@ -110,7 +110,7 @@ export const blogData: BlogData[] = [
       ),
       createMath("\\mathbb{Z}_3"),
       createList([
-        "State -1 (Inverse Action): Architectural Decree: The system must account for the reactionary force of resistance (2 \\equiv -1 \\pmod 3) to ensure symmetry within the Cubic Topology.",
+        "State -1 (Inverse Action): Architectural Decree: The system must account for the reactionary force of resistance (2 ≡ -1 mod 3) to ensure symmetry within the Cubic Topology.",
         "State -0 (Reflective Potential): Architectural Decree: Thought must be encoded as a latent tension, a shadow state in the ternary field, before it is permitted to collapse into Truth.",
         "State 0 (Absolute Truth): Architectural Decree: The system must possess a state of perfect convergence where the Tensor Determinant resolves to absolute zero.",
         "State +0 (Manifest Presence): Architectural Decree: Pure intent must be captured as a metabolic spark before it is constrained by the syntax of the Logician.",
@@ -151,17 +151,17 @@ export const blogData: BlogData[] = [
           ],
           ["CLASS", "4 bits", "Defines the entity type (e.g., Observation, State, Collapse)."],
           ["FIELD", "8 bits", "Identifies the specific domain or convergence regime."],
-          ["ORIENT", "12 bits", "Encodes the 6-axis signed-ternary vector (\\{-1, 0, +1\\})."],
+          ["ORIENT", "12 bits", "Encodes the 6-axis signed-ternary vector ({-1, 0, +1})."],
           ["PRICE", "16 bits", "Encodes the intrinsic integer value (1–65,535)."],
           ["CHECK", "12 bits", "Self-verification checksum for all preceding segments."],
         ]
       ),
       createParagraph(
-        "The Orient Segment (12 bits) maps the \"Bit-to-Ontology\" requirement. It encodes a 6-axis signed-ternary vector where each axis utilizes 2 bits to represent the ternary states \\{-1, 0, +1\\}. This 12-bit segment (6 \\text{ axes} \\times 2 \\text{ bits}) provides a perfect bit-match for the 5-state logic, ensuring the philosophy is physically bound to the hardware of the ledger."
+        "The Orient Segment (12 bits) maps the \"Bit-to-Ontology\" requirement. It encodes a 6-axis signed-ternary vector where each axis utilizes 2 bits to represent the ternary states {-1, 0, +1}. This 12-bit segment (6 axes × 2 bits) provides a perfect bit-match for the 5-state logic, ensuring the philosophy is physically bound to the hardware of the ledger."
       ),
       createHeading("The 10% Convergence Delta Rule", 3),
       createParagraph(
-        "Technical enforcement is governed by Protocol0, the plausibility filter. It does not seek agreement; it verifies that a state transition follows the Base 3 age curve. The primary metabolic gate is the 10% Convergence Delta Rule: Protocol0 will reject any state transition or minting authorization unless the action induces a minimum convergence delta (\\Delta C) of at least 10% toward the Unsigned Zero (0). If a state change does not move the system significantly toward equilibrium, it is rejected as entropic noise."
+        "Technical enforcement is governed by Protocol0, the plausibility filter. It does not seek agreement; it verifies that a state transition follows the Base 3 age curve. The primary metabolic gate is the 10% Convergence Delta Rule: Protocol0 will reject any state transition or minting authorization unless the action induces a minimum convergence delta (ΔC) of at least 10% toward the Unsigned Zero (0). If a state change does not move the system significantly toward equilibrium, it is rejected as entropic noise."
       ),
       createHeading("6. The Architect’s Closing: The End of Line", 2),
       createParagraph(
