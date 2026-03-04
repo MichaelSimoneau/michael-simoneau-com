@@ -4,7 +4,7 @@ import { Track } from "src/ui/players/PlaylistAudioPlayer";
 const heroTracks: Track[] = [
   {
     src: "/2026-03-01/The_Psych_Ward_Receipt_Logic_Trap.mp3",
-    title: "The Psych Ward Receipt Logic Trap",
+    title: "Tuesday Morning Brief: Good Morning, Melinda",
   },
   {
     src: "/2026-03-01/Monday_Morning_Brief__Good_Morning_Melinda.mp3",
