@@ -94,6 +94,7 @@ perceived instability to navigate a world he views as inherently deceptive.\
                   ? `/blog/zeroth-law-wrong`
                   : `/Dr.MelindaFrancis.com`
               }
+              rel="nofollow"
               className="text-cyan-400 hover:text-cyan-300 text-sm font-medium transition-colors"
             >
               {Array.isArray(zerothCardLinkText) ? zerothCardLinkText.map((text, index) => (

@@ -39,7 +39,7 @@ code.inline-code { background-color: rgba(31,41,55,0.7); color: #67e8f9; padding
 
 /**
  * Injects Tailwind CDN + custom styles into <head> at runtime.
- * The production build gets these via post-build-web.mjs, but the
+ * The production build gets these via post-build-web.cjs, but the
  * dev server uses Expo's default HTML template so we inject them here.
  */
 function useWebStyles() {

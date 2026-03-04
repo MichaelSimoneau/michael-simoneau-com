@@ -1,5 +1,5 @@
 [build]
-  command = "yarn expo export --platform web && node scripts/post-build-web.mjs && cp -r public/* dist/"
+  command = "yarn build"
   publish = "dist"
 
 [build.environment]

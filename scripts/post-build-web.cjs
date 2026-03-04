@@ -1,26 +1,52 @@
 #!/usr/bin/env node
 /**
  * Post-build script for Expo web export.
- * Injects Tailwind CDN, custom styles, and fixes the HTML template.
+ * Patches all exported HTML files so static prerendered routes
+ * get the same runtime compatibility tweaks.
  */
-import { readFileSync, writeFileSync } from 'fs';
-import { resolve } from 'path';
+const { readFileSync, readdirSync, statSync, writeFileSync } = require('fs');
+const { resolve } = require('path');
 
-const htmlPath = resolve('dist', 'index.html');
-let html = readFileSync(htmlPath, 'utf-8');
+const distDir = resolve('dist');
 
-// Fix the Expo default styles that prevent page scrolling
-html = html.replace('overflow: hidden;', 'overflow-y: auto; overflow-x: hidden;');
-html = html.replace(
-  '#root {\n        display: flex;\n        height: 100%;\n        flex: 1;\n      }',
-  '#root {\n        min-height: 100%;\n        width: 100%;\n      }'
-);
+function collectHtmlFiles(directory) {
+  const entries = readdirSync(directory);
+  const htmlFiles = [];
 
-// Make the bundle script a module (some deps use import.meta which requires type="module")
-html = html.replace(/<script src="(\/_expo\/[^"]+)" defer><\/script>/g, '<script type="module" src="$1"></script>');
+  for (const entry of entries) {
+    const absolutePath = resolve(directory, entry);
+    const stats = statSync(absolutePath);
 
-// Inject Tailwind CDN + config + custom styles before closing </head>
-const injections = `
+    if (stats.isDirectory()) {
+      htmlFiles.push(...collectHtmlFiles(absolutePath));
+      continue;
+    }
+
+    if (entry.endsWith('.html')) {
+      htmlFiles.push(absolutePath);
+    }
+  }
+
+  return htmlFiles;
+}
+
+function patchHtml(html) {
+  let patchedHtml = html;
+
+  // Fix Expo default styles that can lock document scrolling.
+  patchedHtml = patchedHtml.replace(/overflow:\s*hidden;/g, 'overflow-y: auto; overflow-x: hidden;');
+  patchedHtml = patchedHtml.replace(
+    '#root {\n        display: flex;\n        height: 100%;\n        flex: 1;\n      }',
+    '#root {\n        min-height: 100%;\n        width: 100%;\n      }'
+  );
+
+  // Some dependencies expect import.meta, so Expo bundle scripts must be modules.
+  patchedHtml = patchedHtml.replace(
+    /<script src="(\/_expo\/[^"]+)" defer><\/script>/g,
+    '<script type="module" src="$1"></script>'
+  );
+
+  const injections = `
     <meta name="color-scheme" content="dark" />
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -104,7 +130,27 @@ const injections = `
     </style>
 `;
 
-html = html.replace('</head>', injections + '\n  </head>');
+  const hasTailwindCdn = patchedHtml.includes('https://cdn.tailwindcss.com');
+  const hasCustomStyles = patchedHtml.includes('code.inline-code');
 
-writeFileSync(htmlPath, html);
-console.log('[post-build-web] Injected Tailwind CDN + custom styles into dist/index.html');
+  if (!hasTailwindCdn || !hasCustomStyles) {
+    patchedHtml = patchedHtml.replace('</head>', injections + '\n  </head>');
+  }
+
+  return patchedHtml;
+}
+
+const htmlFiles = collectHtmlFiles(distDir);
+let patchedCount = 0;
+
+for (const htmlPath of htmlFiles) {
+  const html = readFileSync(htmlPath, 'utf-8');
+  const patched = patchHtml(html);
+
+  if (patched !== html) {
+    writeFileSync(htmlPath, patched);
+    patchedCount += 1;
+  }
+}
+
+console.log(`[post-build-web] Patched ${patchedCount} of ${htmlFiles.length} HTML files in dist/`);

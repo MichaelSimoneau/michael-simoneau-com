@@ -30,7 +30,7 @@
     },
     "web": {
       "bundler": "metro",
-      "output": "single"
+      "output": "static"
     },
     "extra": {
       "appVersion": "2.0.0",

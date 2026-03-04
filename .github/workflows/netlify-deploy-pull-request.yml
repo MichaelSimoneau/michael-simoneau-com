@@ -24,7 +24,7 @@ jobs:
         run: yarn install --frozen-lockfile
       
       - name: Build application
-        run: yarn build:no-prerender
+        run: yarn build
       
       - name: Install Chrome for Selenium
         uses: browser-actions/setup-chrome@latest
