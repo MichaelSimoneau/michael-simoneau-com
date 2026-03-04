@@ -2,6 +2,7 @@ import { useEffect, useLayoutEffect } from 'react';
 import { Slot } from 'expo-router';
 import { SpeechProvider } from '../src/contexts/SpeechContext';
 import { CookieNotice } from '../src/layout/CookieNotice';
+import '../src/index.css';
 
 const GA_MEASUREMENT_ID = 'G-58WTRZHT0B';
 

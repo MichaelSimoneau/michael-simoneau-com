@@ -11,7 +11,6 @@ import { Seo } from '../../../foundation/seo/Seo';
 import { XIcon } from '../../../ui/icons/XIcon';
 import { BlogSpeechPlayer } from '../../../ui/players';
 import { generateFallbackSvg, DEFAULT_HERO_GRADIENT } from '../../../utils/heroFallback';
-import 'katex/dist/katex.min.css';
 
 const CodeBlock: React.FC<{ language: string; content: string }> = ({ language, content }) => {
   const [copyStatus, setCopyStatus] = React.useState<'idle' | 'success' | 'error'>('idle');
