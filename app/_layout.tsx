@@ -36,6 +36,45 @@ code.inline-code { background-color: rgba(31,41,55,0.7); color: #67e8f9; padding
 @media (max-width: 768px) { .fixed-size-cta { min-width: 100% !important; max-width: 100% !important; } .subtle-grid { opacity: 0.4 !important; } }
 @keyframes glow-pulse { 0%, 100% { text-shadow: 0 0 10px #22d3ee, 0 0 20px #22d3ee; } 50% { text-shadow: 0 0 20px #22d3ee, 0 0 30px #22d3ee, 0 0 40px #22d3ee; } }
 .text-glow { animation: glow-pulse 2s ease-in-out infinite; }
+.app-shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+.app-main {
+  flex: 1 1 auto;
+  min-height: 0;
+}
+.app-footer-bar {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 0.45rem 1rem;
+  pointer-events: auto;
+  background: rgba(0, 0, 0, 0.7);
+  border-top: 1px solid rgba(148, 163, 184, 0.2);
+}
+.app-footer-content {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.75rem;
+  line-height: 1rem;
+  text-align: center;
+}
+.app-footer-link {
+  pointer-events: auto;
+  color: inherit;
+  text-decoration: none;
+}
+.app-footer-link:hover,
+.app-footer-link:focus-visible {
+  text-decoration: underline;
+}
 `;
 
 /**
@@ -93,16 +132,14 @@ gtag('config', '${GA_MEASUREMENT_ID}');`;
 function CopyrightNotice() {
   return (
     <footer
-      className="fixed bottom-0 left-0 right-0 z-[60] pointer-events-none flex justify-center py-2 px-4 bg-black/70 backdrop-blur-[2px]"
+      className="app-footer-bar"
       aria-label="Copyright"
     >
-      <p
-        className="text-xs text-white/90 text-center"
-      >
+      <p className="app-footer-content">
         © 2026{' '}
         <a
           href="https://MichaelSimoneau.com"
-          className="pointer-events-auto hover:underline focus:outline-none focus:underline"
+          className="app-footer-link"
           rel="noopener noreferrer"
         >
           Michael Simoneau
@@ -125,8 +162,12 @@ export default function RootLayout() {
   return (
     <SpeechProvider>
       <CookieNotice />
-      <CopyrightNotice />
-      <Slot />
+      <div className="app-shell">
+        <main className="app-main">
+          <Slot />
+        </main>
+        <CopyrightNotice />
+      </div>
     </SpeechProvider>
   );
 }
