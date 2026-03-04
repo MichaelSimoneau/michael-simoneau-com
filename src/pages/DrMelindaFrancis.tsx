@@ -96,7 +96,14 @@ export const DrMelindaFrancisContent: React.FC = () => {
                     className="text-cyan-400 hover:text-cyan-300 underline"
                   >
                     Dr.MelindaFrancis.com
-                  </a>{" "}
+                  </a> and <a
+                    href="https://www.melindafrancis.com"
+                    target="_blank"
+                    rel="noopener noreferrer nofollow"
+                    className="text-cyan-400 hover:text-cyan-300 underline"
+                  >
+                    MelindaFrancis.com
+                  </a>
                   </p>
                   <p className="text-sm text-gray-300 leading-relaxed mb-3">
                   I honestly believe you are, and you are projecting your delusion onto me. 
