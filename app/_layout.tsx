@@ -27,7 +27,7 @@ const TAILWIND_CONFIG = `tailwind.config = {
 
 const CUSTOM_CSS = `
 html { scroll-behavior: smooth; width: 100%; max-width: 100%; min-height: 100%; margin: 0; padding: 0; overflow-x: hidden; overflow-y: auto; }
-body { overscroll-behavior-y: none; min-height: 100%; margin: 0; padding: 0; overflow-x: hidden; overflow-y: auto !important; width: 100%; max-width: 100%; background: #0B1120; }
+body { overscroll-behavior-y: none; min-height: 100%; margin: 0; padding: 0; overflow-x: hidden; overflow-y: hidden !important; width: 100%; max-width: 100%; background: #0B1120; }
 #root { min-height: 100% !important; width: 100% !important; height: auto !important; display: block !important; flex: none !important; overflow-x: hidden; }
 code.inline-code { background-color: rgba(31,41,55,0.7); color: #67e8f9; padding: 0.125rem 0.375rem; border-radius: 0.25rem; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; font-size: 0.875rem; }
 .snap-container { min-height: 100vh; overscroll-behavior-y: none; width: 100%; max-width: 100%; }
@@ -37,13 +37,16 @@ code.inline-code { background-color: rgba(31,41,55,0.7); color: #67e8f9; padding
 @keyframes glow-pulse { 0%, 100% { text-shadow: 0 0 10px #22d3ee, 0 0 20px #22d3ee; } 50% { text-shadow: 0 0 20px #22d3ee, 0 0 30px #22d3ee, 0 0 40px #22d3ee; } }
 .text-glow { animation: glow-pulse 2s ease-in-out infinite; }
 .app-shell {
-  min-height: 100vh;
+  height: 100vh;
+  max-height: 100vh;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 }
 .app-main {
   flex: 1 1 auto;
   min-height: 0;
+  overflow: hidden;
 }
 .app-footer-bar {
   display: flex;
