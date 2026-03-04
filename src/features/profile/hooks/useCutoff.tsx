@@ -34,7 +34,8 @@ export const useAfterCutoff: () => boolean | null = () => {
   if (!React.useContext(melindaContext)) {
     throw new Error("useCutoff must be used within a MelindaMessageCutoffProvider");
   }
-  const reality = window.location.toString().includes("reality");
+  const reality = window.location.toString().match(/reality/ig);
+  const perception = window.location.toString().match(/perception/ig);
   const cutoff = React.useContext(melindaContext).cutoff.current;
-  return reality === true ? true : cutoff;
+  return reality ? true : perception ? false : cutoff;
 };
