@@ -98,7 +98,6 @@ function CopyrightNotice() {
     >
       <p
         className="text-xs text-white/90 text-center"
-        style={{ textShadow: '0 0 8px #22d3ee, 0 0 12px rgba(34,211,238,0.4)' }}
       >
         © 2026{' '}
         <a
