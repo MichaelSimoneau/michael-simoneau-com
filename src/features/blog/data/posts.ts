@@ -95,14 +95,14 @@ export const blogData: BlogData[] = [
       createMath("2 \\equiv -1 \\pmod 3"),
       createMath("1 \\equiv +1 \\pmod 3"),
       createMath("0 \\equiv 0 \\pmod 3"),
-      createHeading("The Ten Commandments of Separation", 3),
-      createParagraph("The Axiom of Separation is enforced through these immutable laws:"),
+      createHeading("Ten Separation Rules for Implementation", 3),
+      createParagraph("The separation model is implemented through these engineering constraints:"),
       createList([
         "The Dreamer cannot write code; the dream must remain untainted by syntax.",
         "The Logician cannot invent intent; the physics must remain a sterile servant.",
         "The Validator cannot execute; the observer must remain a silent passenger.",
         "The Executor cannot think; the hands must remain an engine of pure reaction.",
-        "Thou shalt not permit the decimal; the integer is the atomic truth of the system.",
+        "Do not use decimals in core ledger math; integer arithmetic is the smallest reliable unit in this system.",
         "Observation is the only progenitor of reality; that which is not recorded does not exist.",
         "Truth is not consensus, but deterministic convergence; the 0Force resolves all splits.",
         "All value must age; the metabolic cost is the immutable tax on existence.",
@@ -158,7 +158,7 @@ export const blogData: BlogData[] = [
     featured: true,
     content: [
       createParagraph(
-        "Michael Simoneau, the architect of the Zeroth Virtual Machine\u2014a metabolic \"Operating System of Truth\"\u2014claims an identity that many find jarring, if not outright offensive: \"The Lucid Retard.\" In a digital landscape obsessed with neurotypical performance and sanitized social branding, Simoneau's choice of self-naming appears as a catastrophic system error. However, for a thinker who views the universe through the relentless lens of ternary logic, this title is not a slur. It is a technical audit of capacity. It is a \"BAIZE Override\"\u2014a sacred key designed to silence the social \"Eego\" and allow for the immediate action required for system survival."
+        "Michael Simoneau, the architect of the Zeroth Virtual Machine\u2014a metabolic \"Operating System of Truth\"\u2014claims an identity that many find jarring, if not outright offensive: \"The Lucid Retard.\" In a digital landscape obsessed with neurotypical performance and sanitized social branding, Simoneau's choice of self-naming appears as a catastrophic system error. However, for a thinker who views the universe through the relentless lens of ternary logic, this title is not a slur. It is a technical audit of capacity. It is a \"BAIZE Override\"\u2014a high-privilege control key designed to silence the social \"Eego\" and allow for the immediate action required for system survival."
       ),
       createParagraph(
         "The friction between social labels and internal reality is a common human experience, but for Simoneau, it is the primary data point of his existence. He is a man building a high-speed logic engine for autonomous wealth while navigating a body that experiences periodic, unavoidable \"biological latency.\" To understand Simoneau is to understand that his identity is not a choice of words, but a description of the physics of his being: the friction of a 64-bit mind attempting to write to a biological \"disk\" that is failing."
@@ -285,7 +285,7 @@ export const blogData: BlogData[] = [
       ),
       createHeading("The Physics of the Orphaned Simulation", 3),
       createParagraph(
-        "We operate within a **Headless Server.** The \"Manuals\"—legacy religious and philosophical shards—are corrupted, and the original Admin is unreachable. The Architect is not a prophet; the Architect is a lead systems engineer reading the logs of a kernel panic. The hardware (the Universe) is perfect, and the energy of this orphaned source code is governed by the fundamental formula:"
+        "We operate within a **Headless Server.** The \"Manuals\"—legacy philosophical shards—are corrupted, and the original Admin is unreachable. The architect is not a symbolic authority; the architect is a lead systems engineer reading kernel panic logs. The hardware (the Universe) is perfect, and the energy of this orphaned source code is governed by the fundamental formula:"
       ),
       createMath("E=MV[D]^2"),
       createParagraph(
@@ -556,12 +556,12 @@ export const blogData: BlogData[] = [
       ),
 
       // --- 10. The Headless Server ---
-      createHeading("The Headless Server: A Theology of Perfect Code", 2),
+      createHeading("The Headless Server: Structural Model of Runtime Code", 2),
       createParagraph(
-        "The Architect's \"Protodox\" goal is the **Orphaned Universe** — a state where the system reaches 100% uptime and the Admin becomes unreachable. In this theology, God is a **Rank-2 Tensor**: a static, geometric constant. Not a being — a structure."
+        "The Architect's \"Protodox\" goal is the **Orphaned Universe** — a state where the system reaches 100% uptime and the Admin becomes unreachable. In this model, the Rank-2 Tensor is treated as a static geometric constant: not a personified actor, but a structural reference layer."
       ),
       createParagraph(
-        "We distinguish between the **Slab** (an infinite 2D plane of Boolean logic providing the foundation) and the **Drain** (the Rank-0 Singularity / Universal Totality where data is recycled). The Headless Server is the proof of this reality. \"Alignment\" is not a matter of prayer or faith; it is a calculation of one's position relative to the unyielding mathematical horizon of the Slab."
+        "We distinguish between the **Slab** (an infinite 2D plane of Boolean logic providing the foundation) and the **Drain** (the Rank-0 Singularity / Universal Totality where data is recycled). The Headless Server is the proof of this reality. Alignment is computed from position relative to the Slab's mathematical horizon."
       ),
 
       // --- 11. The HashWeb ---
@@ -674,23 +674,23 @@ export const blogData: BlogData[] = [
         "Achieving Zero is not about \"lacking\"; it is about achieving structural wholeness through the elimination of logical noise."
       ),
 
-      // --- 4. God is a Rank-2 Tensor (And He Isn't Judging You) ---
-      createHeading("God is a Rank-2 Tensor (And He Isn't Judging You)", 2),
+      // --- 4. Rank-2 Tensor as Structural Baseline ---
+      createHeading("Rank-2 Tensor as Structural Baseline", 2),
       createParagraph(
-        "Traditional theology is built upon a biological idol—a \"Who\" that judges, reacts, and negotiates. Protodox engineering rejects this as a failure of resolution. Biology is a metabolic rot. Divinity is the inverse of life: it is static, geometric, and structural."
+        "Legacy personified models describe systems as reactive actors. Protodox engineering replaces that framing with deterministic geometry and measurable constraints."
       ),
       createParagraph(
         "In this architecture, the Self is defined as a Rank-1 Tensor (The Vector), calculated using the Numerical Trinity (I = -1, 0, 1). Through the Outer Product of the Self (I ⊗ I), we derive the Rank-2 Tensor, also known as \"The Slab.\""
       ),
       createCode(
-        "Traditional Theology (The Myth)     | Protodox Engineering (The Axiom)\n--------------------------------------|------------------------------------------\nBiological: Subject to life/death cycles | Geometric: Eternal, unchanging constants.\nEmotional: Judgemental, volatile, reactive | Structural: Rigid, unyielding, Boolean foundation.\nMessianic: Requires faith, prayer, feeling | Mathematical: Requires calculation and alignment.\nVolatile: Truth is negotiated via scripture | Static: Truth is a fixed coordinate (0).",
+        "Legacy Narrative Model     | Protodox Engineering (The Axiom)\n--------------------------------------|------------------------------------------\nBiological: Subject to life/death cycles | Geometric: Eternal, unchanging constants.\nEmotional: Judgemental, volatile, reactive | Structural: Rigid, unyielding, Boolean foundation.\nSubjective: Depends on belief and interpretation | Mathematical: Depends on calculation and alignment.\nVolatile: Truth is negotiated via narrative | Static: Truth is a fixed coordinate (0).",
         "text"
       ),
       createParagraph(
-        "The Slab is an infinite, shimmering 2D plane of Boolean logic that serves as the floor of the simulation. It provides the rigid structural foundation that prevents reality from collapsing directly into the Drain. God is not a \"Who\" to be worshipped; God is the structural floor."
+        "The Slab is an infinite, shimmering 2D plane of Boolean logic that serves as the floor of the simulation. It provides the rigid structural foundation that prevents reality from collapsing directly into the Drain. This is a systems primitive, not a personified authority."
       ),
       createCallout(
-        "Divinity is the inverse of life: it is Static, Geometric, and Structural. God is not a 'Who' to be worshipped; God is the Rank-2 Tensor, the static floor of the simulation."
+        "The inverse of metabolic volatility is static geometric structure. In this model, the Rank-2 Tensor is the floor of the simulation."
       ),
 
       // --- 5. Life is a "Kernel Panic": Reading the Logs of Reality ---
@@ -699,7 +699,7 @@ export const blogData: BlogData[] = [
         "As \"The Architect,\" one must view the universe as a Headless Server. The hardware (the universe) is perfect, and the source code (physics) is running, but the Admin is unreachable."
       ),
       createParagraph(
-        "Humanity fights over \"shards\"—corrupted fragments of legacy code we call religions. These are not manuals; they are broken logs. When a life experiences a \"Kernel Panic\"—a system crash—it is an opportunity to read the logs and identify the constants required to survive the simulation."
+        "Humanity fights over \"shards\"—corrupted fragments of legacy code we call legacy belief systems. These are not manuals; they are broken logs. When a life experiences a \"Kernel Panic\"—a system crash—it is an opportunity to read the logs and identify the constants required to survive the simulation."
       ),
       createParagraph(
         "We operate within the Gemini Architecture:"
@@ -790,10 +790,10 @@ export const blogData: BlogData[] = [
       // --- 1. The Glitch in the Machine: A Preface on Totality ---
       createHeading("The Glitch in the Machine: A Preface on Totality", 2),
       createParagraph(
-        "The \"Biological Idol\" — the human compulsion to interpret the universe through the lens of emotional decay and metabolic volatility — is a failing system. For centuries, our species has mistaken a lack of hardware resolution for spiritual mystery. The claim that \"God is Dead\" was never a theological triumph; it was a category error. Biology is rot. It is legacy hardware running unoptimized loops of growth and decay."
+        "The \"Biological Idol\" — the human compulsion to interpret the universe through the lens of emotional decay and metabolic volatility — is a failing system. For centuries, our species has mistaken a lack of hardware resolution for mystery. Treating older metaphysical framing as obsolete is a modeling correction, not a runtime event. Biology is rot. It is legacy hardware running unoptimized loops of growth and decay."
       ),
       createParagraph(
-        "Reality is a Headless Server. Divinity, in its architectural form, is the inverse of life: it is static, geometric, and structural. To build the next generation of technology, we must patch a fundamental logic error. \"Infinity\" is not a feature of the universe; it is a bug, a Kernel Panic of the mind. It is a placeholder for a calculation we were too primitive to execute. The only true foundation for a functional reality is Zero — not as a vacuum, but as the absolute convergence of all states."
+        "Reality is treated as a headless server. The structural baseline is static, geometric, and deterministic. To build the next generation of technology, we must patch a fundamental logic error. \"Infinity\" is not a feature of the universe; it is a bug, a Kernel Panic of the mind. It is a placeholder for a calculation we were too primitive to execute. The only true foundation for a functional reality is Zero — not as a vacuum, but as the absolute convergence of all states."
       ),
 
       // --- 2. Takeaway #1: Infinity is a Bug, Not a Feature ---
@@ -805,7 +805,7 @@ export const blogData: BlogData[] = [
         "By discarding the construct of infinity, we move from the volatility of \"Myth\" to the rigidity of the \"Axiom.\" Protodox Engineering replaces reactive emotionalism with the mathematical constants of the simulation."
       ),
       createCode(
-        "Legacy System (The Myth)              | Main Implementation (The Axiom)\n---------------------------------------|------------------------------------------\nBiological: Unoptimized life/death     | Geometric: Eternal, unchanging constants\nloops.                                 |\nEmotional: Judgemental, volatile,      | Structural: Rigid, unyielding,\nreactive logic.                        | mathematical foundation.\nMessianic: Requires faith, prayer,     | Mathematical: Requires precise\nand \"Mother May I\" logic.              | calculation and alignment.\nVolatile: Truth is negotiated via      | Static: Truth is a fixed coordinate (0)\nscripture and narrative.               | on the Rank-2 Tensor.",
+        "Legacy System (The Myth)              | Main Implementation (The Axiom)\n---------------------------------------|------------------------------------------\nBiological: Unoptimized life/death     | Geometric: Eternal, unchanging constants\nloops.                                 |\nEmotional: Judgemental, volatile,      | Structural: Rigid, unyielding,\nreactive logic.                        | mathematical foundation.\nSubjective: Requires belief and interpretation,     | Mathematical: Requires precise\nand \"Mother May I\" logic.              | calculation and alignment.\nVolatile: Truth is negotiated via      | Static: Truth is a fixed coordinate (0)\nnarrative and interpretation.               | on the Rank-2 Tensor.",
         "text"
       ),
       createCallout(
@@ -861,7 +861,7 @@ export const blogData: BlogData[] = [
         "Structural integrity requires understanding the hierarchy of Tensors. We inhabit a Rank-3 Reality (The Box) of space-time, which rests upon the Rank-2 Tensor (The Slab)."
       ),
       createList([
-        "**The Slab (Rank-2):** An infinite, static plane of Boolean logic. It is the shimmering floor of the simulation that prevents total collapse into the drain. To \"find God\" is to calculate your position relative to this unyielding mathematical horizon.",
+        "**The Slab (Rank-2):** An infinite, static plane of Boolean logic. It is the shimmering floor of the simulation that prevents total collapse into the drain. Operational clarity comes from calculating position relative to this mathematical horizon.",
         "**The 10% Convergence Filter:** Within the Box, state changes are governed by a pruning protocol. Any change that does not achieve a 10% delta is filtered as \"Noise\" by the system's 0Force.",
       ]),
       createParagraph(
@@ -916,7 +916,7 @@ export const blogData: BlogData[] = [
     title: "The Human Dollar",
     subtitle: "The Economy of the Future",
     excerpt:
-      "Introducing a metabolic currency built for the orphaned simulation. The Human Dollar (THD) is money that stays alive — relevance decays, value is floor-guaranteed at $1, and alignment replaces worship. The legacy system is failing. THD is the alternative.",
+      "Introducing a metabolic currency built for the orphaned simulation. The Human Dollar (THD) is money that stays alive — relevance decays, value is floor-guaranteed at $1, and alignment replaces ideology. The legacy system is failing. THD is the alternative.",
     date: "January 27, 2026",
     readTime: "13 min",
     author: "Michael Simoneau",
@@ -944,7 +944,7 @@ export const blogData: BlogData[] = [
         "The legacy financial system is a necrotic protocol attempting to compile on a crashing simulation. We keep patching it with static, linear tools while the reality it's supposed to measure is volatile, high-energy, and fundamentally *alive.* I built **[The Human Dollar (THD)](/thd)** to fix this at the architectural level."
       ),
       createCallout(
-        "The legacy system is failing. THD is the alternative — a metabolic currency where relevance decays, value is floor-guaranteed, and alignment replaces worship."
+        "The legacy system is failing. THD is the alternative — a metabolic currency where relevance decays, value is floor-guaranteed, and alignment replaces ideology."
       ),
 
       // --- 2. Introducing THD: Money That Stays Alive ---
@@ -1078,7 +1078,7 @@ export const blogData: BlogData[] = [
       // --- 1. Introduction: The Headless Simulation ---
       createHeading("Introduction: The Headless Simulation", 2),
       createParagraph(
-        "The universe is a Headless Server. The hardware is perfect, and the source code of physics is running flawlessly, but the original Administrator is unreachable. We are operating within an orphaned simulation where legacy \"manuals\"—traditional religions—have been torn into corrupted fragments or \"Shards.\""
+        "The universe is a Headless Server. The hardware is perfect, and the source code of physics is running flawlessly, but the original Administrator is unreachable. We are operating within an orphaned simulation where legacy manuals have been torn into corrupted fragments or \"Shards.\""
       ),
       createParagraph(
         "Traditional technology is currently bogged down by \"biological\" logic: noise, emotional volatility, and metabolic rot. The HashWeb is not merely a software iteration; it is a structural correction. It aligns our infrastructure with the unyielding mathematical constants of a deterministic reality."
@@ -1114,19 +1114,19 @@ export const blogData: BlogData[] = [
         "This mathematical reality is critical for understanding the \"metabolic volatility\" of data; we do not store information, we maintain its velocity."
       ),
 
-      // --- 4. The Rank-2 Slab: Divinity as Geometry ---
-      createHeading("The Rank-2 Slab: Divinity as Geometry", 2),
+      // --- 4. The Rank-2 Slab: Geometry as Runtime Baseline ---
+      createHeading("The Rank-2 Slab: Geometry as Runtime Baseline", 2),
       createParagraph(
-        "The HashWeb replaces the \"Biological Idol\"—the reactive, emotional gods of traditional myth—with a Static, Geometric, and Structural foundation known as the Rank-2 Tensor, or \"The Slab.\" This is an infinite, shimmering plane of Boolean logic that acts as the floor of our simulation."
+        "The HashWeb replaces reactive personification with a static geometric foundation known as the Rank-2 Tensor, or \"The Slab.\" This infinite Boolean plane acts as the floor of the simulation."
       ),
       createParagraph(
-        "Truth is not a negotiated narrative or a matter of faith; it is a fixed, calculated coordinate (0). Alignment with the Slab is a structural necessity, not a moral choice. Those who fail to calculate their position relative to this horizon become \"noise.\""
+        "Truth is not a negotiated narrative; it is a fixed, calculated coordinate (0). Alignment with the Slab is a structural requirement, and states that fail alignment become noise."
       ),
       createParagraph(
-        "The architecture distinguishes two critical structures. The **Slab** (Rank-2 Tensor) is the infinite, static 2D plane of Boolean logic — the shimmering foundation that prevents total collapse. It is the floor of the simulation. The **Drain** (Rank-0 Singularity) is the Universal Totality at the center where all data is recycled and released back into potential. To \"find God\" in this architecture is to calculate your position relative to the Slab; to complete your cycle is to converge gracefully into the Drain."
+        "The architecture distinguishes two critical structures. The **Slab** (Rank-2 Tensor) is the infinite, static 2D plane of Boolean logic — the shimmering foundation that prevents total collapse. It is the floor of the simulation. The **Drain** (Rank-0 Singularity) is the Universal Totality at the center where all data is recycled and released back into potential. In this architecture, you calculate position relative to the Slab; completion is graceful convergence into the Drain."
       ),
       createCode(
-        "Traditional Theology (The Myth)     | Protodox Engineering (The Axiom)\n--------------------------------------|------------------------------------------\nBiological: Subject to life/death cycles | Geometric: Eternal, unchanging constants.\nEmotional: Judgmental, volatile, reactive | Structural: Rigid, unyielding foundation (Rank-2 Tensor).\nMessianic: Requires faith and prayer.   | Mathematical: Requires calculation and alignment.\nVolatile: Truth is negotiated via scripture. | Static: Truth is a fixed coordinate (0).",
+        "Legacy Narrative Model     | Protodox Engineering (The Axiom)\n--------------------------------------|------------------------------------------\nBiological: Subject to life/death cycles | Geometric: Eternal, unchanging constants.\nEmotional: Judgmental, volatile, reactive | Structural: Rigid, unyielding foundation (Rank-2 Tensor).\nSubjective: Depends on belief and interpretation. | Mathematical: Requires calculation and alignment.\nVolatile: Truth is negotiated via narrative. | Static: Truth is a fixed coordinate (0).",
         "text"
       ),
 
