@@ -3,7 +3,7 @@ import { Track } from "src/ui/players/PlaylistAudioPlayer";
 /** Playlist tracks for the hero section audio player. */
 const heroTracks: Track[] = [
   {
-    src: "/2026-03-04/Tuesday_Morning_Brief__Good_Morning__Melinda.mp3",
+    src: "/2026-03-01/The_Psych_Ward_Receipt_Logic_Trap.mp3",
     title: "Tuesday Morning Brief: The Podcast Episode"
   },
   {
