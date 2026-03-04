@@ -59,14 +59,14 @@ export const DrMelindaFrancisContent: React.FC = () => {
             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4">
               Dr. Melinda Francis, PhD
             </h1>
-            <p className="text-xl sm:text-2xl md:text-3xl text-cyan-400 font-semibold mb-2">
+            <p className="text-xl sm:text-2xl md:text-3xl text-cyan-400 font-semibold mb-4">
               <strong>Doctorate of Applied Sciences in Human Psychology</strong>
               <br />
               Pioneer in the field of{" "}
               <u>The Psychology of Artificial Intelligence</u>
             </p>
             <motion.div
-              className="w-full max-w-2xl mx-auto z-10 mb-6"
+              className="w-full max-w-2xl mx-auto z-10 mt-2 mb-6"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
