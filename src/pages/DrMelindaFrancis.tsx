@@ -1,6 +1,5 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { ChevronDown } from "lucide-react";
 import { AnimatedBackground } from "../backgrounds/AnimatedBackground";
 import { MainNav } from "../layout/MainNav";
 import { Seo } from "../foundation/seo/Seo";
@@ -48,7 +47,7 @@ export const DrMelindaFrancisContent: React.FC = () => {
       <div className="h-screen overflow-y-auto overflow-x-hidden overscroll-behavior-x-none scroll-smooth relative z-10">
         <section
           id="dr-melinda-francis-hero"
-          className="min-h-screen flex flex-col items-center justify-center text-white px-4 pt-16 pb-24 relative overflow-hidden z-10"
+          className="min-h-screen flex flex-col items-center justify-start text-white px-4 pt-16 pb-24 relative overflow-hidden z-10"
         >
           <motion.div
             initial={{ opacity: 0, y: 50 }}
@@ -126,26 +125,13 @@ export const DrMelindaFrancisContent: React.FC = () => {
           </motion.div>
 
           <motion.div
-            className="w-full max-w-2xl mx-auto z-10"
+            className="w-full max-w-2xl mx-auto z-10 mb-10"
             initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.4 }}
           >
             <PlaylistAudioPlayer tracks={playlist} />
-          </motion.div>
-
-          <motion.div
-            className="absolute bottom-10 left-1/2 -translate-x-1/2 z-10"
-            initial={{ opacity: 0.3 }}
-            animate={{ opacity: [0.3, 1, 0.3] }}
-            transition={{
-              duration: 2.5,
-              ease: "easeInOut",
-              repeat: Infinity,
-            }}
-          >
-            <ChevronDown size={32} className="text-gray-400" />
           </motion.div>
         </section>
       </div>
