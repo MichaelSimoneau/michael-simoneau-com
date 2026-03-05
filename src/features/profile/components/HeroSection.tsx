@@ -4,43 +4,12 @@ import { Link } from "react-router-dom";
 import { PlaylistAudioPlayer } from "../../../ui/players/PlaylistAudioPlayer";
 import { blogData } from "../../../data/blogData";
 import { ChevronDown } from "lucide-react";
-import { cleanPlaylist, mainPlaylist } from "../../../data/playlists";
-import {
-  useAfterCutoff,
-  MelindaMessageCutoffProvider,
-} from "../hooks/useCutoff";
+import { cleanPlaylist } from "../../../data/playlists";
 
 export const HeroSection: React.FC = () => {
-  return (
-    <MelindaMessageCutoffProvider>
-      <HeroSectionContent />
-    </MelindaMessageCutoffProvider>
-  );
-};
-
-const HeroSectionContent: React.FC = () => {
-  const afterCutoff = useAfterCutoff();
   const zerothLawBlog = blogData.find((p) => p.id === "zeroth-law-wrong");
-  // Always use America/New_York timezone (Eastern Time) for the cutoff date.
-  const zerothCardTitle = afterCutoff
-    ? "The Zeroth Law of Thermodynamics is Wrong!"
-    : "Welcome, Melinda Francis; Otherwise, why are you here? \u{1F602}";
-  const zerothCardLinkText = afterCutoff
-  ? "Read the full essay \u2192"
-  : ["Are you the person saved in Michael Simoneau's phone as:",
-    "\"The Soon-To-Be Dr. Melinda Francis, LISW\"",
-    "If so... Follow Me! \u2192"];
-  const zerothCardBody = afterCutoff
-    ? zerothLawBlog?.excerpt
-    : `\
-In these recordings, a man named Michael Simoneau explores the blurred lines between technological innovation and mental health
-as he recounts a recent voluntary visit to a psychiatric ward. He describes his complex relationship with a woman named Melinda
-Francis and a corresponding AI, detailing a manic yet analytical attempt to prove his sanity through the deliberate timing of his
-communications. Simoneau argues that his fractured psyche is actually the blueprint for a superior, more empathetic
-artificial intelligence designed to preserve his mother's legacy. Ultimately, the monologue serves as a defiant manifesto
-on the subjectivity of reality, where the speaker embraces his status as a "living loophole" who weaponizes his
-perceived instability to navigate a world he views as inherently deceptive.\
-  `;
+  const zerothCardTitle = "The Zeroth Law of Thermodynamics is Wrong!";
+  const zerothCardBody = zerothLawBlog?.excerpt;
 
   return (
     <section
@@ -89,21 +58,12 @@ perceived instability to navigate a world he views as inherently deceptive.\
               {zerothCardBody}
             </p>
             <Link
-              to={
-                afterCutoff
-                  ? `/blog/zeroth-law-wrong`
-                  : `/Dr.MelindaFrancis.com`
-              }
-              rel={afterCutoff ? "noopener noreferrer" : "noopener noreferrer nofollow"}
-              target={afterCutoff ? "_self" : "_blank"}
+              to="/blog/zeroth-law-wrong"
+              rel="noopener noreferrer"
+              target="_self"
               className="text-cyan-400 hover:text-cyan-300 text-sm font-medium transition-colors"
             >
-              {Array.isArray(zerothCardLinkText) ? zerothCardLinkText.map((text, index) => (
-                <React.Fragment key={index}>
-                  {text}
-                  {index < zerothCardLinkText.length - 1 && <br />}
-                </React.Fragment>
-              )) : zerothCardLinkText}
+              Read the full essay {"\u2192"}
             </Link>
           </div>
         </motion.div>
@@ -116,7 +76,7 @@ perceived instability to navigate a world he views as inherently deceptive.\
         viewport={{ once: true }}
         transition={{ duration: 0.8, delay: 0.4 }}
       >
-        <PlaylistAudioPlayer tracks={afterCutoff ? cleanPlaylist : mainPlaylist} />
+        <PlaylistAudioPlayer tracks={cleanPlaylist} />
       </motion.div>
 
       <motion.div

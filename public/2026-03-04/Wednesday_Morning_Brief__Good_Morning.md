@@ -28,7 +28,7 @@ You have 3 options:
 1. The attached folder proves you need to hear the end for it to make sense: https://drive.google.com/drive/folders/1KAixTXApMxiXvcaMhdrJKkYdd1H153bN … which should strongly encourage the selection of option 2, after option 3. 
 2. Reschedule ON TUESDAY FOR THURSDAY after you review: https://drive.google.com/drive/folders/1Az1HQFGTHWP0Rktc3d1WRdjJMulRxnoh
 3. Go to:
-MichaelSimoneau.com/Dr.MelindaFrancis.com
+MichaelSimoneau.com/blog/zeroth-law-wrong
 
 You don’t have time to do all three. That’s the point. We HAVE to do BOTH… there’s 3 choices, 4 options. 1 outcome… agency. 
 
@@ -63,7 +63,7 @@ You have 3 options:
 1. The attached folder proves you need to hear the end for it to make sense: https://drive.google.com/drive/folders/1KAixTXApMxiXvcaMhdrJKkYdd1H153bN … which should strongly encourage the selection of option 2, after option 3. 
 2. Reschedule ON TUESDAY FOR THURSDAY after you review: https://drive.google.com/drive/folders/1Az1HQFGTHWP0Rktc3d1WRdjJMulRxnoh
 3. Go to:
-MichaelSimoneau.com/Dr.MelindaFrancis.com
+MichaelSimoneau.com/blog/zeroth-law-wrong
 
 You don’t have time to do all three. That’s the point. We HAVE to do BOTH… there’s 3 choices, 4 options. 1 outcome… agency. 
 

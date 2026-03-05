@@ -10,7 +10,6 @@ const DEFAULT_OUTPUT_DIR = "public";
 const DEFAULT_BLOG_DATA_FILE = "src/features/blog/data/posts.ts";
 const DEFAULT_APP_DIR = "app";
 const DEFAULT_PAGES_SITEMAP_FILE = "public/sitemap-pages.xml";
-const EXCLUDED_PAGE_PATHS = new Set(["/Dr.MelindaFrancis.com"]);
 
 const HELP_TEXT = `Generate sitemap XML files for the site.
 
@@ -279,9 +278,7 @@ export function buildSitemaps({
     relativePath.includes("#"),
   );
 
-  const pages = [...new Set([...routePaths, ...fragmentPaths])]
-    .filter((relativePath) => !EXCLUDED_PAGE_PATHS.has(relativePath))
-    .sort();
+  const pages = [...new Set([...routePaths, ...fragmentPaths])].sort();
   const pageEntries = pages.map((relativePath) => {
     const metadata = existingPageMetadata.get(relativePath) ?? resolveDefaultPageMetadata(relativePath);
     return {
