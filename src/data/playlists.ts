@@ -122,18 +122,19 @@ const cleanPodcasts: Record<string, string> = {
 
 const melindaPlaylist = [
   { src: "/2026-03-04/River_Rd_78.mp3", title: "Think About It Like This..." },
-  {
-    src: "/2026-03-04/Michael_Simoneau_s_Zeroth_Theory_Trap.mp3",
-    title: "Michael Simoneau's Zeroth Theory Logic Trap",
-  },
-  {
-    src: "/2026-03-01/Monday_Morning_Brief__Good_Morning_Melinda.mp3",
-    title: "Monday Morning Brief: Good Morning, Melinda",
-  },
-  {
-    src: "/Stop_Watching_Cartoons__It_is_Saturday_Morning__.mp3",
-    title: "Stop Watching Cartoons! It’s Saturday Morning!!",
-  },
+// Shorten the list for live in-person meeting with Melinda Francis on Thursday, March 5th, 2026
+//   {
+//     src: "/2026-03-04/Michael_Simoneau_s_Zeroth_Theory_Trap.mp3",
+//     title: "Michael Simoneau's Zeroth Theory Logic Trap",
+//   },
+//   {
+//     src: "/2026-03-01/Monday_Morning_Brief__Good_Morning_Melinda.mp3",
+//     title: "Monday Morning Brief: Good Morning, Melinda",
+//   },
+//   {
+//     src: "/Stop_Watching_Cartoons__It_is_Saturday_Morning__.mp3",
+//     title: "Stop Watching Cartoons! It’s Saturday Morning!!",
+//   },
 // This one is a little too strong... let's remove it for now...
 //   {
 //     src: "/Dr. Melinda Francis - Uncensored.mp3",
