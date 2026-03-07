@@ -6,9 +6,9 @@ const cleanPodcasts: Record<string, string> = {
   "2026-03-07/Should_Michael_Simoneau_delete_his_psychologist.mp3",
   "Michael Simoneau's Mathematical Proof of Sanity":
   "2026-03-07/Michael_Simoneau_s_mathematical_proof_of_sanity.mp3",
-  "EXPANDED_1": "Reality: The Science of Rewriting Einstein to Fix the Global Economy",
   "Rewriting Einstein to Buy Your Milk":
-    "2026-03-04/Rewriting_Einstein_to_buy_your_milk.mp3",
+  "2026-03-04/Rewriting_Einstein_to_buy_your_milk.mp3",
+  "EXPANDED_1": "Our New Reality: Rewriting Einstein to Fix the Global Economy",
   "Michael Simoneau and the Zeroth Theory":
     "2026-03-06/Michael_Simoneau_and_the_Zeroth_Theory.mp3",
   "The Zeroth Theory of Digital Organisms":
