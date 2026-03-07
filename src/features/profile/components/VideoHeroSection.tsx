@@ -3,12 +3,12 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Play } from 'lucide-react';
 
 /**
- * Full-screen hero section featuring "The High-Five Trick!" YouTube video.
+ * Full-screen hero section featuring the Zeroth Theory YouTube video.
  * Shows a static thumbnail until the user clicks "Watch Now", then loads the
  * iframe with autoplay, controls, and captions.
  */
 export const VideoHeroSection: React.FC = () => {
-  const videoId = 'H1ifcHKn6Kk';
+  const videoId = '_Y1GTUrtWjE';
   const [isWatching, setIsWatching] = useState(false);
 
   const activeUrl = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=0&loop=1&playlist=${videoId}&controls=1&modestbranding=1&rel=0&playsinline=1&cc_load_policy=1&cc_lang_pref=en`;
@@ -23,7 +23,7 @@ export const VideoHeroSection: React.FC = () => {
         {isWatching ? (
           <iframe
             src={activeUrl}
-            title="The High-Five Trick!"
+            title="Zeroth Theory and The Ricochet Theorem"
             className="w-full border-0"
             style={{ aspectRatio: '16 / 9', maxHeight: '100%' }}
             allow="autoplay; encrypted-media"
@@ -32,7 +32,7 @@ export const VideoHeroSection: React.FC = () => {
         ) : (
           <img
             src={thumbnailUrl}
-            alt="The High-Five Trick! thumbnail"
+            alt="Zeroth Theory and The Ricochet Theorem thumbnail"
             className="w-full object-cover"
             style={{ aspectRatio: '16 / 9', maxHeight: '100%' }}
           />
@@ -63,13 +63,17 @@ export const VideoHeroSection: React.FC = () => {
                 viewport={{ once: true, amount: 0.3 }}
                 transition={{ duration: 0.8, delay: 0.3 }}
               >
-                The{' '}
-                <span className="bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-emerald-500">
-                  &ldquo;The High-Five Trick!&rdquo;
+                <span className="block text-white font-semibold">
+                  Michael Simoneau presents his
                 </span>
-                <br />
-                <span className="text-xl sm:text-2xl md:text-3xl lg:text-4xl text-gray-300 font-semibold">
-                  by Michael Simoneau
+                <span className="block text-cyan-300 font-extrabold">
+                  &ldquo;Zeroth Theory&rdquo;
+                </span>
+                <span className="block text-white font-semibold">
+                  and
+                </span>
+                <span className="block text-emerald-300 font-extrabold">
+                  &ldquo;The Ricochet Theorem&rdquo;
                 </span>
               </motion.h2>
 
