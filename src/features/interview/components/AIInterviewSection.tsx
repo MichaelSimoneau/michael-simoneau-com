@@ -6,8 +6,8 @@ import { interview1Data, interview2Data, interview3Data } from '../data/intervie
 const sectionWrapperClasses = 'py-12 md:py-20 px-4 relative min-h-screen flex flex-col items-center justify-center';
 
 /**
- * AI Interview section: three interview teaser buttons in a grid with fixed-height
- * slots so typewriter content changes do not affect section or page layout.
+ * AI Interview section: three interview teaser buttons in a vertical stack with
+ * fixed-height slots so typewriter content changes do not affect section or page layout.
  */
 export const AIInterviewSection: React.FC = () => {
   return (
@@ -26,22 +26,22 @@ export const AIInterviewSection: React.FC = () => {
         <p className="text-gray-300 text-center text-lg max-w-xl mx-auto mb-8">
           A conversation about the journey in technology and problem-solving—from building a first computer at 12 to leading enterprise transformations. Three sessions: the foundation, the architecture, and the digital organism.
         </p>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full">
-          <div className="h-[160px] overflow-hidden min-w-0">
+        <div className="flex flex-col gap-6 w-full">
+          <div className="h-[230px] overflow-hidden min-w-0 w-full">
             <InterviewButton
               to="/interview"
               qaPairs={interview1Data}
               title="Session 1: The Foundation"
             />
           </div>
-          <div className="h-[160px] overflow-hidden min-w-0">
+          <div className="h-[230px] overflow-hidden min-w-0 w-full">
             <InterviewButton
               to="/interview/2"
               qaPairs={interview2Data}
               title="Session 2: From Code to Architecture"
             />
           </div>
-          <div className="h-[160px] overflow-hidden min-w-0">
+          <div className="h-[230px] overflow-hidden min-w-0 w-full">
             <InterviewButton
               to="/interview/3"
               qaPairs={interview3Data}

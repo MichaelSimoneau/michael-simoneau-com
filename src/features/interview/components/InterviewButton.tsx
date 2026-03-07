@@ -42,51 +42,53 @@ export const InterviewButton: React.FC<InterviewButtonProps> = ({ to, qaPairs, t
   const currentAnswer = qaPairs[currentIndex].answer;
 
   return (
-    <div className="w-full">
+    <div className="w-full h-full">
       <Link href={to} className="block w-full">
-        <div className="relative bg-gradient-to-r from-gray-900/80 to-gray-800/80 backdrop-blur-sm rounded-lg w-full transform hover:scale-[1.02] transition-transform duration-300">
+        <div className="relative bg-gradient-to-r from-gray-900/80 to-gray-800/80 backdrop-blur-sm rounded-lg w-full h-full overflow-hidden transform hover:scale-[1.02] transition-transform duration-300">
           <div className="absolute inset-0 bg-[url('/paper-texture.png')] opacity-5" />
           <div className="absolute inset-0 bg-gradient-to-b from-cyan-500/5 to-transparent" />
-          <div className="relative z-10 flex flex-col p-4 space-y-2">
+          <div className="relative z-10 flex h-full flex-col p-4 space-y-2">
             {title && (
-              <div className="text-cyan-400/90 font-semibold text-xs uppercase tracking-wide mb-1">
+              <div className="text-cyan-400/90 font-semibold text-xs uppercase tracking-wide mb-1 shrink-0">
                 {title}
               </div>
             )}
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={currentIndex}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                transition={{ duration: 0.2 }}
-                className="text-white space-y-3"
-              >
-                <div>
-                  <span className="text-cyan-400 font-bold text-sm mr-2">Q:</span>
-                  <span className="text-gray-100 text-sm font-medium">
-                    <Typewriter
-                      words={[currentQuestion]}
-                      cursor={false}
-                      typeSpeed={30}
-                      delaySpeed={1500}
-                    />
-                  </span>
-                </div>
-                <div>
-                  <span className="text-cyan-400 font-bold text-sm mr-2">A:</span>
-                  <span className="text-gray-300 text-sm">
-                    <Typewriter
-                      words={[currentAnswer]}
-                      cursor={false}
-                      typeSpeed={50}
-                      delaySpeed={4000}
-                    />
-                  </span>
-                </div>
-              </motion.div>
-            </AnimatePresence>
-            <div className="text-cyan-400/80 text-xs font-medium tracking-wide flex items-center">
+            <div className="flex-1 min-h-0 overflow-y-auto pr-1">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={currentIndex}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: 0.2 }}
+                  className="text-white space-y-3 leading-relaxed break-words"
+                >
+                  <div>
+                    <span className="text-cyan-400 font-bold text-sm mr-2">Q:</span>
+                    <span className="text-gray-100 text-sm font-medium">
+                      <Typewriter
+                        words={[currentQuestion]}
+                        cursor={false}
+                        typeSpeed={30}
+                        delaySpeed={1500}
+                      />
+                    </span>
+                  </div>
+                  <div>
+                    <span className="text-cyan-400 font-bold text-sm mr-2">A:</span>
+                    <span className="text-gray-300 text-sm">
+                      <Typewriter
+                        words={[currentAnswer]}
+                        cursor={false}
+                        typeSpeed={50}
+                        delaySpeed={4000}
+                      />
+                    </span>
+                  </div>
+                </motion.div>
+              </AnimatePresence>
+            </div>
+            <div className="text-cyan-400/80 text-xs font-medium tracking-wide flex items-center shrink-0">
               Read Full Interview
               <motion.span
                 animate={{ x: [0, 3, 0] }}
