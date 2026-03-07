@@ -1,6 +1,8 @@
 import { Track } from "src/ui/players/PlaylistAudioPlayer";
 
 const cleanPodcasts: Record<string, string> = {
+  "Should Michael Simoneau Fire His Psychologist?":
+    "2026-03-07/Should_Michael_Simoneau_delete_his_psychologist.mp3",
   "Rewriting Einstein to Buy Your Milk":
     "2026-03-04/Rewriting_Einstein_to_buy_your_milk.mp3",
   "Michael Simoneau and the Zeroth Theory":
