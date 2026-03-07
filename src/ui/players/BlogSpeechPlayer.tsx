@@ -1,20 +1,57 @@
-import React from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Play, Pause, Volume2 } from 'lucide-react';
 import { ContentBlock } from '../../models/BlogPost';
 import { useBlogSpeech } from '../../features/blog/hooks/useBlogSpeech';
+import {
+  BLOG_VOICE_PRESETS,
+  BlogVoicePresetId,
+  DEFAULT_BLOG_VOICE_PRESET,
+} from '../../features/blog/speech/provider';
 
 interface BlogSpeechPlayerProps {
   content: ContentBlock[];
   title?: string;
 }
 
+const BLOG_VOICE_PRESET_STORAGE_KEY = 'blog-voice-preset-v2';
+
 export const BlogSpeechPlayer: React.FC<BlogSpeechPlayerProps> = ({
   content,
   title = 'Listen to Article',
 }) => {
-  const { isSupported, isPlaying, isPaused, error, currentSegmentIndex, totalSegments, progress, play, pause, resume } =
-    useBlogSpeech(content);
+  const [voicePreset, setVoicePreset] = useState<BlogVoicePresetId>(DEFAULT_BLOG_VOICE_PRESET);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') {
+      return;
+    }
+
+    const storedPreset = window.localStorage.getItem(BLOG_VOICE_PRESET_STORAGE_KEY) as BlogVoicePresetId | null;
+    if (storedPreset && BLOG_VOICE_PRESETS[storedPreset]) {
+      setVoicePreset(storedPreset);
+    }
+  }, []);
+
+  const normalizedPostId = useMemo(() => title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, ''), [title]);
+  const selectedPreset = BLOG_VOICE_PRESETS[voicePreset] ?? BLOG_VOICE_PRESETS[DEFAULT_BLOG_VOICE_PRESET];
+
+  const {
+    isSupported,
+    isPlaying,
+    isPaused,
+    error,
+    currentSegmentIndex,
+    totalSegments,
+    progress,
+    play,
+    pause,
+    resume,
+  } = useBlogSpeech(content, {
+    voicePreset,
+    postId: normalizedPostId || 'blog-post',
+    provider: 'browser',
+  });
 
   if (!isSupported || totalSegments === 0) {
     return null;
@@ -32,6 +69,18 @@ export const BlogSpeechPlayer: React.FC<BlogSpeechPlayerProps> = ({
     }
 
     play();
+  };
+
+  const handlePresetChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const nextPreset = event.target.value as BlogVoicePresetId;
+    if (!BLOG_VOICE_PRESETS[nextPreset]) {
+      return;
+    }
+
+    setVoicePreset(nextPreset);
+    if (typeof window !== 'undefined') {
+      window.localStorage.setItem(BLOG_VOICE_PRESET_STORAGE_KEY, nextPreset);
+    }
   };
 
   const segmentLabel =
@@ -53,7 +102,6 @@ export const BlogSpeechPlayer: React.FC<BlogSpeechPlayerProps> = ({
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               aria-label={isPlaying ? 'Pause narration' : 'Play narration'}
-              disabled={!!error}
               type="button"
             >
               {isPlaying ? (
@@ -67,6 +115,25 @@ export const BlogSpeechPlayer: React.FC<BlogSpeechPlayerProps> = ({
               <div className="flex items-center gap-2 mb-2">
                 <Volume2 className="w-4 h-4 text-cyan-400 flex-shrink-0" />
                 <span className="text-white font-medium text-sm truncate">{title}</span>
+              </div>
+              <div className="mb-2 flex items-center gap-2">
+                <label htmlFor="blog-voice-preset" className="text-xs text-gray-400">
+                  Voice
+                </label>
+                <select
+                  id="blog-voice-preset"
+                  className="bg-gray-900/80 border border-gray-700 text-gray-100 text-xs rounded px-2 py-1 focus:outline-none focus:ring-1 focus:ring-cyan-400"
+                  value={voicePreset}
+                  onChange={handlePresetChange}
+                  disabled={isPlaying}
+                >
+                  {Object.values(BLOG_VOICE_PRESETS).map((preset) => (
+                    <option key={preset.id} value={preset.id}>
+                      {preset.label}
+                    </option>
+                  ))}
+                </select>
+                <span className="text-[11px] text-gray-500 truncate">{selectedPreset.description}</span>
               </div>
 
               <div className="relative h-1.5 bg-gray-700/50 rounded-full overflow-hidden">

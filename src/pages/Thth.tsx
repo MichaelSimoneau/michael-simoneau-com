@@ -94,7 +94,7 @@ export const Thth: React.FC = () => {
               </div>
             </div>
             <div className="text-center md:text-left flex-1">
-              <h1 className="text-5xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-indigo-500">
+              <h1 className="text-5xl font-bold mb-4 text-purple-400">
                 THTH
               </h1>
               <p className="text-2xl text-purple-300 mb-2">

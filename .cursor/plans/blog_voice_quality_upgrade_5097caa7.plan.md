@@ -4,22 +4,22 @@ overview: Improve blog narration quality immediately with a tuned browser-TTS pi
 todos:
   - id: refine-text-extraction
     content: Implement sentence-aware chunking and spoken-text normalization for list/table/math in src/utils/blogTextExtractor.ts
-    status: pending
+    status: completed
   - id: upgrade-voice-selection
     content: Improve neural/natural voice ranking and fallback behavior in src/utils/voiceSelector.ts
-    status: pending
+    status: completed
   - id: harden-playback
     content: Add playback session guards and tune speech defaults in src/features/blog/hooks/useBlogSpeech.ts
-    status: pending
+    status: completed
   - id: add-user-presets
     content: Expose and persist voice presets in src/ui/players/BlogSpeechPlayer.tsx
-    status: pending
+    status: completed
   - id: prep-gemini-seam
     content: Introduce provider interface and cache key design for future Gemini on-demand audio
-    status: pending
+    status: completed
   - id: verify-quality
     content: Run build and perform manual listening QA across long and math-heavy posts
-    status: pending
+    status: in_progress
 isProject: false
 ---
 

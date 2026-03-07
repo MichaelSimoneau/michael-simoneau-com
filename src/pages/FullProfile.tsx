@@ -108,7 +108,7 @@ export const FullProfile: React.FC = () => {
               </div>
             </div>
             <div className="text-center md:text-left flex-1">
-              <h1 className="text-5xl font-bold mb-2 bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-blue-500">
+              <h1 className="text-5xl font-bold mb-2 text-cyan-400">
                 Michael Simoneau
               </h1>
               <p className="text-2xl text-cyan-300 mb-1">

@@ -45,7 +45,7 @@ export const ThthHero: React.FC = () => {
           </motion.div>
 
           <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-4">
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-indigo-500">
+            <span className="text-purple-400">
               THTH
             </span>
           </h2>

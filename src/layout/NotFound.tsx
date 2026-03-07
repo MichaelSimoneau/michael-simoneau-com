@@ -45,7 +45,7 @@ export const NotFound: React.FC = () => {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.2, duration: 0.5 }}
           >
-            <span className="bg-gradient-to-r from-cyan-400 to-blue-500 text-transparent bg-clip-text">
+            <span className="text-cyan-400">
               404 Error
             </span>
           </motion.h1>

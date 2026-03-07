@@ -63,7 +63,7 @@ export const ThdHero: React.FC = () => {
           </motion.div>
 
           <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-4">
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-amber-400 to-yellow-500">
+            <span className="text-amber-400">
               The Human Dollar
             </span>
           </h2>

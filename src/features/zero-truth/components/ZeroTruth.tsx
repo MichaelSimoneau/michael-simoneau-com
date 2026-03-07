@@ -93,7 +93,7 @@ export const ZeroTruth: React.FC = () => {
           animate={{ opacity: 1, y: 0 }}
           className="mb-8 md:mb-12 text-center flex-shrink-0"
         >
-          <h1 className="text-4xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-emerald-400 mb-2 md:mb-4 tracking-tighter break-words w-full">
+          <h1 className="text-4xl md:text-7xl font-black text-cyan-400 mb-2 md:mb-4 tracking-tighter break-words w-full">
             ZEROTH THEORY
           </h1>
           <p className="text-cyan-200/60 uppercase tracking-[0.5em] text-xs md:text-sm">

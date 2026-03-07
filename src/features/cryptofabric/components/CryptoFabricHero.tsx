@@ -50,7 +50,7 @@ export const CryptoFabricHero: React.FC = () => {
           </motion.div>
 
           <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-4">
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-blue-500">
+            <span className="text-cyan-400">
               Crypto Fabric
             </span>
           </h2>

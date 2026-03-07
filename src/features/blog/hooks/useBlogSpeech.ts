@@ -1,11 +1,30 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { ContentBlock } from '../../../models/BlogPost';
 import { extractBlogText } from '../../../utils/blogTextExtractor';
-import { selectSoftFemaleVoice } from '../../../utils/voiceSelector';
+import { selectStrongMaleVoice } from '../../../utils/voiceSelector';
+import {
+  BlogSpeechProviderId,
+  BlogVoicePresetId,
+  BLOG_VOICE_PRESETS,
+  DEFAULT_BLOG_VOICE_PRESET,
+  buildBlogSpeechCacheKey,
+  createBrowserSpeechProvider,
+} from '../speech/provider';
 
-const VOICE_RATE = 0.92;
-const VOICE_PITCH = 1.15;
-const VOICE_VOLUME = 0.86;
+const hashText = (value: string): string => {
+  let hash = 5381;
+  for (let index = 0; index < value.length; index += 1) {
+    hash = (hash * 33) ^ value.charCodeAt(index);
+  }
+
+  return Math.abs(hash).toString(36);
+};
+
+interface UseBlogSpeechOptions {
+  voicePreset?: BlogVoicePresetId;
+  postId?: string;
+  provider?: BlogSpeechProviderId;
+}
 
 interface UseBlogSpeechReturn {
   isSupported: boolean;
@@ -15,13 +34,14 @@ interface UseBlogSpeechReturn {
   currentSegmentIndex: number;
   totalSegments: number;
   progress: number;
+  cacheKey: string;
   play: () => void;
   pause: () => void;
   resume: () => void;
   stop: () => void;
 }
 
-export const useBlogSpeech = (content: ContentBlock[]): UseBlogSpeechReturn => {
+export const useBlogSpeech = (content: ContentBlock[], options: UseBlogSpeechOptions = {}): UseBlogSpeechReturn => {
   const [isSupported, setIsSupported] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
@@ -30,10 +50,29 @@ export const useBlogSpeech = (content: ContentBlock[]): UseBlogSpeechReturn => {
 
   const selectedVoiceRef = useRef<SpeechSynthesisVoice | null>(null);
   const isStoppingRef = useRef(false);
+  const sessionIdRef = useRef(0);
+  const providerRef = useRef<ReturnType<typeof createBrowserSpeechProvider> | null>(null);
+  const activeSessionRef = useRef<number | null>(null);
+  const resumeWatchdogRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
+  const presetId = options.voicePreset ?? DEFAULT_BLOG_VOICE_PRESET;
+  const preset = BLOG_VOICE_PRESETS[presetId] ?? BLOG_VOICE_PRESETS[DEFAULT_BLOG_VOICE_PRESET];
   const segments = useMemo(() => extractBlogText(content), [content]);
   const totalSegments = segments.length;
-  const progress = totalSegments > 0 ? (currentSegmentIndex / totalSegments) * 100 : 0;
+  const playedSegments =
+    currentSegmentIndex >= totalSegments ? totalSegments : isPlaying ? Math.min(currentSegmentIndex + 1, totalSegments) : currentSegmentIndex;
+  const progress = totalSegments > 0 ? (playedSegments / totalSegments) * 100 : 0;
+  const contentHash = useMemo(() => hashText(segments.join('|')), [segments]);
+  const cacheKey = useMemo(
+    () =>
+      buildBlogSpeechCacheKey({
+        postId: options.postId ?? 'blog-post',
+        contentHash,
+        voicePreset: preset.id,
+        provider: options.provider ?? 'browser',
+      }),
+    [contentHash, options.postId, options.provider, preset.id]
+  );
 
   useEffect(() => {
     if (typeof window === 'undefined' || !window.speechSynthesis || !window.SpeechSynthesisUtterance) {
@@ -41,36 +80,46 @@ export const useBlogSpeech = (content: ContentBlock[]): UseBlogSpeechReturn => {
       return;
     }
 
-    const synth = window.speechSynthesis;
+    const provider = createBrowserSpeechProvider(window.speechSynthesis);
+    providerRef.current = provider;
     setIsSupported(true);
 
     const refreshVoice = () => {
-      selectedVoiceRef.current = selectSoftFemaleVoice(synth.getVoices());
+      selectedVoiceRef.current = selectStrongMaleVoice(provider.getVoices());
     };
 
     refreshVoice();
-    synth.addEventListener?.('voiceschanged', refreshVoice);
+    window.speechSynthesis.addEventListener?.('voiceschanged', refreshVoice);
 
     return () => {
-      synth.removeEventListener?.('voiceschanged', refreshVoice);
-      synth.cancel();
+      window.speechSynthesis.removeEventListener?.('voiceschanged', refreshVoice);
+      provider.cancel();
+      providerRef.current = null;
     };
   }, []);
 
   const stop = useCallback(() => {
-    if (!window.speechSynthesis) {
+    const provider = providerRef.current;
+    if (!provider) {
       return;
     }
 
+    sessionIdRef.current += 1;
     isStoppingRef.current = true;
-    window.speechSynthesis.cancel();
+    activeSessionRef.current = null;
+    if (resumeWatchdogRef.current) {
+      clearTimeout(resumeWatchdogRef.current);
+      resumeWatchdogRef.current = null;
+    }
+    provider.cancel();
     setIsPlaying(false);
     setIsPaused(false);
   }, []);
 
   const speakFromSegment = useCallback(
-    (startIndex: number) => {
-      if (!window.speechSynthesis || startIndex >= segments.length) {
+    (startIndex: number, sessionId: number) => {
+      const provider = providerRef.current;
+      if (!provider || startIndex >= segments.length) {
         setIsPlaying(false);
         setIsPaused(false);
         return;
@@ -78,25 +127,33 @@ export const useBlogSpeech = (content: ContentBlock[]): UseBlogSpeechReturn => {
 
       const utterance = new SpeechSynthesisUtterance(segments[startIndex]);
       utterance.voice = selectedVoiceRef.current;
-      utterance.rate = VOICE_RATE;
-      utterance.pitch = VOICE_PITCH;
-      utterance.volume = VOICE_VOLUME;
+      utterance.rate = preset.rate;
+      utterance.pitch = preset.pitch;
+      utterance.volume = preset.volume;
 
       utterance.onstart = () => {
+        if (sessionId !== sessionIdRef.current) {
+          return;
+        }
+
         setCurrentSegmentIndex(startIndex);
         setIsPlaying(true);
         setIsPaused(false);
       };
 
       utterance.onend = () => {
-        if (isStoppingRef.current) {
+        if (sessionId !== sessionIdRef.current) {
+          return;
+        }
+
+        if (isStoppingRef.current && sessionId === sessionIdRef.current) {
           isStoppingRef.current = false;
           return;
         }
 
         const nextIndex = startIndex + 1;
         if (nextIndex < segments.length) {
-          speakFromSegment(nextIndex);
+          speakFromSegment(nextIndex, sessionId);
           return;
         }
 
@@ -106,52 +163,96 @@ export const useBlogSpeech = (content: ContentBlock[]): UseBlogSpeechReturn => {
       };
 
       utterance.onerror = () => {
+        if (sessionId !== sessionIdRef.current) {
+          return;
+        }
+
         setError('Speech playback failed in this browser.');
         setIsPlaying(false);
         setIsPaused(false);
       };
 
-      window.speechSynthesis.speak(utterance);
+      provider.speak(utterance);
     },
-    [segments]
+    [preset.pitch, preset.rate, preset.volume, segments]
   );
 
   const play = useCallback(() => {
-    if (!isSupported || segments.length === 0 || !window.speechSynthesis) {
+    const provider = providerRef.current;
+    if (!isSupported || segments.length === 0 || !provider || !provider.isAvailable()) {
       return;
     }
 
     setError(null);
     setCurrentSegmentIndex(0);
+    sessionIdRef.current += 1;
+    const activeSession = sessionIdRef.current;
+    activeSessionRef.current = activeSession;
     isStoppingRef.current = false;
-    window.speechSynthesis.cancel();
-    speakFromSegment(0);
+    if (resumeWatchdogRef.current) {
+      clearTimeout(resumeWatchdogRef.current);
+      resumeWatchdogRef.current = null;
+    }
+    provider.cancel();
+    speakFromSegment(0, activeSession);
   }, [isSupported, segments.length, speakFromSegment]);
 
   const pause = useCallback(() => {
-    if (!window.speechSynthesis || !isPlaying) {
+    const provider = providerRef.current;
+    if (!provider || !isPlaying) {
       return;
     }
 
-    window.speechSynthesis.pause();
+    provider.pause();
+    if (resumeWatchdogRef.current) {
+      clearTimeout(resumeWatchdogRef.current);
+      resumeWatchdogRef.current = null;
+    }
     setIsPlaying(false);
     setIsPaused(true);
   }, [isPlaying]);
 
   const resume = useCallback(() => {
-    if (!window.speechSynthesis || !isPaused) {
+    const provider = providerRef.current;
+    if (!provider || !isPaused) {
       return;
     }
 
-    window.speechSynthesis.resume();
+    provider.resume();
     setIsPlaying(true);
     setIsPaused(false);
-  }, [isPaused]);
+
+    if (typeof window !== 'undefined') {
+      if (resumeWatchdogRef.current) {
+        clearTimeout(resumeWatchdogRef.current);
+      }
+
+      resumeWatchdogRef.current = setTimeout(() => {
+        const synth = window.speechSynthesis;
+        if (!synth || synth.speaking || synth.pending) {
+          return;
+        }
+
+        const activeSession = activeSessionRef.current;
+        if (activeSession !== null && currentSegmentIndex < segments.length) {
+          speakFromSegment(currentSegmentIndex, activeSession);
+        }
+      }, 350);
+    }
+  }, [currentSegmentIndex, isPaused, segments.length, speakFromSegment]);
 
   useEffect(() => {
     stop();
     setCurrentSegmentIndex(0);
   }, [segments, stop]);
+
+  useEffect(() => {
+    return () => {
+      if (resumeWatchdogRef.current) {
+        clearTimeout(resumeWatchdogRef.current);
+      }
+    };
+  }, []);
 
   return {
     isSupported,
@@ -161,6 +262,7 @@ export const useBlogSpeech = (content: ContentBlock[]): UseBlogSpeechReturn => {
     currentSegmentIndex,
     totalSegments,
     progress,
+    cacheKey,
     play,
     pause,
     resume,

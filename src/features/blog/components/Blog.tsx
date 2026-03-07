@@ -209,7 +209,7 @@ export const Blog: React.FC = () => {
             transition={{ duration: 0.7 }}
           >
             <h1 className="text-5xl md:text-6xl font-bold mb-6">
-              <span className="bg-gradient-to-r from-cyan-400 to-blue-500 text-transparent bg-clip-text">
+              <span className="text-cyan-400">
                 Strategic Insights
               </span>
             </h1>
