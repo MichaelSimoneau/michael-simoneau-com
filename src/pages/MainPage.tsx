@@ -18,6 +18,7 @@ import { ZeroHero } from '../features/zero-truth/components/ZeroHero';
 import { ZerothTheorySection } from '../features/zero-truth/components/ZerothTheorySection';
 import { CryptoFabricHero } from '../features/cryptofabric/components/CryptoFabricHero';
 import { ThdHero } from '../features/thd';
+import { blogData } from '../data/blogData';
 
 /** Initial height of the footer content area (px); black area grows from this to 100vh. */
 const FOOTER_INITIAL_HEIGHT_PX = 320;
@@ -140,6 +141,17 @@ export const MainPage: React.FC = () => {
     ],
     [],
   );
+  const latestBlog = useMemo(() => {
+    if (blogData.length === 0) {
+      return undefined;
+    }
+
+    return blogData.reduce((latest, current) => {
+      const latestTime = new Date(latest.date).getTime();
+      const currentTime = new Date(current.date).getTime();
+      return currentTime > latestTime ? current : latest;
+    });
+  }, []);
 
   // NOTE: The canonical Person structured data lives in index.html (always present for crawlers).
   // This useMemo only adds page-specific schemas (WebPage, FAQ) that the Seo component
@@ -347,7 +359,7 @@ export const MainPage: React.FC = () => {
         {/* === ACT I: THE INTRODUCTION === */}
         <div id="about" className="relative">
           <section>
-            <HeroSection />
+            <HeroSection featuredBlog={latestBlog} />
           </section>
         </div>
 

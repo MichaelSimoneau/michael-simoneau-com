@@ -2,14 +2,15 @@ import React from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { PlaylistAudioPlayer } from "../../../ui/players/PlaylistAudioPlayer";
-import { blogData } from "../../../data/blogData";
+import type { BlogData } from "../../../data/blogData";
 import { ChevronDown } from "lucide-react";
 import { cleanPlaylist } from "../../../data/playlists";
 
-export const HeroSection: React.FC = () => {
-  const zerothLawBlog = blogData.find((p) => p.id === "zeroth-law-wrong");
-  const zerothCardTitle = "The Zeroth Law of Thermodynamics is Wrong!";
-  const zerothCardBody = zerothLawBlog?.excerpt;
+interface HeroSectionProps {
+  featuredBlog?: BlogData;
+}
+
+export const HeroSection: React.FC<HeroSectionProps> = ({ featuredBlog }) => {
 
   return (
     <section
@@ -35,14 +36,14 @@ export const HeroSection: React.FC = () => {
           From Enterprise Architecture to The Human Dollar
         </p>
         <p className="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto mb-8">
-          THD is your employee. Put it to work and it pays you $655 for every $1
-          that reaches the $65,535 cap. Stagnation is a firing offense — idle
+          THD is your employee. Put it to work and it pays you back for every $1
+          spent that grows to the $65,535 cap. Stagnation is a firing offense — idle
           capital enters early retirement. This is not speculation. This is
           Metabolic Reality.
         </p>
       </motion.div>
 
-      {zerothLawBlog && (
+      {featuredBlog && (
         <motion.div
           className="w-full max-w-2xl mx-auto z-10 mb-6"
           initial={{ opacity: 0, y: 20 }}
@@ -52,13 +53,13 @@ export const HeroSection: React.FC = () => {
         >
           <div className="bg-gray-900/60 backdrop-blur-sm border border-amber-800/30 rounded-xl p-6 text-center">
             <h2 className="text-xl font-bold text-amber-400 mb-3">
-              {zerothCardTitle}
+              {featuredBlog.title}
             </h2>
             <p className="text-sm text-gray-300 leading-relaxed mb-3">
-              {zerothCardBody}
+              {featuredBlog.excerpt}
             </p>
             <Link
-              to="/blog/zeroth-law-wrong"
+              to={`/blog/${featuredBlog.id}`}
               rel="noopener noreferrer"
               target="_self"
               className="text-cyan-400 hover:text-cyan-300 text-sm font-medium transition-colors"
