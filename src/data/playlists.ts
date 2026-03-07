@@ -1,10 +1,12 @@
 import { Track } from "src/ui/players/PlaylistAudioPlayer";
 
 const cleanPodcasts: Record<string, string> = {
+  "COLLAPSED_0": "Is Your Name Melinda Francis? If Not, Move Along... Nothing To See Here.",
   "Should Michael Simoneau Fire His Psychologist?":
-    "2026-03-07/Should_Michael_Simoneau_delete_his_psychologist.mp3",
+  "2026-03-07/Should_Michael_Simoneau_delete_his_psychologist.mp3",
   "Michael Simoneau's Mathematical Proof of Sanity":
-    "2026-03-07/Michael_Simoneau_s_mathematical_proof_of_sanity.mp3",
+  "2026-03-07/Michael_Simoneau_s_mathematical_proof_of_sanity.mp3",
+  "EXPANDED_1": "Reality: The Science of Rewriting Einstein to Fix the Global Economy",
   "Rewriting Einstein to Buy Your Milk":
     "2026-03-04/Rewriting_Einstein_to_buy_your_milk.mp3",
   "Michael Simoneau and the Zeroth Theory":

@@ -1,10 +1,11 @@
-import React, { useRef, useState, useEffect, useCallback } from 'react';
+import React, { useRef, useState, useEffect, useCallback, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Play,
   Pause,
   SkipBack,
   SkipForward,
+  ChevronsRight,
   ChevronUp,
   ChevronDown,
   Volume2,
@@ -23,6 +24,22 @@ interface PlaylistAudioPlayerProps {
   tracks: Track[];
 }
 
+interface Section {
+  id: string;
+  title: string;
+  trackIndices: number[];
+  defaultCollapsed: boolean;
+}
+
+interface PlayableTrack extends Track {
+  sectionId: string;
+}
+
+const AUDIO_SOURCE_PATTERN = /\.(mp3|wav|m4a|aac|ogg|flac)(?:\?.*)?$/i;
+
+const isAudioSource = (src: string) => AUDIO_SOURCE_PATTERN.test(src);
+const isCollapsedDirective = (directive: string) => /collapsed/i.test(directive);
+
 /**
  * PlaylistAudioPlayer — a sleek, slim audio player that manages a playlist
  * of tracks with sequential playback, seek, skip, rewind, and track selection.
@@ -30,6 +47,57 @@ interface PlaylistAudioPlayerProps {
 export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks }) => {
   const audioRef = useRef<HTMLAudioElement>(null);
   const progressRef = useRef<HTMLDivElement>(null);
+  const {
+    playableTracks,
+    sections,
+    playableIndexToSectionIndex,
+    sectionDefaultCollapsed,
+  } = useMemo(() => {
+    const nextSections: Section[] = [];
+    const nextPlayableTracks: PlayableTrack[] = [];
+    const nextPlayableIndexToSectionIndex: number[] = [];
+    const nextSectionDefaultCollapsed: Record<string, boolean> = {};
+    let currentSectionIndex = -1;
+
+    const createSection = (title: string, defaultCollapsed: boolean) => {
+      const id = `section-${nextSections.length}`;
+      nextSections.push({
+        id,
+        title,
+        trackIndices: [],
+        defaultCollapsed,
+      });
+      nextSectionDefaultCollapsed[id] = defaultCollapsed;
+      currentSectionIndex = nextSections.length - 1;
+    };
+
+    tracks.forEach((track) => {
+      if (!isAudioSource(track.src)) {
+        createSection(track.src.trim() || track.title, isCollapsedDirective(track.title));
+        return;
+      }
+
+      if (currentSectionIndex === -1) {
+        createSection('Playlist', false);
+      }
+
+      const playableIndex = nextPlayableTracks.length;
+      const activeSection = nextSections[currentSectionIndex];
+      nextPlayableTracks.push({
+        ...track,
+        sectionId: activeSection.id,
+      });
+      activeSection.trackIndices.push(playableIndex);
+      nextPlayableIndexToSectionIndex.push(currentSectionIndex);
+    });
+
+    return {
+      playableTracks: nextPlayableTracks,
+      sections: nextSections,
+      playableIndexToSectionIndex: nextPlayableIndexToSectionIndex,
+      sectionDefaultCollapsed: nextSectionDefaultCollapsed,
+    };
+  }, [tracks]);
 
   const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -37,11 +105,94 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
   const [duration, setDuration] = useState(0);
   const [isExpanded, setIsExpanded] = useState(true);
   const [isSeeking, setIsSeeking] = useState(false);
+  const [collapsedSections, setCollapsedSections] = useState<Record<string, boolean>>(sectionDefaultCollapsed);
 
   // Flag to auto-play after a deliberate track change (skip/select)
   const shouldAutoPlay = useRef(false);
 
-  const currentTrack = tracks[currentTrackIndex];
+  const currentTrack = playableTracks[currentTrackIndex];
+  const currentSectionIndex = playableIndexToSectionIndex[currentTrackIndex] ?? -1;
+  const expandedTrackIndices = useMemo(() => {
+    return sections.flatMap((section) => {
+      const isCollapsed = collapsedSections[section.id] ?? section.defaultCollapsed;
+      return isCollapsed ? [] : section.trackIndices;
+    });
+  }, [sections, collapsedSections]);
+  const nextExpandedTrackIndex = useMemo(() => {
+    for (const trackIndex of expandedTrackIndices) {
+      if (trackIndex > currentTrackIndex) {
+        return trackIndex;
+      }
+    }
+    return null;
+  }, [expandedTrackIndices, currentTrackIndex]);
+  const previousExpandedTrackIndex = useMemo(() => {
+    for (let index = expandedTrackIndices.length - 1; index >= 0; index -= 1) {
+      if (expandedTrackIndices[index] < currentTrackIndex) {
+        return expandedTrackIndices[index];
+      }
+    }
+    return null;
+  }, [expandedTrackIndices, currentTrackIndex]);
+  const nextSectionStartTrackIndex = useMemo(() => {
+    if (currentSectionIndex === -1) {
+      return null;
+    }
+
+    for (let index = currentSectionIndex + 1; index < sections.length; index += 1) {
+      const section = sections[index];
+      const isCollapsed = collapsedSections[section.id] ?? section.defaultCollapsed;
+      if (!isCollapsed && section.trackIndices.length > 0) {
+        return section.trackIndices[0];
+      }
+    }
+
+    return null;
+  }, [currentSectionIndex, sections, collapsedSections]);
+
+  useEffect(() => {
+    setCollapsedSections((previous) => {
+      const next: Record<string, boolean> = {};
+      sections.forEach((section) => {
+        next[section.id] = previous[section.id] ?? sectionDefaultCollapsed[section.id] ?? section.defaultCollapsed;
+      });
+      return next;
+    });
+  }, [sections, sectionDefaultCollapsed]);
+
+  useEffect(() => {
+    if (playableTracks.length === 0) {
+      setCurrentTrackIndex(0);
+      setIsPlaying(false);
+      return;
+    }
+
+    if (expandedTrackIndices.length === 0) {
+      setCurrentTrackIndex(0);
+      setIsPlaying(false);
+      return;
+    }
+
+    setCurrentTrackIndex((previous) => {
+      const clamped = Math.min(previous, playableTracks.length - 1);
+      return expandedTrackIndices.includes(clamped) ? clamped : expandedTrackIndices[0];
+    });
+  }, [playableTracks.length, expandedTrackIndices]);
+
+  useEffect(() => {
+    if (expandedTrackIndices.length === 0) {
+      setIsPlaying(false);
+      return;
+    }
+
+    if (!expandedTrackIndices.includes(currentTrackIndex)) {
+      const nextCandidate = expandedTrackIndices.find((index) => index > currentTrackIndex);
+      const previousCandidate = [...expandedTrackIndices].reverse().find((index) => index < currentTrackIndex);
+      const fallbackIndex = nextCandidate ?? previousCandidate ?? expandedTrackIndices[0];
+      setCurrentTrackIndex(fallbackIndex);
+      shouldAutoPlay.current = false;
+    }
+  }, [expandedTrackIndices, currentTrackIndex]);
 
   // ── Audio event listeners ──────────────────────────────────────────────
   useEffect(() => {
@@ -61,9 +212,9 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
 
     const onEnded = () => {
       // Sequential playback: advance to next track or stop at end
-      if (currentTrackIndex < tracks.length - 1) {
+      if (nextExpandedTrackIndex !== null) {
         shouldAutoPlay.current = true;
-        setCurrentTrackIndex((prev) => prev + 1);
+        setCurrentTrackIndex(nextExpandedTrackIndex);
       } else {
         setIsPlaying(false);
       }
@@ -78,12 +229,22 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
       audio.removeEventListener('loadedmetadata', onLoadedMetadata);
       audio.removeEventListener('ended', onEnded);
     };
-  }, [currentTrackIndex, tracks.length, isSeeking]);
+  }, [currentTrackIndex, playableTracks.length, isSeeking, nextExpandedTrackIndex]);
 
   // ── Sync audio source when track changes ───────────────────────────────
   useEffect(() => {
     const audio = audioRef.current;
     if (!audio) return;
+
+    if (!currentTrack) {
+      audio.pause();
+      audio.removeAttribute('src');
+      audio.load();
+      setCurrentTime(0);
+      setDuration(0);
+      setIsPlaying(false);
+      return;
+    }
 
     audio.src = currentTrack.src;
     audio.load();
@@ -96,12 +257,12 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
     } else {
       setIsPlaying(false);
     }
-  }, [currentTrackIndex, currentTrack.src]);
+  }, [currentTrackIndex, currentTrack?.src]);
 
   // ── Controls ───────────────────────────────────────────────────────────
   const handlePlayPause = useCallback(() => {
     const audio = audioRef.current;
-    if (!audio) return;
+    if (!audio || !currentTrack) return;
 
     if (isPlaying) {
       audio.pause();
@@ -109,31 +270,37 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
     } else {
       audio.play().then(() => setIsPlaying(true)).catch(() => setIsPlaying(false));
     }
-  }, [isPlaying]);
+  }, [isPlaying, currentTrack]);
 
   const handleSkipForward = useCallback(() => {
-    if (currentTrackIndex < tracks.length - 1) {
+    if (nextExpandedTrackIndex !== null) {
       shouldAutoPlay.current = true;
-      setCurrentTrackIndex((prev) => prev + 1);
+      setCurrentTrackIndex(nextExpandedTrackIndex);
     }
-  }, [currentTrackIndex, tracks.length]);
+  }, [nextExpandedTrackIndex]);
+
+  const handleSkipToNextSection = useCallback(() => {
+    if (nextSectionStartTrackIndex === null) return;
+    shouldAutoPlay.current = true;
+    setCurrentTrackIndex(nextSectionStartTrackIndex);
+  }, [nextSectionStartTrackIndex]);
 
   const handleSkipBack = useCallback(() => {
     const audio = audioRef.current;
-    if (!audio) return;
+    if (!audio || !currentTrack) return;
 
     // If more than 3 seconds into current track, restart it
     if (audio.currentTime > 3) {
       audio.currentTime = 0;
       setCurrentTime(0);
-    } else if (currentTrackIndex > 0) {
+    } else if (previousExpandedTrackIndex !== null) {
       shouldAutoPlay.current = true;
-      setCurrentTrackIndex((prev) => prev - 1);
+      setCurrentTrackIndex(previousExpandedTrackIndex);
     } else {
       audio.currentTime = 0;
       setCurrentTime(0);
     }
-  }, [currentTrackIndex]);
+  }, [currentTrack, previousExpandedTrackIndex]);
 
   const handleSelectTrack = useCallback((index: number) => {
     if (index === currentTrackIndex) {
@@ -260,12 +427,23 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
             {/* Skip Forward */}
             <motion.button
               onClick={handleSkipForward}
-              className="flex-shrink-0 h-8 w-8 flex items-center justify-center rounded-full hover:bg-white/10 transition-colors"
+              className="flex-shrink-0 h-8 w-8 flex items-center justify-center rounded-full hover:bg-white/10 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
               whileTap={{ scale: 0.9 }}
               aria-label="Next track"
-              disabled={currentTrackIndex >= tracks.length - 1}
+              disabled={nextExpandedTrackIndex === null}
             >
               <SkipForward className="w-4 h-4 text-gray-300" />
+            </motion.button>
+
+            {/* Skip to next section */}
+            <motion.button
+              onClick={handleSkipToNextSection}
+              className="flex-shrink-0 h-8 w-8 flex items-center justify-center rounded-full hover:bg-white/10 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+              whileTap={{ scale: 0.9 }}
+              aria-label="Skip to next section"
+              disabled={nextSectionStartTrackIndex === null}
+            >
+              <ChevronsRight className="w-4 h-4 text-gray-300" />
             </motion.button>
 
             {/* Track title + time */}
@@ -273,7 +451,7 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
               <div className="flex items-center gap-2">
                 <Volume2 className="w-3.5 h-3.5 text-cyan-400 flex-shrink-0" />
                 <span className="text-white text-sm font-medium truncate">
-                  {currentTrack.title}
+                  {currentTrack?.title ?? 'No tracks available'}
                 </span>
               </div>
               <div className="flex items-center gap-2 mt-0.5">
@@ -345,49 +523,87 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
               className="overflow-hidden"
             >
               <div className="border-t border-white/5 px-4 py-2 max-h-56 overflow-y-auto">
-                {tracks.map((track, index) => {
-                  const isActive = index === currentTrackIndex;
-                  const isCurrentlyPlaying = isActive && isPlaying;
+                {sections.map((section) => {
+                  const isCollapsed = collapsedSections[section.id] ?? false;
+                  const hasTracks = section.trackIndices.length > 0;
 
                   return (
-                    <motion.button
-                      key={track.src}
-                      onClick={() => handleSelectTrack(index)}
-                      className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg text-left transition-colors group ${
-                        isActive
-                          ? 'bg-cyan-400/10'
-                          : 'hover:bg-white/5'
-                      }`}
-                      whileTap={{ scale: 0.98 }}
-                    >
-                      {/* Track number / playing indicator */}
-                      <span
-                        className={`flex-shrink-0 w-5 text-xs text-right tabular-nums ${
-                          isActive ? 'text-cyan-400 font-semibold' : 'text-gray-500'
-                        }`}
+                    <div key={section.id} className="py-1">
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setCollapsedSections((previous) => ({
+                            ...previous,
+                            [section.id]: !isCollapsed,
+                          }));
+                        }}
+                        className="w-full flex items-center justify-between px-3 py-2 text-xs font-semibold uppercase tracking-wide text-gray-400 hover:text-gray-200 transition-colors"
+                        aria-label={isCollapsed ? `Expand ${section.title}` : `Collapse ${section.title}`}
                       >
-                        {isCurrentlyPlaying ? (
-                          <span className="inline-flex gap-px items-end h-3">
-                            <span className="w-0.5 bg-cyan-400 rounded-full animate-pulse" style={{ height: '60%' }} />
-                            <span className="w-0.5 bg-cyan-400 rounded-full animate-pulse" style={{ height: '100%', animationDelay: '0.15s' }} />
-                            <span className="w-0.5 bg-cyan-400 rounded-full animate-pulse" style={{ height: '40%', animationDelay: '0.3s' }} />
+                        <span className="truncate">{section.title}</span>
+                        <span className="flex items-center gap-2 flex-shrink-0">
+                          <span className="text-[10px] text-gray-500 normal-case tracking-normal">
+                            {hasTracks ? `${section.trackIndices.length} tracks` : 'No tracks'}
                           </span>
-                        ) : (
-                          index + 1
-                        )}
-                      </span>
+                          {isCollapsed ? (
+                            <ChevronDown className="w-3.5 h-3.5 text-gray-500" />
+                          ) : (
+                            <ChevronUp className="w-3.5 h-3.5 text-gray-500" />
+                          )}
+                        </span>
+                      </button>
 
-                      {/* Track title */}
-                      <span
-                        className={`flex-1 text-sm truncate ${
-                          isActive
-                            ? 'text-cyan-400 font-medium'
-                            : 'text-gray-300 group-hover:text-white'
-                        }`}
-                      >
-                        {track.title}
-                      </span>
-                    </motion.button>
+                      {!isCollapsed && hasTracks && (
+                        <div className="space-y-0.5">
+                          {section.trackIndices.map((trackIndex) => {
+                            const track = playableTracks[trackIndex];
+                            const isActive = trackIndex === currentTrackIndex;
+                            const isCurrentlyPlaying = isActive && isPlaying;
+
+                            return (
+                              <motion.button
+                                key={`${section.id}-${track.src}-${trackIndex}`}
+                                onClick={() => handleSelectTrack(trackIndex)}
+                                className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg text-left transition-colors group ${
+                                  isActive
+                                    ? 'bg-cyan-400/10'
+                                    : 'hover:bg-white/5'
+                                }`}
+                                whileTap={{ scale: 0.98 }}
+                              >
+                                {/* Track number / playing indicator */}
+                                <span
+                                  className={`flex-shrink-0 w-5 text-xs text-right tabular-nums ${
+                                    isActive ? 'text-cyan-400 font-semibold' : 'text-gray-500'
+                                  }`}
+                                >
+                                  {isCurrentlyPlaying ? (
+                                    <span className="inline-flex gap-px items-end h-3">
+                                      <span className="w-0.5 bg-cyan-400 rounded-full animate-pulse" style={{ height: '60%' }} />
+                                      <span className="w-0.5 bg-cyan-400 rounded-full animate-pulse" style={{ height: '100%', animationDelay: '0.15s' }} />
+                                      <span className="w-0.5 bg-cyan-400 rounded-full animate-pulse" style={{ height: '40%', animationDelay: '0.3s' }} />
+                                    </span>
+                                  ) : (
+                                    trackIndex + 1
+                                  )}
+                                </span>
+
+                                {/* Track title */}
+                                <span
+                                  className={`flex-1 text-sm truncate ${
+                                    isActive
+                                      ? 'text-cyan-400 font-medium'
+                                      : 'text-gray-300 group-hover:text-white'
+                                  }`}
+                                >
+                                  {track.title}
+                                </span>
+                              </motion.button>
+                            );
+                          })}
+                        </div>
+                      )}
+                    </div>
                   );
                 })}
               </div>
