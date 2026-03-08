@@ -11,6 +11,7 @@ import {
   Volume2,
   Music,
 } from 'lucide-react';
+import { useMediaAnalytics } from '../../analytics/useMediaAnalytics';
 
 /**
  * Single track definition for the playlist player.
@@ -50,8 +51,12 @@ const isCollapsedDirective = (directive: string) => /collapsed/i.test(directive)
  * of tracks with sequential playback, seek, skip, rewind, and track selection.
  */
 export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks }) => {
+  const { trackMediaEvent } = useMediaAnalytics();
   const audioRef = useRef<HTMLAudioElement>(null);
   const progressRef = useRef<HTMLDivElement>(null);
+  const previousIsPlayingRef = useRef(false);
+  const startedTrackKeyRef = useRef<string | null>(null);
+  const endedTrackKeyRef = useRef<string | null>(null);
   const {
     playableTracks,
     sections,
@@ -289,6 +294,20 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
     };
 
     const onEnded = () => {
+      const finishedTrack = playableTracks[currentTrackIndex];
+      if (finishedTrack) {
+        endedTrackKeyRef.current = finishedTrack.src;
+        startedTrackKeyRef.current = null;
+        trackMediaEvent('complete', {
+          media_type: 'audio',
+          component: 'PlaylistAudioPlayer',
+          track_title: finishedTrack.title,
+          track_src: finishedTrack.src,
+          position_seconds: audio.currentTime,
+          duration_seconds: audio.duration,
+        });
+      }
+
       const targetVideoTriggerTrackIndex = isFirstCollapsedDirectiveSectionExpanded
         ? collapsedSectionSecondTrackIndex
         : collapsedSectionThirdTrackIndex;
@@ -329,10 +348,60 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
     collapsedSectionThirdTrackIndex,
     currentTrackIndex,
     isFirstCollapsedDirectiveSectionExpanded,
+    trackMediaEvent,
     playableTracks.length,
     isSeeking,
     nextExpandedTrackIndex,
   ]);
+
+  useEffect(() => {
+    const track = playableTracks[currentTrackIndex];
+    if (!track) {
+      previousIsPlayingRef.current = false;
+      return;
+    }
+
+    const wasPlaying = previousIsPlayingRef.current;
+    if (!wasPlaying && isPlaying) {
+      trackMediaEvent('play', {
+        media_type: 'audio',
+        component: 'PlaylistAudioPlayer',
+        track_title: track.title,
+        track_src: track.src,
+        position_seconds: currentTime,
+        duration_seconds: duration,
+      });
+
+      if (startedTrackKeyRef.current !== track.src) {
+        startedTrackKeyRef.current = track.src;
+        trackMediaEvent('start', {
+          media_type: 'audio',
+          component: 'PlaylistAudioPlayer',
+          track_title: track.title,
+          track_src: track.src,
+          position_seconds: currentTime,
+          duration_seconds: duration,
+        });
+      }
+    }
+
+    if (wasPlaying && !isPlaying) {
+      if (endedTrackKeyRef.current === track.src) {
+        endedTrackKeyRef.current = null;
+      } else {
+        trackMediaEvent('pause', {
+          media_type: 'audio',
+          component: 'PlaylistAudioPlayer',
+          track_title: track.title,
+          track_src: track.src,
+          position_seconds: currentTime,
+          duration_seconds: duration,
+        });
+      }
+    }
+
+    previousIsPlayingRef.current = isPlaying;
+  }, [currentTrackIndex, currentTime, duration, isPlaying, playableTracks, trackMediaEvent]);
 
   // ── Sync audio source when track changes ───────────────────────────────
   useEffect(() => {

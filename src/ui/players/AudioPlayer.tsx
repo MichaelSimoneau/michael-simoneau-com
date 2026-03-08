@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { Play, Pause, Volume2 } from 'lucide-react';
+import { useMediaAnalytics } from '../../analytics/useMediaAnalytics';
 
 interface AudioPlayerProps {
   src: string;
@@ -8,8 +9,12 @@ interface AudioPlayerProps {
 }
 
 export const AudioPlayer: React.FC<AudioPlayerProps> = ({ src, title = 'Zeroth Vision' }) => {
+  const { trackMediaEvent } = useMediaAnalytics();
   const audioRef = useRef<HTMLAudioElement>(null);
   const progressRef = useRef<HTMLDivElement>(null);
+  const previousIsPlayingRef = useRef(false);
+  const startedSourceRef = useRef<string | null>(null);
+  const endedSourceRef = useRef<string | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [duration, setDuration] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
@@ -27,7 +32,19 @@ export const AudioPlayer: React.FC<AudioPlayerProps> = ({ src, title = 'Zeroth V
     const updateDuration = () => {
       setDuration(audio.duration);
     };
-    const handleEnded = () => setIsPlaying(false);
+    const handleEnded = () => {
+      endedSourceRef.current = src;
+      startedSourceRef.current = null;
+      trackMediaEvent('complete', {
+        media_type: 'audio',
+        component: 'AudioPlayer',
+        track_title: title,
+        track_src: src,
+        position_seconds: audio.currentTime,
+        duration_seconds: audio.duration,
+      });
+      setIsPlaying(false);
+    };
 
     audio.addEventListener('timeupdate', updateTime);
     audio.addEventListener('loadedmetadata', updateDuration);
@@ -38,7 +55,56 @@ export const AudioPlayer: React.FC<AudioPlayerProps> = ({ src, title = 'Zeroth V
       audio.removeEventListener('loadedmetadata', updateDuration);
       audio.removeEventListener('ended', handleEnded);
     };
-  }, [isSeeking]);
+  }, [isSeeking, src, title, trackMediaEvent]);
+
+  useEffect(() => {
+    const wasPlaying = previousIsPlayingRef.current;
+
+    if (!wasPlaying && isPlaying) {
+      trackMediaEvent('play', {
+        media_type: 'audio',
+        component: 'AudioPlayer',
+        track_title: title,
+        track_src: src,
+        position_seconds: currentTime,
+        duration_seconds: duration,
+      });
+      if (startedSourceRef.current !== src) {
+        startedSourceRef.current = src;
+        trackMediaEvent('start', {
+          media_type: 'audio',
+          component: 'AudioPlayer',
+          track_title: title,
+          track_src: src,
+          position_seconds: currentTime,
+          duration_seconds: duration,
+        });
+      }
+    }
+
+    if (wasPlaying && !isPlaying) {
+      if (endedSourceRef.current === src) {
+        endedSourceRef.current = null;
+      } else {
+        trackMediaEvent('pause', {
+          media_type: 'audio',
+          component: 'AudioPlayer',
+          track_title: title,
+          track_src: src,
+          position_seconds: currentTime,
+          duration_seconds: duration,
+        });
+      }
+    }
+
+    previousIsPlayingRef.current = isPlaying;
+  }, [currentTime, duration, isPlaying, src, title, trackMediaEvent]);
+
+  useEffect(() => {
+    startedSourceRef.current = null;
+    endedSourceRef.current = null;
+    previousIsPlayingRef.current = false;
+  }, [src]);
 
   const handlePlayPause = () => {
     const audio = audioRef.current;

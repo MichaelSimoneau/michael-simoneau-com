@@ -2,8 +2,10 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Play, Pause, SkipBack, SkipForward } from 'lucide-react';
 import { useSpeech } from '../../contexts/SpeechContext';
+import { useMediaAnalytics } from '../../analytics/useMediaAnalytics';
 
 export const UniversalPlayer: React.FC = () => {
+  const { trackMediaEvent } = useMediaAnalytics();
   const { 
     isPlaying, 
     play,
@@ -19,15 +21,29 @@ export const UniversalPlayer: React.FC = () => {
     return null;
   }
 
+  const currentIndex = currentPhrase ? parseInt(currentPhrase) : 0;
+
   const handlePlayPause = () => {
     if (isPlaying) {
+      trackMediaEvent('pause', {
+        media_type: 'speech',
+        component: 'UniversalPlayer',
+        track_title: currentPhrase ?? 'speech-sequence',
+        position_seconds: currentIndex,
+        duration_seconds: totalPhrases,
+      });
       pause();
     } else {
+      trackMediaEvent('play', {
+        media_type: 'speech',
+        component: 'UniversalPlayer',
+        track_title: currentPhrase ?? 'speech-sequence',
+        position_seconds: currentIndex,
+        duration_seconds: totalPhrases,
+      });
       play();
     }
   };
-
-  const currentIndex = currentPhrase ? parseInt(currentPhrase) : 0;
 
   return (
     <div>

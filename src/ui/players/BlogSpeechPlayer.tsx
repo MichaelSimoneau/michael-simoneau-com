@@ -1,8 +1,9 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Play, Pause, Volume2 } from 'lucide-react';
 import { ContentBlock } from '../../models/BlogPost';
 import { useBlogSpeech } from '../../features/blog/hooks/useBlogSpeech';
+import { useMediaAnalytics } from '../../analytics/useMediaAnalytics';
 import {
   BLOG_VOICE_PRESETS,
   BlogVoicePresetId,
@@ -20,6 +21,10 @@ export const BlogSpeechPlayer: React.FC<BlogSpeechPlayerProps> = ({
   content,
   title = 'Listen to Article',
 }) => {
+  const { trackMediaEvent } = useMediaAnalytics();
+  const previousIsPlayingRef = useRef(false);
+  const hasStartedCycleRef = useRef(false);
+  const hasCompletedCycleRef = useRef(false);
   const [voicePreset, setVoicePreset] = useState<BlogVoicePresetId>(DEFAULT_BLOG_VOICE_PRESET);
 
   useEffect(() => {
@@ -89,6 +94,73 @@ export const BlogSpeechPlayer: React.FC<BlogSpeechPlayerProps> = ({
       : `${Math.min(currentSegmentIndex + 1, totalSegments)}/${totalSegments}`;
 
   const statusLabel = error ? 'Playback unavailable' : isPlaying ? 'Playing' : isPaused ? 'Paused' : 'Ready';
+
+  useEffect(() => {
+    const wasPlaying = previousIsPlayingRef.current;
+
+    if (!wasPlaying && isPlaying) {
+      trackMediaEvent('play', {
+        media_type: 'speech',
+        component: 'BlogSpeechPlayer',
+        track_title: title,
+        track_src: normalizedPostId || 'blog-post',
+        position_seconds: currentSegmentIndex,
+        duration_seconds: totalSegments,
+      });
+
+      if (!hasStartedCycleRef.current && currentSegmentIndex === 0) {
+        hasStartedCycleRef.current = true;
+        hasCompletedCycleRef.current = false;
+        trackMediaEvent('start', {
+          media_type: 'speech',
+          component: 'BlogSpeechPlayer',
+          track_title: title,
+          track_src: normalizedPostId || 'blog-post',
+          position_seconds: currentSegmentIndex,
+          duration_seconds: totalSegments,
+        });
+      }
+    }
+
+    if (wasPlaying && !isPlaying && isPaused) {
+      trackMediaEvent('pause', {
+        media_type: 'speech',
+        component: 'BlogSpeechPlayer',
+        track_title: title,
+        track_src: normalizedPostId || 'blog-post',
+        position_seconds: currentSegmentIndex,
+        duration_seconds: totalSegments,
+      });
+    }
+
+    previousIsPlayingRef.current = isPlaying;
+  }, [
+    currentSegmentIndex,
+    isPaused,
+    isPlaying,
+    normalizedPostId,
+    title,
+    totalSegments,
+    trackMediaEvent,
+  ]);
+
+  useEffect(() => {
+    if (totalSegments === 0) {
+      return;
+    }
+    if (currentSegmentIndex >= totalSegments && !hasCompletedCycleRef.current) {
+      hasCompletedCycleRef.current = true;
+      hasStartedCycleRef.current = false;
+      trackMediaEvent('complete', {
+        media_type: 'speech',
+        component: 'BlogSpeechPlayer',
+        track_title: title,
+        track_src: normalizedPostId || 'blog-post',
+        position_seconds: totalSegments,
+        duration_seconds: totalSegments,
+      });
+    }
+  }, [currentSegmentIndex, normalizedPostId, title, totalSegments, trackMediaEvent]);
 
   return (
     <div className="w-full max-w-2xl mx-auto my-8">

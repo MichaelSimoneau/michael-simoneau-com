@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Play } from 'lucide-react';
+import { useMediaAnalytics } from '../../../analytics/useMediaAnalytics';
 
 interface YouTubePlayer {
   loadVideoById?: (videoId: string) => void;
@@ -22,6 +23,7 @@ interface YouTubePlayerState {
   PLAYING: number;
   BUFFERING: number;
   CUED: number;
+  PAUSED: number;
 }
 
 interface YouTubePlayerEvent {
@@ -71,6 +73,7 @@ type PlaybackPhase = 'prepended' | 'primary' | 'second' | 'playlist';
  * iframe with autoplay, controls, and captions.
  */
 export const VideoHeroSection: React.FC = () => {
+  const { trackMediaEvent } = useMediaAnalytics();
   const [isWatching, setIsWatching] = useState(false);
   const [isYouTubeApiReady, setIsYouTubeApiReady] = useState(false);
   const [isPlayerReady, setIsPlayerReady] = useState(false);
@@ -84,9 +87,24 @@ export const VideoHeroSection: React.FC = () => {
   const preEndPollIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const pendingAutoPlayRequestRef = useRef(false);
   const prependModeEnabledRef = useRef(false);
+  const previousPlayerStateRef = useRef<number | null>(null);
+  const startedPlaybackKeyRef = useRef<string | null>(null);
   const awaitingPostHandoffPlaybackRef = useRef(false);
   const hasPreEndTriggeredForPhaseRef = useRef(false);
   const playbackPhaseRef = useRef<PlaybackPhase>('primary');
+
+  const getCurrentVideoContext = useCallback(() => {
+    if (playbackPhaseRef.current === 'prepended') {
+      return { phase: 'prepended', videoId: PREPENDED_VIDEO_ID };
+    }
+    if (playbackPhaseRef.current === 'primary') {
+      return { phase: 'primary', videoId: STANDARD_VIDEO_ID };
+    }
+    if (playbackPhaseRef.current === 'second') {
+      return { phase: 'second', videoId: SECOND_VIDEO_ID };
+    }
+    return { phase: 'playlist', videoId: HANDOFF_PLAYLIST_ID };
+  }, []);
 
   const resetDelayOverlay = useCallback(() => {
     setIsDelayOverlayVisible(false);
@@ -189,6 +207,7 @@ export const VideoHeroSection: React.FC = () => {
   }, []);
 
   const startInitialAutoplaySequence = useCallback(() => {
+    startedPlaybackKeyRef.current = null;
     if (prependModeEnabledRef.current) {
       return startPrependedVideo();
     }
@@ -273,6 +292,49 @@ export const VideoHeroSection: React.FC = () => {
     const yt = ytWindow.YT;
     if (!yt) return;
 
+    const context = getCurrentVideoContext();
+    const previousState = previousPlayerStateRef.current;
+
+    if (event.data === yt.PlayerState.PLAYING && previousState !== yt.PlayerState.PLAYING) {
+      const positionSeconds = playerRef.current?.getCurrentTime?.();
+      const durationSeconds = playerRef.current?.getDuration?.();
+      trackMediaEvent('play', {
+        media_type: 'video',
+        component: 'VideoHeroSection',
+        phase: context.phase,
+        video_id: context.videoId,
+        position_seconds: positionSeconds,
+        duration_seconds: durationSeconds,
+      });
+
+      const startKey = `${context.phase}:${context.videoId}`;
+      if (startedPlaybackKeyRef.current !== startKey) {
+        startedPlaybackKeyRef.current = startKey;
+        trackMediaEvent('start', {
+          media_type: 'video',
+          component: 'VideoHeroSection',
+          phase: context.phase,
+          video_id: context.videoId,
+          position_seconds: positionSeconds,
+          duration_seconds: durationSeconds,
+        });
+      }
+    }
+
+    if (
+      event.data === yt.PlayerState.PAUSED &&
+      previousState === yt.PlayerState.PLAYING
+    ) {
+      trackMediaEvent('pause', {
+        media_type: 'video',
+        component: 'VideoHeroSection',
+        phase: context.phase,
+        video_id: context.videoId,
+        position_seconds: playerRef.current?.getCurrentTime?.(),
+        duration_seconds: playerRef.current?.getDuration?.(),
+      });
+    }
+
     if (
       awaitingPostHandoffPlaybackRef.current &&
       (event.data === yt.PlayerState.PLAYING || event.data === yt.PlayerState.BUFFERING)
@@ -280,21 +342,33 @@ export const VideoHeroSection: React.FC = () => {
       awaitingPostHandoffPlaybackRef.current = false;
       hasPreEndTriggeredForPhaseRef.current = false;
       resetDelayOverlay();
+      previousPlayerStateRef.current = event.data;
       return;
     }
 
     if (event.data === yt.PlayerState.ENDED) {
+      trackMediaEvent('complete', {
+        media_type: 'video',
+        component: 'VideoHeroSection',
+        phase: context.phase,
+        video_id: context.videoId,
+        position_seconds: playerRef.current?.getCurrentTime?.(),
+        duration_seconds: playerRef.current?.getDuration?.(),
+      });
       // Fallback in case pre-end polling missed the timing window.
       if (handoffTimeoutRef.current !== null || awaitingPostHandoffPlaybackRef.current) {
+        previousPlayerStateRef.current = event.data;
         return;
       }
       if (playbackPhaseRef.current !== 'playlist') {
         scheduleHandoff(runNextPlaybackStep);
       }
+      previousPlayerStateRef.current = event.data;
       return;
     }
 
     if (handoffTimeoutRef.current === null) {
+      previousPlayerStateRef.current = event.data;
       return;
     }
 
@@ -307,7 +381,8 @@ export const VideoHeroSection: React.FC = () => {
     if (interactionStateCodes.includes(event.data)) {
       clearHandoffTimeout();
     }
-  }, [clearHandoffTimeout, resetDelayOverlay, runNextPlaybackStep, scheduleHandoff]);
+    previousPlayerStateRef.current = event.data;
+  }, [clearHandoffTimeout, getCurrentVideoContext, resetDelayOverlay, runNextPlaybackStep, scheduleHandoff, trackMediaEvent]);
 
   useEffect(() => {
     if (!isWatching || !isPlayerReady) {
@@ -479,6 +554,8 @@ export const VideoHeroSection: React.FC = () => {
       setIsPlayerReady(false);
       playbackPhaseRef.current = 'primary';
       hasPreEndTriggeredForPhaseRef.current = false;
+      previousPlayerStateRef.current = null;
+      startedPlaybackKeyRef.current = null;
     };
   }, [clearHandoffTimeout]);
 
