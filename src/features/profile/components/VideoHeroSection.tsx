@@ -53,6 +53,7 @@ interface YouTubeWindow extends Window {
 }
 
 const PRIMARY_VIDEO_ID = '_Y1GTUrtWjE';
+const PREPENDED_VIDEO_ID = '_KKJTVyxb_A';
 const SECOND_VIDEO_ID = '6BTyy4kTywo';
 const HANDOFF_PLAYLIST_ID = 'PLgqAhNtHkRy8PiSUfWBu1Z4KhPuwuEVwj';
 const HANDOFF_PLAYLIST_START_VIDEO_ID = 'BHpN6T8U7NI';
@@ -61,7 +62,8 @@ const HANDOFF_DELAY_MS = 5000;
 const PREEND_TRIGGER_SECONDS = 1;
 const PREEND_POLL_INTERVAL_MS = 200;
 const VIDEO_HERO_AUTOPLAY_EVENT = 'videohero:autoplay-request';
-type PlaybackPhase = 'primary' | 'second' | 'playlist';
+const VIDEO_HERO_PREPEND_MODE_EVENT = 'videohero:prepend-mode';
+type PlaybackPhase = 'prepended' | 'primary' | 'second' | 'playlist';
 
 /**
  * Full-screen hero section featuring the Zeroth Theory YouTube video.
@@ -80,6 +82,7 @@ export const VideoHeroSection: React.FC = () => {
   const handoffCountdownIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const preEndPollIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const pendingAutoPlayRequestRef = useRef(false);
+  const prependModeEnabledRef = useRef(false);
   const awaitingPostHandoffPlaybackRef = useRef(false);
   const hasPreEndTriggeredForPhaseRef = useRef(false);
   const playbackPhaseRef = useRef<PlaybackPhase>('primary');
@@ -132,6 +135,35 @@ export const VideoHeroSection: React.FC = () => {
     return false;
   }, []);
 
+  const startPrependedVideo = useCallback(() => {
+    const player = playerRef.current;
+    if (!player) return false;
+    playbackPhaseRef.current = 'prepended';
+
+    if (typeof player.loadVideoById === 'function') {
+      player.loadVideoById(PREPENDED_VIDEO_ID);
+      hasPreEndTriggeredForPhaseRef.current = false;
+      return true;
+    }
+
+    if (typeof player.cueVideoById === 'function') {
+      player.cueVideoById(PREPENDED_VIDEO_ID);
+      if (typeof player.playVideo === 'function') {
+        player.playVideo();
+      }
+      hasPreEndTriggeredForPhaseRef.current = false;
+      return true;
+    }
+
+    if (typeof player.playVideo === 'function') {
+      player.playVideo();
+      hasPreEndTriggeredForPhaseRef.current = false;
+      return true;
+    }
+
+    return false;
+  }, []);
+
   const startSecondVideo = useCallback(() => {
     const player = playerRef.current;
     if (!player) return false;
@@ -154,6 +186,13 @@ export const VideoHeroSection: React.FC = () => {
 
     return false;
   }, []);
+
+  const startInitialAutoplaySequence = useCallback(() => {
+    if (prependModeEnabledRef.current) {
+      return startPrependedVideo();
+    }
+    return startPrimaryVideo();
+  }, [startPrependedVideo, startPrimaryVideo]);
 
   const startPlaylistFromThirdItem = useCallback(() => {
     const player = playerRef.current;
@@ -188,6 +227,19 @@ export const VideoHeroSection: React.FC = () => {
 
     return false;
   }, []);
+
+  const runNextPlaybackStep = useCallback(() => {
+    if (playbackPhaseRef.current === 'prepended') {
+      return startPrimaryVideo();
+    }
+    if (playbackPhaseRef.current === 'primary') {
+      return startSecondVideo();
+    }
+    if (playbackPhaseRef.current === 'second') {
+      return startPlaylistFromThirdItem();
+    }
+    return false;
+  }, [startPrimaryVideo, startSecondVideo, startPlaylistFromThirdItem]);
 
   const scheduleHandoff = useCallback((nextStep: () => boolean) => {
     clearHandoffTimeout();
@@ -235,10 +287,8 @@ export const VideoHeroSection: React.FC = () => {
       if (handoffTimeoutRef.current !== null || awaitingPostHandoffPlaybackRef.current) {
         return;
       }
-      if (playbackPhaseRef.current === 'primary') {
-        scheduleHandoff(startSecondVideo);
-      } else if (playbackPhaseRef.current === 'second') {
-        scheduleHandoff(startPlaylistFromThirdItem);
+      if (playbackPhaseRef.current !== 'playlist') {
+        scheduleHandoff(runNextPlaybackStep);
       }
       return;
     }
@@ -256,7 +306,7 @@ export const VideoHeroSection: React.FC = () => {
     if (interactionStateCodes.includes(event.data)) {
       clearHandoffTimeout();
     }
-  }, [clearHandoffTimeout, resetDelayOverlay, scheduleHandoff, startSecondVideo, startPlaylistFromThirdItem]);
+  }, [clearHandoffTimeout, resetDelayOverlay, runNextPlaybackStep, scheduleHandoff]);
 
   useEffect(() => {
     if (!isWatching || !isPlayerReady) {
@@ -288,11 +338,7 @@ export const VideoHeroSection: React.FC = () => {
       const remainingSeconds = duration - currentTime;
       if (remainingSeconds <= PREEND_TRIGGER_SECONDS) {
         hasPreEndTriggeredForPhaseRef.current = true;
-        if (playbackPhaseRef.current === 'primary') {
-          scheduleHandoff(startSecondVideo);
-        } else if (playbackPhaseRef.current === 'second') {
-          scheduleHandoff(startPlaylistFromThirdItem);
-        }
+        scheduleHandoff(runNextPlaybackStep);
       }
     };
 
@@ -303,7 +349,7 @@ export const VideoHeroSection: React.FC = () => {
         preEndPollIntervalRef.current = null;
       }
     };
-  }, [isWatching, isPlayerReady, scheduleHandoff, startSecondVideo, startPlaylistFromThirdItem]);
+  }, [isWatching, isPlayerReady, runNextPlaybackStep, scheduleHandoff]);
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
@@ -376,10 +422,10 @@ export const VideoHeroSection: React.FC = () => {
     }
 
     clearHandoffTimeout();
-    if (startPrimaryVideo()) {
+    if (startInitialAutoplaySequence()) {
       pendingAutoPlayRequestRef.current = false;
     }
-  }, [isWatching, isPlayerReady, clearHandoffTimeout, startPrimaryVideo]);
+  }, [isWatching, isPlayerReady, clearHandoffTimeout, startInitialAutoplaySequence]);
 
   useEffect(() => {
     const handleAutoplayRequest = () => {
@@ -390,14 +436,26 @@ export const VideoHeroSection: React.FC = () => {
         return;
       }
 
-      startPrimaryVideo();
+      startInitialAutoplaySequence();
     };
 
     window.addEventListener(VIDEO_HERO_AUTOPLAY_EVENT, handleAutoplayRequest);
     return () => {
       window.removeEventListener(VIDEO_HERO_AUTOPLAY_EVENT, handleAutoplayRequest);
     };
-  }, [clearHandoffTimeout, isWatching, isPlayerReady, startPrimaryVideo]);
+  }, [clearHandoffTimeout, isWatching, isPlayerReady, startInitialAutoplaySequence]);
+
+  useEffect(() => {
+    const handlePrependMode = (event: Event) => {
+      const customEvent = event as CustomEvent<{ enabled?: boolean }>;
+      prependModeEnabledRef.current = Boolean(customEvent.detail?.enabled);
+    };
+
+    window.addEventListener(VIDEO_HERO_PREPEND_MODE_EVENT, handlePrependMode);
+    return () => {
+      window.removeEventListener(VIDEO_HERO_PREPEND_MODE_EVENT, handlePrependMode);
+    };
+  }, []);
 
   useEffect(() => {
     return () => {

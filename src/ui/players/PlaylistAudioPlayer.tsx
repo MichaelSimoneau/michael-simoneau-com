@@ -38,6 +38,7 @@ interface PlayableTrack extends Track {
 
 const AUDIO_SOURCE_PATTERN = /\.(mp3|wav|m4a|aac|ogg|flac)(?:\?.*)?$/i;
 const VIDEO_HERO_AUTOPLAY_EVENT = 'videohero:autoplay-request';
+const VIDEO_HERO_PREPEND_MODE_EVENT = 'videohero:prepend-mode';
 const MAIN_SCROLL_CONTAINER_ID = 'new-main-page-scroll-container';
 const VIDEO_HERO_SECTION_ID = 'double-dragon';
 
@@ -161,6 +162,10 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
     }
     return firstCollapsedSection.trackIndices[2] ?? null;
   }, [sections]);
+  const firstCollapsedDirectiveSectionId = useMemo(() => {
+    const firstCollapsedSection = sections.find((section) => isCollapsedDirective(section.directive));
+    return firstCollapsedSection?.id ?? null;
+  }, [sections]);
 
   const centerScrollToVideoHero = useCallback(async () => {
     const scrollContainer = document.getElementById(MAIN_SCROLL_CONTAINER_ID);
@@ -207,6 +212,18 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
       return next;
     });
   }, [sections, sectionDefaultCollapsed]);
+
+  useEffect(() => {
+    if (typeof window === 'undefined' || !firstCollapsedDirectiveSectionId) {
+      return;
+    }
+    const isCollapsed = collapsedSections[firstCollapsedDirectiveSectionId] ?? true;
+    window.dispatchEvent(
+      new CustomEvent(VIDEO_HERO_PREPEND_MODE_EVENT, {
+        detail: { enabled: !isCollapsed },
+      }),
+    );
+  }, [collapsedSections, firstCollapsedDirectiveSectionId]);
 
   useEffect(() => {
     if (playableTracks.length === 0) {
