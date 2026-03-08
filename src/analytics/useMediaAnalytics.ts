@@ -35,14 +35,26 @@ export const useMediaAnalytics = () => {
     };
     const eventType = `media.${action}`;
 
-    analytics.track({
-      type: eventType,
-      payload: eventPayload,
-      timestamp: Date.now(),
-    });
+    try {
+      analytics.track({
+        type: eventType,
+        payload: eventPayload,
+        timestamp: Date.now(),
+      });
+    } catch (error) {
+      if (typeof console !== 'undefined') {
+        console.warn('[media-analytics] foundation sink failed', error);
+      }
+    }
 
     if (typeof window !== 'undefined' && typeof window.gtag === 'function') {
-      window.gtag('event', eventType, eventPayload);
+      try {
+        window.gtag('event', eventType, eventPayload);
+      } catch (error) {
+        if (typeof console !== 'undefined') {
+          console.warn('[media-analytics] gtag sink failed', error);
+        }
+      }
     }
   }, [analytics]);
 

@@ -46,7 +46,7 @@ export const defaultFoundationConfig: Foundation = {
   runtime: resolveDefaultRuntime(),
   analytics: {
     track: event => {
-      if (__DEV__) {
+      if (typeof __DEV__ !== 'undefined' && __DEV__) {
         console.debug('[foundation]', event);
       }
     },

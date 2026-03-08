@@ -141,7 +141,7 @@ export const foundationConfig: DeepPartial<Foundation> = {
   },
   analytics: {
     track: (event: FoundationEvent) => {
-      if (__DEV__) {
+      if (typeof __DEV__ !== 'undefined' && __DEV__) {
         console.debug('[React Foundation]', event);
       }
     },
