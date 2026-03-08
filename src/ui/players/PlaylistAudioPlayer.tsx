@@ -155,6 +155,13 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
 
     return null;
   }, [currentSectionIndex, sections, collapsedSections]);
+  const collapsedSectionSecondTrackIndex = useMemo(() => {
+    const firstCollapsedSection = sections.find((section) => isCollapsedDirective(section.directive));
+    if (!firstCollapsedSection) {
+      return null;
+    }
+    return firstCollapsedSection.trackIndices[1] ?? null;
+  }, [sections]);
   const collapsedSectionThirdTrackIndex = useMemo(() => {
     const firstCollapsedSection = sections.find((section) => isCollapsedDirective(section.directive));
     if (!firstCollapsedSection) {
@@ -166,6 +173,12 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
     const firstCollapsedSection = sections.find((section) => isCollapsedDirective(section.directive));
     return firstCollapsedSection?.id ?? null;
   }, [sections]);
+  const isFirstCollapsedDirectiveSectionExpanded = useMemo(() => {
+    if (!firstCollapsedDirectiveSectionId) {
+      return false;
+    }
+    return !(collapsedSections[firstCollapsedDirectiveSectionId] ?? true);
+  }, [collapsedSections, firstCollapsedDirectiveSectionId]);
 
   const centerScrollToVideoHero = useCallback(async () => {
     const scrollContainer = document.getElementById(MAIN_SCROLL_CONTAINER_ID);
@@ -276,7 +289,11 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
     };
 
     const onEnded = () => {
-      if (currentTrackIndex === collapsedSectionThirdTrackIndex) {
+      const targetVideoTriggerTrackIndex = isFirstCollapsedDirectiveSectionExpanded
+        ? collapsedSectionSecondTrackIndex
+        : collapsedSectionThirdTrackIndex;
+
+      if (targetVideoTriggerTrackIndex !== null && currentTrackIndex === targetVideoTriggerTrackIndex) {
         setIsPlaying(false);
         centerScrollToVideoHero()
           .then(() => {
@@ -308,8 +325,10 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
     };
   }, [
     centerScrollToVideoHero,
+    collapsedSectionSecondTrackIndex,
     collapsedSectionThirdTrackIndex,
     currentTrackIndex,
+    isFirstCollapsedDirectiveSectionExpanded,
     playableTracks.length,
     isSeeking,
     nextExpandedTrackIndex,
