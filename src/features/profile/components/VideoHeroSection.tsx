@@ -51,9 +51,9 @@ interface YouTubeWindow extends Window {
 }
 
 const PRIMARY_VIDEO_ID = '_Y1GTUrtWjE';
-const SECOND_VIDEO_ID = 'H1ifcHKn6Kk';
+const SECOND_VIDEO_ID = '6BTyy4kTywo';
 const HANDOFF_PLAYLIST_ID = 'PLgqAhNtHkRy8PiSUfWBu1Z4KhPuwuEVwj';
-const HANDOFF_PLAYLIST_START_VIDEO_ID = 'dAcCsvKtKbs';
+const HANDOFF_PLAYLIST_START_VIDEO_ID = 'BHpN6T8U7NI';
 const HANDOFF_PLAYLIST_START_INDEX = 2;
 const HANDOFF_DELAY_MS = 5000;
 const VIDEO_HERO_AUTOPLAY_EVENT = 'videohero:autoplay-request';
