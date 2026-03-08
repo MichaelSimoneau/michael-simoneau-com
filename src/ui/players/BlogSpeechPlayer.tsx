@@ -58,10 +58,6 @@ export const BlogSpeechPlayer: React.FC<BlogSpeechPlayerProps> = ({
     provider: 'browser',
   });
 
-  if (!isSupported || totalSegments === 0) {
-    return null;
-  }
-
   const handlePlayPause = () => {
     if (isPlaying) {
       pause();
@@ -161,6 +157,10 @@ export const BlogSpeechPlayer: React.FC<BlogSpeechPlayerProps> = ({
       });
     }
   }, [currentSegmentIndex, normalizedPostId, title, totalSegments, trackMediaEvent]);
+
+  if (!isSupported || totalSegments === 0) {
+    return null;
+  }
 
   return (
     <div className="w-full max-w-2xl mx-auto my-8">
