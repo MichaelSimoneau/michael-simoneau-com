@@ -12,6 +12,8 @@ interface YouTubePlayer {
     startSeconds?: number;
   }) => void;
   playVideo?: () => void;
+  getCurrentTime?: () => number;
+  getDuration?: () => number;
   destroy: () => void;
 }
 
@@ -56,6 +58,8 @@ const HANDOFF_PLAYLIST_ID = 'PLgqAhNtHkRy8PiSUfWBu1Z4KhPuwuEVwj';
 const HANDOFF_PLAYLIST_START_VIDEO_ID = 'BHpN6T8U7NI';
 const HANDOFF_PLAYLIST_START_INDEX = 2;
 const HANDOFF_DELAY_MS = 5000;
+const PREEND_TRIGGER_SECONDS = 1;
+const PREEND_POLL_INTERVAL_MS = 200;
 const VIDEO_HERO_AUTOPLAY_EVENT = 'videohero:autoplay-request';
 type PlaybackPhase = 'primary' | 'second' | 'playlist';
 
@@ -68,18 +72,36 @@ export const VideoHeroSection: React.FC = () => {
   const [isWatching, setIsWatching] = useState(false);
   const [isYouTubeApiReady, setIsYouTubeApiReady] = useState(false);
   const [isPlayerReady, setIsPlayerReady] = useState(false);
+  const [isDelayOverlayVisible, setIsDelayOverlayVisible] = useState(false);
+  const [countdownValue, setCountdownValue] = useState<number | null>(null);
   const playerElementRef = useRef<HTMLDivElement | null>(null);
   const playerRef = useRef<YouTubePlayer | null>(null);
   const handoffTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const handoffCountdownIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const preEndPollIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const pendingAutoPlayRequestRef = useRef(false);
+  const awaitingPostHandoffPlaybackRef = useRef(false);
+  const hasPreEndTriggeredForPhaseRef = useRef(false);
   const playbackPhaseRef = useRef<PlaybackPhase>('primary');
+
+  const resetDelayOverlay = useCallback(() => {
+    setIsDelayOverlayVisible(false);
+    setCountdownValue(null);
+  }, []);
 
   const clearHandoffTimeout = useCallback(() => {
     if (handoffTimeoutRef.current !== null) {
       clearTimeout(handoffTimeoutRef.current);
       handoffTimeoutRef.current = null;
     }
-  }, []);
+    if (handoffCountdownIntervalRef.current !== null) {
+      clearInterval(handoffCountdownIntervalRef.current);
+      handoffCountdownIntervalRef.current = null;
+    }
+    awaitingPostHandoffPlaybackRef.current = false;
+    hasPreEndTriggeredForPhaseRef.current = false;
+    resetDelayOverlay();
+  }, [resetDelayOverlay]);
 
   const startPrimaryVideo = useCallback(() => {
     const player = playerRef.current;
@@ -88,6 +110,7 @@ export const VideoHeroSection: React.FC = () => {
 
     if (typeof player.loadVideoById === 'function') {
       player.loadVideoById(PRIMARY_VIDEO_ID);
+      hasPreEndTriggeredForPhaseRef.current = false;
       return true;
     }
 
@@ -96,11 +119,13 @@ export const VideoHeroSection: React.FC = () => {
       if (typeof player.playVideo === 'function') {
         player.playVideo();
       }
+      hasPreEndTriggeredForPhaseRef.current = false;
       return true;
     }
 
     if (typeof player.playVideo === 'function') {
       player.playVideo();
+      hasPreEndTriggeredForPhaseRef.current = false;
       return true;
     }
 
@@ -114,6 +139,7 @@ export const VideoHeroSection: React.FC = () => {
 
     if (typeof player.loadVideoById === 'function') {
       player.loadVideoById(SECOND_VIDEO_ID);
+      hasPreEndTriggeredForPhaseRef.current = false;
       return true;
     }
 
@@ -122,6 +148,7 @@ export const VideoHeroSection: React.FC = () => {
       if (typeof player.playVideo === 'function') {
         player.playVideo();
       }
+      hasPreEndTriggeredForPhaseRef.current = false;
       return true;
     }
 
@@ -140,11 +167,13 @@ export const VideoHeroSection: React.FC = () => {
         index: HANDOFF_PLAYLIST_START_INDEX,
         startSeconds: 0,
       });
+      hasPreEndTriggeredForPhaseRef.current = false;
       return true;
     }
 
     if (typeof player.loadVideoById === 'function') {
       player.loadVideoById(HANDOFF_PLAYLIST_START_VIDEO_ID);
+      hasPreEndTriggeredForPhaseRef.current = false;
       return true;
     }
 
@@ -153,6 +182,7 @@ export const VideoHeroSection: React.FC = () => {
       if (typeof player.playVideo === 'function') {
         player.playVideo();
       }
+      hasPreEndTriggeredForPhaseRef.current = false;
       return true;
     }
 
@@ -161,8 +191,26 @@ export const VideoHeroSection: React.FC = () => {
 
   const scheduleHandoff = useCallback((nextStep: () => boolean) => {
     clearHandoffTimeout();
+    setIsDelayOverlayVisible(true);
+    setCountdownValue(5);
+    let nextCountdownValue = 5;
+    handoffCountdownIntervalRef.current = setInterval(() => {
+      nextCountdownValue -= 1;
+      setCountdownValue(Math.max(nextCountdownValue, 0));
+      if (nextCountdownValue <= 0 && handoffCountdownIntervalRef.current !== null) {
+        clearInterval(handoffCountdownIntervalRef.current);
+        handoffCountdownIntervalRef.current = null;
+      }
+    }, 1000);
+
     handoffTimeoutRef.current = setTimeout(() => {
       handoffTimeoutRef.current = null;
+      if (handoffCountdownIntervalRef.current !== null) {
+        clearInterval(handoffCountdownIntervalRef.current);
+        handoffCountdownIntervalRef.current = null;
+      }
+      setCountdownValue(0);
+      awaitingPostHandoffPlaybackRef.current = true;
       nextStep();
     }, HANDOFF_DELAY_MS);
   }, [clearHandoffTimeout]);
@@ -172,7 +220,21 @@ export const VideoHeroSection: React.FC = () => {
     const yt = ytWindow.YT;
     if (!yt) return;
 
+    if (
+      awaitingPostHandoffPlaybackRef.current &&
+      (event.data === yt.PlayerState.PLAYING || event.data === yt.PlayerState.BUFFERING)
+    ) {
+      awaitingPostHandoffPlaybackRef.current = false;
+      hasPreEndTriggeredForPhaseRef.current = false;
+      resetDelayOverlay();
+      return;
+    }
+
     if (event.data === yt.PlayerState.ENDED) {
+      // Fallback in case pre-end polling missed the timing window.
+      if (handoffTimeoutRef.current !== null || awaitingPostHandoffPlaybackRef.current) {
+        return;
+      }
       if (playbackPhaseRef.current === 'primary') {
         scheduleHandoff(startSecondVideo);
       } else if (playbackPhaseRef.current === 'second') {
@@ -194,7 +256,54 @@ export const VideoHeroSection: React.FC = () => {
     if (interactionStateCodes.includes(event.data)) {
       clearHandoffTimeout();
     }
-  }, [clearHandoffTimeout, scheduleHandoff, startSecondVideo, startPlaylistFromThirdItem]);
+  }, [clearHandoffTimeout, resetDelayOverlay, scheduleHandoff, startSecondVideo, startPlaylistFromThirdItem]);
+
+  useEffect(() => {
+    if (!isWatching || !isPlayerReady) {
+      if (preEndPollIntervalRef.current !== null) {
+        clearInterval(preEndPollIntervalRef.current);
+        preEndPollIntervalRef.current = null;
+      }
+      return;
+    }
+
+    const pollForPreEnd = () => {
+      const player = playerRef.current;
+      if (!player || playbackPhaseRef.current === 'playlist') {
+        return;
+      }
+      if (handoffTimeoutRef.current !== null || awaitingPostHandoffPlaybackRef.current) {
+        return;
+      }
+      if (hasPreEndTriggeredForPhaseRef.current) {
+        return;
+      }
+
+      const duration = player.getDuration?.();
+      const currentTime = player.getCurrentTime?.();
+      if (!duration || duration <= 0 || currentTime === undefined) {
+        return;
+      }
+
+      const remainingSeconds = duration - currentTime;
+      if (remainingSeconds <= PREEND_TRIGGER_SECONDS) {
+        hasPreEndTriggeredForPhaseRef.current = true;
+        if (playbackPhaseRef.current === 'primary') {
+          scheduleHandoff(startSecondVideo);
+        } else if (playbackPhaseRef.current === 'second') {
+          scheduleHandoff(startPlaylistFromThirdItem);
+        }
+      }
+    };
+
+    preEndPollIntervalRef.current = setInterval(pollForPreEnd, PREEND_POLL_INTERVAL_MS);
+    return () => {
+      if (preEndPollIntervalRef.current !== null) {
+        clearInterval(preEndPollIntervalRef.current);
+        preEndPollIntervalRef.current = null;
+      }
+    };
+  }, [isWatching, isPlayerReady, scheduleHandoff, startSecondVideo, startPlaylistFromThirdItem]);
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
@@ -242,6 +351,7 @@ export const VideoHeroSection: React.FC = () => {
 
     setIsPlayerReady(false);
     playbackPhaseRef.current = 'primary';
+    hasPreEndTriggeredForPhaseRef.current = false;
     playerRef.current = new yt.Player(playerElementRef.current, {
       videoId: PRIMARY_VIDEO_ID,
       playerVars: {
@@ -296,6 +406,7 @@ export const VideoHeroSection: React.FC = () => {
       playerRef.current = null;
       setIsPlayerReady(false);
       playbackPhaseRef.current = 'primary';
+      hasPreEndTriggeredForPhaseRef.current = false;
     };
   }, [clearHandoffTimeout]);
 
@@ -308,12 +419,38 @@ export const VideoHeroSection: React.FC = () => {
     >
       <div className="absolute inset-0 z-0 flex items-center justify-center bg-black">
         {isWatching ? (
-          <div
-            ref={playerElementRef}
-            title="Zeroth Theory and The Ricochet Theorem video player"
-            className="w-full border-0"
-            style={{ aspectRatio: '16 / 9', maxHeight: '100%' }}
-          />
+          <div className="relative w-full" style={{ aspectRatio: '16 / 9', maxHeight: '100%' }}>
+            <div
+              ref={playerElementRef}
+              title="Zeroth Theory and The Ricochet Theorem video player"
+              className="w-full h-full border-0"
+            />
+
+            <AnimatePresence>
+              {isDelayOverlayVisible && (
+                <motion.div
+                  className="absolute inset-0 z-30 flex items-center justify-center bg-black/15 backdrop-blur-[1px]"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  {countdownValue !== null && (
+                    <motion.div
+                      key={countdownValue}
+                      initial={{ opacity: 0.35, scale: 0.9 }}
+                      animate={{ opacity: 0.9, scale: 1.04 }}
+                      exit={{ opacity: 0.2, scale: 1.12 }}
+                      transition={{ duration: 0.9, ease: 'easeOut' }}
+                      className="text-white/90 font-semibold text-4xl sm:text-5xl drop-shadow-[0_0_8px_rgba(255,255,255,0.25)]"
+                    >
+                      {countdownValue}
+                    </motion.div>
+                  )}
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
         ) : (
           <img
             src={thumbnailUrl}
