@@ -8,6 +8,10 @@ const cleanPodcasts: Record<string, string> = {
   "2026-03-07/Michael_Simoneau_s_mathematical_proof_of_sanity.mp3",
   "Rewriting Einstein to Buy Your Milk":
   "2026-03-04/Rewriting_Einstein_to_buy_your_milk.mp3",
+  "Michael's Sunday Morning Brief: Sunday, March 8, 2026. Good Morning, Michael Simoneau...":
+  "2026-03-08/Prompt_for-Why_Michael_hung_up_on_Melinda_and_why_she_should_schedule_March_19_and_why_Michael_could_not_care_less_either_way.mp3",
+  "Why Michael Hung-Up on Melinda and Why She Should Schedule March 19 and Why Michael Could Not Care Less Either Way...":
+  "2026-03-08/Why_Michael_hung_up_on_Melinda_and_why_she_should_schedule_March_19_and_why_Michael_could_not_care_less_either_way.mp3",
   "EXPANDED_1": "Our New Reality: Rewriting Einstein to Fix the Global Economy",
   "Michael Simoneau and the Zeroth Theory":
     "2026-03-06/Michael_Simoneau_and_the_Zeroth_Theory.mp3",

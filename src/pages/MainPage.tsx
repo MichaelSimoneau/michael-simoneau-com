@@ -111,6 +111,8 @@ const SoundOnEmbed: React.FC = () => {
           ref={iframeRef}
           src={SOUNDON_BIO_URL}
           title="Mike Crane on SoundOn"
+          allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
+          allowFullScreen
           scrolling="no"
           style={iframeStyle}
           onLoad={handleIframeLoad}
