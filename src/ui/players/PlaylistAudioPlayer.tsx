@@ -55,6 +55,7 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
   const audioRef = useRef<HTMLAudioElement>(null);
   const progressRef = useRef<HTMLDivElement>(null);
   const previousIsPlayingRef = useRef(false);
+  const wasFirstCollapsedSectionExpandedRef = useRef<boolean | null>(null);
   const startedTrackKeyRef = useRef<string | null>(null);
   const endedTrackKeyRef = useRef<string | null>(null);
   const {
@@ -160,6 +161,13 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
 
     return null;
   }, [currentSectionIndex, sections, collapsedSections]);
+  const collapsedSectionFirstTrackIndex = useMemo(() => {
+    const firstCollapsedSection = sections.find((section) => isCollapsedDirective(section.directive));
+    if (!firstCollapsedSection) {
+      return null;
+    }
+    return firstCollapsedSection.trackIndices[0] ?? null;
+  }, [sections]);
   const collapsedSectionSecondTrackIndex = useMemo(() => {
     const firstCollapsedSection = sections.find((section) => isCollapsedDirective(section.directive));
     if (!firstCollapsedSection) {
@@ -276,6 +284,59 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
       shouldAutoPlay.current = false;
     }
   }, [expandedTrackIndices, currentTrackIndex]);
+
+  useEffect(() => {
+    if (collapsedSectionFirstTrackIndex === null) {
+      wasFirstCollapsedSectionExpandedRef.current = null;
+      return;
+    }
+
+    if (!isFirstCollapsedDirectiveSectionExpanded) {
+      wasFirstCollapsedSectionExpandedRef.current = false;
+      return;
+    }
+
+    const wasExpanded = wasFirstCollapsedSectionExpandedRef.current;
+    wasFirstCollapsedSectionExpandedRef.current = true;
+    if (wasExpanded === true) {
+      return;
+    }
+
+    const targetTrack = playableTracks[collapsedSectionFirstTrackIndex];
+    if (!targetTrack) {
+      return;
+    }
+
+    // Avoid redundant retrigger when already playing the target.
+    if (
+      currentTrackIndex === collapsedSectionFirstTrackIndex &&
+      isPlaying &&
+      currentTrack?.src === targetTrack.src
+    ) {
+      return;
+    }
+
+    shouldAutoPlay.current = true;
+    startedTrackKeyRef.current = null;
+
+    if (currentTrackIndex === collapsedSectionFirstTrackIndex) {
+      const audio = audioRef.current;
+      if (!audio) {
+        return;
+      }
+      audio.play().then(() => setIsPlaying(true)).catch(() => setIsPlaying(false));
+      return;
+    }
+
+    setCurrentTrackIndex(collapsedSectionFirstTrackIndex);
+  }, [
+    collapsedSectionFirstTrackIndex,
+    currentTrack,
+    currentTrackIndex,
+    isFirstCollapsedDirectiveSectionExpanded,
+    isPlaying,
+    playableTracks,
+  ]);
 
   // ── Audio event listeners ──────────────────────────────────────────────
   useEffect(() => {
