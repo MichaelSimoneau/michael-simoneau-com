@@ -52,7 +52,7 @@ interface YouTubeWindow extends Window {
   onYouTubeIframeAPIReady?: () => void;
 }
 
-const PRIMARY_VIDEO_ID = '_Y1GTUrtWjE';
+const STANDARD_VIDEO_ID = '_Y1GTUrtWjE';
 const PREPENDED_VIDEO_ID = '_KKJTVyxb_A';
 const SECOND_VIDEO_ID = '6BTyy4kTywo';
 const HANDOFF_PLAYLIST_ID = 'PLgqAhNtHkRy8PiSUfWBu1Z4KhPuwuEVwj';
@@ -74,6 +74,7 @@ export const VideoHeroSection: React.FC = () => {
   const [isWatching, setIsWatching] = useState(false);
   const [isYouTubeApiReady, setIsYouTubeApiReady] = useState(false);
   const [isPlayerReady, setIsPlayerReady] = useState(false);
+  const [displayVideoId, setDisplayVideoId] = useState(STANDARD_VIDEO_ID);
   const [isDelayOverlayVisible, setIsDelayOverlayVisible] = useState(false);
   const [countdownValue, setCountdownValue] = useState<number | null>(null);
   const playerElementRef = useRef<HTMLDivElement | null>(null);
@@ -106,19 +107,19 @@ export const VideoHeroSection: React.FC = () => {
     resetDelayOverlay();
   }, [resetDelayOverlay]);
 
-  const startPrimaryVideo = useCallback(() => {
+  const startStandardVideo = useCallback(() => {
     const player = playerRef.current;
     if (!player) return false;
     playbackPhaseRef.current = 'primary';
 
     if (typeof player.loadVideoById === 'function') {
-      player.loadVideoById(PRIMARY_VIDEO_ID);
+      player.loadVideoById(STANDARD_VIDEO_ID);
       hasPreEndTriggeredForPhaseRef.current = false;
       return true;
     }
 
     if (typeof player.cueVideoById === 'function') {
-      player.cueVideoById(PRIMARY_VIDEO_ID);
+      player.cueVideoById(STANDARD_VIDEO_ID);
       if (typeof player.playVideo === 'function') {
         player.playVideo();
       }
@@ -191,8 +192,8 @@ export const VideoHeroSection: React.FC = () => {
     if (prependModeEnabledRef.current) {
       return startPrependedVideo();
     }
-    return startPrimaryVideo();
-  }, [startPrependedVideo, startPrimaryVideo]);
+    return startStandardVideo();
+  }, [startPrependedVideo, startStandardVideo]);
 
   const startPlaylistFromThirdItem = useCallback(() => {
     const player = playerRef.current;
@@ -230,7 +231,7 @@ export const VideoHeroSection: React.FC = () => {
 
   const runNextPlaybackStep = useCallback(() => {
     if (playbackPhaseRef.current === 'prepended') {
-      return startPrimaryVideo();
+      return startStandardVideo();
     }
     if (playbackPhaseRef.current === 'primary') {
       return startSecondVideo();
@@ -239,7 +240,7 @@ export const VideoHeroSection: React.FC = () => {
       return startPlaylistFromThirdItem();
     }
     return false;
-  }, [startPrimaryVideo, startSecondVideo, startPlaylistFromThirdItem]);
+  }, [startStandardVideo, startSecondVideo, startPlaylistFromThirdItem]);
 
   const scheduleHandoff = useCallback((nextStep: () => boolean) => {
     clearHandoffTimeout();
@@ -399,7 +400,7 @@ export const VideoHeroSection: React.FC = () => {
     playbackPhaseRef.current = 'primary';
     hasPreEndTriggeredForPhaseRef.current = false;
     playerRef.current = new yt.Player(playerElementRef.current, {
-      videoId: PRIMARY_VIDEO_ID,
+      videoId: displayVideoId,
       playerVars: {
         autoplay: 1,
         controls: 1,
@@ -414,7 +415,7 @@ export const VideoHeroSection: React.FC = () => {
         onStateChange: handlePlayerStateChange,
       },
     });
-  }, [isWatching, isYouTubeApiReady, handlePlayerStateChange]);
+  }, [displayVideoId, isWatching, isYouTubeApiReady, handlePlayerStateChange]);
 
   useEffect(() => {
     if (!isWatching || !isPlayerReady || !pendingAutoPlayRequestRef.current) {
@@ -448,14 +449,27 @@ export const VideoHeroSection: React.FC = () => {
   useEffect(() => {
     const handlePrependMode = (event: Event) => {
       const customEvent = event as CustomEvent<{ enabled?: boolean }>;
-      prependModeEnabledRef.current = Boolean(customEvent.detail?.enabled);
+      const isEnabled = Boolean(customEvent.detail?.enabled);
+      prependModeEnabledRef.current = isEnabled;
+      const nextDisplayVideoId = isEnabled ? PREPENDED_VIDEO_ID : STANDARD_VIDEO_ID;
+      setDisplayVideoId(nextDisplayVideoId);
+
+      // Apply immediately while watching so the visible player reflects the toggle.
+      if (isWatching && isPlayerReady) {
+        clearHandoffTimeout();
+        if (isEnabled) {
+          startPrependedVideo();
+        } else {
+          startStandardVideo();
+        }
+      }
     };
 
     window.addEventListener(VIDEO_HERO_PREPEND_MODE_EVENT, handlePrependMode);
     return () => {
       window.removeEventListener(VIDEO_HERO_PREPEND_MODE_EVENT, handlePrependMode);
     };
-  }, []);
+  }, [clearHandoffTimeout, isPlayerReady, isWatching, startPrependedVideo, startStandardVideo]);
 
   useEffect(() => {
     return () => {
@@ -468,7 +482,7 @@ export const VideoHeroSection: React.FC = () => {
     };
   }, [clearHandoffTimeout]);
 
-  const thumbnailUrl = `https://img.youtube.com/vi/${PRIMARY_VIDEO_ID}/maxresdefault.jpg`;
+  const thumbnailUrl = `https://img.youtube.com/vi/${displayVideoId}/maxresdefault.jpg`;
 
   return (
     <section
