@@ -22,10 +22,10 @@ const cleanPodcasts: Record<string, string> = {
   "EXPANDED_1": "Our New Reality: Rewriting Einstein to Fix the Global Economy",
   // Track #6 - 2026-03-09
   "How the Zeroth Theory Fixes The Global Economy":
-  "2026-03-09/How_the_Zeroth_Theory_Fixes_AI_Hallucinations.mp3",
+  "2026-03-09/How_Zeroth_Theory_Fixes_AI_Hallucinations.mp3",
   // Track #7 - 2026-03-09
   "Good Morning, Michael Simoneau...":
-  "2026-03-09/Teaching_Mari_to_teach_the_world_about_the_Zeroth_Theory.mp3",
+  "2026-03-09/Teaching_Mari_to_teach_the_Puppeteer.mp3",
   // Track #8 - 2026-03-09
   // "The Architect and his Autonomous Digital Organism":
   //   "2026-03-09/The_Architect_and_his_autonomous_digital_organism.mp3",
