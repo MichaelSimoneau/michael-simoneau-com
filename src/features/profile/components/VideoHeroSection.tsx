@@ -58,7 +58,7 @@ const STANDARD_VIDEO_ID = '_Y1GTUrtWjE';
 const PREPENDED_VIDEO_ID = '_KKJTVyxb_A';
 const SECOND_VIDEO_ID = '6BTyy4kTywo';
 const HANDOFF_PLAYLIST_ID = 'PLgqAhNtHkRy8PiSUfWBu1Z4KhPuwuEVwj';
-const HANDOFF_PLAYLIST_START_VIDEO_ID = 'BHpN6T8U7NI';
+const HANDOFF_PLAYLIST_START_VIDEO_ID = 'uKXwADJaKAs';
 const HANDOFF_PLAYLIST_START_INDEX = 2;
 const HANDOFF_DELAY_MS = 5000;
 const PREEND_TRIGGER_SECONDS = 1;
@@ -66,6 +66,7 @@ const PREEND_POLL_INTERVAL_MS = 200;
 const VIDEO_HERO_AUTOPLAY_EVENT = 'videohero:autoplay-request';
 const VIDEO_HERO_PREPEND_MODE_EVENT = 'videohero:prepend-mode';
 type PlaybackPhase = 'prepended' | 'primary' | 'second' | 'playlist';
+type VideoHeroStartMode = 'standard' | 'playlist';
 
 /**
  * Full-screen hero section featuring the Zeroth Theory YouTube video.
@@ -92,6 +93,7 @@ export const VideoHeroSection: React.FC = () => {
   const awaitingPostHandoffPlaybackRef = useRef(false);
   const hasPreEndTriggeredForPhaseRef = useRef(false);
   const playbackPhaseRef = useRef<PlaybackPhase>('primary');
+  const startModeRef = useRef<VideoHeroStartMode>('standard');
 
   const getCurrentVideoContext = useCallback(() => {
     if (playbackPhaseRef.current === 'prepended') {
@@ -247,6 +249,13 @@ export const VideoHeroSection: React.FC = () => {
 
     return false;
   }, []);
+
+  const startPlaybackForCurrentMode = useCallback(() => {
+    if (startModeRef.current === 'playlist') {
+      return startPlaylistFromThirdItem();
+    }
+    return startInitialAutoplaySequence();
+  }, [startInitialAutoplaySequence, startPlaylistFromThirdItem]);
 
   const runNextPlaybackStep = useCallback(() => {
     if (playbackPhaseRef.current === 'prepended') {
@@ -498,28 +507,29 @@ export const VideoHeroSection: React.FC = () => {
     }
 
     clearHandoffTimeout();
-    if (startInitialAutoplaySequence()) {
+    if (startPlaybackForCurrentMode()) {
       pendingAutoPlayRequestRef.current = false;
     }
-  }, [isWatching, isPlayerReady, clearHandoffTimeout, startInitialAutoplaySequence]);
+  }, [isWatching, isPlayerReady, clearHandoffTimeout, startPlaybackForCurrentMode]);
 
   useEffect(() => {
     const handleAutoplayRequest = () => {
       clearHandoffTimeout();
+      startModeRef.current = 'standard';
       if (!isWatching || !isPlayerReady) {
         pendingAutoPlayRequestRef.current = true;
         setIsWatching(true);
         return;
       }
 
-      startInitialAutoplaySequence();
+      startPlaybackForCurrentMode();
     };
 
     window.addEventListener(VIDEO_HERO_AUTOPLAY_EVENT, handleAutoplayRequest);
     return () => {
       window.removeEventListener(VIDEO_HERO_AUTOPLAY_EVENT, handleAutoplayRequest);
     };
-  }, [clearHandoffTimeout, isWatching, isPlayerReady, startInitialAutoplaySequence]);
+  }, [clearHandoffTimeout, isWatching, isPlayerReady, startPlaybackForCurrentMode]);
 
   useEffect(() => {
     const handlePrependMode = (event: Event) => {
@@ -558,6 +568,24 @@ export const VideoHeroSection: React.FC = () => {
       startedPlaybackKeyRef.current = null;
     };
   }, [clearHandoffTimeout]);
+
+  const handleLearnZerothTheoryClick = useCallback(() => {
+    startModeRef.current = 'standard';
+    pendingAutoPlayRequestRef.current = false;
+    setIsWatching(true);
+  }, []);
+
+  const handleLearnMichaelClick = useCallback(() => {
+    startModeRef.current = 'playlist';
+    clearHandoffTimeout();
+    if (!isWatching || !isPlayerReady) {
+      pendingAutoPlayRequestRef.current = true;
+      setIsWatching(true);
+      return;
+    }
+
+    startPlaybackForCurrentMode();
+  }, [clearHandoffTimeout, isPlayerReady, isWatching, startPlaybackForCurrentMode]);
 
   const thumbnailUrl = `https://img.youtube.com/vi/${displayVideoId}/maxresdefault.jpg`;
 
@@ -648,18 +676,31 @@ export const VideoHeroSection: React.FC = () => {
                 </span>
               </motion.h2>
 
-              <motion.button
-                type="button"
-                onClick={() => setIsWatching(true)}
-                className="mt-10 group inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-cyan-500 to-emerald-600 hover:from-cyan-600 hover:to-emerald-700 text-white font-bold rounded-lg transition-all duration-300 shadow-lg hover:shadow-cyan-500/50 cursor-pointer"
+              <motion.div
+                className="mt-10 flex flex-col sm:flex-row items-stretch sm:items-center gap-4 w-full max-w-xl"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.8, delay: 0.6 }}
               >
-                <Play size={22} className="group-hover:scale-110 transition-transform" />
-                Watch Now
-              </motion.button>
+                <button
+                  type="button"
+                  onClick={handleLearnZerothTheoryClick}
+                  className="group relative inline-flex w-full sm:w-auto justify-center items-center gap-3 px-8 py-4 bg-gradient-to-r from-cyan-500 to-emerald-600 hover:from-cyan-600 hover:to-emerald-700 border border-white text-white font-bold rounded-lg transition-all duration-300 shadow-lg hover:shadow-cyan-500/50 cursor-pointer overflow-hidden"
+                >
+                  <span className="pointer-events-none absolute inset-0 bg-white/10" />
+                  <Play size={22} className="relative z-10 group-hover:scale-110 transition-transform" />
+                  <span className="relative z-10">Learn About Zeroth Theory</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={handleLearnMichaelClick}
+                  className="group inline-flex w-full sm:w-auto justify-center items-center gap-3 px-8 py-4 bg-cyan-500/25 hover:bg-cyan-500/40 border border-white text-white font-bold rounded-lg transition-all duration-300 shadow-lg hover:shadow-cyan-300/30 cursor-pointer"
+                >
+                  <Play size={22} className="group-hover:scale-110 transition-transform" />
+                  Learn About Michael Simoneau
+                </button>
+              </motion.div>
             </motion.div>
           </>
         )}
