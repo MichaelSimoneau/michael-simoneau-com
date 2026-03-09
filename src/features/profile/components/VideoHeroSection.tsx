@@ -677,7 +677,7 @@ export const VideoHeroSection: React.FC = () => {
               </motion.h2>
 
               <motion.div
-                className="mt-10 flex flex-col sm:flex-row items-stretch sm:items-center gap-4 w-full max-w-xl"
+                className="mt-10 flex flex-col sm:flex-row items-stretch gap-4 w-full max-w-xl"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -686,19 +686,19 @@ export const VideoHeroSection: React.FC = () => {
                 <button
                   type="button"
                   onClick={handleLearnZerothTheoryClick}
-                  className="group relative inline-flex w-full sm:w-auto justify-center items-center gap-3 px-8 py-4 bg-gradient-to-r from-cyan-500 to-emerald-600 hover:from-cyan-600 hover:to-emerald-700 border border-white text-white font-bold rounded-lg transition-all duration-300 shadow-lg hover:shadow-cyan-500/50 cursor-pointer overflow-hidden"
+                  className="group relative isolate inline-flex w-full min-w-0 sm:flex-1 sm:basis-0 justify-center items-center gap-3 px-8 py-4 bg-gradient-to-r from-cyan-500 to-emerald-600 hover:from-cyan-600 hover:to-emerald-700 border border-white text-white font-bold rounded-lg transition-all duration-300 shadow-lg hover:shadow-cyan-500/50 cursor-pointer overflow-hidden"
                 >
-                  <span className="pointer-events-none absolute inset-0 bg-white/10" />
+                  <span className="pointer-events-none absolute inset-0 z-0 bg-white/10" />
                   <Play size={22} className="relative z-10 group-hover:scale-110 transition-transform" />
-                  <span className="relative z-10">Learn About Zeroth Theory</span>
+                  <span className="relative z-10 whitespace-nowrap">Learn About Zeroth Theory</span>
                 </button>
                 <button
                   type="button"
                   onClick={handleLearnMichaelClick}
-                  className="group inline-flex w-full sm:w-auto justify-center items-center gap-3 px-8 py-4 bg-cyan-500/25 hover:bg-cyan-500/40 border border-white text-white font-bold rounded-lg transition-all duration-300 shadow-lg hover:shadow-cyan-300/30 cursor-pointer"
+                  className="group inline-flex w-full min-w-0 sm:flex-1 sm:basis-0 justify-center items-center gap-3 px-8 py-4 bg-cyan-500/25 hover:bg-cyan-500/40 border border-white text-white font-bold rounded-lg transition-all duration-300 shadow-lg hover:shadow-cyan-300/30 cursor-pointer"
                 >
                   <Play size={22} className="group-hover:scale-110 transition-transform" />
-                  Learn About Michael Simoneau
+                  <span className="whitespace-nowrap">Learn About Michael Simoneau</span>
                 </button>
               </motion.div>
             </motion.div>
