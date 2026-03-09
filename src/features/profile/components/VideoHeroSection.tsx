@@ -259,7 +259,7 @@ export const VideoHeroSection: React.FC = () => {
 
   const runNextPlaybackStep = useCallback(() => {
     if (playbackPhaseRef.current === 'prepended') {
-      return startStandardVideo();
+      return startSecondVideo();
     }
     if (playbackPhaseRef.current === 'primary') {
       return startSecondVideo();
@@ -268,7 +268,7 @@ export const VideoHeroSection: React.FC = () => {
       return startPlaylistFromThirdItem();
     }
     return false;
-  }, [startStandardVideo, startSecondVideo, startPlaylistFromThirdItem]);
+  }, [startSecondVideo, startPlaylistFromThirdItem]);
 
   const scheduleHandoff = useCallback((nextStep: () => boolean) => {
     clearHandoffTimeout();
