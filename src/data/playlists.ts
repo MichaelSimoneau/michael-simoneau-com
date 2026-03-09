@@ -21,17 +21,22 @@ const cleanPodcasts: Record<string, string> = {
   // --- EXPANDED_1 ---
   "EXPANDED_1": "Our New Reality: Rewriting Einstein to Fix the Global Economy",
   // Track #6 - 2026-03-09
-  "The Architect and his Autonomous Digital Organism":
-    "2026-03-09/The_Architect_and_his_autonomous_digital_organism.mp3",
-  // Track #7 - 2026-03-06
-  "Michael Simoneau and the Zeroth Theory":
-    "2026-03-06/Michael_Simoneau_and_the_Zeroth_Theory.mp3",
-  // Track #8 - 2026-03-04
-  "The Zeroth Theory of Digital Organisms":
-    "2026-03-04/The_Zeroth_Theory_of_Digital_Organisms.mp3",
-  // Track #9 - 2026-03-06
-  "Michael Simoneau's Zeroth Theory and Human Dollar":
-    "2026-03-06/Michael_Simoneau_s_Zeroth_Theory_and_Human_Dollar.mp3",
+  "How the Zeroth Theory Fixes The Global Economy":
+  "2026-03-09/How_the_Zeroth_Theory_Fixes_AI_Hallucinations.mp3",
+  "Good Morning, Michael Simoneau...":
+  "2026-03-09/Teaching_Mari_to_teach_the_world_about_the_Zeroth_Theory.mp3",
+  // Track #7 - 2026-03-09
+  // "The Architect and his Autonomous Digital Organism":
+  //   "2026-03-09/The_Architect_and_his_autonomous_digital_organism.mp3",
+  // Track #8 - 2026-03-06
+  // "Michael Simoneau and the Zeroth Theory":
+  //   "2026-03-06/Michael_Simoneau_and_the_Zeroth_Theory.mp3",
+  // Track #9 - 2026-03-04
+  // "The Zeroth Theory of Digital Organisms":
+  //   "2026-03-04/The_Zeroth_Theory_of_Digital_Organisms.mp3",
+  // Track #10 - 2026-03-06
+  // "Michael Simoneau's Zeroth Theory and Human Dollar":
+  //   "2026-03-06/Michael_Simoneau_s_Zeroth_Theory_and_Human_Dollar.mp3",
 };
 
 const podcastsToPlaylist = (
