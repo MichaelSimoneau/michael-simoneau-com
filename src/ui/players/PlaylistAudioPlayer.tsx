@@ -175,13 +175,6 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
     }
     return firstCollapsedSection.trackIndices[1] ?? null;
   }, [sections]);
-  const collapsedSectionThirdTrackIndex = useMemo(() => {
-    const firstCollapsedSection = sections.find((section) => isCollapsedDirective(section.directive));
-    if (!firstCollapsedSection) {
-      return null;
-    }
-    return firstCollapsedSection.trackIndices[2] ?? null;
-  }, [sections]);
   const firstCollapsedDirectiveSectionId = useMemo(() => {
     const firstCollapsedSection = sections.find((section) => isCollapsedDirective(section.directive));
     return firstCollapsedSection?.id ?? null;
@@ -369,11 +362,11 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
         });
       }
 
-      const targetVideoTriggerTrackIndex = isFirstCollapsedDirectiveSectionExpanded
-        ? collapsedSectionSecondTrackIndex
-        : collapsedSectionThirdTrackIndex;
+      const shouldTriggerVideoAutoplay = isFirstCollapsedDirectiveSectionExpanded
+        ? collapsedSectionSecondTrackIndex !== null && currentTrackIndex === collapsedSectionSecondTrackIndex
+        : nextExpandedTrackIndex === null;
 
-      if (targetVideoTriggerTrackIndex !== null && currentTrackIndex === targetVideoTriggerTrackIndex) {
+      if (shouldTriggerVideoAutoplay) {
         setIsPlaying(false);
         centerScrollToVideoHero()
           .then(() => {
@@ -406,7 +399,6 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
   }, [
     centerScrollToVideoHero,
     collapsedSectionSecondTrackIndex,
-    collapsedSectionThirdTrackIndex,
     currentTrackIndex,
     isFirstCollapsedDirectiveSectionExpanded,
     trackMediaEvent,
