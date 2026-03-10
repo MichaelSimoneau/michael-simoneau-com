@@ -42,6 +42,12 @@ const SOUNDON_DEFAULT_HEIGHT = 2400;
 
 const SOUNDON_BIO_URL = 'https://www.soundon.global/bio/immikecrane';
 const IFRAME_LOAD_TIMEOUT_MS = 8000;
+const DEFAULT_SECTION_OFFSET_PX = 80;
+
+const getMainPageSectionOffset = (sectionId: string): number => {
+  // Music has dedicated hero padding; generic nav offset causes awkward landing.
+  return sectionId === 'music' ? 0 : DEFAULT_SECTION_OFFSET_PX;
+};
 
 const SoundOnEmbed: React.FC = () => {
   const [iframeHeight, setIframeHeight] = useState(SOUNDON_DEFAULT_HEIGHT);
@@ -289,7 +295,7 @@ export const MainPage: React.FC = () => {
         const container = scrollContainerRef.current;
         const targetElement = document.getElementById(targetId);
         if (container && targetElement) {
-          const offset = 80;
+          const offset = getMainPageSectionOffset(targetId);
           const containerRect = container.getBoundingClientRect();
           const elementRect = targetElement.getBoundingClientRect();
           const scrollTop = elementRect.top - containerRect.top + container.scrollTop - offset;

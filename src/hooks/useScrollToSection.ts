@@ -6,6 +6,11 @@ interface UseScrollToSectionOptions {
   scrollContainerId?: string; // Optional: ID of the scroll container for on-page section scrolling
 }
 
+const getSectionOffset = (sectionId: string): number => {
+  // Music has its own hero top spacing; using nav offset here lands too high.
+  return sectionId === 'music' ? 0 : 80;
+};
+
 export const useScrollToSection = (options?: UseScrollToSectionOptions) => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -29,7 +34,7 @@ export const useScrollToSection = (options?: UseScrollToSectionOptions) => {
         const originalSnapType = container.style.scrollSnapType;
         container.style.scrollSnapType = 'none';
 
-        const offset = 80; // MainNav height
+        const offset = getSectionOffset(targetId);
         const containerRect = container.getBoundingClientRect();
         const elementRect = targetElement.getBoundingClientRect();
         const scrollTop = elementRect.top - containerRect.top + container.scrollTop - offset;

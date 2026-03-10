@@ -1,7 +1,52 @@
 import { Track } from "src/ui/players/PlaylistAudioPlayer";
 
+const MARCH_12_2026_9_15_AM = new Date(2026, 2, 12, 9, 15, 0, 0);
+
+/**
+ * useBeforeAndAfter
+ * 
+ * Returns either the `before` or `after` string, depending on whether the current time
+ * is before or after the provided `when` timestamp (local time).
+ *
+ * @param when - The Date or timestamp to compare against (default: March 12th 2026, 9:15AM local time)
+ * @param before - The string to return if the current time is BEFORE the `when` date
+ * @param after - The string to return if the current time is AFTER the `when` date
+ *
+ * Usage:
+ *   const message = useBeforeAndAfter({
+ *     when: new Date(2026, 2, 12, 9, 15), // Months are zero-indexed
+ *     before: 'Not time yet!',
+ *     after: 'It happened!',
+ *   });
+ */
+export function beforeAndAfter({
+  when = MARCH_12_2026_9_15_AM,
+  before,
+  after,
+}: {
+  when?: Date;
+  before: string;
+  after: string;
+}): string {
+  const now = new Date();
+  return now.getTime() < when.getTime() ? before : after;
+}
+
+const COLLAPSED_0 = beforeAndAfter({
+  when: MARCH_12_2026_9_15_AM,
+  before: "Is Your Name Melinda Francis? If Not, Move Along... Nothing To See Here.",
+  after: "Are you a Psychologist? If Not, Move Along... Nothing To See Here.",
+});
+
+const COLLAPSED_1 = beforeAndAfter({
+  when: MARCH_12_2026_9_15_AM,
+  before: "Our New Reality: Rewriting Einstein to Fix the Global Economy",
+  after: "Simoneau's Physics: Rewriting Einstein to Fix the Global Economy",
+});
+
+
 const cleanPodcasts: Record<string, string> = {
-  "COLLAPSED_0": "Is Your Name Melinda Francis? If Not, Move Along... Nothing To See Here.",
+  "COLLAPSED_0": COLLAPSED_0,
   // --- COLLAPSED_0 ---
   // Track #1 - 2026-03-07
   "Should Michael Simoneau Fire His Psychologist?":
@@ -19,7 +64,7 @@ const cleanPodcasts: Record<string, string> = {
   "Why Michael Hung-Up on Melinda and Why She Should Schedule March 19 and Why Michael Could Not Care Less Either Way...":
   "2026-03-08/Why_Michael_hung_up_on_Melinda_and_why_she_should_schedule_March_19_and_why_Michael_could_not_care_less_either_way.mp3",
   // --- EXPANDED_1 ---
-  "EXPANDED_1": "Our New Reality: Rewriting Einstein to Fix the Global Economy",
+  "EXPANDED_1": COLLAPSED_1,
   // Track #6 - 2026-03-09
   "How the Zeroth Theory Fixes The Global Economy":
   "2026-03-09/How_Zeroth_Theory_Fixes_AI_Hallucinations.mp3",
