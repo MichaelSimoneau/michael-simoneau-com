@@ -23,6 +23,7 @@ export interface Track {
 
 interface PlaylistAudioPlayerProps {
   tracks: Track[];
+  className?: string;
 }
 
 interface Section {
@@ -50,7 +51,7 @@ const isCollapsedDirective = (directive: string) => /collapsed/i.test(directive)
  * PlaylistAudioPlayer — a sleek, slim audio player that manages a playlist
  * of tracks with sequential playback, seek, skip, rewind, and track selection.
  */
-export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks }) => {
+export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks, className }) => {
   const { trackMediaEvent } = useMediaAnalytics();
   const audioRef = useRef<HTMLAudioElement>(null);
   const progressRef = useRef<HTMLDivElement>(null);
@@ -616,7 +617,7 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
 
   // ── Render ─────────────────────────────────────────────────────────────
   return (
-    <div className="w-full max-w-2xl mx-auto select-none">
+    <div className={`w-full max-w-2xl mx-auto select-none ${className ?? ''}`}>
       <div className="relative bg-gradient-to-r from-gray-900/90 to-gray-800/90 backdrop-blur-md rounded-xl overflow-hidden shadow-2xl border border-white/5">
         {/* Subtle top glow */}
         <div className="absolute inset-0 bg-gradient-to-b from-cyan-500/5 to-transparent pointer-events-none" />

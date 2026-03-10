@@ -15,10 +15,12 @@ import { AnimatedBackground } from '../backgrounds/AnimatedBackground';
 import { useScrollContext } from '../contexts/ScrollContext';
 import { Seo } from '../foundation/seo/Seo';
 import { ZeroHero } from '../features/zero-truth/components/ZeroHero';
-import { ZerothTheorySection } from '../features/zero-truth/components/ZerothTheorySection';
+// import { ZerothTheorySection } from '../features/zero-truth/components/ZerothTheorySection';
 import { CryptoFabricHero } from '../features/cryptofabric/components/CryptoFabricHero';
 import { ThdHero } from '../features/thd';
 import { blogData } from '../data/blogData';
+import { musicPlaylist } from '../data/playlists';
+import { PlaylistAudioPlayer } from '../ui/players';
 
 /** Initial height of the footer content area (px); black area grows from this to 100vh. */
 const FOOTER_INITIAL_HEIGHT_PX = 320;
@@ -76,7 +78,7 @@ const SoundOnEmbed: React.FC = () => {
     setLoadFailed(false);
   }, []);
 
-  const containerStyle: CSSProperties = {
+  const iframeContainerStyle: CSSProperties = {
     width: '100vw',
     maxHeight: '150vh',
     overflow: 'hidden',
@@ -91,33 +93,72 @@ const SoundOnEmbed: React.FC = () => {
   };
 
   return (
-    <div id="music" className="relative" style={containerStyle}>
-      {loadFailed ? (
-        <div className="flex flex-col items-center justify-center py-24 px-4 bg-gray-900/60 text-white">
-          <p className="text-lg text-gray-300 mb-4">
-            Michael&apos;s Music Preview failed to load, view on SoundOn:
-          </p>
-          <a
-            href={SOUNDON_BIO_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="px-6 py-3 bg-gradient-to-r from-cyan-500 to-emerald-600 hover:from-cyan-600 hover:to-emerald-700 text-white font-semibold rounded-lg transition-colors"
-          >
-            Michael Simoneau is &apos;Mike Crane&apos;
-          </a>
+    <div id="music" className="relative">
+      <div className="relative z-10 overflow-hidden bg-gradient-to-b from-black/80 via-gray-950/80 to-transparent px-4 pt-16 md:pt-24 pb-10">
+        <div className="absolute inset-0 -z-10 pointer-events-none">
+          <div className="absolute inset-0 bg-gradient-to-br from-black via-gray-900/60 to-cyan-950/40 opacity-80" />
+          <div className="absolute top-8 left-1/3 h-60 w-60 rounded-full bg-cyan-500/10 blur-3xl" />
+          <div className="absolute -bottom-8 right-1/4 h-72 w-72 rounded-full bg-emerald-500/10 blur-3xl" />
         </div>
-      ) : (
-        <iframe
-          ref={iframeRef}
-          src={SOUNDON_BIO_URL}
-          title="Mike Crane on SoundOn"
-          allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
-          allowFullScreen
-          scrolling="no"
-          style={iframeStyle}
-          onLoad={handleIframeLoad}
-        />
-      )}
+
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.7 }}
+          className="container mx-auto max-w-5xl text-center"
+        >
+          <p className="text-sm sm:text-base uppercase tracking-[0.28em] text-cyan-300/85 mb-4">
+            Music
+          </p>
+          <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-4">
+            Mike <span className="text-cyan-400">Crane</span>
+          </h2>
+          <p className="text-lg sm:text-xl text-gray-200 max-w-3xl mx-auto mb-3">
+            A few unreleased tracks, available exclusively on this site.
+          </p>
+          <p className="text-base sm:text-lg text-gray-300 max-w-3xl mx-auto mb-8">
+            Latest album: <span className="text-cyan-300 font-semibold">Horizons</span> - released January 16, 2026.
+          </p>
+
+          <div className="text-left max-w-4xl mx-auto">
+            <p className="text-xs uppercase tracking-[0.2em] text-gray-400 mb-3 text-center">
+              Unreleased Tracks
+            </p>
+            <PlaylistAudioPlayer tracks={musicPlaylist} className="max-w-4xl" />
+          </div>
+        </motion.div>
+
+        <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-b from-transparent via-black/20 to-black/45" />
+      </div>
+      <div style={iframeContainerStyle}>
+        {loadFailed ? (
+          <div className="flex flex-col items-center justify-center py-24 px-4 bg-gray-900/60 text-white">
+            <p className="text-lg text-gray-300 mb-4">
+              Michael&apos;s Music Preview failed to load, view on SoundOn:
+            </p>
+            <a
+              href={SOUNDON_BIO_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-6 py-3 bg-gradient-to-r from-cyan-500 to-emerald-600 hover:from-cyan-600 hover:to-emerald-700 text-white font-semibold rounded-lg transition-colors"
+            >
+              Michael Simoneau is &apos;Mike Crane&apos;
+            </a>
+          </div>
+        ) : (
+          <iframe
+            ref={iframeRef}
+            src={SOUNDON_BIO_URL}
+            title="Mike Crane on SoundOn"
+            allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
+            allowFullScreen
+            scrolling="no"
+            style={iframeStyle}
+            onLoad={handleIframeLoad}
+          />
+        )}
+      </div>
     </div>
   );
 };

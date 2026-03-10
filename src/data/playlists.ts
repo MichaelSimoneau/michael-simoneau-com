@@ -48,6 +48,18 @@ const podcastsToPlaylist = (
 
 const cleanPlaylist = podcastsToPlaylist(cleanPodcasts);
 
+const musicPlaylist: Track[] = [
+  {
+    title: `"I'm In Deep" - Mike Crane`,
+    src: "/music/ImInDeep.mp3",
+  },
+  {
+    title: `"This Is Why We Do It" - Mike Crane`,
+    src: "/music/This is why we do it.mp3",
+  },
+];
+
 export {
   cleanPlaylist,
+  musicPlaylist,
 };
