@@ -28,19 +28,15 @@ const psychologistPodcasts = beforeAndAfter({
     // Track #4 - 2026-03-08
     "Michael's Sunday Morning Brief: Sunday, March 8, 2026. Good Morning, Michael Simoneau...":
     "2026-03-08/Prompt_for-Why_Michael_hung_up_on_Melinda_and_why_she_should_schedule_March_19_and_why_Michael_could_not_care_less_either_way.mp3",
-    // Track #5 - 2026-03-08
+    // Temporary Grouping before `MARCH_12_2026_9_15_AM` (collapsed)
     ...(beforeAndAfter<Record<string, string>>({
       when: MARCH_12_2026_9_15_AM,
-      before: {
-        "COLLAPSE_1": "Why Michael Couldn't Care Less About Hanging-Up on Melinda, and...",
-        "Why Melinda Should Still Reschedule March 19, 2026.":
-        "2026-03-08/Why_Michael_hung_up_on_Melinda_and_why_she_should_schedule_March_19_and_why_Michael_could_not_care_less_either_way.mp3",
-      },
-      after: {
-        "Why Michael's Psychologist Rescheduled March 19, 2026.":
-        "2026-03-08/Why_Michael_hung_up_on_Melinda_and_why_she_should_schedule_March_19_and_why_Michael_could_not_care_less_either_way.mp3",
-      },
+      before: { "COLLAPSE_1": "Why Michael Couldn't Care Less About Hanging-Up on Melinda, and..." },
+      after: {},
     }) as Record<string, string>),
+    // Track #5 - 2026-03-08
+    "Why Michael's Psychologist Rescheduled March 19, 2026.":
+    "2026-03-08/Why_Michael_hung_up_on_Melinda_and_why_she_should_schedule_March_19_and_why_Michael_could_not_care_less_either_way.mp3",
     // Track #6 - 2026-03-11
     "The $20 Dollar Bet - Michael Simoneau's $20 Dollar Bet":
     "2026-03-10/Michael_Simoneau_s_$20_Dollar_Bet.mp3",
