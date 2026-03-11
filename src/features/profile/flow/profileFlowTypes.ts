@@ -50,6 +50,10 @@ export interface ProfileFlowState {
     machine: PlaylistMachineState;
     currentTrackIndex: number;
     isRestrictedActive: boolean;
+    melindaArmedSectionId?: string;
+    melindaActiveSectionId?: string;
+    melindaHandoffSectionId?: string;
+    controlsNormalizedAfterRefresh: boolean;
   };
   video: {
     machine: VideoMachineState;
@@ -64,6 +68,11 @@ export interface ProfileFlowState {
   media: {
     machine: MediaArbitrationState;
     activeSource?: string;
+  };
+  reloadTimer: {
+    machine: 'idle' | 'running' | 'completed';
+    startedAtMs: number | null;
+    durationMs: number;
   };
   override: {
     machine: OverrideMachineState;
@@ -86,6 +95,10 @@ export type ProfileFlowAction =
   | { type: 'PLAYLIST_ENDED' }
   | { type: 'PLAYLIST_HANDOFF_PENDING' }
   | { type: 'PLAYLIST_RESTRICTED_TOGGLED'; active: boolean }
+  | { type: 'MELINDA_COLLAPSE_TRIGGER_ARMED'; sectionId: string }
+  | { type: 'MELINDA_COLLAPSE_TRIGGER_FIRED'; sectionId: string; trackIndex: number }
+  | { type: 'PLAYLIST_HANDOFF_TO_VIDEOS_REQUESTED'; sectionId?: string }
+  | { type: 'POST_REFRESH_CONTROL_NORMALIZED' }
   | { type: 'VIDEO_WATCH_REQUESTED'; mode?: 'standard' | 'playlist' }
   | { type: 'VIDEO_API_READY' }
   | { type: 'VIDEO_PLAYER_READY' }
@@ -95,6 +108,9 @@ export type ProfileFlowAction =
   | { type: 'VIDEO_HANDOFF_COUNTDOWN_UPDATED'; countdown: number | null; visible: boolean }
   | { type: 'VIDEO_HIDDEN' }
   | { type: 'MEDIA_SOURCE_ACTIVATED'; source?: string }
+  | { type: 'RELOAD_TIMER_STARTED'; durationMs: number; startedAtMs: number }
+  | { type: 'RELOAD_TIMER_COMPLETED' }
+  | { type: 'RELOAD_TIMER_CLEARED' }
   | { type: 'OVERRIDE_PARSE_STARTED' }
   | { type: 'OVERRIDE_APPLIED'; value: FlowOverrideState }
   | { type: 'FOOTER_EXPANSION_UPDATED'; factor: number };

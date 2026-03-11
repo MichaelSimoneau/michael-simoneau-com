@@ -29,8 +29,18 @@ const psychologistPodcasts = beforeAndAfter({
     "Michael's Sunday Morning Brief: Sunday, March 8, 2026. Good Morning, Michael Simoneau...":
     "2026-03-08/Prompt_for-Why_Michael_hung_up_on_Melinda_and_why_she_should_schedule_March_19_and_why_Michael_could_not_care_less_either_way.mp3",
     // Track #5 - 2026-03-08
-    "Why Michael Hung-Up on Melinda and Why She Should Schedule March 19 and Why Michael Could Not Care Less Either Way...":
-    "2026-03-08/Why_Michael_hung_up_on_Melinda_and_why_she_should_schedule_March_19_and_why_Michael_could_not_care_less_either_way.mp3",
+    ...(beforeAndAfter<Record<string, string>>({
+      when: MARCH_12_2026_9_15_AM,
+      before: {
+        "COLLAPSE_1": "Why Michael Couldn't Care Less About Hunging-Up on Melinda, and...",
+        "Why Melinda Should Still Reschedule March 19, 2026.":
+        "2026-03-08/Why_Michael_hung_up_on_Melinda_and_why_she_should_schedule_March_19_and_why_Michael_could_not_care_less_either_way.mp3",
+      },
+      after: {
+        "Why Michael's Psychologist Rescheduled March 19, 2026.":
+        "2026-03-08/Why_Michael_hung_up_on_Melinda_and_why_she_should_schedule_March_19_and_why_Michael_could_not_care_less_either_way.mp3",
+      },
+    }) as Record<string, string>),
     // Track #6 - 2026-03-11
     "The $20 Dollar Bet - Michael Simoneau's $20 Dollar Bet":
     "2026-03-10/Michael_Simoneau_s_$20_Dollar_Bet.mp3",
@@ -83,7 +93,7 @@ const zerothPodcasts = beforeAndAfter({
 const cleanPodcasts: Record<string, string> = {
   // -------------------
   // --- COLLAPSED Playlist (for Psychologists) ---
-  "COLLAPSED_0": COLLAPSED_0 as string,
+  "COLLAPSE_0": COLLAPSED_0 as string,
   ...psychologistPodcasts,
   // ------------------
   // --- EXPANDED Playlist (for Zeroth Theory) ---

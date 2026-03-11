@@ -25,6 +25,7 @@ export const initialProfileFlowState: ProfileFlowState = {
     machine: 'idle',
     currentTrackIndex: 0,
     isRestrictedActive: false,
+    controlsNormalizedAfterRefresh: false,
   },
   video: {
     machine: 'hidden',
@@ -38,6 +39,11 @@ export const initialProfileFlowState: ProfileFlowState = {
   },
   media: {
     machine: 'none',
+  },
+  reloadTimer: {
+    machine: 'idle',
+    startedAtMs: null,
+    durationMs: 0,
   },
   override: {
     machine: 'parse',
@@ -118,6 +124,44 @@ export function profileFlowReducer(
       return {
         ...state,
         playlist: { ...state.playlist, machine: 'handoffPending' },
+      };
+    case 'MELINDA_COLLAPSE_TRIGGER_ARMED':
+      return {
+        ...state,
+        playlist: {
+          ...state.playlist,
+          melindaArmedSectionId: action.sectionId,
+        },
+      };
+    case 'MELINDA_COLLAPSE_TRIGGER_FIRED':
+      return {
+        ...state,
+        playlist: {
+          ...state.playlist,
+          machine: 'loadingTrack',
+          currentTrackIndex: action.trackIndex,
+          melindaArmedSectionId: undefined,
+          melindaActiveSectionId: action.sectionId,
+        },
+      };
+    case 'PLAYLIST_HANDOFF_TO_VIDEOS_REQUESTED':
+      return {
+        ...state,
+        playlist: {
+          ...state.playlist,
+          machine: 'handoffPending',
+          melindaHandoffSectionId: action.sectionId,
+        },
+      };
+    case 'POST_REFRESH_CONTROL_NORMALIZED':
+      return {
+        ...state,
+        playlist: {
+          ...state.playlist,
+          machine: state.playlist.machine === 'restrictedLockout' ? 'paused' : state.playlist.machine,
+          isRestrictedActive: false,
+          controlsNormalizedAfterRefresh: true,
+        },
       };
     case 'PLAYLIST_RESTRICTED_TOGGLED':
       return {
@@ -203,6 +247,32 @@ export function profileFlowReducer(
         media: action.source
           ? { machine: 'sourceActive', activeSource: action.source }
           : { machine: 'none' },
+      };
+    case 'RELOAD_TIMER_STARTED':
+      return {
+        ...state,
+        reloadTimer: {
+          machine: 'running',
+          durationMs: action.durationMs,
+          startedAtMs: action.startedAtMs,
+        },
+      };
+    case 'RELOAD_TIMER_COMPLETED':
+      return {
+        ...state,
+        reloadTimer: {
+          ...state.reloadTimer,
+          machine: 'completed',
+        },
+      };
+    case 'RELOAD_TIMER_CLEARED':
+      return {
+        ...state,
+        reloadTimer: {
+          machine: 'idle',
+          durationMs: 0,
+          startedAtMs: null,
+        },
       };
     case 'OVERRIDE_PARSE_STARTED':
       return {

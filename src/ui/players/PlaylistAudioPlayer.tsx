@@ -46,10 +46,11 @@ const VIDEO_HERO_AUTOPLAY_EVENT = 'videohero:autoplay-request';
 const VIDEO_HERO_PREPEND_MODE_EVENT = 'videohero:prepend-mode';
 const MAIN_SCROLL_CONTAINER_ID = 'new-main-page-scroll-container';
 const VIDEO_HERO_SECTION_ID = 'videos';
-const RESTRICTED_FLOW_DURATION_MS = 2010 * 1000;
+const MELINDA_COLLAPSE_DIRECTIVE_PATTERN = /^collapse_[01]$/i;
 
 const isAudioSource = (src: string) => AUDIO_SOURCE_PATTERN.test(src);
-const isCollapsedDirective = (directive: string) => /collapsed/i.test(directive);
+const isCollapsedDirective = (directive: string) => /collapsed/i.test(directive) || /^collapse_/i.test(directive);
+const isMelindaCollapseDirective = (directive: string) => MELINDA_COLLAPSE_DIRECTIVE_PATTERN.test(directive.trim());
 
 /**
  * PlaylistAudioPlayer — a sleek, slim audio player that manages a playlist
@@ -62,13 +63,10 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
   const audioRef = useRef<HTMLAudioElement>(null);
   const progressRef = useRef<HTMLDivElement>(null);
   const previousIsPlayingRef = useRef(false);
-  const wasFirstCollapsedSectionExpandedRef = useRef<boolean | null>(null);
+  const melindaSectionExpansionSnapshotRef = useRef<Record<string, boolean>>({});
   const startedTrackKeyRef = useRef<string | null>(null);
   const endedTrackKeyRef = useRef<string | null>(null);
   const hasVideoAutoTransitionTriggeredRef = useRef(false);
-  const restrictedFlowPendingStartRef = useRef(false);
-  const restrictedFlowHasStartedRef = useRef(false);
-  const restrictedFlowTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const lastKnownUrlRef = useRef<string | null>(null);
   const {
     playableTracks,
@@ -131,6 +129,7 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
   const [isSeeking, setIsSeeking] = useState(false);
   const [collapsedSections, setCollapsedSections] = useState<Record<string, boolean>>(sectionDefaultCollapsed);
   const [isRestrictedFlowActive, setIsRestrictedFlowActive] = useState(false);
+  const [activeMelindaSectionId, setActiveMelindaSectionId] = useState<string | null>(null);
 
   // Flag to auto-play after a deliberate track change (skip/select)
   const shouldAutoPlay = useRef(false);
@@ -174,30 +173,22 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
 
     return null;
   }, [currentSectionIndex, sections, collapsedSections]);
-  const collapsedSectionFirstTrackIndex = useMemo(() => {
-    const firstCollapsedSection = sections.find((section) => isCollapsedDirective(section.directive));
-    if (!firstCollapsedSection) {
-      return null;
-    }
-    return firstCollapsedSection.trackIndices[0] ?? null;
-  }, [sections]);
-  const collapsedSectionSecondTrackIndex = useMemo(() => {
-    const firstCollapsedSection = sections.find((section) => isCollapsedDirective(section.directive));
-    if (!firstCollapsedSection) {
-      return null;
-    }
-    return firstCollapsedSection.trackIndices[1] ?? null;
-  }, [sections]);
   const firstCollapsedDirectiveSectionId = useMemo(() => {
     const firstCollapsedSection = sections.find((section) => isCollapsedDirective(section.directive));
     return firstCollapsedSection?.id ?? null;
   }, [sections]);
-  const isFirstCollapsedDirectiveSectionExpanded = useMemo(() => {
-    if (!firstCollapsedDirectiveSectionId) {
-      return false;
+  const melindaCollapseSections = useMemo(() => {
+    return sections.filter((section) => isMelindaCollapseDirective(section.directive));
+  }, [sections]);
+  const activeMelindaSection = useMemo(() => {
+    if (!activeMelindaSectionId) {
+      return null;
     }
-    return !(collapsedSections[firstCollapsedDirectiveSectionId] ?? true);
-  }, [collapsedSections, firstCollapsedDirectiveSectionId]);
+    return melindaCollapseSections.find((section) => section.id === activeMelindaSectionId) ?? null;
+  }, [activeMelindaSectionId, melindaCollapseSections]);
+  const activeMelindaSectionSecondTrackIndex = useMemo(() => {
+    return activeMelindaSection?.trackIndices[1] ?? null;
+  }, [activeMelindaSection]);
 
   const centerScrollToVideoHero = useCallback(async () => {
     const scrollContainer = document.getElementById(MAIN_SCROLL_CONTAINER_ID);
@@ -232,15 +223,14 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
       };
       requestAnimationFrame(waitForSettle);
     });
+
+    if (typeof window !== 'undefined' && window.location.hash !== `#${VIDEO_HERO_SECTION_ID}`) {
+      const nextUrl = `${window.location.pathname}${window.location.search}#${VIDEO_HERO_SECTION_ID}`;
+      window.history.pushState(null, '', nextUrl);
+    }
   }, []);
 
   const resetRestrictedFlow = useCallback(() => {
-    if (restrictedFlowTimeoutRef.current !== null) {
-      clearTimeout(restrictedFlowTimeoutRef.current);
-      restrictedFlowTimeoutRef.current = null;
-    }
-    restrictedFlowPendingStartRef.current = false;
-    restrictedFlowHasStartedRef.current = false;
     setIsRestrictedFlowActive(false);
   }, []);
 
@@ -259,24 +249,7 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
       resetRestrictedFlow();
       return;
     }
-    if (!restrictedFlowPendingStartRef.current || restrictedFlowHasStartedRef.current) {
-      return;
-    }
-
-    restrictedFlowPendingStartRef.current = false;
-    restrictedFlowHasStartedRef.current = true;
     setIsRestrictedFlowActive(true);
-
-    if (restrictedFlowTimeoutRef.current !== null) {
-      clearTimeout(restrictedFlowTimeoutRef.current);
-    }
-
-    restrictedFlowTimeoutRef.current = setTimeout(() => {
-      if (typeof window === 'undefined') {
-        return;
-      }
-      window.location.assign(`/?_=${Date.now()}#videos`);
-    }, RESTRICTED_FLOW_DURATION_MS);
   }, [isBaizeBypassEnabled, resetRestrictedFlow]);
 
   useEffect(() => {
@@ -355,6 +328,17 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
   }, [isBaizeBypassEnabled, resetRestrictedFlow]);
 
   useEffect(() => {
+    if (typeof window === 'undefined') {
+      return;
+    }
+    if (window.location.hash.toLowerCase() !== '#videos') {
+      return;
+    }
+    resetRestrictedFlow();
+    flowDispatch({ type: 'POST_REFRESH_CONTROL_NORMALIZED' });
+  }, [flowDispatch, resetRestrictedFlow]);
+
+  useEffect(() => {
     if (isBaizeBypassEnabled()) {
       resetRestrictedFlow();
     }
@@ -417,60 +401,78 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
   }, [expandedTrackIndices, currentTrackIndex]);
 
   useEffect(() => {
-    if (collapsedSectionFirstTrackIndex === null) {
-      wasFirstCollapsedSectionExpandedRef.current = null;
+    if (melindaCollapseSections.length === 0) {
+      melindaSectionExpansionSnapshotRef.current = {};
       return;
     }
 
-    if (!isFirstCollapsedDirectiveSectionExpanded) {
-      wasFirstCollapsedSectionExpandedRef.current = false;
-      return;
-    }
+    const now = Date.now();
+    const isPre915Window = now < MARCH_12_2026_9_15_AM.getTime();
+    const previousSnapshot = melindaSectionExpansionSnapshotRef.current;
+    const nextSnapshot: Record<string, boolean> = {};
 
-    const wasExpanded = wasFirstCollapsedSectionExpandedRef.current;
-    wasFirstCollapsedSectionExpandedRef.current = true;
-    if (wasExpanded === true) {
-      return;
-    }
+    for (const section of melindaCollapseSections) {
+      const isCollapsed = collapsedSections[section.id] ?? section.defaultCollapsed;
+      const isExpanded = !isCollapsed;
+      nextSnapshot[section.id] = isExpanded;
+      const wasExpanded = previousSnapshot[section.id] ?? false;
 
-    const targetTrack = playableTracks[collapsedSectionFirstTrackIndex];
-    if (!targetTrack) {
-      return;
-    }
+      if (!wasExpanded && isExpanded) {
+        setActiveMelindaSectionId(section.id);
+        flowDispatch({ type: 'MELINDA_COLLAPSE_TRIGGER_ARMED', sectionId: section.id });
 
-    // Avoid redundant retrigger when already playing the target.
-    if (
-      currentTrackIndex === collapsedSectionFirstTrackIndex &&
-      isPlaying &&
-      currentTrack?.src === targetTrack.src
-    ) {
-      return;
-    }
+        if (!isPre915Window) {
+          continue;
+        }
 
-    shouldAutoPlay.current = true;
-    startedTrackKeyRef.current = null;
-    restrictedFlowPendingStartRef.current = true;
+        const firstTrackIndex = section.trackIndices[0];
+        const targetTrack = firstTrackIndex !== undefined ? playableTracks[firstTrackIndex] : undefined;
+        if (firstTrackIndex === undefined || !targetTrack) {
+          continue;
+        }
 
-    if (currentTrackIndex === collapsedSectionFirstTrackIndex) {
-      const audio = audioRef.current;
-      if (!audio) {
-        return;
+        // Idempotent guard for expand-trigger replay.
+        if (
+          currentTrackIndex === firstTrackIndex &&
+          isPlaying &&
+          currentTrack?.src === targetTrack.src
+        ) {
+          continue;
+        }
+
+        flowDispatch({
+          type: 'MELINDA_COLLAPSE_TRIGGER_FIRED',
+          sectionId: section.id,
+          trackIndex: firstTrackIndex,
+        });
+        shouldAutoPlay.current = true;
+        startedTrackKeyRef.current = null;
+
+        if (currentTrackIndex === firstTrackIndex) {
+          const audio = audioRef.current;
+          if (!audio) {
+            continue;
+          }
+          dispatchMediaPlayIntent('playlist-audio');
+          audio.play().then(() => {
+            setIsPlaying(true);
+            startRestrictedFlowFromAutoplay();
+          }).catch(() => setIsPlaying(false));
+          continue;
+        }
+
+        setCurrentTrackIndex(firstTrackIndex);
       }
-      dispatchMediaPlayIntent('playlist-audio');
-      audio.play().then(() => {
-        setIsPlaying(true);
-        startRestrictedFlowFromAutoplay();
-      }).catch(() => setIsPlaying(false));
-      return;
     }
 
-    setCurrentTrackIndex(collapsedSectionFirstTrackIndex);
+    melindaSectionExpansionSnapshotRef.current = nextSnapshot;
   }, [
-    collapsedSectionFirstTrackIndex,
+    collapsedSections,
     currentTrack,
     currentTrackIndex,
-    isFirstCollapsedDirectiveSectionExpanded,
+    flowDispatch,
     isPlaying,
+    melindaCollapseSections,
     playableTracks,
     startRestrictedFlowFromAutoplay,
   ]);
@@ -493,8 +495,8 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
         return;
       }
 
-      const shouldTriggerVideoAutoplay = isFirstCollapsedDirectiveSectionExpanded
-        ? collapsedSectionSecondTrackIndex !== null && currentTrackIndex === collapsedSectionSecondTrackIndex
+      const shouldTriggerVideoAutoplay = activeMelindaSectionSecondTrackIndex !== null
+        ? currentTrackIndex === activeMelindaSectionSecondTrackIndex
         : nextExpandedTrackIndex === null;
 
       if (!shouldTriggerVideoAutoplay) {
@@ -504,6 +506,10 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
       const remainingSeconds = audio.duration - audio.currentTime;
       if (Number.isFinite(remainingSeconds) && remainingSeconds <= 2) {
         flowDispatch({ type: 'PLAYLIST_HANDOFF_PENDING' });
+        flowDispatch({
+          type: 'PLAYLIST_HANDOFF_TO_VIDEOS_REQUESTED',
+          sectionId: activeMelindaSectionId ?? undefined,
+        });
         hasVideoAutoTransitionTriggeredRef.current = true;
         setIsPlaying(false);
         audio.pause();
@@ -537,8 +543,8 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
         });
       }
 
-      const shouldTriggerVideoAutoplay = isFirstCollapsedDirectiveSectionExpanded
-        ? collapsedSectionSecondTrackIndex !== null && currentTrackIndex === collapsedSectionSecondTrackIndex
+      const shouldTriggerVideoAutoplay = activeMelindaSectionSecondTrackIndex !== null
+        ? currentTrackIndex === activeMelindaSectionSecondTrackIndex
         : nextExpandedTrackIndex === null;
 
       if (shouldTriggerVideoAutoplay) {
@@ -546,6 +552,10 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
           return;
         }
         flowDispatch({ type: 'PLAYLIST_HANDOFF_PENDING' });
+        flowDispatch({
+          type: 'PLAYLIST_HANDOFF_TO_VIDEOS_REQUESTED',
+          sectionId: activeMelindaSectionId ?? undefined,
+        });
         hasVideoAutoTransitionTriggeredRef.current = true;
         setIsPlaying(false);
         centerScrollToVideoHero()
@@ -579,11 +589,11 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
       audio.removeEventListener('ended', onEnded);
     };
   }, [
+    activeMelindaSectionId,
+    activeMelindaSectionSecondTrackIndex,
     centerScrollToVideoHero,
-    collapsedSectionSecondTrackIndex,
     currentTrackIndex,
     flowDispatch,
-    isFirstCollapsedDirectiveSectionExpanded,
     playableTracks,
     trackMediaEvent,
     isSeeking,
@@ -791,9 +801,16 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
       handlePlayPause();
       return;
     }
+    const targetTrack = playableTracks[index];
+    if (targetTrack) {
+      const targetSection = sections.find((section) => section.id === targetTrack.sectionId);
+      if (targetSection && isMelindaCollapseDirective(targetSection.directive)) {
+        setActiveMelindaSectionId(targetSection.id);
+      }
+    }
     shouldAutoPlay.current = true;
     setCurrentTrackIndex(index);
-  }, [currentTrackIndex, handlePlayPause, isRestrictedFlowActive]);
+  }, [currentTrackIndex, handlePlayPause, isRestrictedFlowActive, playableTracks, sections]);
 
   // ── Seek via progress bar click ────────────────────────────────────────
   const setAudioTime = useCallback((nextTime: number) => {
@@ -1034,6 +1051,8 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
                           if (isRestrictedFlowActive) {
                             return;
                           }
+                          // Any playlist section interaction should pause active video playback.
+                          dispatchMediaPlayIntent('playlist-audio');
                           setCollapsedSections((previous) => ({
                             ...previous,
                             [section.id]: !isCollapsed,
