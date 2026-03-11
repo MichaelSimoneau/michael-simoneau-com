@@ -50,7 +50,8 @@ function patchHtml(html) {
     <meta name="color-scheme" content="dark" />
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
-      tailwind.config = {
+      window.tailwind = window.tailwind || {};
+      window.tailwind.config = {
         theme: {
           extend: {
             animation: {

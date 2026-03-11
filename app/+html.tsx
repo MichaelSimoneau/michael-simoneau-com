@@ -14,13 +14,13 @@ export default function Root({ children }: PropsWithChildren) {
         <link
           rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/katex@0.16.33/dist/katex.min.css"
-          integrity="sha384-5TcZemv2l/9On385z///+d7MSYlvIEw9FuZTIdZ14vJLqWphw7e7ZPuOiCHJcFCP"
           crossOrigin="anonymous"
         />
         <script
           dangerouslySetInnerHTML={{
             __html: `
-              tailwind.config = {
+              window.tailwind = window.tailwind || {};
+              window.tailwind.config = {
                 theme: {
                   extend: {
                     animation: {

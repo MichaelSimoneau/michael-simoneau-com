@@ -1,5 +1,6 @@
 import { useCallback } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useProfileFlowDispatch } from '../features/profile/flow';
 // import { useScrollContext } from '../contexts/ScrollContext'; // Not using context directly in this version of the hook
 
 interface UseScrollToSectionOptions {
@@ -14,6 +15,7 @@ const getSectionOffset = (sectionId: string): number => {
 export const useScrollToSection = (options?: UseScrollToSectionOptions) => {
   const navigate = useNavigate();
   const location = useLocation();
+  const flowDispatch = useProfileFlowDispatch();
   // const { mainScrollContainerRef } = useScrollContext(); // Get ref from context if preferred
 
   const scrollToSection = useCallback((sectionId: string, onComplete?: () => void) => {
@@ -35,6 +37,12 @@ export const useScrollToSection = (options?: UseScrollToSectionOptions) => {
         container.style.scrollSnapType = 'none';
 
         const offset = getSectionOffset(targetId);
+        flowDispatch({
+          type: 'NAV_HASH_RESOLVE_REQUESTED',
+          sectionId: targetId,
+          sectionOffsetPx: offset,
+        });
+        flowDispatch({ type: 'NAV_SCROLL_STARTED' });
         const containerRect = container.getBoundingClientRect();
         const elementRect = targetElement.getBoundingClientRect();
         const scrollTop = elementRect.top - containerRect.top + container.scrollTop - offset;
@@ -53,6 +61,7 @@ export const useScrollToSection = (options?: UseScrollToSectionOptions) => {
 
         setTimeout(() => {
           container.style.scrollSnapType = originalSnapType;
+          flowDispatch({ type: 'NAV_SCROLL_SETTLED' });
           onComplete?.();
         }, 700); // Adjust timeout based on smooth scroll duration
       } else {
@@ -89,7 +98,7 @@ export const useScrollToSection = (options?: UseScrollToSectionOptions) => {
       navigate({ pathname: '/', hash: sectionId });
       onComplete?.();
     }
-  }, [location.pathname, navigate, options?.scrollContainerId]);
+  }, [location.pathname, navigate, options?.scrollContainerId, flowDispatch]);
 
   return scrollToSection;
 }; 

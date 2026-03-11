@@ -14,6 +14,7 @@ import {
 import { useMediaAnalytics } from '../../analytics/useMediaAnalytics';
 import { MARCH_12_2026_9_15_AM } from '../../hooks/useBeforeAndAfter';
 import { dispatchMediaPlayIntent } from './mediaEvents';
+import { useProfileFlowDispatch, useProfileFlowState } from '../../features/profile/flow';
 
 /**
  * Single track definition for the playlist player.
@@ -56,6 +57,8 @@ const isCollapsedDirective = (directive: string) => /collapsed/i.test(directive)
  */
 export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks, className }) => {
   const { trackMediaEvent } = useMediaAnalytics();
+  const flowDispatch = useProfileFlowDispatch();
+  const flowState = useProfileFlowState();
   const audioRef = useRef<HTMLAudioElement>(null);
   const progressRef = useRef<HTMLDivElement>(null);
   const previousIsPlayingRef = useRef(false);
@@ -293,6 +296,28 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
   }, [resetRestrictedFlow]);
 
   useEffect(() => {
+    const overrideTrack = flowState.override.value.playlist.track;
+    if (overrideTrack === undefined || playableTracks.length === 0) {
+      return;
+    }
+    const normalizedTrackIndex = Math.max(0, Math.min(playableTracks.length - 1, overrideTrack - 1));
+    shouldAutoPlay.current = Boolean(flowState.override.value.playlist.autoplay);
+    setCurrentTrackIndex(normalizedTrackIndex);
+  }, [
+    flowState.override.value.playlist.autoplay,
+    flowState.override.value.playlist.track,
+    playableTracks.length,
+  ]);
+
+  useEffect(() => {
+    if (flowState.override.value.restricted === 'on') {
+      setIsRestrictedFlowActive(true);
+    } else if (flowState.override.value.restricted === 'off') {
+      resetRestrictedFlow();
+    }
+  }, [flowState.override.value.restricted, resetRestrictedFlow]);
+
+  useEffect(() => {
     if (typeof window === 'undefined') {
       return;
     }
@@ -478,6 +503,7 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
 
       const remainingSeconds = audio.duration - audio.currentTime;
       if (Number.isFinite(remainingSeconds) && remainingSeconds <= 2) {
+        flowDispatch({ type: 'PLAYLIST_HANDOFF_PENDING' });
         hasVideoAutoTransitionTriggeredRef.current = true;
         setIsPlaying(false);
         audio.pause();
@@ -519,6 +545,7 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
         if (hasVideoAutoTransitionTriggeredRef.current) {
           return;
         }
+        flowDispatch({ type: 'PLAYLIST_HANDOFF_PENDING' });
         hasVideoAutoTransitionTriggeredRef.current = true;
         setIsPlaying(false);
         centerScrollToVideoHero()
@@ -555,6 +582,7 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
     centerScrollToVideoHero,
     collapsedSectionSecondTrackIndex,
     currentTrackIndex,
+    flowDispatch,
     isFirstCollapsedDirectiveSectionExpanded,
     playableTracks,
     trackMediaEvent,
@@ -566,6 +594,10 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
   useEffect(() => {
     hasVideoAutoTransitionTriggeredRef.current = false;
   }, [currentTrackIndex]);
+
+  useEffect(() => {
+    flowDispatch({ type: 'PLAYLIST_TRACK_CHANGED', trackIndex: currentTrackIndex });
+  }, [currentTrackIndex, flowDispatch]);
 
   useEffect(() => {
     if (typeof document === 'undefined') {
@@ -665,7 +697,12 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
     }
 
     previousIsPlayingRef.current = isPlaying;
-  }, [currentTrackIndex, currentTime, duration, isPlaying, playableTracks, trackMediaEvent]);
+    flowDispatch({ type: isPlaying ? 'PLAYLIST_PLAYING' : 'PLAYLIST_PAUSED' });
+  }, [currentTrackIndex, currentTime, duration, isPlaying, playableTracks, trackMediaEvent, flowDispatch]);
+
+  useEffect(() => {
+    flowDispatch({ type: 'PLAYLIST_RESTRICTED_TOGGLED', active: isRestrictedFlowActive });
+  }, [flowDispatch, isRestrictedFlowActive]);
 
   // ── Sync audio source when track changes ───────────────────────────────
   useEffect(() => {
@@ -767,6 +804,17 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
     audio.currentTime = clamped;
     setCurrentTime(clamped);
   }, [duration]);
+
+  useEffect(() => {
+    if (flowState.override.value.playlist.time === undefined) {
+      return;
+    }
+    const audio = audioRef.current;
+    if (!audio || !duration) {
+      return;
+    }
+    setAudioTime(flowState.override.value.playlist.time);
+  }, [duration, flowState.override.value.playlist.time, setAudioTime]);
 
   const seekFromClientX = useCallback((clientX: number) => {
     const bar = progressRef.current;
@@ -945,17 +993,17 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
             onPointerUp={handleProgressPointerUp}
             onPointerCancel={handleProgressPointerUp}
             onKeyDown={handleProgressKeyDown}
-            className="relative h-1.5 mt-3 bg-gray-700/50 rounded-full overflow-hidden cursor-pointer touch-none"
+            className="playlist-seekbar relative h-1.5 mt-3 rounded-full overflow-hidden cursor-pointer touch-none"
           >
             {/* Filled portion */}
             <motion.div
-              className="absolute inset-y-0 left-0 bg-cyan-400 rounded-full"
+              className="playlist-seekbar-fill absolute inset-y-0 left-0 rounded-full"
               style={{ width: `${progress}%` }}
               transition={{ duration: isSeeking ? 0 : 0.1 }}
             />
             {/* Seek handle (visible on hover) */}
             <div
-              className="absolute top-1/2 -translate-y-1/2 w-3 h-3 bg-cyan-300 rounded-full shadow-md pointer-events-none"
+              className="playlist-seekbar-thumb absolute top-1/2 -translate-y-1/2 shadow-md pointer-events-none"
               style={{ left: `calc(${progress}% - 6px)` }}
             />
           </div>
