@@ -46,7 +46,8 @@ const VIDEO_HERO_AUTOPLAY_EVENT = 'videohero:autoplay-request';
 const VIDEO_HERO_PREPEND_MODE_EVENT = 'videohero:prepend-mode';
 const MAIN_SCROLL_CONTAINER_ID = 'new-main-page-scroll-container';
 const VIDEO_HERO_SECTION_ID = 'videos';
-const MELINDA_COLLAPSE_DIRECTIVE_PATTERN = /^collapse_[01]$/i;
+const MELINDA_COLLAPSE_DIRECTIVE_PATTERN = /^collapse_0$/i;
+const RESTRICTED_FLOW_DURATION_MS = 2010 * 1000;
 
 const isAudioSource = (src: string) => AUDIO_SOURCE_PATTERN.test(src);
 const isCollapsedDirective = (directive: string) => /collapsed/i.test(directive) || /^collapse_/i.test(directive);
@@ -68,6 +69,8 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
   const endedTrackKeyRef = useRef<string | null>(null);
   const hasVideoAutoTransitionTriggeredRef = useRef(false);
   const lastKnownUrlRef = useRef<string | null>(null);
+  const restrictedFlowTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const restrictedFlowLockedUntilReloadRef = useRef(false);
   const {
     playableTracks,
     sections,
@@ -230,7 +233,16 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
     }
   }, []);
 
-  const resetRestrictedFlow = useCallback(() => {
+  const resetRestrictedFlow = useCallback((options?: { force?: boolean }) => {
+    const force = options?.force ?? false;
+    if (!force && restrictedFlowLockedUntilReloadRef.current) {
+      return;
+    }
+    if (restrictedFlowTimeoutRef.current !== null) {
+      clearTimeout(restrictedFlowTimeoutRef.current);
+      restrictedFlowTimeoutRef.current = null;
+    }
+    restrictedFlowLockedUntilReloadRef.current = false;
     setIsRestrictedFlowActive(false);
   }, []);
 
@@ -244,12 +256,37 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
     return new URLSearchParams(window.location.search).has('baize');
   }, []);
 
-  const startRestrictedFlowFromAutoplay = useCallback(() => {
+  const startRestrictedFlowFromInitialClick = useCallback(() => {
     if (isBaizeBypassEnabled()) {
-      resetRestrictedFlow();
+      resetRestrictedFlow({ force: true });
       return;
     }
+    if (restrictedFlowLockedUntilReloadRef.current) {
+      setIsRestrictedFlowActive(true);
+      return;
+    }
+
+    restrictedFlowLockedUntilReloadRef.current = true;
     setIsRestrictedFlowActive(true);
+    if (restrictedFlowTimeoutRef.current !== null) {
+      clearTimeout(restrictedFlowTimeoutRef.current);
+    }
+    restrictedFlowTimeoutRef.current = setTimeout(() => {
+      if (typeof window === 'undefined') {
+        return;
+      }
+      window.location.assign(`/?_=${Date.now()}#videos`);
+    }, RESTRICTED_FLOW_DURATION_MS);
+  }, [isBaizeBypassEnabled, resetRestrictedFlow]);
+
+  const startRestrictedFlowFromAutoplay = useCallback(() => {
+    if (isBaizeBypassEnabled()) {
+      resetRestrictedFlow({ force: true });
+      return;
+    }
+    if (restrictedFlowLockedUntilReloadRef.current) {
+      setIsRestrictedFlowActive(true);
+    }
   }, [isBaizeBypassEnabled, resetRestrictedFlow]);
 
   useEffect(() => {
@@ -264,7 +301,7 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
 
   useEffect(() => {
     return () => {
-      resetRestrictedFlow();
+      resetRestrictedFlow({ force: true });
     };
   }, [resetRestrictedFlow]);
 
@@ -283,12 +320,16 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
   ]);
 
   useEffect(() => {
+    if (isBaizeBypassEnabled()) {
+      resetRestrictedFlow({ force: true });
+      return;
+    }
     if (flowState.override.value.restricted === 'on') {
       setIsRestrictedFlowActive(true);
     } else if (flowState.override.value.restricted === 'off') {
-      resetRestrictedFlow();
+      resetRestrictedFlow({ force: true });
     }
-  }, [flowState.override.value.restricted, resetRestrictedFlow]);
+  }, [flowState.override.value.restricted, isBaizeBypassEnabled, resetRestrictedFlow]);
 
   useEffect(() => {
     if (typeof window === 'undefined') {
@@ -297,6 +338,10 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
 
     const handleSoftNavigation = () => {
       lastKnownUrlRef.current = window.location.href;
+      if (isBaizeBypassEnabled()) {
+        resetRestrictedFlow({ force: true });
+        return;
+      }
       resetRestrictedFlow();
     };
 
@@ -306,7 +351,7 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
       window.removeEventListener('hashchange', handleSoftNavigation);
       window.removeEventListener('popstate', handleSoftNavigation);
     };
-  }, [resetRestrictedFlow]);
+  }, [isBaizeBypassEnabled, resetRestrictedFlow]);
 
   useEffect(() => {
     if (typeof window === 'undefined') {
@@ -317,13 +362,17 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
     if (lastKnownUrlRef.current === null) {
       lastKnownUrlRef.current = currentHref;
       if (isBaizeBypassEnabled()) {
-        resetRestrictedFlow();
+        resetRestrictedFlow({ force: true });
       }
       return;
     }
     if (lastKnownUrlRef.current !== currentHref) {
       lastKnownUrlRef.current = currentHref;
-      resetRestrictedFlow();
+      if (isBaizeBypassEnabled()) {
+        resetRestrictedFlow({ force: true });
+      } else {
+        resetRestrictedFlow();
+      }
     }
   }, [isBaizeBypassEnabled, resetRestrictedFlow]);
 
@@ -334,18 +383,22 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
     if (window.location.hash.toLowerCase() !== '#videos') {
       return;
     }
-    resetRestrictedFlow();
+    if (isBaizeBypassEnabled()) {
+      resetRestrictedFlow({ force: true });
+    } else {
+      resetRestrictedFlow();
+    }
     flowDispatch({ type: 'POST_REFRESH_CONTROL_NORMALIZED' });
-  }, [flowDispatch, resetRestrictedFlow]);
+  }, [flowDispatch, isBaizeBypassEnabled, resetRestrictedFlow]);
 
   useEffect(() => {
     if (isBaizeBypassEnabled()) {
-      resetRestrictedFlow();
+      resetRestrictedFlow({ force: true });
     }
 
     const intervalId = setInterval(() => {
       if (isBaizeBypassEnabled()) {
-        resetRestrictedFlow();
+        resetRestrictedFlow({ force: true });
       }
     }, 1000);
 
@@ -425,6 +478,8 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
           continue;
         }
 
+        startRestrictedFlowFromInitialClick();
+
         const firstTrackIndex = section.trackIndices[0];
         const targetTrack = firstTrackIndex !== undefined ? playableTracks[firstTrackIndex] : undefined;
         if (firstTrackIndex === undefined || !targetTrack) {
@@ -474,6 +529,7 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
     isPlaying,
     melindaCollapseSections,
     playableTracks,
+    startRestrictedFlowFromInitialClick,
     startRestrictedFlowFromAutoplay,
   ]);
 
