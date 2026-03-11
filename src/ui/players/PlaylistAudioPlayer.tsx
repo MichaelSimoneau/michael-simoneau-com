@@ -40,7 +40,10 @@ interface PlayableTrack extends Track {
 }
 
 const AUDIO_SOURCE_PATTERN = /\.(mp3|wav|m4a|aac|ogg|flac)(?:\?.*)?$/i;
+const VIDEO_HERO_AUTOPLAY_EVENT = 'videohero:autoplay-request';
 const VIDEO_HERO_PREPEND_MODE_EVENT = 'videohero:prepend-mode';
+const MAIN_SCROLL_CONTAINER_ID = 'new-main-page-scroll-container';
+const VIDEO_HERO_SECTION_ID = 'videos';
 
 const isAudioSource = (src: string) => AUDIO_SOURCE_PATTERN.test(src);
 const isCollapsedDirective = (directive: string) => /collapsed/i.test(directive);
@@ -167,6 +170,13 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
     }
     return firstCollapsedSection.trackIndices[0] ?? null;
   }, [sections]);
+  const collapsedSectionSecondTrackIndex = useMemo(() => {
+    const firstCollapsedSection = sections.find((section) => isCollapsedDirective(section.directive));
+    if (!firstCollapsedSection) {
+      return null;
+    }
+    return firstCollapsedSection.trackIndices[1] ?? null;
+  }, [sections]);
   const firstCollapsedDirectiveSectionId = useMemo(() => {
     const firstCollapsedSection = sections.find((section) => isCollapsedDirective(section.directive));
     return firstCollapsedSection?.id ?? null;
@@ -177,6 +187,41 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
     }
     return !(collapsedSections[firstCollapsedDirectiveSectionId] ?? true);
   }, [collapsedSections, firstCollapsedDirectiveSectionId]);
+
+  const centerScrollToVideoHero = useCallback(async () => {
+    const scrollContainer = document.getElementById(MAIN_SCROLL_CONTAINER_ID);
+    const videoSection = document.getElementById(VIDEO_HERO_SECTION_ID);
+    if (!scrollContainer || !videoSection) {
+      return;
+    }
+
+    const containerRect = scrollContainer.getBoundingClientRect();
+    const sectionRect = videoSection.getBoundingClientRect();
+    const sectionTopWithinContainer = sectionRect.top - containerRect.top + scrollContainer.scrollTop;
+    const targetScrollTop = sectionTopWithinContainer + sectionRect.height / 2 - scrollContainer.clientHeight / 2;
+    const maxScrollTop = Math.max(0, scrollContainer.scrollHeight - scrollContainer.clientHeight);
+    const clampedTargetScrollTop = Math.max(0, Math.min(targetScrollTop, maxScrollTop));
+    const settleThresholdPx = 6;
+    const maxWaitMs = 3500;
+    const settleTimeoutAt = Date.now() + maxWaitMs;
+
+    scrollContainer.scrollTo({
+      top: clampedTargetScrollTop,
+      behavior: 'smooth',
+    });
+
+    await new Promise<void>((resolve) => {
+      const waitForSettle = () => {
+        const distance = Math.abs(scrollContainer.scrollTop - clampedTargetScrollTop);
+        if (distance <= settleThresholdPx || Date.now() >= settleTimeoutAt) {
+          resolve();
+          return;
+        }
+        requestAnimationFrame(waitForSettle);
+      };
+      requestAnimationFrame(waitForSettle);
+    });
+  }, []);
 
   useEffect(() => {
     setCollapsedSections((previous) => {
@@ -319,6 +364,22 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
         });
       }
 
+      const shouldTriggerVideoAutoplay = isFirstCollapsedDirectiveSectionExpanded
+        ? collapsedSectionSecondTrackIndex !== null && currentTrackIndex === collapsedSectionSecondTrackIndex
+        : nextExpandedTrackIndex === null;
+
+      if (shouldTriggerVideoAutoplay) {
+        setIsPlaying(false);
+        centerScrollToVideoHero()
+          .then(() => {
+            window.dispatchEvent(new CustomEvent(VIDEO_HERO_AUTOPLAY_EVENT));
+          })
+          .catch(() => {
+            window.dispatchEvent(new CustomEvent(VIDEO_HERO_AUTOPLAY_EVENT));
+          });
+        return;
+      }
+
       // Sequential playback: advance to next track or stop at end
       if (nextExpandedTrackIndex !== null) {
         shouldAutoPlay.current = true;
@@ -338,9 +399,12 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
       audio.removeEventListener('ended', onEnded);
     };
   }, [
+    centerScrollToVideoHero,
+    collapsedSectionSecondTrackIndex,
     currentTrackIndex,
+    isFirstCollapsedDirectiveSectionExpanded,
+    playableTracks,
     trackMediaEvent,
-    playableTracks.length,
     isSeeking,
     nextExpandedTrackIndex,
   ]);
@@ -421,7 +485,7 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
     } else {
       setIsPlaying(false);
     }
-  }, [currentTrackIndex, currentTrack?.src]);
+  }, [currentTrack]);
 
   // ── Controls ───────────────────────────────────────────────────────────
   const handlePlayPause = useCallback(() => {

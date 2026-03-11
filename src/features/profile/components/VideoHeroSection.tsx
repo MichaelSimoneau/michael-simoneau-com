@@ -65,6 +65,7 @@ const HANDOFF_PLAYLIST_START_INDEX = 2;
 const HANDOFF_DELAY_MS = 5000;
 const PREEND_TRIGGER_SECONDS = 1;
 const PREEND_POLL_INTERVAL_MS = 200;
+const VIDEO_HERO_AUTOPLAY_EVENT = 'videohero:autoplay-request';
 const VIDEO_HERO_PREPEND_MODE_EVENT = 'videohero:prepend-mode';
 const VIDEO_HERO_MEDIA_SOURCE = 'video-hero';
 type PlaybackPhase = 'prepended' | 'primary' | 'second' | 'playlist';
@@ -89,6 +90,7 @@ export const VideoHeroSection: React.FC = () => {
   const handoffCountdownIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const preEndPollIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const pendingAutoPlayRequestRef = useRef(false);
+  const hasInitialLoadSettledRef = useRef(false);
   const prependModeEnabledRef = useRef(false);
   const previousPlayerStateRef = useRef<number | null>(null);
   const startedPlaybackKeyRef = useRef<string | null>(null);
@@ -439,6 +441,13 @@ export const VideoHeroSection: React.FC = () => {
   }, [isWatching, isPlayerReady, runNextPlaybackStep, scheduleHandoff]);
 
   useEffect(() => {
+    const settleId = setTimeout(() => {
+      hasInitialLoadSettledRef.current = true;
+    }, 0);
+    return () => clearTimeout(settleId);
+  }, []);
+
+  useEffect(() => {
     if (typeof window === 'undefined') return;
 
     const ytWindow = window as YouTubeWindow;
@@ -513,6 +522,29 @@ export const VideoHeroSection: React.FC = () => {
       pendingAutoPlayRequestRef.current = false;
     }
   }, [isWatching, isPlayerReady, clearHandoffTimeout, startPlaybackForCurrentMode]);
+
+  useEffect(() => {
+    const handleAutoplayRequest = () => {
+      if (!hasInitialLoadSettledRef.current) {
+        return;
+      }
+
+      clearHandoffTimeout();
+      startModeRef.current = 'standard';
+      if (!isWatching || !isPlayerReady) {
+        pendingAutoPlayRequestRef.current = true;
+        setIsWatching(true);
+        return;
+      }
+
+      startPlaybackForCurrentMode();
+    };
+
+    window.addEventListener(VIDEO_HERO_AUTOPLAY_EVENT, handleAutoplayRequest);
+    return () => {
+      window.removeEventListener(VIDEO_HERO_AUTOPLAY_EVENT, handleAutoplayRequest);
+    };
+  }, [clearHandoffTimeout, isPlayerReady, isWatching, startPlaybackForCurrentMode]);
 
   useEffect(() => {
     const handleGlobalMediaPlayIntent = (event: Event) => {
