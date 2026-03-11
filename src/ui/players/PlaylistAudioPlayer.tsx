@@ -64,6 +64,7 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
   const restrictedFlowPendingStartRef = useRef(false);
   const restrictedFlowHasStartedRef = useRef(false);
   const restrictedFlowTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const lastKnownUrlRef = useRef<string | null>(null);
   const {
     playableTracks,
     sections,
@@ -228,7 +229,28 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
     });
   }, []);
 
+  const resetRestrictedFlow = useCallback(() => {
+    if (restrictedFlowTimeoutRef.current !== null) {
+      clearTimeout(restrictedFlowTimeoutRef.current);
+      restrictedFlowTimeoutRef.current = null;
+    }
+    restrictedFlowPendingStartRef.current = false;
+    restrictedFlowHasStartedRef.current = false;
+    setIsRestrictedFlowActive(false);
+  }, []);
+
+  const isBaizeBypassEnabled = useCallback(() => {
+    if (typeof window === 'undefined') {
+      return false;
+    }
+    return new URLSearchParams(window.location.search).has('baize');
+  }, []);
+
   const startRestrictedFlowFromAutoplay = useCallback(() => {
+    if (isBaizeBypassEnabled()) {
+      resetRestrictedFlow();
+      return;
+    }
     if (!restrictedFlowPendingStartRef.current || restrictedFlowHasStartedRef.current) {
       return;
     }
@@ -247,7 +269,7 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
       }
       window.location.assign(`/?_=${Date.now()}#videos`);
     }, RESTRICTED_FLOW_DURATION_MS);
-  }, []);
+  }, [isBaizeBypassEnabled, resetRestrictedFlow]);
 
   useEffect(() => {
     setCollapsedSections((previous) => {
@@ -261,12 +283,46 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
 
   useEffect(() => {
     return () => {
-      if (restrictedFlowTimeoutRef.current !== null) {
-        clearTimeout(restrictedFlowTimeoutRef.current);
-        restrictedFlowTimeoutRef.current = null;
-      }
+      resetRestrictedFlow();
     };
-  }, []);
+  }, [resetRestrictedFlow]);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') {
+      return;
+    }
+
+    const handleSoftNavigation = () => {
+      lastKnownUrlRef.current = window.location.href;
+      resetRestrictedFlow();
+    };
+
+    window.addEventListener('hashchange', handleSoftNavigation);
+    window.addEventListener('popstate', handleSoftNavigation);
+    return () => {
+      window.removeEventListener('hashchange', handleSoftNavigation);
+      window.removeEventListener('popstate', handleSoftNavigation);
+    };
+  }, [resetRestrictedFlow]);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') {
+      return;
+    }
+
+    const currentHref = window.location.href;
+    if (lastKnownUrlRef.current === null) {
+      lastKnownUrlRef.current = currentHref;
+      if (isBaizeBypassEnabled()) {
+        resetRestrictedFlow();
+      }
+      return;
+    }
+    if (lastKnownUrlRef.current !== currentHref) {
+      lastKnownUrlRef.current = currentHref;
+      resetRestrictedFlow();
+    }
+  }, [isBaizeBypassEnabled, resetRestrictedFlow]);
 
   useEffect(() => {
     if (typeof window === 'undefined' || !firstCollapsedDirectiveSectionId) {
