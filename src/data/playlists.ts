@@ -32,7 +32,7 @@ const psychologistPodcasts = beforeAndAfter({
     ...(beforeAndAfter<Record<string, string>>({
       when: MARCH_12_2026_9_15_AM,
       before: {
-        "COLLAPSE_1": "Why Michael Couldn't Care Less About Hunging-Up on Melinda, and...",
+        "COLLAPSE_1": "Why Michael Couldn't Care Less About Hanging-Up on Melinda, and...",
         "Why Melinda Should Still Reschedule March 19, 2026.":
         "2026-03-08/Why_Michael_hung_up_on_Melinda_and_why_she_should_schedule_March_19_and_why_Michael_could_not_care_less_either_way.mp3",
       },
