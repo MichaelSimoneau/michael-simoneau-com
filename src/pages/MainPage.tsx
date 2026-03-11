@@ -412,7 +412,7 @@ export const MainPage: React.FC = () => {
           </section>
         </div>
 
-        <div id="double-dragon" className="relative">
+        <div id="videos" className="relative">
           <VideoHeroSection />
         </div>
 

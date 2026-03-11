@@ -42,7 +42,7 @@ const AUDIO_SOURCE_PATTERN = /\.(mp3|wav|m4a|aac|ogg|flac)(?:\?.*)?$/i;
 const VIDEO_HERO_AUTOPLAY_EVENT = 'videohero:autoplay-request';
 const VIDEO_HERO_PREPEND_MODE_EVENT = 'videohero:prepend-mode';
 const MAIN_SCROLL_CONTAINER_ID = 'new-main-page-scroll-container';
-const VIDEO_HERO_SECTION_ID = 'double-dragon';
+const VIDEO_HERO_SECTION_ID = 'videos';
 
 const isAudioSource = (src: string) => AUDIO_SOURCE_PATTERN.test(src);
 const isCollapsedDirective = (directive: string) => /collapsed/i.test(directive);

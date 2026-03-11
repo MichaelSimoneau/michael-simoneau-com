@@ -120,7 +120,7 @@ export const MainNav: React.FC<MainNavProps> = ({ scrollContainerId }) => {
           {!isPathsExpanded && (
             <>
               <button onClick={() => handleSectionLinkClick('about')} className="text-gray-300 hover:text-cyan-400 transition-colors">About</button>
-              <button onClick={() => handleSectionLinkClick('double-dragon')} className="text-gray-300 hover:text-cyan-400 transition-colors">Video</button>
+              <button onClick={() => handleSectionLinkClick('videos')} className="text-gray-300 hover:text-cyan-400 transition-colors">Video</button>
               <button onClick={() => handleSectionLinkClick('music')} className="text-gray-300 hover:text-cyan-400 transition-colors">Music</button>
               <button onClick={() => handleSectionLinkClick('interview')} className="text-gray-300 hover:text-cyan-400 transition-colors">Interview</button>
               
@@ -140,6 +140,17 @@ export const MainNav: React.FC<MainNavProps> = ({ scrollContainerId }) => {
             </>
           )}
           
+          {!isPathsExpanded && (
+            <>
+              <button onClick={() => handleSectionLinkClick('blog')} className="text-gray-300 hover:text-cyan-400 transition-colors">Insights</button>
+              <button onClick={() => handleSectionLinkClick('contact')} className="text-gray-300 hover:text-cyan-400 transition-colors">Contact</button>
+              <Link href="/blog" onClick={() => setIsOpen(false)} className="text-gray-300 hover:text-cyan-400 transition-colors flex items-center">
+                <BookOpen size={16} className="mr-2" />
+                Blog
+              </Link>
+            </>
+          )}
+
           {/* Paths Navigation */}
           <motion.div className="grid items-center relative overflow-hidden" layout>
             <AnimatePresence>
@@ -202,17 +213,6 @@ export const MainNav: React.FC<MainNavProps> = ({ scrollContainerId }) => {
               )}
             </AnimatePresence>
           </motion.div>
-
-          {!isPathsExpanded && (
-            <>
-              <button onClick={() => handleSectionLinkClick('blog')} className="text-gray-300 hover:text-cyan-400 transition-colors">Insights</button>
-              <button onClick={() => handleSectionLinkClick('contact')} className="text-gray-300 hover:text-cyan-400 transition-colors">Contact</button>
-              <Link href="/blog" onClick={() => setIsOpen(false)} className="text-gray-300 hover:text-cyan-400 transition-colors flex items-center">
-                <BookOpen size={16} className="mr-2" />
-                Blog
-              </Link>
-            </>
-          )}
         </nav>
         
         <button 
@@ -246,7 +246,7 @@ export const MainNav: React.FC<MainNavProps> = ({ scrollContainerId }) => {
                 )}
                 
                 <button onClick={() => handleSectionLinkClick('about')} className={overlayNavItemClass}>About</button>
-                <button onClick={() => handleSectionLinkClick('double-dragon')} className={overlayNavItemClass}>Video</button>
+                <button onClick={() => handleSectionLinkClick('videos')} className={overlayNavItemClass}>Video</button>
                 <button onClick={() => handleSectionLinkClick('music')} className={overlayNavItemClass}>Music</button>
                 <button onClick={() => handleSectionLinkClick('interview')} className={overlayNavItemClass}>Interview</button>
 
@@ -264,6 +264,13 @@ export const MainNav: React.FC<MainNavProps> = ({ scrollContainerId }) => {
                 <button onClick={() => handleSectionLinkClick('expertise')} className={overlayNavItemClass}>Expertise</button>
                 <button onClick={() => handleSectionLinkClick('testimonials')} className={overlayNavItemClass}>Testimonials</button>
 
+                <button onClick={() => handleSectionLinkClick('blog')} className={overlayNavItemClass}>Insights</button>
+                <button onClick={() => handleSectionLinkClick('contact')} className={overlayNavItemClass}>Contact</button>
+                <Link href="/blog" className={overlayNavItemWithIconClass} onClick={() => setIsOpen(false)}>
+                  <BookOpen size={18} className="mr-2" />
+                  Blog
+                </Link>
+
                 <div className="w-full text-center md:col-span-2">
                   <button 
                     onClick={() => setIsPathsExpanded(true)}
@@ -273,13 +280,6 @@ export const MainNav: React.FC<MainNavProps> = ({ scrollContainerId }) => {
                     Paths
                   </button>
                 </div>
-
-                <button onClick={() => handleSectionLinkClick('blog')} className={overlayNavItemClass}>Insights</button>
-                <button onClick={() => handleSectionLinkClick('contact')} className={overlayNavItemClass}>Contact</button>
-                <Link href="/blog" className={overlayNavItemWithIconClass} onClick={() => setIsOpen(false)}>
-                  <BookOpen size={18} className="mr-2" />
-                  Blog
-                </Link>
                 
                 <button 
                   onClick={() => setIsOpen(false)}
