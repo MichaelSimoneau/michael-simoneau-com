@@ -49,7 +49,7 @@ const getMainPageSectionOffset = (sectionId: string): number => {
   return sectionId === 'music' ? 0 : DEFAULT_SECTION_OFFSET_PX;
 };
 
-const SoundOnEmbed: React.FC = () => {
+const MusicSection: React.FC = () => {
   const [iframeHeight, setIframeHeight] = useState(SOUNDON_DEFAULT_HEIGHT);
   const [loadFailed, setLoadFailed] = useState(false);
   const [hasLoaded, setHasLoaded] = useState(false);
@@ -185,7 +185,7 @@ export const MainPage: React.FC = () => {
       'Michael Simoneau Zeroth Theory',
       'Michael Simoneau enterprise architect',
       'Michael Simoneau The Human Dollar',
-      'Michael Simoneau #WEB',
+      'Michael Simoneau HashWeb',
       'Michael Simoneau Crypto Fabric',
     ],
     [],
@@ -390,8 +390,8 @@ export const MainPage: React.FC = () => {
             description: 'Enigma Key Industries, LLC — founded by Michael Simoneau — is the parent entity behind The Human Dollar (#THD), Zeroth Theory, and Crypto Fabric.',
             address: {
               '@type': 'PostalAddress',
-              addressLocality: 'Chesterland',
-              addressRegion: 'OH',
+              addressLocality: 'Los Angeles',
+              addressRegion: 'CA',
               addressCountry: 'US'
             }
           }
@@ -415,6 +415,9 @@ export const MainPage: React.FC = () => {
         <div id="double-dragon" className="relative">
           <VideoHeroSection />
         </div>
+
+        {/* === CREATIVE & COMMUNITY === */}
+        <MusicSection />
 
         <div id="interview" className="relative">
           <AIInterviewSection />
@@ -479,9 +482,6 @@ export const MainPage: React.FC = () => {
         <div id="TheHumanDollar" className="relative">
           <ThdHero />
         </div>
-
-        {/* === CREATIVE & COMMUNITY === */}
-        <SoundOnEmbed />
 
         <div id="blog" className="relative">
           <BlogTeaser />
