@@ -4,6 +4,7 @@ import { Play, Pause, Volume2 } from 'lucide-react';
 import { ContentBlock } from '../../models/BlogPost';
 import { useBlogSpeech } from '../../features/blog/hooks/useBlogSpeech';
 import { useMediaAnalytics } from '../../analytics/useMediaAnalytics';
+import { dispatchMediaPlayIntent } from './mediaEvents';
 import {
   BLOG_VOICE_PRESETS,
   BlogVoicePresetId,
@@ -65,10 +66,12 @@ export const BlogSpeechPlayer: React.FC<BlogSpeechPlayerProps> = ({
     }
 
     if (isPaused) {
+      dispatchMediaPlayIntent('blog-speech');
       resume();
       return;
     }
 
+    dispatchMediaPlayIntent('blog-speech');
     play();
   };
 

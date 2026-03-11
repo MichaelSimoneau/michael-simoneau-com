@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { Play, Pause, SkipBack, SkipForward } from 'lucide-react';
 import { useSpeech } from '../../contexts/SpeechContext';
 import { useMediaAnalytics } from '../../analytics/useMediaAnalytics';
+import { dispatchMediaPlayIntent } from './mediaEvents';
 
 export const UniversalPlayer: React.FC = () => {
   const { trackMediaEvent } = useMediaAnalytics();
@@ -34,6 +35,7 @@ export const UniversalPlayer: React.FC = () => {
       });
       pause();
     } else {
+      dispatchMediaPlayIntent('universal-player');
       trackMediaEvent('play', {
         media_type: 'speech',
         component: 'UniversalPlayer',

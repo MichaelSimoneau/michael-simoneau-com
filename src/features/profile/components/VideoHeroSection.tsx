@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Play } from 'lucide-react';
 import { useMediaAnalytics } from '../../../analytics/useMediaAnalytics';
+import { APP_MEDIA_PLAY_INTENT_EVENT } from '../../../ui/players/mediaEvents';
 
 interface YouTubePlayer {
   loadVideoById?: (videoId: string) => void;
@@ -13,6 +14,7 @@ interface YouTubePlayer {
     startSeconds?: number;
   }) => void;
   playVideo?: () => void;
+  pauseVideo?: () => void;
   getCurrentTime?: () => number;
   getDuration?: () => number;
   destroy: () => void;
@@ -63,8 +65,8 @@ const HANDOFF_PLAYLIST_START_INDEX = 2;
 const HANDOFF_DELAY_MS = 5000;
 const PREEND_TRIGGER_SECONDS = 1;
 const PREEND_POLL_INTERVAL_MS = 200;
-const VIDEO_HERO_AUTOPLAY_EVENT = 'videohero:autoplay-request';
 const VIDEO_HERO_PREPEND_MODE_EVENT = 'videohero:prepend-mode';
+const VIDEO_HERO_MEDIA_SOURCE = 'video-hero';
 type PlaybackPhase = 'prepended' | 'primary' | 'second' | 'playlist';
 type VideoHeroStartMode = 'standard' | 'playlist';
 
@@ -486,7 +488,7 @@ export const VideoHeroSection: React.FC = () => {
     playerRef.current = new yt.Player(playerElementRef.current, {
       videoId: displayVideoId,
       playerVars: {
-        autoplay: 1,
+        autoplay: 0,
         controls: 1,
         modestbranding: 1,
         rel: 0,
@@ -513,23 +515,20 @@ export const VideoHeroSection: React.FC = () => {
   }, [isWatching, isPlayerReady, clearHandoffTimeout, startPlaybackForCurrentMode]);
 
   useEffect(() => {
-    const handleAutoplayRequest = () => {
-      clearHandoffTimeout();
-      startModeRef.current = 'standard';
-      if (!isWatching || !isPlayerReady) {
-        pendingAutoPlayRequestRef.current = true;
-        setIsWatching(true);
+    const handleGlobalMediaPlayIntent = (event: Event) => {
+      const customEvent = event as CustomEvent<{ source?: string }>;
+      if (customEvent.detail?.source === VIDEO_HERO_MEDIA_SOURCE) {
         return;
       }
-
-      startPlaybackForCurrentMode();
+      playerRef.current?.pauseVideo?.();
+      clearHandoffTimeout();
     };
 
-    window.addEventListener(VIDEO_HERO_AUTOPLAY_EVENT, handleAutoplayRequest);
+    window.addEventListener(APP_MEDIA_PLAY_INTENT_EVENT, handleGlobalMediaPlayIntent);
     return () => {
-      window.removeEventListener(VIDEO_HERO_AUTOPLAY_EVENT, handleAutoplayRequest);
+      window.removeEventListener(APP_MEDIA_PLAY_INTENT_EVENT, handleGlobalMediaPlayIntent);
     };
-  }, [clearHandoffTimeout, isWatching, isPlayerReady, startPlaybackForCurrentMode]);
+  }, [clearHandoffTimeout]);
 
   useEffect(() => {
     const handlePrependMode = (event: Event) => {

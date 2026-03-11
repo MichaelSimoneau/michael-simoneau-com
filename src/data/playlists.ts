@@ -20,17 +20,46 @@ const MARCH_12_2026_12_00_PM = new Date(2026, 2, 12, 12, 0, 0, 0);
  *     after: 'It happened!',
  *   });
  */
-export function beforeAndAfter({
+export function beforeAndAfter<T extends string | Record<string, string>>({
   when = MARCH_12_2026_9_15_AM,
   before,
   after,
+  start,
+  end,
 }: {
   when?: Date;
-  before: string | Record<string, string>;
-  after: string | Record<string, string>;
-}): string | Record<string, string> {
+  before: T;
+  after: T;
+  start?: T;
+  end?: T;
+}): T {
   const now = new Date();
-  return now.getTime() < when.getTime() ? before : after;
+  const value = now.getTime() < when.getTime() ? before : after;
+  if (typeof value === 'string') {
+    if (start && end) {
+      return `${start} ${value} ${end}` as T;
+    }
+    if (start) {
+      return `${start} ${value}` as T;
+    }
+    if (end) {
+      return `${value} ${end}` as T;
+    }
+    return value as T;
+  }
+  const objStart = start ?? {};
+  const objEnd = end ?? {};
+  const objValue = value as Record<string, string>;
+  if (start && end) {
+    return { ...objStart, ...objValue, ...objEnd } as T;
+  }
+  if (start) {
+    return { ...objStart, ...objValue } as T;
+  }
+  if (end) {
+    return { ...objValue, ...objEnd } as T;
+  }
+  return { ...objStart, ...objValue, ...objEnd } as T;
 }
 
 const COLLAPSED_0 = beforeAndAfter({
@@ -131,16 +160,31 @@ const podcastsToPlaylist = (
 
 const cleanPlaylist = podcastsToPlaylist(cleanPodcasts);
 
-const musicPlaylist: Track[] = [
+const musicBeforeAndAfter = beforeAndAfter({
+  when: MARCH_12_2026_12_00_PM,
+  before: 
   {
-    title: `"I'm In Deep" - Mike Crane`,
-    src: "/music/ImInDeep.mp3",
+    // Track #1
+    "\"I'm In Deep\" - Mike Crane": "/music/ImInDeep.mp3",
+    // Track #2
+    "\"This Is Why We Do It\" - Mike Crane": "/music/ThisIsWhyWeDoIt.mp3",
   },
+  after:
   {
-    title: `"This Is Why We Do It" - Mike Crane`,
-    src: "/music/This is why we do it.mp3",
+    // Track #1
+    "\"She's a Freak\" - Mike Crane": "/music/ShesAFreak.mp3",
+    // Track #2
+    "\"I'm In Deep\" - Mike Crane": "/music/ImInDeep.mp3",
+    // Track #3
+    "\"This Is Why We Do It\" - Mike Crane": "/music/ThisIsWhyWeDoIt.mp3",
   },
-];
+  end: {
+    // Nerd Warning...
+    "nerdy": "... after that, it get's really nerdy... but in a good way!",
+  },
+}) as Record<string, string>;
+
+const musicPlaylist = podcastsToPlaylist(musicBeforeAndAfter);
 
 export {
   cleanPlaylist,

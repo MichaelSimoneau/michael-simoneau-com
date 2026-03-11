@@ -233,7 +233,7 @@ export const MainNav: React.FC<MainNavProps> = ({ scrollContainerId }) => {
         >
           <nav className="flex flex-col items-center justify-center h-full p-6 bg-black overflow-y-auto">
             {!isPathsExpanded ? (
-              <div className="w-full max-w-4xl flex flex-col items-center gap-6 md:grid md:grid-cols-2 md:justify-items-center md:gap-x-10 md:gap-y-6">
+              <div className="w-full max-w-4xl grid grid-cols-2 justify-items-center gap-x-6 gap-y-5 md:gap-x-10 md:gap-y-6">
                 {!isHomePage && (
                   <Link 
                     href="/" 
@@ -271,7 +271,7 @@ export const MainNav: React.FC<MainNavProps> = ({ scrollContainerId }) => {
                   Blog
                 </Link>
 
-                <div className="w-full text-center md:col-span-2">
+                <div className="w-full text-center col-span-2">
                   <button 
                     onClick={() => setIsPathsExpanded(true)}
                     className={`${overlayNavItemClass} inline-flex items-center`}
@@ -283,7 +283,7 @@ export const MainNav: React.FC<MainNavProps> = ({ scrollContainerId }) => {
                 
                 <button 
                   onClick={() => setIsOpen(false)}
-                  className="text-xl text-gray-500 hover:text-cyan-400 transition-colors mt-8 md:col-span-2"
+                  className="text-xl text-gray-500 hover:text-cyan-400 transition-colors mt-8 col-span-2"
                 >
                   Close
                 </button>

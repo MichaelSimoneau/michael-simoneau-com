@@ -3,6 +3,7 @@ import { Play, Pause, SkipForward, SkipBack } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useSpeech } from '../../contexts/SpeechContext';
 import { useMediaAnalytics } from '../../analytics/useMediaAnalytics';
+import { dispatchMediaPlayIntent } from './mediaEvents';
 
 export const SpeechPlayer: React.FC = () => {
   const { trackMediaEvent } = useMediaAnalytics();
@@ -28,6 +29,7 @@ export const SpeechPlayer: React.FC = () => {
       });
       pause();
     } else {
+      dispatchMediaPlayIntent('speech-player');
       trackMediaEvent('play', {
         media_type: 'speech',
         component: 'SpeechPlayer',

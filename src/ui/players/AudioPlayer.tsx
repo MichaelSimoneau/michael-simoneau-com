@@ -2,6 +2,7 @@ import React, { useRef, useState, useEffect, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { Play, Pause, Volume2 } from 'lucide-react';
 import { useMediaAnalytics } from '../../analytics/useMediaAnalytics';
+import { dispatchMediaPlayIntent } from './mediaEvents';
 
 interface AudioPlayerProps {
   src: string;
@@ -114,6 +115,7 @@ export const AudioPlayer: React.FC<AudioPlayerProps> = ({ src, title = 'Zeroth V
       audio.pause();
       setIsPlaying(false);
     } else {
+      dispatchMediaPlayIntent('audio-player');
       audio.play();
       setIsPlaying(true);
     }
