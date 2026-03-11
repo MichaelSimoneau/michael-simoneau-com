@@ -40,6 +40,7 @@ const getMainPageSectionOffset = (sectionId: string): number => {
 export const MainPage: React.FC = () => {
   const scrollContainerRef = useRef<HTMLDivElement | null>(null);
   const contactSectionRef = useRef<HTMLDivElement | null>(null);
+  const navScrollSettleTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const { registerMainScrollContainer } = useScrollContext();
   const { footerExpansionFactor, override } = useProfileFlowState();
   const flowDispatch = useProfileFlowDispatch();
@@ -149,36 +150,94 @@ export const MainPage: React.FC = () => {
     [],
   );
 
+  const resolveHashSectionId = useCallback(() => {
+    if (typeof window === 'undefined') {
+      return null;
+    }
+    const hash = window.location.hash;
+    if (!hash) {
+      return null;
+    }
+    const sectionId = hash.replace(/^#/, '').split('?')[0];
+    return sectionId || null;
+  }, []);
+
+  const scrollToSectionId = useCallback((targetId: string, behavior: ScrollBehavior): boolean => {
+    const container = scrollContainerRef.current;
+    const targetElement = document.getElementById(targetId);
+    if (!container || !targetElement) {
+      return false;
+    }
+
+    const offset = getMainPageSectionOffset(targetId);
+    flowDispatch({
+      type: 'NAV_HASH_RESOLVE_REQUESTED',
+      sectionId: targetId,
+      sectionOffsetPx: offset,
+    });
+    flowDispatch({ type: 'NAV_SCROLL_STARTED' });
+    const containerRect = container.getBoundingClientRect();
+    const elementRect = targetElement.getBoundingClientRect();
+    const scrollTop = elementRect.top - containerRect.top + container.scrollTop - offset;
+    container.scrollTo({ top: scrollTop, behavior });
+    if (navScrollSettleTimeoutRef.current !== null) {
+      clearTimeout(navScrollSettleTimeoutRef.current);
+    }
+    navScrollSettleTimeoutRef.current = setTimeout(() => {
+      flowDispatch({ type: 'NAV_SCROLL_SETTLED' });
+      navScrollSettleTimeoutRef.current = null;
+    }, 350);
+    return true;
+  }, [flowDispatch]);
+
+  const runHashScrollWithRetry = useCallback((targetId: string): (() => void) => {
+    const alignThresholdPx = 8;
+    const maxRetryMs = 1800;
+    const retryIntervalMs = 180;
+    const startedAt = Date.now();
+
+    scrollToSectionId(targetId, 'smooth');
+
+    const retryIntervalId = setInterval(() => {
+      const container = scrollContainerRef.current;
+      const targetElement = document.getElementById(targetId);
+      if (!container || !targetElement) {
+        return;
+      }
+      const offset = getMainPageSectionOffset(targetId);
+      const containerRect = container.getBoundingClientRect();
+      const elementRect = targetElement.getBoundingClientRect();
+      const desiredTop = elementRect.top - containerRect.top + container.scrollTop - offset;
+      const drift = Math.abs(container.scrollTop - desiredTop);
+
+      if (drift > alignThresholdPx) {
+        scrollToSectionId(targetId, 'auto');
+      }
+      if (drift <= alignThresholdPx || Date.now() - startedAt >= maxRetryMs) {
+        clearInterval(retryIntervalId);
+      }
+    }, retryIntervalMs);
+
+    return () => clearInterval(retryIntervalId);
+  }, [scrollToSectionId]);
+
   useEffect(() => {
     // document.title is managed by the <Seo /> component — do not set it here.
     if (scrollContainerRef.current) {
       registerMainScrollContainer(scrollContainerRef);
     }
 
-    const hash = location.includes('#') ? location.split('#')[1] : window.location.hash;
-    if (hash) {
-      const sectionId = hash.replace(/^#/, '').split('?')[0];
-      const targetId = sectionId;
-      const offset = getMainPageSectionOffset(targetId);
-      flowDispatch({
-        type: 'NAV_HASH_RESOLVE_REQUESTED',
-        sectionId: targetId,
-        sectionOffsetPx: offset,
-      });
+    const sectionId = resolveHashSectionId();
+    if (sectionId) {
       // Delay so scroll container ref and target are in DOM (e.g. after navigate from another page)
+      let stopRetry = () => {};
       const timeoutId = setTimeout(() => {
-        const container = scrollContainerRef.current;
-        const targetElement = document.getElementById(targetId);
-        if (container && targetElement) {
-          flowDispatch({ type: 'NAV_SCROLL_STARTED' });
-          const containerRect = container.getBoundingClientRect();
-          const elementRect = targetElement.getBoundingClientRect();
-          const scrollTop = elementRect.top - containerRect.top + container.scrollTop - offset;
-          container.scrollTo({ top: scrollTop, behavior: 'smooth' });
-          setTimeout(() => flowDispatch({ type: 'NAV_SCROLL_SETTLED' }), 350);
-        }
+        stopRetry = runHashScrollWithRetry(sectionId);
       }, 150);
-      return () => clearTimeout(timeoutId);
+      return () => {
+        clearTimeout(timeoutId);
+        stopRetry();
+      };
     } else {
       const timeoutId = setTimeout(() => {
         if (scrollContainerRef.current) {
@@ -187,7 +246,29 @@ export const MainPage: React.FC = () => {
       }, 0);
       return () => clearTimeout(timeoutId);
     }
-  }, [registerMainScrollContainer, location, flowDispatch]);
+  }, [registerMainScrollContainer, location, resolveHashSectionId, runHashScrollWithRetry]);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') {
+      return;
+    }
+
+    let stopRetry = () => {};
+    const onHashChange = () => {
+      const sectionId = resolveHashSectionId();
+      if (!sectionId) {
+        return;
+      }
+      stopRetry();
+      stopRetry = runHashScrollWithRetry(sectionId);
+    };
+
+    window.addEventListener('hashchange', onHashChange);
+    return () => {
+      window.removeEventListener('hashchange', onHashChange);
+      stopRetry();
+    };
+  }, [resolveHashSectionId, runHashScrollWithRetry]);
 
   useEffect(() => {
     if (override.value.nav.section && scrollContainerRef.current) {
