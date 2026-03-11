@@ -54,6 +54,7 @@ const isAudioSource = (src: string) => AUDIO_SOURCE_PATTERN.test(src);
 const isCollapsedDirective = (directive: string) => /collapsed/i.test(directive) || /^collapse_/i.test(directive);
 const isMelindaCollapseDirective = (directive: string) => MELINDA_COLLAPSE_SIDEEFFECT_PATTERN.test(directive.trim());
 const isMelindaRestrictedTriggerDirective = (directive: string) => MELINDA_RESTRICTED_TRIGGER_PATTERN.test(directive.trim());
+const isHiddenVideoTriggerDirective = (directive: string) => MELINDA_COLLAPSE_SIDEEFFECT_PATTERN.test(directive.trim());
 
 /**
  * PlaylistAudioPlayer — a sleek, slim audio player that manages a playlist
@@ -178,10 +179,12 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
 
     return null;
   }, [currentSectionIndex, sections, collapsedSections]);
-  const firstCollapsedDirectiveSectionId = useMemo(() => {
-    const firstCollapsedSection = sections.find((section) => isCollapsedDirective(section.directive));
-    return firstCollapsedSection?.id ?? null;
+  const hiddenVideoTriggerSections = useMemo(() => {
+    return sections.filter((section) => isHiddenVideoTriggerDirective(section.directive));
   }, [sections]);
+  const firstHiddenVideoTriggerSectionId = useMemo(() => {
+    return hiddenVideoTriggerSections[0]?.id ?? null;
+  }, [hiddenVideoTriggerSections]);
   const melindaCollapseSections = useMemo(() => {
     return sections.filter((section) => isMelindaCollapseDirective(section.directive));
   }, [sections]);
@@ -410,16 +413,30 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
   }, [isBaizeBypassEnabled, resetRestrictedFlow]);
 
   useEffect(() => {
-    if (typeof window === 'undefined' || !firstCollapsedDirectiveSectionId) {
+    if (typeof window === 'undefined' || !firstHiddenVideoTriggerSectionId) {
       return;
     }
-    const isCollapsed = collapsedSections[firstCollapsedDirectiveSectionId] ?? true;
+    const isAnyHiddenTriggerExpanded = hiddenVideoTriggerSections.some((section) => {
+      const isCollapsed = collapsedSections[section.id] ?? section.defaultCollapsed;
+      return !isCollapsed;
+    });
     window.dispatchEvent(
       new CustomEvent(VIDEO_HERO_PREPEND_MODE_EVENT, {
-        detail: { enabled: !isCollapsed },
+        detail: { enabled: isAnyHiddenTriggerExpanded },
       }),
     );
-  }, [collapsedSections, firstCollapsedDirectiveSectionId]);
+  }, [collapsedSections, firstHiddenVideoTriggerSectionId, hiddenVideoTriggerSections]);
+
+  useEffect(() => {
+    if (!activeMelindaSectionId) {
+      return;
+    }
+    const activeStillExists = melindaCollapseSections.some((section) => section.id === activeMelindaSectionId);
+    if (!activeStillExists) {
+      const fallbackSectionId = melindaCollapseSections[0]?.id ?? null;
+      setActiveMelindaSectionId(fallbackSectionId);
+    }
+  }, [activeMelindaSectionId, melindaCollapseSections]);
 
   useEffect(() => {
     if (playableTracks.length === 0) {
