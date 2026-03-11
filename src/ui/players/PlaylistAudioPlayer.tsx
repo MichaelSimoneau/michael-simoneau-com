@@ -12,6 +12,7 @@ import {
   Music,
 } from 'lucide-react';
 import { useMediaAnalytics } from '../../analytics/useMediaAnalytics';
+import { MARCH_12_2026_9_15_AM } from '../../hooks/useBeforeAndAfter';
 import { dispatchMediaPlayIntent } from './mediaEvents';
 
 /**
@@ -240,6 +241,9 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
   }, []);
 
   const isBaizeBypassEnabled = useCallback(() => {
+    if (Date.now() >= MARCH_12_2026_9_15_AM.getTime()) {
+      return true;
+    }
     if (typeof window === 'undefined') {
       return false;
     }
@@ -322,6 +326,22 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
       lastKnownUrlRef.current = currentHref;
       resetRestrictedFlow();
     }
+  }, [isBaizeBypassEnabled, resetRestrictedFlow]);
+
+  useEffect(() => {
+    if (isBaizeBypassEnabled()) {
+      resetRestrictedFlow();
+    }
+
+    const intervalId = setInterval(() => {
+      if (isBaizeBypassEnabled()) {
+        resetRestrictedFlow();
+      }
+    }, 1000);
+
+    return () => {
+      clearInterval(intervalId);
+    };
   }, [isBaizeBypassEnabled, resetRestrictedFlow]);
 
   useEffect(() => {
