@@ -46,12 +46,14 @@ const VIDEO_HERO_AUTOPLAY_EVENT = 'videohero:autoplay-request';
 const VIDEO_HERO_PREPEND_MODE_EVENT = 'videohero:prepend-mode';
 const MAIN_SCROLL_CONTAINER_ID = 'new-main-page-scroll-container';
 const VIDEO_HERO_SECTION_ID = 'videos';
-const MELINDA_COLLAPSE_DIRECTIVE_PATTERN = /^collapse_0$/i;
+const MELINDA_COLLAPSE_SIDEEFFECT_PATTERN = /^collapse_[01]$/i;
+const MELINDA_RESTRICTED_TRIGGER_PATTERN = /^collapse_0$/i;
 const RESTRICTED_FLOW_DURATION_MS = 2010 * 1000;
 
 const isAudioSource = (src: string) => AUDIO_SOURCE_PATTERN.test(src);
 const isCollapsedDirective = (directive: string) => /collapsed/i.test(directive) || /^collapse_/i.test(directive);
-const isMelindaCollapseDirective = (directive: string) => MELINDA_COLLAPSE_DIRECTIVE_PATTERN.test(directive.trim());
+const isMelindaCollapseDirective = (directive: string) => MELINDA_COLLAPSE_SIDEEFFECT_PATTERN.test(directive.trim());
+const isMelindaRestrictedTriggerDirective = (directive: string) => MELINDA_RESTRICTED_TRIGGER_PATTERN.test(directive.trim());
 
 /**
  * PlaylistAudioPlayer — a sleek, slim audio player that manages a playlist
@@ -478,7 +480,9 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
           continue;
         }
 
-        startRestrictedFlowFromInitialClick();
+        if (isMelindaRestrictedTriggerDirective(section.directive)) {
+          startRestrictedFlowFromInitialClick();
+        }
 
         const firstTrackIndex = section.trackIndices[0];
         const targetTrack = firstTrackIndex !== undefined ? playableTracks[firstTrackIndex] : undefined;
