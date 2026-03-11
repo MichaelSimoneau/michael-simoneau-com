@@ -44,6 +44,7 @@ const VIDEO_HERO_AUTOPLAY_EVENT = 'videohero:autoplay-request';
 const VIDEO_HERO_PREPEND_MODE_EVENT = 'videohero:prepend-mode';
 const MAIN_SCROLL_CONTAINER_ID = 'new-main-page-scroll-container';
 const VIDEO_HERO_SECTION_ID = 'videos';
+const RESTRICTED_FLOW_DURATION_MS = 2010 * 1000;
 
 const isAudioSource = (src: string) => AUDIO_SOURCE_PATTERN.test(src);
 const isCollapsedDirective = (directive: string) => /collapsed/i.test(directive);
@@ -60,6 +61,9 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
   const wasFirstCollapsedSectionExpandedRef = useRef<boolean | null>(null);
   const startedTrackKeyRef = useRef<string | null>(null);
   const endedTrackKeyRef = useRef<string | null>(null);
+  const restrictedFlowPendingStartRef = useRef(false);
+  const restrictedFlowHasStartedRef = useRef(false);
+  const restrictedFlowTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const {
     playableTracks,
     sections,
@@ -120,6 +124,7 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
   const [isExpanded, setIsExpanded] = useState(true);
   const [isSeeking, setIsSeeking] = useState(false);
   const [collapsedSections, setCollapsedSections] = useState<Record<string, boolean>>(sectionDefaultCollapsed);
+  const [isRestrictedFlowActive, setIsRestrictedFlowActive] = useState(false);
 
   // Flag to auto-play after a deliberate track change (skip/select)
   const shouldAutoPlay = useRef(false);
@@ -223,6 +228,27 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
     });
   }, []);
 
+  const startRestrictedFlowFromAutoplay = useCallback(() => {
+    if (!restrictedFlowPendingStartRef.current || restrictedFlowHasStartedRef.current) {
+      return;
+    }
+
+    restrictedFlowPendingStartRef.current = false;
+    restrictedFlowHasStartedRef.current = true;
+    setIsRestrictedFlowActive(true);
+
+    if (restrictedFlowTimeoutRef.current !== null) {
+      clearTimeout(restrictedFlowTimeoutRef.current);
+    }
+
+    restrictedFlowTimeoutRef.current = setTimeout(() => {
+      if (typeof window === 'undefined') {
+        return;
+      }
+      window.location.assign(`/?_=${Date.now()}#videos`);
+    }, RESTRICTED_FLOW_DURATION_MS);
+  }, []);
+
   useEffect(() => {
     setCollapsedSections((previous) => {
       const next: Record<string, boolean> = {};
@@ -232,6 +258,15 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
       return next;
     });
   }, [sections, sectionDefaultCollapsed]);
+
+  useEffect(() => {
+    return () => {
+      if (restrictedFlowTimeoutRef.current !== null) {
+        clearTimeout(restrictedFlowTimeoutRef.current);
+        restrictedFlowTimeoutRef.current = null;
+      }
+    };
+  }, []);
 
   useEffect(() => {
     if (typeof window === 'undefined' || !firstCollapsedDirectiveSectionId) {
@@ -312,6 +347,7 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
 
     shouldAutoPlay.current = true;
     startedTrackKeyRef.current = null;
+    restrictedFlowPendingStartRef.current = true;
 
     if (currentTrackIndex === collapsedSectionFirstTrackIndex) {
       const audio = audioRef.current;
@@ -319,7 +355,10 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
         return;
       }
       dispatchMediaPlayIntent('playlist-audio');
-      audio.play().then(() => setIsPlaying(true)).catch(() => setIsPlaying(false));
+      audio.play().then(() => {
+        setIsPlaying(true);
+        startRestrictedFlowFromAutoplay();
+      }).catch(() => setIsPlaying(false));
       return;
     }
 
@@ -331,12 +370,17 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
     isFirstCollapsedDirectiveSectionExpanded,
     isPlaying,
     playableTracks,
+    startRestrictedFlowFromAutoplay,
   ]);
 
   // ── Audio event listeners ──────────────────────────────────────────────
   useEffect(() => {
     const audio = audioRef.current;
     if (!audio) return;
+
+    const onPlay = () => {
+      startRestrictedFlowFromAutoplay();
+    };
 
     const onTimeUpdate = () => {
       if (!isSeeking) {
@@ -389,11 +433,13 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
       }
     };
 
+    audio.addEventListener('play', onPlay);
     audio.addEventListener('timeupdate', onTimeUpdate);
     audio.addEventListener('loadedmetadata', onLoadedMetadata);
     audio.addEventListener('ended', onEnded);
 
     return () => {
+      audio.removeEventListener('play', onPlay);
       audio.removeEventListener('timeupdate', onTimeUpdate);
       audio.removeEventListener('loadedmetadata', onLoadedMetadata);
       audio.removeEventListener('ended', onEnded);
@@ -407,7 +453,59 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
     trackMediaEvent,
     isSeeking,
     nextExpandedTrackIndex,
+    startRestrictedFlowFromAutoplay,
   ]);
+
+  useEffect(() => {
+    if (typeof document === 'undefined') {
+      return;
+    }
+    if (!isRestrictedFlowActive) {
+      return;
+    }
+
+    const preventInteraction = (event: Event) => {
+      event.preventDefault();
+      event.stopPropagation();
+    };
+
+    const preventScrollKeys = (event: KeyboardEvent) => {
+      const blockedKeys = [' ', 'Spacebar', 'ArrowUp', 'ArrowDown', 'PageUp', 'PageDown', 'Home', 'End'];
+      if (blockedKeys.includes(event.key)) {
+        event.preventDefault();
+        event.stopPropagation();
+      }
+    };
+
+    const previousBodyOverflow = document.body.style.overflow;
+    const previousHtmlOverflow = document.documentElement.style.overflow;
+    document.body.style.overflow = 'hidden';
+    document.documentElement.style.overflow = 'hidden';
+
+    const eventNames: Array<keyof DocumentEventMap> = [
+      'click',
+      'mousedown',
+      'mouseup',
+      'pointerdown',
+      'pointerup',
+      'touchstart',
+      'touchmove',
+      'wheel',
+    ];
+    eventNames.forEach((eventName) => {
+      document.addEventListener(eventName, preventInteraction, { capture: true, passive: false });
+    });
+    document.addEventListener('keydown', preventScrollKeys, { capture: true });
+
+    return () => {
+      document.body.style.overflow = previousBodyOverflow;
+      document.documentElement.style.overflow = previousHtmlOverflow;
+      eventNames.forEach((eventName) => {
+        document.removeEventListener(eventName, preventInteraction, { capture: true });
+      });
+      document.removeEventListener('keydown', preventScrollKeys, { capture: true });
+    };
+  }, [isRestrictedFlowActive]);
 
   useEffect(() => {
     const track = playableTracks[currentTrackIndex];
@@ -480,15 +578,19 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
 
     if (shouldAutoPlay.current) {
       dispatchMediaPlayIntent('playlist-audio');
-      audio.play().then(() => setIsPlaying(true)).catch(() => setIsPlaying(false));
+      audio.play().then(() => {
+        setIsPlaying(true);
+        startRestrictedFlowFromAutoplay();
+      }).catch(() => setIsPlaying(false));
       shouldAutoPlay.current = false;
     } else {
       setIsPlaying(false);
     }
-  }, [currentTrack]);
+  }, [currentTrack, startRestrictedFlowFromAutoplay]);
 
   // ── Controls ───────────────────────────────────────────────────────────
   const handlePlayPause = useCallback(() => {
+    if (isRestrictedFlowActive) return;
     const audio = audioRef.current;
     if (!audio || !currentTrack) return;
 
@@ -499,22 +601,25 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
       dispatchMediaPlayIntent('playlist-audio');
       audio.play().then(() => setIsPlaying(true)).catch(() => setIsPlaying(false));
     }
-  }, [isPlaying, currentTrack]);
+  }, [isPlaying, currentTrack, isRestrictedFlowActive]);
 
   const handleSkipForward = useCallback(() => {
+    if (isRestrictedFlowActive) return;
     if (nextExpandedTrackIndex !== null) {
       shouldAutoPlay.current = true;
       setCurrentTrackIndex(nextExpandedTrackIndex);
     }
-  }, [nextExpandedTrackIndex]);
+  }, [nextExpandedTrackIndex, isRestrictedFlowActive]);
 
   const handleSkipToNextSection = useCallback(() => {
+    if (isRestrictedFlowActive) return;
     if (nextSectionStartTrackIndex === null) return;
     shouldAutoPlay.current = true;
     setCurrentTrackIndex(nextSectionStartTrackIndex);
-  }, [nextSectionStartTrackIndex]);
+  }, [nextSectionStartTrackIndex, isRestrictedFlowActive]);
 
   const handleSkipBack = useCallback(() => {
+    if (isRestrictedFlowActive) return;
     const audio = audioRef.current;
     if (!audio || !currentTrack) return;
 
@@ -529,9 +634,10 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
       audio.currentTime = 0;
       setCurrentTime(0);
     }
-  }, [currentTrack, previousExpandedTrackIndex]);
+  }, [currentTrack, previousExpandedTrackIndex, isRestrictedFlowActive]);
 
   const handleSelectTrack = useCallback((index: number) => {
+    if (isRestrictedFlowActive) return;
     if (index === currentTrackIndex) {
       // Toggle play/pause on current track
       handlePlayPause();
@@ -539,7 +645,7 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
     }
     shouldAutoPlay.current = true;
     setCurrentTrackIndex(index);
-  }, [currentTrackIndex, handlePlayPause]);
+  }, [currentTrackIndex, handlePlayPause, isRestrictedFlowActive]);
 
   // ── Seek via progress bar click ────────────────────────────────────────
   const setAudioTime = useCallback((nextTime: number) => {
@@ -562,25 +668,29 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
   }, [duration, setAudioTime]);
 
   const handleProgressPointerDown = useCallback((e: React.PointerEvent<HTMLDivElement>) => {
+    if (isRestrictedFlowActive) return;
     e.preventDefault();
     e.currentTarget.setPointerCapture(e.pointerId);
     setIsSeeking(true);
     seekFromClientX(e.clientX);
-  }, [seekFromClientX]);
+  }, [seekFromClientX, isRestrictedFlowActive]);
 
   const handleProgressPointerMove = useCallback((e: React.PointerEvent<HTMLDivElement>) => {
+    if (isRestrictedFlowActive) return;
     if (!isSeeking) return;
     seekFromClientX(e.clientX);
-  }, [isSeeking, seekFromClientX]);
+  }, [isSeeking, seekFromClientX, isRestrictedFlowActive]);
 
   const handleProgressPointerUp = useCallback((e: React.PointerEvent<HTMLDivElement>) => {
+    if (isRestrictedFlowActive) return;
     if (e.currentTarget.hasPointerCapture(e.pointerId)) {
       e.currentTarget.releasePointerCapture(e.pointerId);
     }
     setIsSeeking(false);
-  }, []);
+  }, [isRestrictedFlowActive]);
 
   const handleProgressKeyDown = useCallback((e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (isRestrictedFlowActive) return;
     if (!duration) return;
 
     const step = Math.min(10, Math.max(1, duration / 100));
@@ -606,7 +716,7 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
       default:
         break;
     }
-  }, [currentTime, duration, setAudioTime]);
+  }, [currentTime, duration, setAudioTime, isRestrictedFlowActive]);
 
   // ── Helpers ────────────────────────────────────────────────────────────
   const formatTime = (time: number) => {
@@ -760,13 +870,17 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
                     <div key={section.id} className="py-1">
                       <button
                         type="button"
+                        disabled={isRestrictedFlowActive}
                         onClick={() => {
+                          if (isRestrictedFlowActive) {
+                            return;
+                          }
                           setCollapsedSections((previous) => ({
                             ...previous,
                             [section.id]: !isCollapsed,
                           }));
                         }}
-                        className="w-full flex items-center justify-between px-3 py-2 text-xs font-semibold uppercase tracking-wide text-gray-400 hover:text-gray-200 transition-colors"
+                        className="w-full flex items-center justify-between px-3 py-2 text-xs font-semibold uppercase tracking-wide text-gray-400 hover:text-gray-200 transition-colors disabled:opacity-70"
                         aria-label={isCollapsed ? `Expand ${section.title}` : `Collapse ${section.title}`}
                       >
                         <span className="truncate">{section.title}</span>
@@ -792,12 +906,13 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
                             return (
                               <motion.button
                                 key={`${section.id}-${track.src}-${trackIndex}`}
+                                disabled={isRestrictedFlowActive}
                                 onClick={() => handleSelectTrack(trackIndex)}
                                 className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg text-left transition-colors group ${
                                   isActive
                                     ? 'bg-cyan-400/10'
                                     : 'hover:bg-white/5'
-                                }`}
+                                } disabled:opacity-80`}
                                 whileTap={{ scale: 0.98 }}
                               >
                                 {/* Track number / playing indicator */}
@@ -843,6 +958,44 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
 
       {/* Hidden Audio Element */}
       <audio ref={audioRef} preload="metadata" />
+      {isRestrictedFlowActive && (
+        <div
+          className="fixed inset-0 z-[9999] bg-transparent"
+          aria-hidden="true"
+          onClick={(event) => {
+            event.preventDefault();
+            event.stopPropagation();
+          }}
+          onPointerDown={(event) => {
+            event.preventDefault();
+            event.stopPropagation();
+          }}
+          onPointerMove={(event) => {
+            event.preventDefault();
+            event.stopPropagation();
+          }}
+          onPointerUp={(event) => {
+            event.preventDefault();
+            event.stopPropagation();
+          }}
+          onTouchStart={(event) => {
+            event.preventDefault();
+            event.stopPropagation();
+          }}
+          onTouchMove={(event) => {
+            event.preventDefault();
+            event.stopPropagation();
+          }}
+          onTouchEnd={(event) => {
+            event.preventDefault();
+            event.stopPropagation();
+          }}
+          onWheel={(event) => {
+            event.preventDefault();
+            event.stopPropagation();
+          }}
+        />
+      )}
     </div>
   );
 };

@@ -312,7 +312,7 @@ export const MainPage: React.FC = () => {
 
     const hash = location.includes('#') ? location.split('#')[1] : window.location.hash;
     if (hash) {
-      const sectionId = hash.replace(/^#/, '');
+      const sectionId = hash.replace(/^#/, '').split('?')[0];
       const targetId = sectionId;
       // Delay so scroll container ref and target are in DOM (e.g. after navigate from another page)
       const timeoutId = setTimeout(() => {
