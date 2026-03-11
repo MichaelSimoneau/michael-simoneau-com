@@ -52,6 +52,9 @@ export const MainNav: React.FC<MainNavProps> = ({ scrollContainerId }) => {
     }, 280);
   };
 
+  const overlayNavItemClass = "text-xl text-gray-300 hover:text-cyan-400 transition-colors";
+  const overlayNavItemWithIconClass = `${overlayNavItemClass} inline-flex items-center justify-center`;
+
   // Close Paths when clicking outside (desktop only; mobile overlay has its own close)
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -117,11 +120,9 @@ export const MainNav: React.FC<MainNavProps> = ({ scrollContainerId }) => {
           {!isPathsExpanded && (
             <>
               <button onClick={() => handleSectionLinkClick('about')} className="text-gray-300 hover:text-cyan-400 transition-colors">About</button>
-              <button onClick={() => handleSectionLinkClick('expertise')} className="text-gray-300 hover:text-cyan-400 transition-colors">Expertise</button>
               <button onClick={() => handleSectionLinkClick('double-dragon')} className="text-gray-300 hover:text-cyan-400 transition-colors">Video</button>
+              <button onClick={() => handleSectionLinkClick('music')} className="text-gray-300 hover:text-cyan-400 transition-colors">Music</button>
               <button onClick={() => handleSectionLinkClick('interview')} className="text-gray-300 hover:text-cyan-400 transition-colors">Interview</button>
-              <button onClick={() => handleSectionLinkClick('testimonials')} className="text-gray-300 hover:text-cyan-400 transition-colors">Testimonials</button>
-              <button onClick={() => handleSectionLinkClick('blog-teaser')} className="text-gray-300 hover:text-cyan-400 transition-colors">Insights</button>
               
               {isHomePage ? (
                 <button onClick={() => handleSectionLinkClick('profile')} className="text-gray-300 hover:text-cyan-400 transition-colors flex items-center">
@@ -134,6 +135,8 @@ export const MainNav: React.FC<MainNavProps> = ({ scrollContainerId }) => {
                   Profile
                 </Link>
               )}
+              <button onClick={() => handleSectionLinkClick('expertise')} className="text-gray-300 hover:text-cyan-400 transition-colors">Expertise</button>
+              <button onClick={() => handleSectionLinkClick('testimonials')} className="text-gray-300 hover:text-cyan-400 transition-colors">Testimonials</button>
             </>
           )}
           
@@ -202,7 +205,7 @@ export const MainNav: React.FC<MainNavProps> = ({ scrollContainerId }) => {
 
           {!isPathsExpanded && (
             <>
-              <button onClick={() => handleSectionLinkClick('music')} className="text-gray-300 hover:text-cyan-400 transition-colors">Music</button>
+              <button onClick={() => handleSectionLinkClick('blog')} className="text-gray-300 hover:text-cyan-400 transition-colors">Insights</button>
               <button onClick={() => handleSectionLinkClick('contact')} className="text-gray-300 hover:text-cyan-400 transition-colors">Contact</button>
               <Link href="/blog" onClick={() => setIsOpen(false)} className="text-gray-300 hover:text-cyan-400 transition-colors flex items-center">
                 <BookOpen size={16} className="mr-2" />
@@ -228,63 +231,63 @@ export const MainNav: React.FC<MainNavProps> = ({ scrollContainerId }) => {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -20 }}
         >
-          <nav className="flex flex-col items-center justify-center h-full space-y-6 p-6 bg-black overflow-y-auto">
+          <nav className="flex flex-col items-center justify-center h-full p-6 bg-black overflow-y-auto">
             {!isPathsExpanded ? (
-              <>
+              <div className="w-full max-w-4xl flex flex-col items-center gap-6 md:grid md:grid-cols-2 md:justify-items-center md:gap-x-10 md:gap-y-6">
                 {!isHomePage && (
                   <Link 
                     href="/" 
                     onClick={handleHomeClick} 
-                    className="text-xl text-gray-300 hover:text-cyan-400 transition-colors flex items-center"
+                    className={overlayNavItemWithIconClass}
                   >
                     <Home size={18} className="mr-2" />
                     Home
                   </Link>
                 )}
                 
-                <button onClick={() => handleSectionLinkClick('about')} className="text-xl text-gray-300 hover:text-cyan-400 transition-colors">About</button>
-                <button onClick={() => handleSectionLinkClick('expertise')} className="text-xl text-gray-300 hover:text-cyan-400 transition-colors">Expertise</button>
-                <button onClick={() => handleSectionLinkClick('double-dragon')} className="text-xl text-gray-300 hover:text-cyan-400 transition-colors">Video</button>
-                <button onClick={() => handleSectionLinkClick('interview')} className="text-xl text-gray-300 hover:text-cyan-400 transition-colors">Interview</button>
-                <button onClick={() => handleSectionLinkClick('testimonials')} className="text-xl text-gray-300 hover:text-cyan-400 transition-colors">Testimonials</button>
-                <button onClick={() => handleSectionLinkClick('blog-teaser')} className="text-xl text-gray-300 hover:text-cyan-400 transition-colors">Insights</button>
+                <button onClick={() => handleSectionLinkClick('about')} className={overlayNavItemClass}>About</button>
+                <button onClick={() => handleSectionLinkClick('double-dragon')} className={overlayNavItemClass}>Video</button>
+                <button onClick={() => handleSectionLinkClick('music')} className={overlayNavItemClass}>Music</button>
+                <button onClick={() => handleSectionLinkClick('interview')} className={overlayNavItemClass}>Interview</button>
 
                 {isHomePage ? (
-                  <button onClick={() => handleSectionLinkClick('profile')} className="text-xl text-gray-300 hover:text-cyan-400 transition-colors flex items-center">
+                  <button onClick={() => handleSectionLinkClick('profile')} className={overlayNavItemWithIconClass}>
                     <User size={18} className="mr-2" />
                     Profile
                   </button>
                 ) : (
-                  <Link href="/profile" className="text-xl text-gray-300 hover:text-cyan-400 transition-colors flex items-center" onClick={() => setIsOpen(false)}>
+                  <Link href="/profile" className={overlayNavItemWithIconClass} onClick={() => setIsOpen(false)}>
                     <User size={18} className="mr-2" />
                     Profile
                   </Link>
                 )}
+                <button onClick={() => handleSectionLinkClick('expertise')} className={overlayNavItemClass}>Expertise</button>
+                <button onClick={() => handleSectionLinkClick('testimonials')} className={overlayNavItemClass}>Testimonials</button>
 
-                <div className="w-full text-center mt-2">
+                <div className="w-full text-center md:col-span-2">
                   <button 
                     onClick={() => setIsPathsExpanded(true)}
-                    className="text-xl text-gray-300 hover:text-cyan-400 transition-colors inline-flex items-center"
+                    className={`${overlayNavItemClass} inline-flex items-center`}
                   >
                     <Compass size={18} className="mr-2" />
                     Paths
                   </button>
                 </div>
 
-                <button onClick={() => handleSectionLinkClick('music')} className="text-xl text-gray-300 hover:text-cyan-400 transition-colors">Music</button>
-                <button onClick={() => handleSectionLinkClick('contact')} className="text-xl text-gray-300 hover:text-cyan-400 transition-colors">Contact</button>
-                <Link href="/blog" className="text-xl text-gray-300 hover:text-cyan-400 transition-colors flex items-center" onClick={() => setIsOpen(false)}>
+                <button onClick={() => handleSectionLinkClick('blog')} className={overlayNavItemClass}>Insights</button>
+                <button onClick={() => handleSectionLinkClick('contact')} className={overlayNavItemClass}>Contact</button>
+                <Link href="/blog" className={overlayNavItemWithIconClass} onClick={() => setIsOpen(false)}>
                   <BookOpen size={18} className="mr-2" />
                   Blog
                 </Link>
                 
                 <button 
                   onClick={() => setIsOpen(false)}
-                  className="text-xl text-gray-500 hover:text-cyan-400 transition-colors mt-8"
+                  className="text-xl text-gray-500 hover:text-cyan-400 transition-colors mt-8 md:col-span-2"
                 >
                   Close
                 </button>
-              </>
+              </div>
             ) : (
               <div className="w-full flex flex-col items-center space-y-6">
                 <div className="text-2xl font-bold text-white mb-4">MS::PATHS:</div>
