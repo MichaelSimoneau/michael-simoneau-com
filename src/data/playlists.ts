@@ -117,6 +117,8 @@ const musicBeforeAndAfter = beforeAndAfter({
     "\"I'm In Deep\" - Mike Crane": "/music/ImInDeep.mp3",
     // Track #2
     "\"This Is Why We Do It\" - Mike Crane": "/music/ThisIsWhyWeDoIt.mp3",
+    // Track #3
+    "\"She's a Freak\" - Mike Crane": "/music/ShesAFreak.mp3",
   },
   after:
   {

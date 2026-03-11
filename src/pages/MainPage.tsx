@@ -310,12 +310,12 @@ export const MainPage: React.FC = () => {
           </section>
         </div>
 
+        {/* === CREATIVE & COMMUNITY === */}
+        <MusicSection />
+
         <div id="videos" className="relative">
           <VideoHeroSection />
         </div>
-
-        {/* === CREATIVE & COMMUNITY === */}
-        <MusicSection />
 
         <div id="interview" className="relative">
           <AIInterviewSection />
