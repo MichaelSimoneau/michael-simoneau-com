@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Play } from 'lucide-react';
 import { useMediaAnalytics } from '../../../analytics/useMediaAnalytics';
+import { MARCH_12_2026_12_00_PM } from '../../../hooks/useBeforeAndAfter';
 import { APP_MEDIA_PLAY_INTENT_EVENT } from '../../../ui/players/mediaEvents';
 import { useProfileFlowDispatch, useProfileFlowState } from '../flow';
 
@@ -66,7 +67,6 @@ const HANDOFF_PLAYLIST_ID = 'PLgqAhNtHkRy8PiSUfWBu1Z4KhPuwuEVwj';
 const HANDOFF_PLAYLIST_START_VIDEO_ID = 'uKXwADJaKAs';
 const HANDOFF_PLAYLIST_START_INDEX = 2;
 const HANDOFF_DELAY_MS = 5000;
-const RELOAD_TIMER_DURATION_MS = 2010 * 1000; // 33:30
 const PREEND_TRIGGER_SECONDS = 1;
 const PREEND_POLL_INTERVAL_MS = 200;
 const VIDEO_HERO_AUTOPLAY_EVENT = 'videohero:autoplay-request';
@@ -98,7 +98,6 @@ export const VideoHeroSection: React.FC = () => {
   const handoffTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const handoffCountdownIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const preEndPollIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
-  const reloadTimerTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const pendingAutoPlayRequestRef = useRef(false);
   const hasInitialLoadSettledRef = useRef(false);
   const prependModeEnabledRef = useRef(false);
@@ -158,38 +157,32 @@ export const VideoHeroSection: React.FC = () => {
     resetDelayOverlay();
   }, [resetDelayOverlay]);
 
-  const clearReloadTimer = useCallback(() => {
-    if (reloadTimerTimeoutRef.current !== null) {
-      clearTimeout(reloadTimerTimeoutRef.current);
-      reloadTimerTimeoutRef.current = null;
-    }
-    flowDispatch({ type: 'RELOAD_TIMER_CLEARED' });
-  }, [flowDispatch]);
+  const isBeforeNoon = useCallback(() => Date.now() < MARCH_12_2026_12_00_PM.getTime(), []);
 
-  const startReloadTimer = useCallback(() => {
+  const isRestrictedOverlayLocked = useCallback(() => {
+    return flowState.playlist.machine === 'restrictedLockout' && flowState.playlist.isRestrictedActive;
+  }, [flowState.playlist.isRestrictedActive, flowState.playlist.machine]);
+
+  const runRestrictedOverlayReload = useCallback((): boolean => {
     if (typeof window === 'undefined') {
-      return;
+      return false;
+    }
+    if (!isBeforeNoon() || !isRestrictedOverlayLocked()) {
+      return false;
     }
     if (window.sessionStorage.getItem(MELINDA_RELOAD_GUARD_KEY) === '1') {
       flowDispatch({ type: 'RELOAD_TIMER_COMPLETED' });
-      return;
+      return false;
     }
-    if (reloadTimerTimeoutRef.current !== null) {
-      return;
-    }
-
-    const startedAtMs = Date.now();
-    flowDispatch({ type: 'RELOAD_TIMER_STARTED', durationMs: RELOAD_TIMER_DURATION_MS, startedAtMs });
-    reloadTimerTimeoutRef.current = setTimeout(() => {
-      reloadTimerTimeoutRef.current = null;
-      flowDispatch({ type: 'RELOAD_TIMER_COMPLETED' });
-      window.sessionStorage.setItem(MELINDA_RELOAD_GUARD_KEY, '1');
-      const nextUrl = new URL(window.location.href);
-      nextUrl.searchParams.set('_', Date.now().toString());
-      nextUrl.hash = '#videos';
-      window.location.assign(nextUrl.toString());
-    }, RELOAD_TIMER_DURATION_MS);
-  }, [flowDispatch]);
+    flowDispatch({ type: 'RELOAD_TIMER_STARTED', durationMs: 0, startedAtMs: Date.now() });
+    flowDispatch({ type: 'RELOAD_TIMER_COMPLETED' });
+    window.sessionStorage.setItem(MELINDA_RELOAD_GUARD_KEY, '1');
+    const nextUrl = new URL(window.location.href);
+    nextUrl.searchParams.set('_', Date.now().toString());
+    nextUrl.hash = '#videos';
+    window.location.assign(nextUrl.toString());
+    return true;
+  }, [flowDispatch, isBeforeNoon, isRestrictedOverlayLocked]);
 
   const startStandardVideo = useCallback(() => {
     const player = playerRef.current;
@@ -447,6 +440,10 @@ export const VideoHeroSection: React.FC = () => {
         previousPlayerStateRef.current = event.data;
         return;
       }
+      if (playbackPhaseRef.current === 'second' && runRestrictedOverlayReload()) {
+        previousPlayerStateRef.current = event.data;
+        return;
+      }
       if (playbackPhaseRef.current !== 'playlist') {
         scheduleHandoff(runNextPlaybackStep);
       }
@@ -469,7 +466,7 @@ export const VideoHeroSection: React.FC = () => {
       clearHandoffTimeout();
     }
     previousPlayerStateRef.current = event.data;
-  }, [clearHandoffTimeout, getCurrentVideoContext, resetDelayOverlay, runNextPlaybackStep, scheduleHandoff, trackMediaEvent]);
+  }, [clearHandoffTimeout, getCurrentVideoContext, resetDelayOverlay, runNextPlaybackStep, runRestrictedOverlayReload, scheduleHandoff, trackMediaEvent]);
 
   useEffect(() => {
     if (!isWatching || !isPlayerReady) {
@@ -503,6 +500,9 @@ export const VideoHeroSection: React.FC = () => {
       if (hasPreEndTriggeredForPhaseRef.current) {
         return;
       }
+      if (playbackPhaseRef.current === 'second' && isBeforeNoon() && isRestrictedOverlayLocked()) {
+        return;
+      }
 
       const duration = player.getDuration?.();
       const currentTime = player.getCurrentTime?.();
@@ -524,7 +524,7 @@ export const VideoHeroSection: React.FC = () => {
         preEndPollIntervalRef.current = null;
       }
     };
-  }, [isWatching, isPlayerReady, runNextPlaybackStep, scheduleHandoff]);
+  }, [isWatching, isPlayerReady, isBeforeNoon, isRestrictedOverlayLocked, runNextPlaybackStep, scheduleHandoff]);
 
   useEffect(() => {
     const settleId = setTimeout(() => {
@@ -620,6 +620,9 @@ export const VideoHeroSection: React.FC = () => {
       if (!hasInitialLoadSettledRef.current) {
         return;
       }
+      if (!isBeforeNoon()) {
+        return;
+      }
 
       clearHandoffTimeout();
       startModeRef.current = 'standard';
@@ -629,14 +632,13 @@ export const VideoHeroSection: React.FC = () => {
       resetPlayerInstance();
       pendingAutoPlayRequestRef.current = true;
       setIsWatching(true);
-      startReloadTimer();
     };
 
     window.addEventListener(VIDEO_HERO_AUTOPLAY_EVENT, handleAutoplayRequest);
     return () => {
       window.removeEventListener(VIDEO_HERO_AUTOPLAY_EVENT, handleAutoplayRequest);
     };
-  }, [clearHandoffTimeout, resetPlayerInstance, flowDispatch, startReloadTimer]);
+  }, [clearHandoffTimeout, resetPlayerInstance, flowDispatch, isBeforeNoon]);
 
   useEffect(() => {
     const handleGlobalMediaPlayIntent = (event: Event) => {
@@ -673,7 +675,7 @@ export const VideoHeroSection: React.FC = () => {
   useEffect(() => {
     return () => {
       clearHandoffTimeout();
-      clearReloadTimer();
+      flowDispatch({ type: 'RELOAD_TIMER_CLEARED' });
       resetPlayerInstance();
       flowDispatch({ type: 'VIDEO_HIDDEN' });
       playbackPhaseRef.current = 'primary';
@@ -681,7 +683,7 @@ export const VideoHeroSection: React.FC = () => {
       previousPlayerStateRef.current = null;
       startedPlaybackKeyRef.current = null;
     };
-  }, [clearHandoffTimeout, clearReloadTimer, resetPlayerInstance, flowDispatch]);
+  }, [clearHandoffTimeout, resetPlayerInstance, flowDispatch]);
 
   const handleLearnZerothTheoryClick = useCallback(() => {
     flowDispatch({ type: 'VIDEO_WATCH_REQUESTED', mode: 'standard' });

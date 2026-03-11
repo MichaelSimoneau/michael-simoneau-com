@@ -12,7 +12,7 @@ import {
   Music,
 } from 'lucide-react';
 import { useMediaAnalytics } from '../../analytics/useMediaAnalytics';
-import { MARCH_12_2026_9_15_AM } from '../../hooks/useBeforeAndAfter';
+import { MARCH_12_2026_9_15_AM, MARCH_12_2026_12_00_PM } from '../../hooks/useBeforeAndAfter';
 import { dispatchMediaPlayIntent } from './mediaEvents';
 import { useProfileFlowDispatch, useProfileFlowState } from '../../features/profile/flow';
 
@@ -48,7 +48,6 @@ const MAIN_SCROLL_CONTAINER_ID = 'new-main-page-scroll-container';
 const VIDEO_HERO_SECTION_ID = 'videos';
 const MELINDA_COLLAPSE_SIDEEFFECT_PATTERN = /^collapse_[01]$/i;
 const MELINDA_RESTRICTED_TRIGGER_PATTERN = /^collapse_0$/i;
-const RESTRICTED_FLOW_DURATION_MS = 2010 * 1000;
 
 const isAudioSource = (src: string) => AUDIO_SOURCE_PATTERN.test(src);
 const isCollapsedDirective = (directive: string) => /collapsed/i.test(directive) || /^collapse_/i.test(directive);
@@ -72,7 +71,6 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
   const endedTrackKeyRef = useRef<string | null>(null);
   const hasVideoAutoTransitionTriggeredRef = useRef(false);
   const lastKnownUrlRef = useRef<string | null>(null);
-  const restrictedFlowTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const restrictedFlowLockedUntilReloadRef = useRef(false);
   const {
     playableTracks,
@@ -243,13 +241,11 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
     if (!force && restrictedFlowLockedUntilReloadRef.current) {
       return;
     }
-    if (restrictedFlowTimeoutRef.current !== null) {
-      clearTimeout(restrictedFlowTimeoutRef.current);
-      restrictedFlowTimeoutRef.current = null;
-    }
     restrictedFlowLockedUntilReloadRef.current = false;
     setIsRestrictedFlowActive(false);
   }, []);
+
+  const isBeforeNoon = useCallback(() => Date.now() < MARCH_12_2026_12_00_PM.getTime(), []);
 
   const isBaizeBypassEnabled = useCallback(() => {
     if (Date.now() >= MARCH_12_2026_9_15_AM.getTime()) {
@@ -262,6 +258,10 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
   }, []);
 
   const startRestrictedFlowFromInitialClick = useCallback(() => {
+    if (!isBeforeNoon()) {
+      resetRestrictedFlow({ force: true });
+      return;
+    }
     if (isBaizeBypassEnabled()) {
       resetRestrictedFlow({ force: true });
       return;
@@ -273,18 +273,13 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
 
     restrictedFlowLockedUntilReloadRef.current = true;
     setIsRestrictedFlowActive(true);
-    if (restrictedFlowTimeoutRef.current !== null) {
-      clearTimeout(restrictedFlowTimeoutRef.current);
-    }
-    restrictedFlowTimeoutRef.current = setTimeout(() => {
-      if (typeof window === 'undefined') {
-        return;
-      }
-      window.location.assign(`/?_=${Date.now()}#videos`);
-    }, RESTRICTED_FLOW_DURATION_MS);
-  }, [isBaizeBypassEnabled, resetRestrictedFlow]);
+  }, [isBaizeBypassEnabled, isBeforeNoon, resetRestrictedFlow]);
 
   const startRestrictedFlowFromAutoplay = useCallback(() => {
+    if (!isBeforeNoon()) {
+      resetRestrictedFlow({ force: true });
+      return;
+    }
     if (isBaizeBypassEnabled()) {
       resetRestrictedFlow({ force: true });
       return;
@@ -292,7 +287,7 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
     if (restrictedFlowLockedUntilReloadRef.current) {
       setIsRestrictedFlowActive(true);
     }
-  }, [isBaizeBypassEnabled, resetRestrictedFlow]);
+  }, [isBaizeBypassEnabled, isBeforeNoon, resetRestrictedFlow]);
 
   useEffect(() => {
     setCollapsedSections((previous) => {
@@ -579,6 +574,9 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
       if (!shouldTriggerVideoAutoplay) {
         return;
       }
+      if (!isBeforeNoon()) {
+        return;
+      }
 
       const remainingSeconds = audio.duration - audio.currentTime;
       if (Number.isFinite(remainingSeconds) && remainingSeconds <= 2) {
@@ -625,6 +623,10 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
         : nextExpandedTrackIndex === null;
 
       if (shouldTriggerVideoAutoplay) {
+        if (!isBeforeNoon()) {
+          setIsPlaying(false);
+          return;
+        }
         if (hasVideoAutoTransitionTriggeredRef.current) {
           return;
         }
@@ -675,6 +677,7 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
     trackMediaEvent,
     isSeeking,
     nextExpandedTrackIndex,
+    isBeforeNoon,
     startRestrictedFlowFromAutoplay,
   ]);
 
