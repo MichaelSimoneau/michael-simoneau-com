@@ -62,6 +62,7 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
   const wasFirstCollapsedSectionExpandedRef = useRef<boolean | null>(null);
   const startedTrackKeyRef = useRef<string | null>(null);
   const endedTrackKeyRef = useRef<string | null>(null);
+  const hasVideoAutoTransitionTriggeredRef = useRef(false);
   const restrictedFlowPendingStartRef = useRef(false);
   const restrictedFlowHasStartedRef = useRef(false);
   const restrictedFlowTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -462,6 +463,32 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
       if (!isSeeking) {
         setCurrentTime(audio.currentTime);
       }
+
+      if (hasVideoAutoTransitionTriggeredRef.current) {
+        return;
+      }
+
+      const shouldTriggerVideoAutoplay = isFirstCollapsedDirectiveSectionExpanded
+        ? collapsedSectionSecondTrackIndex !== null && currentTrackIndex === collapsedSectionSecondTrackIndex
+        : nextExpandedTrackIndex === null;
+
+      if (!shouldTriggerVideoAutoplay) {
+        return;
+      }
+
+      const remainingSeconds = audio.duration - audio.currentTime;
+      if (Number.isFinite(remainingSeconds) && remainingSeconds <= 2) {
+        hasVideoAutoTransitionTriggeredRef.current = true;
+        setIsPlaying(false);
+        audio.pause();
+        centerScrollToVideoHero()
+          .then(() => {
+            window.dispatchEvent(new CustomEvent(VIDEO_HERO_AUTOPLAY_EVENT));
+          })
+          .catch(() => {
+            window.dispatchEvent(new CustomEvent(VIDEO_HERO_AUTOPLAY_EVENT));
+          });
+      }
     };
 
     const onLoadedMetadata = () => {
@@ -489,6 +516,10 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
         : nextExpandedTrackIndex === null;
 
       if (shouldTriggerVideoAutoplay) {
+        if (hasVideoAutoTransitionTriggeredRef.current) {
+          return;
+        }
+        hasVideoAutoTransitionTriggeredRef.current = true;
         setIsPlaying(false);
         centerScrollToVideoHero()
           .then(() => {
@@ -531,6 +562,10 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
     nextExpandedTrackIndex,
     startRestrictedFlowFromAutoplay,
   ]);
+
+  useEffect(() => {
+    hasVideoAutoTransitionTriggeredRef.current = false;
+  }, [currentTrackIndex]);
 
   useEffect(() => {
     if (typeof document === 'undefined') {

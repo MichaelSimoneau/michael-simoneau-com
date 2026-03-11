@@ -15,6 +15,8 @@ interface YouTubePlayer {
   }) => void;
   playVideo?: () => void;
   pauseVideo?: () => void;
+  mute?: () => void;
+  unMute?: () => void;
   getCurrentTime?: () => number;
   getDuration?: () => number;
   destroy: () => void;
@@ -84,6 +86,7 @@ export const VideoHeroSection: React.FC = () => {
   const [displayVideoId, setDisplayVideoId] = useState(STANDARD_VIDEO_ID);
   const [isDelayOverlayVisible, setIsDelayOverlayVisible] = useState(false);
   const [countdownValue, setCountdownValue] = useState<number | null>(null);
+  const [playerMountNonce, setPlayerMountNonce] = useState(0);
   const playerElementRef = useRef<HTMLDivElement | null>(null);
   const playerRef = useRef<YouTubePlayer | null>(null);
   const handoffTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -98,6 +101,21 @@ export const VideoHeroSection: React.FC = () => {
   const hasPreEndTriggeredForPhaseRef = useRef(false);
   const playbackPhaseRef = useRef<PlaybackPhase>('primary');
   const startModeRef = useRef<VideoHeroStartMode>('standard');
+  const allowMutedAutoplayRef = useRef(false);
+
+  const resetPlayerInstance = useCallback(() => {
+    playerRef.current?.destroy();
+    playerRef.current = null;
+    if (playerElementRef.current) {
+      playerElementRef.current.innerHTML = '';
+    }
+    setIsPlayerReady(false);
+    setPlayerMountNonce((previous) => previous + 1);
+    previousPlayerStateRef.current = null;
+    startedPlaybackKeyRef.current = null;
+    hasPreEndTriggeredForPhaseRef.current = false;
+    awaitingPostHandoffPlaybackRef.current = false;
+  }, []);
 
   const getCurrentVideoContext = useCallback(() => {
     if (playbackPhaseRef.current === 'prepended') {
@@ -134,6 +152,9 @@ export const VideoHeroSection: React.FC = () => {
   const startStandardVideo = useCallback(() => {
     const player = playerRef.current;
     if (!player) return false;
+    if (allowMutedAutoplayRef.current) {
+      player.mute?.();
+    }
     playbackPhaseRef.current = 'primary';
 
     if (typeof player.loadVideoById === 'function') {
@@ -163,6 +184,9 @@ export const VideoHeroSection: React.FC = () => {
   const startPrependedVideo = useCallback(() => {
     const player = playerRef.current;
     if (!player) return false;
+    if (allowMutedAutoplayRef.current) {
+      player.mute?.();
+    }
     playbackPhaseRef.current = 'prepended';
 
     if (typeof player.loadVideoById === 'function') {
@@ -192,6 +216,9 @@ export const VideoHeroSection: React.FC = () => {
   const startSecondVideo = useCallback(() => {
     const player = playerRef.current;
     if (!player) return false;
+    if (allowMutedAutoplayRef.current) {
+      player.mute?.();
+    }
     playbackPhaseRef.current = 'second';
 
     if (typeof player.loadVideoById === 'function') {
@@ -223,6 +250,9 @@ export const VideoHeroSection: React.FC = () => {
   const startPlaylistFromThirdItem = useCallback(() => {
     const player = playerRef.current;
     if (!player) return false;
+    if (allowMutedAutoplayRef.current) {
+      player.mute?.();
+    }
     playbackPhaseRef.current = 'playlist';
 
     if (typeof player.loadPlaylist === 'function') {
@@ -504,6 +534,7 @@ export const VideoHeroSection: React.FC = () => {
         playsinline: 1,
         cc_load_policy: 1,
         cc_lang_pref: 'en',
+        origin: window.location.origin,
       },
       events: {
         onReady: () => setIsPlayerReady(true),
@@ -531,20 +562,19 @@ export const VideoHeroSection: React.FC = () => {
 
       clearHandoffTimeout();
       startModeRef.current = 'standard';
-      if (!isWatching || !isPlayerReady) {
-        pendingAutoPlayRequestRef.current = true;
-        setIsWatching(true);
-        return;
-      }
-
-      startPlaybackForCurrentMode();
+      allowMutedAutoplayRef.current = true;
+      // Always force a fresh player instance for programmatic autoplay handoff.
+      // This avoids stale iframe API states that can leave the hero black.
+      resetPlayerInstance();
+      pendingAutoPlayRequestRef.current = true;
+      setIsWatching(true);
     };
 
     window.addEventListener(VIDEO_HERO_AUTOPLAY_EVENT, handleAutoplayRequest);
     return () => {
       window.removeEventListener(VIDEO_HERO_AUTOPLAY_EVENT, handleAutoplayRequest);
     };
-  }, [clearHandoffTimeout, isPlayerReady, isWatching, startPlaybackForCurrentMode]);
+  }, [clearHandoffTimeout, resetPlayerInstance]);
 
   useEffect(() => {
     const handleGlobalMediaPlayIntent = (event: Event) => {
@@ -590,24 +620,24 @@ export const VideoHeroSection: React.FC = () => {
   useEffect(() => {
     return () => {
       clearHandoffTimeout();
-      playerRef.current?.destroy();
-      playerRef.current = null;
-      setIsPlayerReady(false);
+      resetPlayerInstance();
       playbackPhaseRef.current = 'primary';
       hasPreEndTriggeredForPhaseRef.current = false;
       previousPlayerStateRef.current = null;
       startedPlaybackKeyRef.current = null;
     };
-  }, [clearHandoffTimeout]);
+  }, [clearHandoffTimeout, resetPlayerInstance]);
 
   const handleLearnZerothTheoryClick = useCallback(() => {
     startModeRef.current = 'standard';
+    allowMutedAutoplayRef.current = false;
     pendingAutoPlayRequestRef.current = false;
     setIsWatching(true);
   }, []);
 
   const handleLearnMichaelClick = useCallback(() => {
     startModeRef.current = 'playlist';
+    allowMutedAutoplayRef.current = false;
     clearHandoffTimeout();
     if (!isWatching || !isPlayerReady) {
       pendingAutoPlayRequestRef.current = true;
@@ -629,6 +659,7 @@ export const VideoHeroSection: React.FC = () => {
         {isWatching ? (
           <div className="relative w-full" style={{ aspectRatio: '16 / 9', maxHeight: '100%' }}>
             <div
+              key={playerMountNonce}
               ref={playerElementRef}
               title="Zeroth Theory and The Ricochet Theorem video player"
               className="w-full h-full border-0"
