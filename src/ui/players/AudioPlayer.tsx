@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { Play, Pause, Volume2 } from 'lucide-react';
 import { useMediaAnalytics } from '../../analytics/useMediaAnalytics';
 import { dispatchMediaPlayIntent } from './mediaEvents';
+import { useMediaPlaybackCoordinator } from '../../providers/MediaPlaybackCoordinatorProvider';
 
 interface AudioPlayerProps {
   src: string;
@@ -11,6 +12,7 @@ interface AudioPlayerProps {
 
 export const AudioPlayer: React.FC<AudioPlayerProps> = ({ src, title = 'Zeroth Vision' }) => {
   const { trackMediaEvent } = useMediaAnalytics();
+  const { announcePlayStart, bindPauseHandler } = useMediaPlaybackCoordinator('audio-player');
   const audioRef = useRef<HTMLAudioElement>(null);
   const progressRef = useRef<HTMLDivElement>(null);
   const previousIsPlayingRef = useRef(false);
@@ -107,6 +109,17 @@ export const AudioPlayer: React.FC<AudioPlayerProps> = ({ src, title = 'Zeroth V
     previousIsPlayingRef.current = false;
   }, [src]);
 
+  useEffect(() => {
+    bindPauseHandler(() => {
+      const audio = audioRef.current;
+      if (!audio) {
+        return;
+      }
+      audio.pause();
+      setIsPlaying(false);
+    });
+  }, [bindPauseHandler]);
+
   const handlePlayPause = () => {
     const audio = audioRef.current;
     if (!audio) return;
@@ -115,6 +128,7 @@ export const AudioPlayer: React.FC<AudioPlayerProps> = ({ src, title = 'Zeroth V
       audio.pause();
       setIsPlaying(false);
     } else {
+      announcePlayStart();
       dispatchMediaPlayIntent('audio-player');
       audio.play();
       setIsPlaying(true);

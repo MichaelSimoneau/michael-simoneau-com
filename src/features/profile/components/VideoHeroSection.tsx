@@ -2,7 +2,8 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Play } from 'lucide-react';
 import { useMediaAnalytics } from '../../../analytics/useMediaAnalytics';
-import { APP_MEDIA_PLAY_INTENT_EVENT } from '../../../ui/players/mediaEvents';
+import { APP_MEDIA_PLAY_INTENT_EVENT, dispatchMediaPlayIntent } from '../../../ui/players/mediaEvents';
+import { useMediaPlaybackCoordinator } from '../../../providers/MediaPlaybackCoordinatorProvider';
 import { useProfileFlowDispatch, useProfileFlowState } from '../flow';
 
 interface YouTubePlayer {
@@ -84,6 +85,7 @@ type VideoHeroStartMode = 'standard' | 'playlist';
  */
 export const VideoHeroSection: React.FC = () => {
   const { trackMediaEvent } = useMediaAnalytics();
+  const { announcePlayStart, bindPauseHandler } = useMediaPlaybackCoordinator('video-hero');
   const flowDispatch = useProfileFlowDispatch();
   const flowState = useProfileFlowState();
   const [isWatching, setIsWatching] = useState(false);
@@ -383,6 +385,8 @@ export const VideoHeroSection: React.FC = () => {
     const previousState = previousPlayerStateRef.current;
 
     if (event.data === yt.PlayerState.PLAYING && previousState !== yt.PlayerState.PLAYING) {
+      announcePlayStart();
+      dispatchMediaPlayIntent('video-hero');
       const positionSeconds = playerRef.current?.getCurrentTime?.();
       const durationSeconds = playerRef.current?.getDuration?.();
       trackMediaEvent('play', {
@@ -469,7 +473,14 @@ export const VideoHeroSection: React.FC = () => {
       clearHandoffTimeout();
     }
     previousPlayerStateRef.current = event.data;
-  }, [clearHandoffTimeout, getCurrentVideoContext, resetDelayOverlay, runNextPlaybackStep, scheduleHandoff, trackMediaEvent]);
+  }, [announcePlayStart, clearHandoffTimeout, getCurrentVideoContext, resetDelayOverlay, runNextPlaybackStep, scheduleHandoff, trackMediaEvent]);
+
+  useEffect(() => {
+    bindPauseHandler(() => {
+      playerRef.current?.pauseVideo?.();
+      clearHandoffTimeout();
+    });
+  }, [bindPauseHandler, clearHandoffTimeout]);
 
   useEffect(() => {
     if (!isWatching || !isPlayerReady) {

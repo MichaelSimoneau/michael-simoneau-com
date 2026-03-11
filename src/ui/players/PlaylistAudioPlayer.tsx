@@ -14,6 +14,7 @@ import {
 import { useMediaAnalytics } from '../../analytics/useMediaAnalytics';
 import { MARCH_12_2026_9_15_AM } from '../../hooks/useBeforeAndAfter';
 import { dispatchMediaPlayIntent } from './mediaEvents';
+import { useMediaPlaybackCoordinator } from '../../providers/MediaPlaybackCoordinatorProvider';
 import { useProfileFlowDispatch, useProfileFlowState } from '../../features/profile/flow';
 
 /**
@@ -62,6 +63,7 @@ const isHiddenVideoTriggerDirective = (directive: string) => MELINDA_COLLAPSE_SI
  */
 export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks, className }) => {
   const { trackMediaEvent } = useMediaAnalytics();
+  const { announcePlayStart, bindPauseHandler } = useMediaPlaybackCoordinator('playlist-audio');
   const flowDispatch = useProfileFlowDispatch();
   const flowState = useProfileFlowState();
   const audioRef = useRef<HTMLAudioElement>(null);
@@ -311,6 +313,17 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
   }, [resetRestrictedFlow]);
 
   useEffect(() => {
+    bindPauseHandler(() => {
+      const audio = audioRef.current;
+      if (!audio) {
+        return;
+      }
+      audio.pause();
+      setIsPlaying(false);
+    });
+  }, [bindPauseHandler]);
+
+  useEffect(() => {
     const overrideTrack = flowState.override.value.playlist.track;
     if (overrideTrack === undefined || playableTracks.length === 0) {
       return;
@@ -529,6 +542,7 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
           if (!audio) {
             continue;
           }
+          announcePlayStart();
           dispatchMediaPlayIntent('playlist-audio');
           audio.play().then(() => {
             setIsPlaying(true);
@@ -543,6 +557,7 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
 
     melindaSectionExpansionSnapshotRef.current = nextSnapshot;
   }, [
+    announcePlayStart,
     collapsedSections,
     currentTrack,
     currentTrackIndex,
@@ -812,6 +827,7 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
     setDuration(0);
 
     if (shouldAutoPlay.current) {
+      announcePlayStart();
       dispatchMediaPlayIntent('playlist-audio');
       audio.play().then(() => {
         setIsPlaying(true);
@@ -821,7 +837,7 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
     } else {
       setIsPlaying(false);
     }
-  }, [currentTrack, startRestrictedFlowFromAutoplay]);
+  }, [announcePlayStart, currentTrack, startRestrictedFlowFromAutoplay]);
 
   // ── Controls ───────────────────────────────────────────────────────────
   const handlePlayPause = useCallback(() => {
@@ -833,10 +849,11 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
       audio.pause();
       setIsPlaying(false);
     } else {
+      announcePlayStart();
       dispatchMediaPlayIntent('playlist-audio');
       audio.play().then(() => setIsPlaying(true)).catch(() => setIsPlaying(false));
     }
-  }, [isPlaying, currentTrack, isRestrictedFlowActive]);
+  }, [announcePlayStart, isPlaying, currentTrack, isRestrictedFlowActive]);
 
   const handleSkipForward = useCallback(() => {
     if (isRestrictedFlowActive) return;

@@ -5,6 +5,7 @@ import { ContentBlock } from '../../models/BlogPost';
 import { useBlogSpeech } from '../../features/blog/hooks/useBlogSpeech';
 import { useMediaAnalytics } from '../../analytics/useMediaAnalytics';
 import { dispatchMediaPlayIntent } from './mediaEvents';
+import { useMediaPlaybackCoordinator } from '../../providers/MediaPlaybackCoordinatorProvider';
 import {
   BLOG_VOICE_PRESETS,
   BlogVoicePresetId,
@@ -23,6 +24,7 @@ export const BlogSpeechPlayer: React.FC<BlogSpeechPlayerProps> = ({
   title = 'Listen to Article',
 }) => {
   const { trackMediaEvent } = useMediaAnalytics();
+  const { announcePlayStart, bindPauseHandler } = useMediaPlaybackCoordinator('blog-speech');
   const previousIsPlayingRef = useRef(false);
   const hasStartedCycleRef = useRef(false);
   const hasCompletedCycleRef = useRef(false);
@@ -59,6 +61,12 @@ export const BlogSpeechPlayer: React.FC<BlogSpeechPlayerProps> = ({
     provider: 'browser',
   });
 
+  useEffect(() => {
+    bindPauseHandler(() => {
+      pause();
+    });
+  }, [bindPauseHandler, pause]);
+
   const handlePlayPause = () => {
     if (isPlaying) {
       pause();
@@ -66,11 +74,13 @@ export const BlogSpeechPlayer: React.FC<BlogSpeechPlayerProps> = ({
     }
 
     if (isPaused) {
+      announcePlayStart();
       dispatchMediaPlayIntent('blog-speech');
       resume();
       return;
     }
 
+    announcePlayStart();
     dispatchMediaPlayIntent('blog-speech');
     play();
   };

@@ -4,9 +4,13 @@ import { Play, Pause, SkipBack, SkipForward } from 'lucide-react';
 import { useSpeech } from '../../contexts/SpeechContext';
 import { useMediaAnalytics } from '../../analytics/useMediaAnalytics';
 import { dispatchMediaPlayIntent } from './mediaEvents';
+import { useMediaPlaybackCoordinator } from '../../providers/MediaPlaybackCoordinatorProvider';
 
 export const UniversalPlayer: React.FC = () => {
   const { trackMediaEvent } = useMediaAnalytics();
+  const { announcePlayStart, bindPauseHandler } = useMediaPlaybackCoordinator('universal-player', {
+    playbackKey: 'speech-context',
+  });
   const { 
     isPlaying, 
     play,
@@ -17,6 +21,12 @@ export const UniversalPlayer: React.FC = () => {
     totalPhrases,
     isSupported 
   } = useSpeech();
+
+  React.useEffect(() => {
+    bindPauseHandler(() => {
+      pause();
+    });
+  }, [bindPauseHandler, pause]);
   
   if (!isSupported) {
     return null;
@@ -35,6 +45,7 @@ export const UniversalPlayer: React.FC = () => {
       });
       pause();
     } else {
+      announcePlayStart();
       dispatchMediaPlayIntent('universal-player');
       trackMediaEvent('play', {
         media_type: 'speech',

@@ -4,6 +4,7 @@ import { SpeechProvider } from '../src/contexts/SpeechContext';
 import { ScrollProvider } from '../src/contexts/ScrollContext';
 import { CookieNotice } from '../src/layout/CookieNotice';
 import { ProfileFlowProvider } from '../src/features/profile/flow';
+import { MediaPlaybackCoordinatorProvider } from '../src/providers/MediaPlaybackCoordinatorProvider';
 import '../src/index.css';
 
 const GA_MEASUREMENT_ID = 'G-58WTRZHT0B';
@@ -61,17 +62,19 @@ export default function RootLayout() {
 
   return (
     <SpeechProvider>
-      <ScrollProvider>
-        <ProfileFlowProvider>
-          <CookieNotice />
-          <div className="app-shell">
-            <main className="app-main">
-              <Slot />
-            </main>
-            <CopyrightNotice />
-          </div>
-        </ProfileFlowProvider>
-      </ScrollProvider>
+      <MediaPlaybackCoordinatorProvider>
+        <ScrollProvider>
+          <ProfileFlowProvider>
+            <CookieNotice />
+            <div className="app-shell">
+              <main className="app-main">
+                <Slot />
+              </main>
+              <CopyrightNotice />
+            </div>
+          </ProfileFlowProvider>
+        </ScrollProvider>
+      </MediaPlaybackCoordinatorProvider>
     </SpeechProvider>
   );
 }

@@ -4,9 +4,13 @@ import { motion } from 'framer-motion';
 import { useSpeech } from '../../contexts/SpeechContext';
 import { useMediaAnalytics } from '../../analytics/useMediaAnalytics';
 import { dispatchMediaPlayIntent } from './mediaEvents';
+import { useMediaPlaybackCoordinator } from '../../providers/MediaPlaybackCoordinatorProvider';
 
 export const SpeechPlayer: React.FC = () => {
   const { trackMediaEvent } = useMediaAnalytics();
+  const { announcePlayStart, bindPauseHandler } = useMediaPlaybackCoordinator('speech-player', {
+    playbackKey: 'speech-context',
+  });
   const {
     isPlaying,
     currentPhrase,
@@ -16,6 +20,12 @@ export const SpeechPlayer: React.FC = () => {
     skipBack,
     totalPhrases,
   } = useSpeech();
+
+  React.useEffect(() => {
+    bindPauseHandler(() => {
+      pause();
+    });
+  }, [bindPauseHandler, pause]);
 
   const currentIndex = Math.max(currentPhrase ? 1 : 0, 0);
   const handlePlayPause = () => {
@@ -29,6 +39,7 @@ export const SpeechPlayer: React.FC = () => {
       });
       pause();
     } else {
+      announcePlayStart();
       dispatchMediaPlayIntent('speech-player');
       trackMediaEvent('play', {
         media_type: 'speech',
