@@ -160,8 +160,8 @@ export const VideoHeroSection: React.FC = () => {
   const isBeforeNoon = useCallback(() => Date.now() < MARCH_12_2026_12_00_PM.getTime(), []);
 
   const isRestrictedOverlayLocked = useCallback(() => {
-    return flowState.playlist.machine === 'restrictedLockout' && flowState.playlist.isRestrictedActive;
-  }, [flowState.playlist.isRestrictedActive, flowState.playlist.machine]);
+    return flowState.playlist.isRestrictedActive;
+  }, [flowState.playlist.isRestrictedActive]);
 
   const runRestrictedOverlayReload = useCallback((): boolean => {
     if (typeof window === 'undefined') {

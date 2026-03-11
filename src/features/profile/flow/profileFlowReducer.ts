@@ -108,12 +108,18 @@ export function profileFlowReducer(
     case 'PLAYLIST_PLAYING':
       return {
         ...state,
-        playlist: { ...state.playlist, machine: 'playing' },
+        playlist: {
+          ...state.playlist,
+          machine: state.playlist.isRestrictedActive ? 'restrictedLockout' : 'playing',
+        },
       };
     case 'PLAYLIST_PAUSED':
       return {
         ...state,
-        playlist: { ...state.playlist, machine: 'paused' },
+        playlist: {
+          ...state.playlist,
+          machine: state.playlist.isRestrictedActive ? 'restrictedLockout' : 'paused',
+        },
       };
     case 'PLAYLIST_ENDED':
       return {

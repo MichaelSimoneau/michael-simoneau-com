@@ -1,6 +1,6 @@
 import React, { createContext } from "react";
 
-const MARCH_12_2026_9_15_AM = new Date(2026, 2, 12, 9, 15, 0, 0);
+const MARCH_12_2026_9_15_AM = new Date(2026, 2, 12, 9, 30, 0, 0);
 const MARCH_12_2026_12_00_PM = new Date(2026, 2, 12, 12, 0, 0, 0);
 
 /**
