@@ -1,46 +1,15 @@
 import { Track } from "src/ui/players/PlaylistAudioPlayer";
 
-const zerothPodcasts = {
-  // Track #3 - 2026-03-12
-  "Michael Simoneau - A Quick Introduction":
-    "2026-03-12/Michael_Simoneau-A_Quick_Introduction.mp3",
-  // Track #4 - 2026-03-11
-  "Learn About Michael Simoneau and His Work":
-    "/2026-03-11/Michael_Simoneau.mp3",
-  // Track #5 - 2026-03-09
-  "How the Zeroth Theory Fixes The Global Economy":
-    "/2026-03-09/How_Zeroth_Theory_Fixes_AI_Hallucinations.mp3",
-  // Track #6 - 2026-03-11
-  "Forensic mapping of the Zeroth stack":
-    "/2026-03-10/Forensic_mapping_of_the_Zeroth_stack.mp3",
-} as Record<string, string>;
-
-// -------------------
-// --- COLLAPSED Playlist (for Psychologists) ---
-const cleanPodcasts = {
-  EXPANDED_0: "Welcome to Michael Simoneau's Podcast:",
-  ...zerothPodcasts,
-} as Record<string, string>;
-
 const podcastsToPlaylist = (podcasts: Record<string, string>): Track[] => {
   return Object.entries(podcasts).map(([title, src]) => ({ title, src }));
 };
 
-const cleanPlaylist = podcastsToPlaylist(cleanPodcasts);
-
-// Dynamically import all .mp3 files under the public/ directory as Melinda Francis podcasts
-
-// This automatic import assumes use of Vite or Webpack with require.context or import.meta.glob support.
-// If running in a Node.js environment or with Metro (Expo), you may need a build step or static declaration instead.
-
-let melindaFrancisPodcasts: Record<string, string> = {};
-
-if (typeof require !== "undefined" && typeof require.context === "function") {
-  // For Webpack (not typical in Expo apps)
-  const context = require.context("../../public/", true, /\.mp3$/);
-  melindaFrancisPodcasts = context
-    .keys()
-    .reduce<Record<string, string>>((acc, relPath) => {
+// Dynamically import all .mp3 files under the public/ directory
+const getAllMP3Files = () => {
+  if (typeof require !== "undefined" && typeof require.context === "function") {
+    // For Webpack (not typical in Expo apps)
+    const context = require.context("../../public/", true, /\.mp3$/);
+    return context.keys().reduce<Record<string, string>>((acc, relPath) => {
       const fname =
         relPath
           .split("/")
@@ -50,10 +19,11 @@ if (typeof require !== "undefined" && typeof require.context === "function") {
       acc[fname] = context(relPath);
       return acc;
     }, {});
-} else {
-  // Fallback: static (manually keep in sync with /public directory)
-  melindaFrancisPodcasts = {};
-}
+  } else {
+    // Fallback: static (manually keep in sync with /public directory)
+    return {};
+  }
+};
 
 // Sort the podcasts by the actual creation date parsed from the filename in the value (src) of each record.
 // Assumes the file path contains a date in YYYY-MM-DD or YYYY_MM_DD format near the start.
@@ -70,7 +40,7 @@ function extractDateFromSrc(src: string): Date | null {
   return null;
 }
 
-const allPodcasts = Object.entries(melindaFrancisPodcasts)
+const allPodcasts = Object.entries(getAllMP3Files())
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   .sort(([_titleA, srcA], [_titleB, srcB]) => {
     const dateA = extractDateFromSrc(srcA);
@@ -99,7 +69,25 @@ const allPodcasts = Object.entries(melindaFrancisPodcasts)
     {} as Record<string, string>,
   );
 
+const cleanPlaylist = podcastsToPlaylist({
+  // Track #3 - 2026-03-12
+  "Michael Simoneau - A Quick Introduction":
+    "2026-03-12/Michael_Simoneau-A_Quick_Introduction.mp3",
+  // Track #4 - 2026-03-11
+  "Learn About Michael Simoneau and His Work":
+    "/2026-03-11/Michael_Simoneau.mp3",
+  // Track #5 - 2026-03-09
+  "How the Zeroth Theory Fixes The Global Economy":
+    "/2026-03-09/How_Zeroth_Theory_Fixes_AI_Hallucinations.mp3",
+  // Track #6 - 2026-03-11
+  "Forensic mapping of the Zeroth stack":
+    "/2026-03-10/Forensic_mapping_of_the_Zeroth_stack.mp3",
+});
+
 const melindaFrancisPlaylist = podcastsToPlaylist({
+  // Track #0 - 2026-03-12
+  "Michael Simoneau: The Patient Who 5150'd His Therapist...":
+    "/2026-03-12/The_patient_who_5150d_his_therapist.mp3",
   // Track #1 - 2026-03-07
   "Should Michael Simoneau Fire His Psychologist?":
     "/2026-03-07/Should_Michael_Simoneau_delete_his_psychologist.mp3",
@@ -125,17 +113,15 @@ const melindaFrancisPlaylist = podcastsToPlaylist({
   ...allPodcasts,
 });
 
-const musicBeforeAndAfter = {
-    // Track #1
-    '"She\'s a Freak" - Mike Crane': "/music/ShesAFreak.mp3",
-    // Track #2
-    '"I\'m In Deep" - Mike Crane': "/music/ImInDeep.mp3",
-    // Track #3
-    '"This Is Why We Do It" - Mike Crane': "/music/ThisIsWhyWeDoIt.mp3",
-    // Nerd Warning...
-    nerdy: "... after that, it get's really nerdy... but in a good way!",
-} as Record<string, string>;
-
-const musicPlaylist = podcastsToPlaylist(musicBeforeAndAfter);
+const musicPlaylist = podcastsToPlaylist({
+  // Track #1
+  '"She\'s a Freak" - Mike Crane': "/music/ShesAFreak.mp3",
+  // Track #2
+  '"I\'m In Deep" - Mike Crane': "/music/ImInDeep.mp3",
+  // Track #3
+  '"This Is Why We Do It" - Mike Crane': "/music/ThisIsWhyWeDoIt.mp3",
+  // Nerd Warning...
+  nerdy: "... after that, it get's really nerdy... but in a good way!",
+});
 
 export { cleanPlaylist, musicPlaylist, melindaFrancisPlaylist };
