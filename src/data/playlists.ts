@@ -1,5 +1,5 @@
 import { Track } from "src/ui/players/PlaylistAudioPlayer";
-import { beforeAndAfter, MARCH_12_2026_9_15_AM, MARCH_12_2026_12_00_PM } from "src/hooks/useBeforeAndAfter";
+import { beforeAndAfter, MARCH_12_2026_9_15_AM, MARCH_15_2026_9_00_AM } from "src/hooks/useBeforeAndAfter";
 
 const COLLAPSED_0 = beforeAndAfter({
   when: MARCH_12_2026_9_15_AM,
@@ -14,7 +14,7 @@ const EXPANDED_0 = beforeAndAfter({
 }) as string;
 
 const psychologistPodcasts = beforeAndAfter({
-  when: MARCH_12_2026_12_00_PM,
+  when: MARCH_15_2026_9_00_AM,
   before: {
     // Track #1 - 2026-03-07
     "Should Michael Simoneau Fire His Psychologist?":
@@ -53,7 +53,6 @@ const psychologistPodcasts = beforeAndAfter({
     "/2026-03-10/Michael_Simoneau_s_$20_Dollar_Bet.mp3",
   },
   end: {
-    // Nerd Warning...
     "Go to https://MichaelSimoneau.com/Dr.MelindaFrancis.com/ for the full playlist!": "/fake_end.mp3",
   },
 }) as Record<string, string>;
@@ -96,16 +95,18 @@ const zerothPodcasts = beforeAndAfter({
   },
 }) as Record<string, string>;
 
-const cleanPodcasts: Record<string, string> = {
-  // -------------------
-  // --- COLLAPSED Playlist (for Psychologists) ---
-  "COLLAPSE_0": COLLAPSED_0 as string,
-  ...psychologistPodcasts,
-  // ------------------
-  // --- EXPANDED Playlist (for Zeroth Theory) ---
-  "EXPANDED_0": EXPANDED_0,
-  ...zerothPodcasts,
-};
+// -------------------
+// --- COLLAPSED Playlist (for Psychologists) ---
+const cleanPodcasts = beforeAndAfter({
+  when: MARCH_15_2026_9_00_AM,
+  start: { "COLLAPSE_0": COLLAPSED_0 as string },
+  before: psychologistPodcasts,
+  after: { "Go to https://MichaelSimoneau.com/Dr.MelindaFrancis.com/ for the full playlist!": "/fake_end.mp3" },
+  end: {
+    "EXPANDED_0": EXPANDED_0,
+    ...zerothPodcasts,
+  },
+}) as Record<string, string>;
 
 const podcastsToPlaylist = (
   podcasts: Record<string, string>,
@@ -180,7 +181,7 @@ const melindaFrancisPlaylist = podcastsToPlaylist(
 );
 
 const musicBeforeAndAfter = beforeAndAfter({
-  when: MARCH_12_2026_12_00_PM,
+  when: MARCH_15_2026_9_00_AM,
   before: 
   {
     // Track #1

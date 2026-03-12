@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Play } from 'lucide-react';
 import { useMediaAnalytics } from '../../../analytics/useMediaAnalytics';
-import { MARCH_12_2026_12_00_PM } from '../../../hooks/useBeforeAndAfter';
+import { MARCH_15_2026_9_00_AM } from '../../../hooks/useBeforeAndAfter';
 import { APP_MEDIA_PLAY_INTENT_EVENT } from '../../../ui/players/mediaEvents';
 import { useProfileFlowDispatch, useProfileFlowState } from '../flow';
 
@@ -157,7 +157,7 @@ export const VideoHeroSection: React.FC = () => {
     resetDelayOverlay();
   }, [resetDelayOverlay]);
 
-  const isBeforeNoon = useCallback(() => Date.now() < MARCH_12_2026_12_00_PM.getTime(), []);
+  const isBeforeNoon = useCallback(() => Date.now() < MARCH_15_2026_9_00_AM.getTime(), []);
 
   const isRestrictedOverlayLocked = useCallback(() => {
     return flowState.playlist.isRestrictedActive;

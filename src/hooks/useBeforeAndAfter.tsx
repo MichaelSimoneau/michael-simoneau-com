@@ -1,7 +1,7 @@
 import React, { createContext } from "react";
 
 const MARCH_12_2026_9_15_AM = new Date(2026, 2, 12, 9, 30, 0, 0);
-const MARCH_12_2026_12_00_PM = new Date(2026, 2, 12, 12, 0, 0, 0);
+const MARCH_15_2026_9_00_AM = new Date(2026, 2, 15, 9, 0, 0, 0);
 
 /**
  * useBeforeAndAfter
@@ -132,7 +132,7 @@ const useBeforeAndAfter = () => {
 export { 
     beforeAndAfter, 
     MARCH_12_2026_9_15_AM, 
-    MARCH_12_2026_12_00_PM,
+    MARCH_15_2026_9_00_AM as MARCH_15_2026_9_00_AM,
     BeforeAndAfterProvider,
     useBeforeAndAfter,
 };
