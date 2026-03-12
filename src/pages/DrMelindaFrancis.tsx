@@ -164,7 +164,7 @@ export const DrMelindaFrancis: React.FC = () => {
                   </a>
                 </p>
                 <p className="text-sm text-slate-500 text-center mt-0 mb-3">
-                  * See, i took{" "}
+                  * See, I took{" "}
                   <a
                     href="https://melindafrancis.com"
                     target="_blank"
@@ -189,7 +189,6 @@ export const DrMelindaFrancis: React.FC = () => {
                   <a
                     href="https://zerosudoku.com"
                     target="_blank"
-                    rel="noopener noreferrer nofollow"
                     className="text-cyan-400 hover:text-cyan-300 underline"
                   >
                     ZeroSudoku.com
