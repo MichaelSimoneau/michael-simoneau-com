@@ -120,8 +120,6 @@ const musicPlaylist = podcastsToPlaylist({
   '"I\'m In Deep" - Mike Crane': "/music/ImInDeep.mp3",
   // Track #3
   '"This Is Why We Do It" - Mike Crane': "/music/ThisIsWhyWeDoIt.mp3",
-  // Nerd Warning...
-  nerdy: "... after that, it get's really nerdy... but in a good way!",
 });
 
 export { cleanPlaylist, musicPlaylist, melindaFrancisPlaylist };

@@ -723,8 +723,7 @@ export const VideoHeroSection: React.FC = () => {
 
   return (
     <section
-      className="relative w-full overflow-hidden"
-      style={{ minHeight: '100vh' }}
+      className="relative w-full overflow-hidden py-16"
     >
       <div className="absolute inset-0 z-0 flex items-center justify-center bg-black">
         {isWatching ? (
@@ -783,7 +782,6 @@ export const VideoHeroSection: React.FC = () => {
 
             <motion.div
               className="relative z-20 flex flex-col items-center justify-center text-center px-4"
-              style={{ minHeight: '100vh' }}
               initial={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.6 }}
