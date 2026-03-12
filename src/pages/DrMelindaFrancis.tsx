@@ -48,17 +48,32 @@ export const DrMelindaFrancis: React.FC = () => {
       ),
     [timeLeftToScheduleMs],
   );
-  const timeLeftToSchedule = React.useMemo(
+  const timeLeftToScheduleSeconds = React.useMemo(
     () =>
-      `${timeLeftToScheduleDays ? timeLeftToScheduleDays + ` day${timeLeftToScheduleDays > 1 ? "s" : ""}, ` : ""}` +
-      `${timeLeftToScheduleHours ? timeLeftToScheduleHours + ` hour${timeLeftToScheduleHours > 1 ? "s" : ""}, ` : ""}` +
-      `${timeLeftToScheduleMinutes ? timeLeftToScheduleMinutes + ` minute${timeLeftToScheduleMinutes > 1 ? "s" : ""}, ` : ""}`
-        .trim()
-        .replace(/, $/, ""),
+      Math.abs(
+        Math.floor((timeLeftToScheduleMs % (1000 * 60 * 60)) / (1000 * 60 / 60)),
+      ),
+    [timeLeftToScheduleMs],
+  );
+  const timeLeftToSchedule = React.useMemo(
+    () => {
+      const minutes = Math.floor((timeLeftToScheduleSeconds % 60) / 10);
+      return (
+        `${timeLeftToScheduleDays ? timeLeftToScheduleDays + ` day${timeLeftToScheduleDays > 1 ? "s" : ""}, ` : ""}` +
+        `${timeLeftToScheduleHours ? timeLeftToScheduleHours + ` hour${timeLeftToScheduleHours > 1 ? "s" : ""}, ` : ""}` +
+        `${timeLeftToScheduleMinutes ? timeLeftToScheduleMinutes - 1 : ""}` +
+        `.${minutes} minute${timeLeftToScheduleMinutes > 1 ? "s" : ""}`
+          .trim()
+          .replace(/, $/, "")
+      );
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [
+      timeLeftToScheduleMs,
       timeLeftToScheduleDays,
       timeLeftToScheduleHours,
       timeLeftToScheduleMinutes,
+      timeLeftToScheduleSeconds,
     ],
   );
   return (
@@ -119,12 +134,11 @@ export const DrMelindaFrancis: React.FC = () => {
                     <span>
                       You have <strong>{timeLeftToSchedule}</strong> left to
                       schedule an appointment for{" "}
-                      <strong>March 19th, 2026</strong>.
+                      <strong><u>March 19th, 2026</u></strong>.
                     </span>
                   ) : (
                     <span>
-                      You have been fired from your position as Ms. Melinda
-                      Francis.
+                      "Hello, Signature Health... I'm Michael Simoneau."...
                     </span>
                   )}
                 </h2>
