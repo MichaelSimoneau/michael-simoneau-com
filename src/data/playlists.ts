@@ -62,7 +62,7 @@ const psychologistPodcasts = beforeAndAfter({
   },
   end: {
     "Go to https://MichaelSimoneau.com/Dr.MelindaFrancis.com/ for the full playlist!":
-      "/fake_end.mp3",
+      "/fake.mp3",
   },
 }) as Record<string, string>;
 

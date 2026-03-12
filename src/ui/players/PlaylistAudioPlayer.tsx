@@ -54,6 +54,25 @@ const isCollapsedDirective = (directive: string) => /collapsed/i.test(directive)
 const isMelindaCollapseDirective = (directive: string) => MELINDA_COLLAPSE_SIDEEFFECT_PATTERN.test(directive.trim());
 const isMelindaRestrictedTriggerDirective = (directive: string) => MELINDA_RESTRICTED_TRIGGER_PATTERN.test(directive.trim());
 const isHiddenVideoTriggerDirective = (directive: string) => MELINDA_COLLAPSE_SIDEEFFECT_PATTERN.test(directive.trim());
+const URL_IN_TEXT_PATTERN = /(https?:\/\/[^\s]+)/i;
+
+const isFakeTrackSrc = (src: string) => /fake\.mp3$/i.test(src.trim());
+const extractFirstUrl = (text: string): string | null => {
+  const match = text.match(URL_IN_TEXT_PATTERN);
+  if (!match?.[1]) {
+    return null;
+  }
+  const candidate = match[1].replace(/[),.;!?]+$/, '');
+  try {
+    const parsed = new URL(candidate);
+    if (parsed.protocol === 'http:' || parsed.protocol === 'https:') {
+      return parsed.toString();
+    }
+    return null;
+  } catch {
+    return null;
+  }
+};
 
 /**
  * PlaylistAudioPlayer — a sleek, slim audio player that manages a playlist
@@ -1160,19 +1179,11 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
                             const track = playableTracks[trackIndex];
                             const isActive = trackIndex === currentTrackIndex;
                             const isCurrentlyPlaying = isActive && isPlaying;
+                            const linkUrl = extractFirstUrl(track.title);
+                            const isLinkRow = isFakeTrackSrc(track.src) && linkUrl !== null;
 
-                            return (
-                              <motion.button
-                                key={`${section.id}-${track.src}-${trackIndex}`}
-                                disabled={isRestrictedFlowActive}
-                                onClick={() => handleSelectTrack(trackIndex)}
-                                className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg text-left transition-colors group ${
-                                  isActive
-                                    ? 'bg-cyan-400/10'
-                                    : 'hover:bg-white/5'
-                                } disabled:opacity-80`}
-                                whileTap={{ scale: 0.98 }}
-                              >
+                            const trackRowContent = (
+                              <>
                                 {/* Track number / playing indicator */}
                                 <span
                                   className={`flex-shrink-0 w-5 text-xs text-right tabular-nums ${
@@ -1200,6 +1211,41 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
                                 >
                                   {track.title}
                                 </span>
+                              </>
+                            );
+
+                            if (isLinkRow && linkUrl) {
+                              return (
+                                <motion.a
+                                  key={`${section.id}-${track.src}-${trackIndex}`}
+                                  href={linkUrl}
+                                  target="_blank"
+                                  rel="noopener noreferrer nofollow"
+                                  className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg text-left transition-colors group ${
+                                    isActive
+                                      ? 'bg-cyan-400/10'
+                                      : 'hover:bg-white/5'
+                                  }`}
+                                  whileTap={{ scale: 0.98 }}
+                                >
+                                  {trackRowContent}
+                                </motion.a>
+                              );
+                            }
+
+                            return (
+                              <motion.button
+                                key={`${section.id}-${track.src}-${trackIndex}`}
+                                disabled={isRestrictedFlowActive}
+                                onClick={() => handleSelectTrack(trackIndex)}
+                                className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg text-left transition-colors group ${
+                                  isActive
+                                    ? 'bg-cyan-400/10'
+                                    : 'hover:bg-white/5'
+                                } disabled:opacity-80`}
+                                whileTap={{ scale: 0.98 }}
+                              >
+                                {trackRowContent}
                               </motion.button>
                             );
                           })}
