@@ -7,6 +7,33 @@ import { PlaylistAudioPlayer } from "../ui/players/PlaylistAudioPlayer";
 import { melindaFrancisPlaylist } from "../data/playlists";
 
 export const DrMelindaFrancis: React.FC = () => {
+  const [now, setNow] = React.useState(new Date().getTime());
+  React.useEffect(() => {
+    const interval = setInterval(() => {
+      setNow(new Date().getTime());
+    }, 1000);
+    return () => clearInterval(interval);
+  }, []);
+  const timeLeftToScheduleMs = React.useMemo(() => now - new Date(2026, 2, 17, 9, 0, 0, 0).getTime(), [now]);
+  const timeLeftToScheduleDays = React.useMemo(() => Math.abs(Math.floor(timeLeftToScheduleMs / (1000 * 60 * 60 * 24))), [timeLeftToScheduleMs]);
+  const timeLeftToScheduleHours = React.useMemo(() => Math.abs(Math.floor((timeLeftToScheduleMs % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))), [timeLeftToScheduleMs]);
+  const timeLeftToScheduleMinutes = React.useMemo(() => Math.abs(Math.floor((timeLeftToScheduleMs % (1000 * 60 * 60)) / (1000 * 60))), [timeLeftToScheduleMs]);
+  const timeLeftToScheduleSeconds = React.useMemo(() => Math.abs(Math.floor((timeLeftToScheduleMs % (1000 * 60)) / 1000)), [timeLeftToScheduleMs]);
+  const timeLeftToSchedule = React.useMemo(
+    () =>
+      `${timeLeftToScheduleDays ? timeLeftToScheduleDays + ` day${timeLeftToScheduleDays > 1 ? "s" : ""}, ` : ""}` +
+      `${timeLeftToScheduleHours ? timeLeftToScheduleHours + ` hour${timeLeftToScheduleHours > 1 ? "s" : ""}, ` : ""}` +
+      `${timeLeftToScheduleMinutes ? timeLeftToScheduleMinutes + ` minute${timeLeftToScheduleMinutes > 1 ? "s" : ""}, ` : ""}` +
+      `${timeLeftToScheduleSeconds ? timeLeftToScheduleSeconds + ` second${timeLeftToScheduleSeconds > 1 ? "s" : ""}` : ""}`
+        .trim()
+        .replace(/, $/, ""),
+    [
+      timeLeftToScheduleDays,
+      timeLeftToScheduleHours,
+      timeLeftToScheduleMinutes,
+      timeLeftToScheduleSeconds,
+    ],
+  );
   return (
     <>
       <Seo
@@ -59,21 +86,28 @@ export const DrMelindaFrancis: React.FC = () => {
             >
               <div className="bg-gray-900/60 backdrop-blur-sm border border-amber-800/30 rounded-xl p-6 text-justify">
                 <h2 className="text-xl font-bold text-amber-400 mb-3 text-center">
-                  Welcome to Thursday, March 5th 2026, Melinda Francis.
+                  Welcome to Thursday, March 12th 2026, Melinda Francis.
                 </h2>
+                <h3 className="text-xl font-bold text-amber-400 mb-3 text-center">
+                  You have <strong>{timeLeftToSchedule}</strong> left to schedule an
+                  appointment for <strong>March 19th, 2026</strong>.
+                </h3>
+                <p className="text-sm text-slate-500 text-center mt-0 mb-3"> * Remember, weekends don't count! * </p>
                 <p className="text-sm text-gray-300 leading-relaxed mb-3">
-                  I, <strong>Michael Simoneau</strong> [who still remembers my name], made a curated
-                  playlist to try to explain everything over the past 3 weeks. The
-                  idea is to show you that I&apos;m OKAY, despite not being your
-                  version of <strong>stable</strong> I am{" "}
+                  I, <strong>Michael Simoneau</strong> [who still remembers my
+                  name], made a curated playlist to try to explain everything
+                  over the past 4 weeks. The idea is to show you that I&apos;m
+                  OKAY, despite not being your version of{" "}
+                  <strong>stable</strong> I am{" "}
                   <strong>
                     <u>managing well</u>
                   </strong>
                   , and this is the goal. Management. I&apos;m more than Okay,
-                  I&apos;m developing something that is going to change the world.
-                  I am NOT delusional, I call you{" "}
-                  &quot;<strong>The Soon-To-Be Dr. Melinda Francis, LISW</strong>&quot;
-                  and even believe it to be true, so much so that I built a website for you:{" "}
+                  I&apos;m developing something that is going to change the
+                  world. I am NOT delusional, I used to call you &quot;
+                  <strong>The Soon-To-Be Dr. Melinda Francis, LISW</strong>
+                  &quot; and even believed it to be true; so much so that I
+                  built a website for you:{" "}
                   <a
                     href="https://dr.melindafrancis.com"
                     target="_blank"
@@ -81,21 +115,14 @@ export const DrMelindaFrancis: React.FC = () => {
                     className="text-cyan-400 hover:text-cyan-300 underline"
                   >
                     Dr.MelindaFrancis.com
-                  </a>{" "}
-                  and{" "}
-                  <a
-                    href="https://www.melindafrancis.com"
-                    target="_blank"
-                    rel="noopener noreferrer nofollow"
-                    className="text-cyan-400 hover:text-cyan-300 underline"
-                  >
-                    MelindaFrancis.com
                   </a>
                 </p>
                 <p className="text-sm text-gray-300 leading-relaxed mb-3">
-                  I honestly believe you are suffering from social delusion, and you are projecting your delusion onto me.
-                  You deem me to be <strong>insane</strong> because I won&apos;t agree to buy into the social delusion.
-                  But I&apos;m sane because I can take care of myself and the executive function I lacked I now have{" "}
+                  I honestly believe you are suffering from social delusion, and
+                  you are projecting your delusion onto me. You deem me to be{" "}
+                  <strong>insane</strong> because I won&apos;t agree to buy into
+                  the social delusion. But I&apos;m sane because I can take care
+                  of myself and the executive function I lacked I now have{" "}
                   <strong>
                     <u>MATH</u>
                   </strong>{" "}
@@ -114,7 +141,8 @@ export const DrMelindaFrancis: React.FC = () => {
                   </blockquote>
                   <br />
                   <blockquote className="text-center">
-                    <strong>"I Am Right; I Am NOT Infallible"</strong> - Michael Simoneau
+                    <strong>"I Am Right; I Am NOT Infallible"</strong> - Michael
+                    Simoneau
                   </blockquote>
                 </p>
               </div>
