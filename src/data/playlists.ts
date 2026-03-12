@@ -111,6 +111,70 @@ const podcastsToPlaylist = (
 
 const cleanPlaylist = podcastsToPlaylist(cleanPodcasts);
 
+// Dynamically import all .mp3 files under the public/ directory as Melinda Francis podcasts
+
+// This automatic import assumes use of Vite or Webpack with require.context or import.meta.glob support.
+// If running in a Node.js environment or with Metro (Expo), you may need a build step or static declaration instead.
+
+let melindaFrancisPodcasts: Record<string, string> = {};
+
+if (typeof require !== "undefined" && typeof require.context === "function") {
+  // For Webpack (not typical in Expo apps)
+  const context = require.context('../../public/', true, /\.mp3$/);
+  melindaFrancisPodcasts = context.keys().reduce<Record<string, string>>((acc, relPath) => {
+    const fname = relPath.split('/').pop()?.replace(/_/g, ' ').replace(/\.mp3$/i, '') ?? relPath;
+    acc[fname] = context(relPath);
+    return acc;
+  }, {});
+} else {
+  // Fallback: static (manually keep in sync with /public directory)
+  melindaFrancisPodcasts = {
+  };
+}
+
+// Sort the podcasts by the actual creation date parsed from the filename in the value (src) of each record.
+// Assumes the file path contains a date in YYYY-MM-DD or YYYY_MM_DD format near the start.
+
+function extractDateFromSrc(src: string): Date | null {
+  // Match YYYY-MM-DD or YYYY_MM_DD or /YYYY-MM-DD/
+  const match = src.match(/([12]\d{3})[-_](\d{2})[-_](\d{2})/);
+  if (match) {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const [_, y, m, d] = match;
+    // Month is 0-based in JS Date
+    return new Date(Number(y), Number(m) - 1, Number(d));
+  }
+  return null;
+}
+
+const melindaFrancisPlaylist = podcastsToPlaylist(
+  Object.entries(melindaFrancisPodcasts)
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    .sort(([_titleA, srcA], [_titleB, srcB]) => {
+      const dateA = extractDateFromSrc(srcA);
+      const dateB = extractDateFromSrc(srcB);
+      if (dateA && dateB) {
+        return dateA.getTime() - dateB.getTime();
+      }
+      if (dateA) return -1;
+      if (dateB) return 1;
+      // If no date found, fall back to alphabetical by src
+      return srcA.localeCompare(srcB);
+    })
+    .reduce<Record<string, string>>((acc, [title, src]) => {
+      if (src.includes('music/')) {
+        return acc;
+      }
+      const date = extractDateFromSrc(src);
+      if (date) {
+        acc[date.toISOString().split('T')[0] + ' - ' + title] = src;
+      } else {
+        acc[title] = src;
+      }
+      return acc;
+    }, {} as Record<string, string>)
+);
+
 const musicBeforeAndAfter = beforeAndAfter({
   when: MARCH_12_2026_12_00_PM,
   before: 
@@ -142,4 +206,5 @@ const musicPlaylist = podcastsToPlaylist(musicBeforeAndAfter);
 export {
   cleanPlaylist,
   musicPlaylist,
+  melindaFrancisPlaylist,
 };
