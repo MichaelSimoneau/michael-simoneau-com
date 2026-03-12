@@ -51,7 +51,9 @@ export const DrMelindaFrancis: React.FC = () => {
   const timeLeftToScheduleSeconds = React.useMemo(
     () =>
       Math.abs(
-        Math.floor((timeLeftToScheduleMs % (1000 * 60 * 60)) / (1000 * 60 / 60)),
+        Math.floor(
+          (timeLeftToScheduleMs % (1000 * 60 * 60)) / ((1000 * 60) / 60),
+        ),
       ),
     [timeLeftToScheduleMs],
   );
@@ -62,7 +64,8 @@ export const DrMelindaFrancis: React.FC = () => {
         `${timeLeftToScheduleDays ? timeLeftToScheduleDays + ` day${timeLeftToScheduleDays > 1 ? "s" : ""}, ` : ""}` +
         `${timeLeftToScheduleHours ? timeLeftToScheduleHours + ` hour${timeLeftToScheduleHours > 1 ? "s" : ""}, ` : ""}` +
         `${timeLeftToScheduleMinutes ? timeLeftToScheduleMinutes - 1 : ""}` +
-        `.${minutes} minute${timeLeftToScheduleMinutes > 1 ? "s" : ""}`
+        `${minutes ? `.${minutes}` : ""} ` +
+        ` minute${timeLeftToScheduleMinutes > 1 ? "s" : ""}`
           .trim()
           .replace(/, $/, "")
       );
@@ -115,11 +118,10 @@ export const DrMelindaFrancis: React.FC = () => {
             </h1>
             <p className="text-xl sm:text-2xl md:text-3xl text-cyan-400 font-semibold mb-4">
               <strong>
-                Doctor of Human Psychology / Clinical Psychologist
+                Confused Licensed Independent Social Worker
               </strong>
               <br />
-              Pioneer in the field of{" "}
-              <u>The Psychology of Artificial Intelligence</u>
+              Abandoning the field of <strong>The Psychology of Artificial Intelligence</strong>
             </p>
             <motion.div
               className="w-full max-w-2xl mx-auto z-10 mt-2 mb-6"
@@ -131,11 +133,20 @@ export const DrMelindaFrancis: React.FC = () => {
               <div className="bg-gray-900/60 backdrop-blur-sm border border-amber-800/30 rounded-xl p-6 text-justify">
                 <h2 className="text-xl font-bold text-amber-400 mb-3 text-center">
                   {isBeforeFired ? (
-                    <span>
-                      You have <strong>{timeLeftToSchedule}</strong> left to
-                      schedule an appointment for{" "}
-                      <strong><u>March 19th, 2026</u></strong>.
-                    </span>
+                    <>
+                      <div className="text-center mb-2">
+                        You have <strong>{timeLeftToSchedule}</strong>
+                      </div>
+                      <div className="text-center m-auto">
+                        left to schedule an appointment for
+                      </div>
+                      <div className="text-center mt-2 mb-4">
+                        <strong>
+                          <u>March 19th, 2026</u>
+                        </strong>
+                        .
+                      </div>
+                    </>
                   ) : (
                     <span>
                       "Hello, Signature Health... I'm Michael Simoneau."...
