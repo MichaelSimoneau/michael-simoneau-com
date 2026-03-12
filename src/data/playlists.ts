@@ -61,7 +61,7 @@ const zerothPodcasts = beforeAndAfter({
     "How the Zeroth Theory Fixes The Global Economy":
     "/2026-03-09/How_Zeroth_Theory_Fixes_AI_Hallucinations.mp3",
     // Track #8 - 2026-03-11
-    "Forensic mapping of the Zeroth stack":
+    "Forensic Mapping of the 'Zeroth' Stack":
     "/2026-03-10/Forensic_mapping_of_the_Zeroth_stack.mp3",
   },
   after: {
