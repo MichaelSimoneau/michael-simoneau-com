@@ -9,17 +9,49 @@ import { MARCH_17_2026_9_00_AM } from "src/hooks/useBeforeAndAfter";
 
 export const DrMelindaFrancis: React.FC = () => {
   const [now, setNow] = React.useState(new Date().getTime());
+  const [isFired, setIsFired] = React.useState(false);
+  const isBeforeFired = React.useMemo(
+    () => now < MARCH_17_2026_9_00_AM.getTime(),
+    [now],
+  );
+  const timeLeftToScheduleMs = React.useMemo(
+    () => now - MARCH_17_2026_9_00_AM.getTime(),
+    [now],
+  );
   React.useEffect(() => {
+    if (isFired) return;
     const interval = setInterval(() => {
       setNow(new Date().getTime());
+      if (timeLeftToScheduleMs >= 0) {
+        setIsFired(true);
+      }
     }, 1000);
     return () => clearInterval(interval);
-  }, []);
-  const timeLeftToScheduleMs = React.useMemo(() => now - MARCH_17_2026_9_00_AM.getTime(), [now]);
-  const timeLeftToScheduleDays = React.useMemo(() => Math.abs(Math.floor(timeLeftToScheduleMs / (1000 * 60 * 60 * 24))), [timeLeftToScheduleMs]);
-  const timeLeftToScheduleHours = React.useMemo(() => Math.abs(Math.floor((timeLeftToScheduleMs % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))), [timeLeftToScheduleMs]);
-  const timeLeftToScheduleMinutes = React.useMemo(() => Math.abs(Math.floor((timeLeftToScheduleMs % (1000 * 60 * 60)) / (1000 * 60))), [timeLeftToScheduleMs]);
-  const timeLeftToScheduleSeconds = React.useMemo(() => Math.abs(Math.floor((timeLeftToScheduleMs % (1000 * 60)) / 1000)), [timeLeftToScheduleMs]);
+  }, [isFired, timeLeftToScheduleMs]);
+  const timeLeftToScheduleDays = React.useMemo(
+    () => Math.abs(Math.floor(timeLeftToScheduleMs / (1000 * 60 * 60 * 24))),
+    [timeLeftToScheduleMs],
+  );
+  const timeLeftToScheduleHours = React.useMemo(
+    () =>
+      Math.abs(
+        Math.floor(
+          (timeLeftToScheduleMs % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60),
+        ),
+      ),
+    [timeLeftToScheduleMs],
+  );
+  const timeLeftToScheduleMinutes = React.useMemo(
+    () =>
+      Math.abs(
+        Math.floor((timeLeftToScheduleMs % (1000 * 60 * 60)) / (1000 * 60)),
+      ),
+    [timeLeftToScheduleMs],
+  );
+  const timeLeftToScheduleSeconds = React.useMemo(
+    () => Math.abs(Math.floor((timeLeftToScheduleMs % (1000 * 60)) / 1000)),
+    [timeLeftToScheduleMs],
+  );
   const timeLeftToSchedule = React.useMemo(
     () =>
       `${timeLeftToScheduleDays ? timeLeftToScheduleDays + ` day${timeLeftToScheduleDays > 1 ? "s" : ""}, ` : ""}` +
@@ -73,7 +105,7 @@ export const DrMelindaFrancis: React.FC = () => {
               Dr. Melinda Francis, DSM
             </h1>
             <p className="text-xl sm:text-2xl md:text-3xl text-cyan-400 font-semibold mb-4">
-              <strong>Doctorate of Applied Sciences in Human Psychology</strong>
+              <strong>Doctor of Human Psychology / Clinical Psychologist</strong>
               <br />
               Pioneer in the field of{" "}
               <u>The Psychology of Artificial Intelligence</u>
@@ -87,10 +119,24 @@ export const DrMelindaFrancis: React.FC = () => {
             >
               <div className="bg-gray-900/60 backdrop-blur-sm border border-amber-800/30 rounded-xl p-6 text-justify">
                 <h2 className="text-xl font-bold text-amber-400 mb-3 text-center">
-                  You have <strong>{timeLeftToSchedule}</strong> left to schedule an
-                  appointment for <strong>March 19th, 2026</strong>.
+                  {isBeforeFired ? (
+                    <span>
+                      You have <strong>{timeLeftToSchedule}</strong> left to
+                      schedule an appointment for{" "}
+                      <strong>March 19th, 2026</strong>.
+                    </span>
+                  ) : (
+                    <span>
+                      You have been fired from your position as Ms. Melinda
+                      Francis.
+                    </span>
+                  )}
                 </h2>
-                <p className="text-sm text-slate-500 text-center mt-0 mb-3"> * Remember, weekends don't count! * </p>
+                {isBeforeFired && (
+                  <p className="text-sm text-slate-500 text-center mt-0 mb-3">
+                    * Remember, weekends don't count! *
+                  </p>
+                )}
                 <p className="text-sm text-gray-300 leading-relaxed mb-3">
                   I, <strong>Michael Simoneau</strong> [who still remembers my
                   name], made a curated playlist to try to explain everything
