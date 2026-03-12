@@ -4,14 +4,9 @@ import { AnimatedBackground } from "../backgrounds/AnimatedBackground";
 import { MainNav } from "../layout/MainNav";
 import { Seo } from "../foundation/seo/Seo";
 import { PlaylistAudioPlayer } from "../ui/players/PlaylistAudioPlayer";
-import { cleanPlaylist, melindaFrancisPlaylist } from "../data/playlists";
-import { usePathname } from "expo-router";
+import { melindaFrancisPlaylist } from "../data/playlists";
 
 export const DrMelindaFrancis: React.FC = () => {
-  const pathname = usePathname();
-  // #region agent log
-  fetch('http://127.0.0.1:7242/ingest/3249ee71-b1d0-461e-9881-1b108a38579f',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'07b0cf'},body:JSON.stringify({sessionId:'07b0cf',runId:'baseline',hypothesisId:'H2',location:'src/pages/DrMelindaFrancis.tsx:12',message:'DrMelindaFrancis page rendered',data:{pathname,trackCount:cleanPlaylist.length},timestamp:Date.now()})}).catch(()=>{});
-  // #endregion
   return (
     <>
       <Seo
