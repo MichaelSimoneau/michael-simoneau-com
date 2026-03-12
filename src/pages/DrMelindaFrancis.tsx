@@ -105,7 +105,9 @@ export const DrMelindaFrancis: React.FC = () => {
               Dr. Melinda Francis, DSM
             </h1>
             <p className="text-xl sm:text-2xl md:text-3xl text-cyan-400 font-semibold mb-4">
-              <strong>Doctor of Human Psychology / Clinical Psychologist</strong>
+              <strong>
+                Doctor of Human Psychology / Clinical Psychologist
+              </strong>
               <br />
               Pioneer in the field of{" "}
               <u>The Psychology of Artificial Intelligence</u>
@@ -161,23 +163,36 @@ export const DrMelindaFrancis: React.FC = () => {
                     Dr.MelindaFrancis.com
                   </a>
                 </p>
+                <p className="text-sm text-slate-500 text-center mt-0 mb-3">
+                  * See, i took{" "}
+                  <a
+                    href="https://melindafrancis.com"
+                    target="_blank"
+                    rel="noopener noreferrer nofollow"
+                    className="text-cyan-400 hover:text-cyan-300 underline"
+                  >
+                    MelindaFrancis.com
+                  </a>{" "}
+                  down, technically. *
+                </p>
                 <p className="text-sm text-gray-300 leading-relaxed mb-3">
                   I honestly believe you are suffering from social delusion, and
                   you are projecting your delusion onto me. You deem me to be{" "}
                   <strong>insane</strong> because I won&apos;t agree to buy into
-                  the social delusion. But I&apos;m sane because I can take care
-                  of myself and the executive function I lacked I now have{" "}
+                  the social delusion. But I <strong>am</strong> sane because I
+                  can take care of myself and the executive function I lacked I
+                  now have{" "}
                   <strong>
-                    <u>MATH</u>
+                    <u>Linear Algebra</u>
                   </strong>{" "}
                   to solve it. I coded it into an AI.. and website{" "}
                   <a
                     href="https://zerosudoku.com"
                     target="_blank"
-                    rel="noopener noreferrer"
+                    rel="noopener noreferrer nofollow"
                     className="text-cyan-400 hover:text-cyan-300 underline"
                   >
-                    Zero Sudoku
+                    ZeroSudoku.com
                   </a>
                   .
                   <blockquote className="font-bold mt-4 text-center italic">
