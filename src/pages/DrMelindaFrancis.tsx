@@ -5,17 +5,17 @@ import { MainNav } from "../layout/MainNav";
 import { Seo } from "../foundation/seo/Seo";
 import { PlaylistAudioPlayer } from "../ui/players/PlaylistAudioPlayer";
 import { melindaFrancisPlaylist } from "../data/playlists";
-import { MARCH_17_2026_9_00_AM } from "src/hooks/useBeforeAndAfter";
+import { MARCH_17_2026_10_00_AM } from "src/hooks/useBeforeAndAfter";
 
 export const DrMelindaFrancis: React.FC = () => {
   const [now, setNow] = React.useState(new Date().getTime());
   const [isFired, setIsFired] = React.useState(false);
   const isBeforeFired = React.useMemo(
-    () => now < MARCH_17_2026_9_00_AM.getTime(),
+    () => now < MARCH_17_2026_10_00_AM.getTime(),
     [now],
   );
   const timeLeftToScheduleMs = React.useMemo(
-    () => now - MARCH_17_2026_9_00_AM.getTime(),
+    () => now - MARCH_17_2026_10_00_AM.getTime(),
     [now],
   );
   React.useEffect(() => {
@@ -48,23 +48,17 @@ export const DrMelindaFrancis: React.FC = () => {
       ),
     [timeLeftToScheduleMs],
   );
-  const timeLeftToScheduleSeconds = React.useMemo(
-    () => Math.abs(Math.floor((timeLeftToScheduleMs % (1000 * 60)) / 1000)),
-    [timeLeftToScheduleMs],
-  );
   const timeLeftToSchedule = React.useMemo(
     () =>
       `${timeLeftToScheduleDays ? timeLeftToScheduleDays + ` day${timeLeftToScheduleDays > 1 ? "s" : ""}, ` : ""}` +
       `${timeLeftToScheduleHours ? timeLeftToScheduleHours + ` hour${timeLeftToScheduleHours > 1 ? "s" : ""}, ` : ""}` +
-      `${timeLeftToScheduleMinutes ? timeLeftToScheduleMinutes + ` minute${timeLeftToScheduleMinutes > 1 ? "s" : ""}, ` : ""}` +
-      `${timeLeftToScheduleSeconds ? timeLeftToScheduleSeconds + ` second${timeLeftToScheduleSeconds > 1 ? "s" : ""}` : ""}`
+      `${timeLeftToScheduleMinutes ? timeLeftToScheduleMinutes + ` minute${timeLeftToScheduleMinutes > 1 ? "s" : ""}, ` : ""}`
         .trim()
         .replace(/, $/, ""),
     [
       timeLeftToScheduleDays,
       timeLeftToScheduleHours,
       timeLeftToScheduleMinutes,
-      timeLeftToScheduleSeconds,
     ],
   );
   return (

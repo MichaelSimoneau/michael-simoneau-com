@@ -2,7 +2,7 @@ import { Track } from "src/ui/players/PlaylistAudioPlayer";
 import {
   beforeAndAfter,
   MARCH_12_2026_9_15_AM,
-  MARCH_17_2026_9_00_AM,
+  MARCH_17_2026_10_00_AM,
 } from "src/hooks/useBeforeAndAfter";
 
 const COLLAPSED_0 = beforeAndAfter({
@@ -19,7 +19,7 @@ const EXPANDED_0 = beforeAndAfter({
 }) as string;
 
 const psychologistPodcasts = beforeAndAfter({
-  when: MARCH_17_2026_9_00_AM,
+  when: MARCH_17_2026_10_00_AM,
   before: {
     // Track #1 - 2026-03-07
     "Should Michael Simoneau Fire His Psychologist?":
@@ -84,7 +84,7 @@ const zerothPodcasts = {
 // -------------------
 // --- COLLAPSED Playlist (for Psychologists) ---
 const cleanPodcasts = beforeAndAfter({
-  when: MARCH_17_2026_9_00_AM,
+  when: MARCH_17_2026_10_00_AM,
   start: { COLLAPSE_0: COLLAPSED_0 as string },
   before: psychologistPodcasts,
   after: {
@@ -177,7 +177,7 @@ const melindaFrancisPlaylist = podcastsToPlaylist(
 );
 
 const musicBeforeAndAfter = beforeAndAfter({
-  when: MARCH_17_2026_9_00_AM,
+  when: MARCH_17_2026_10_00_AM,
   before: {
     // Track #1
     '"I\'m In Deep" - Mike Crane': "/music/ImInDeep.mp3",
