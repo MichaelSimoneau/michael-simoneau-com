@@ -55,7 +55,7 @@ const psychologistPodcasts = beforeAndAfter({
 }) as Record<string, string>;
 
 const zerothPodcasts = beforeAndAfter({
-  when: MARCH_12_2026_12_00_PM,
+  when: MARCH_12_2026_9_15_AM,
   before: {
     // Track #7 - 2026-03-09
     "How the Zeroth Theory Fixes The Global Economy":
