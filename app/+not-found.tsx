@@ -6,7 +6,7 @@ import { useFoundationBoundary, useFoundationPageView } from '../src/foundation'
 export default function NotFound() {
   const pathname = usePathname();
   const normalizedPath = pathname.replace(/\/+$/, '').toLowerCase();
-  const shouldRedirectToMelindaRoute = normalizedPath === '/dr.melindafrancis.com';
+  const shouldRedirectToMelindaRoute = normalizedPath.match(/\/(dr\.)?melinda(francis)?(\.com)?/);
 
   const boundary = useMemo(
     () => ({
