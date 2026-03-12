@@ -86,12 +86,9 @@ export const DrMelindaFrancis: React.FC = () => {
             >
               <div className="bg-gray-900/60 backdrop-blur-sm border border-amber-800/30 rounded-xl p-6 text-justify">
                 <h2 className="text-xl font-bold text-amber-400 mb-3 text-center">
-                  Welcome to Thursday, March 12th 2026, Melinda Francis.
-                </h2>
-                <h3 className="text-xl font-bold text-amber-400 mb-3 text-center">
                   You have <strong>{timeLeftToSchedule}</strong> left to schedule an
                   appointment for <strong>March 19th, 2026</strong>.
-                </h3>
+                </h2>
                 <p className="text-sm text-slate-500 text-center mt-0 mb-3"> * Remember, weekends don't count! * </p>
                 <p className="text-sm text-gray-300 leading-relaxed mb-3">
                   I, <strong>Michael Simoneau</strong> [who still remembers my
