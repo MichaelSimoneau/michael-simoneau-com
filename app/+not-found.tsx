@@ -1,10 +1,12 @@
-import { Link, usePathname } from 'expo-router';
+import { Link, Redirect, usePathname } from 'expo-router';
 import { useMemo } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { useFoundationBoundary, useFoundationPageView } from '../src/foundation';
 
 export default function NotFound() {
   const pathname = usePathname();
+  const normalizedPath = pathname.replace(/\/+$/, '').toLowerCase();
+  const shouldRedirectToMelindaRoute = normalizedPath === '/dr.melindafrancis.com';
 
   const boundary = useMemo(
     () => ({
@@ -26,6 +28,10 @@ export default function NotFound() {
       deps: [pathname],
     },
   );
+
+  if (shouldRedirectToMelindaRoute) {
+    return <Redirect href="/Dr.MelindaFrancis.com" />;
+  }
 
   return (
     <View style={styles.container}>

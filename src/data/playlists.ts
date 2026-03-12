@@ -52,6 +52,10 @@ const psychologistPodcasts = beforeAndAfter({
     "The $20 Dollar Bet - Michael Simoneau's $20 Dollar Bet":
     "/2026-03-10/Michael_Simoneau_s_$20_Dollar_Bet.mp3",
   },
+  end: {
+    // Nerd Warning...
+    "Go to https://MichaelSimoneau.com/Dr.MelindaFrancis.com/ for the full playlist!": "/fake_end.mp3",
+  },
 }) as Record<string, string>;
 
 const zerothPodcasts = beforeAndAfter({
