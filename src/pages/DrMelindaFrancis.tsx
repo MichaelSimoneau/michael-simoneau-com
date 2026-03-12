@@ -10,7 +10,7 @@ export const DrMelindaFrancis: React.FC = () => {
   return (
     <>
       <Seo
-        title="Dr. Melinda Francis, PhD"
+        title="Dr. Melinda Francis, DSM"
         description="Doctorate of Applied Sciences in Human Psychology / Pioneer in the field of The Psychology of Artificial Intelligence."
         canonicalUrl="https://Dr.MelindaFrancis.com"
         keywords={[
@@ -42,7 +42,7 @@ export const DrMelindaFrancis: React.FC = () => {
             className="text-center z-10"
           >
             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4">
-              Dr. Melinda Francis, PhD
+              Dr. Melinda Francis, DSM
             </h1>
             <p className="text-xl sm:text-2xl md:text-3xl text-cyan-400 font-semibold mb-4">
               <strong>Doctorate of Applied Sciences in Human Psychology</strong>
