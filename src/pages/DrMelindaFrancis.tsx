@@ -5,6 +5,7 @@ import { MainNav } from "../layout/MainNav";
 import { Seo } from "../foundation/seo/Seo";
 import { PlaylistAudioPlayer } from "../ui/players/PlaylistAudioPlayer";
 import { melindaFrancisPlaylist } from "../data/playlists";
+import { MARCH_17_2026_9_00_AM } from "src/hooks/useBeforeAndAfter";
 
 export const DrMelindaFrancis: React.FC = () => {
   const [now, setNow] = React.useState(new Date().getTime());
@@ -14,7 +15,7 @@ export const DrMelindaFrancis: React.FC = () => {
     }, 1000);
     return () => clearInterval(interval);
   }, []);
-  const timeLeftToScheduleMs = React.useMemo(() => now - new Date(2026, 2, 17, 9, 0, 0, 0).getTime(), [now]);
+  const timeLeftToScheduleMs = React.useMemo(() => now - MARCH_17_2026_9_00_AM.getTime(), [now]);
   const timeLeftToScheduleDays = React.useMemo(() => Math.abs(Math.floor(timeLeftToScheduleMs / (1000 * 60 * 60 * 24))), [timeLeftToScheduleMs]);
   const timeLeftToScheduleHours = React.useMemo(() => Math.abs(Math.floor((timeLeftToScheduleMs % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))), [timeLeftToScheduleMs]);
   const timeLeftToScheduleMinutes = React.useMemo(() => Math.abs(Math.floor((timeLeftToScheduleMs % (1000 * 60 * 60)) / (1000 * 60))), [timeLeftToScheduleMs]);

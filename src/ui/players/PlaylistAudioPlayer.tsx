@@ -12,7 +12,7 @@ import {
   Music,
 } from 'lucide-react';
 import { useMediaAnalytics } from '../../analytics/useMediaAnalytics';
-import { MARCH_12_2026_9_15_AM, MARCH_15_2026_9_00_AM } from '../../hooks/useBeforeAndAfter';
+import { MARCH_12_2026_9_15_AM, MARCH_17_2026_9_00_AM } from '../../hooks/useBeforeAndAfter';
 import { dispatchMediaPlayIntent } from './mediaEvents';
 import { useProfileFlowDispatch, useProfileFlowState } from '../../features/profile/flow';
 
@@ -245,7 +245,7 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
     setIsRestrictedFlowActive(false);
   }, []);
 
-  const isBeforeNoon = useCallback(() => Date.now() < MARCH_15_2026_9_00_AM.getTime(), []);
+  const isBeforeNoon = useCallback(() => Date.now() < MARCH_17_2026_9_00_AM.getTime(), []);
 
   const isBaizeBypassEnabled = useCallback(() => {
     if (Date.now() >= MARCH_12_2026_9_15_AM.getTime()) {
