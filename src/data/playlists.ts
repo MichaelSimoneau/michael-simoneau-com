@@ -1,70 +1,4 @@
 import { Track } from "src/ui/players/PlaylistAudioPlayer";
-import {
-  beforeAndAfter,
-  MARCH_12_2026_9_15_AM,
-  MARCH_17_2026_10_00_AM,
-} from "src/hooks/useBeforeAndAfter";
-
-const COLLAPSED_0 = beforeAndAfter({
-  when: MARCH_12_2026_9_15_AM,
-  before:
-    "Is Your Name Melinda Francis? If Not, Move Along... Nothing To See Here.",
-  after: "Are you a Psychologist? If Not, Move Along... Nothing To See Here.",
-}) as string;
-
-const EXPANDED_0 = beforeAndAfter({
-  when: MARCH_12_2026_9_15_AM,
-  before: "Our New Reality: Rewriting Einstein to Fix the Global Economy",
-  after: "Welcome to Michael Simoneau's Podcast...",
-}) as string;
-
-const psychologistPodcasts = beforeAndAfter({
-  when: MARCH_17_2026_10_00_AM,
-  before: {
-    // Track #1 - 2026-03-07
-    "Should Michael Simoneau Fire His Psychologist?":
-      "/2026-03-07/Should_Michael_Simoneau_delete_his_psychologist.mp3",
-    // Track #2 - 2026-03-07
-    "Michael Simoneau's Mathematical Proof of Sanity":
-      "/2026-03-07/Michael_Simoneau_s_mathematical_proof_of_sanity.mp3",
-    // Track #3 - 2026-03-04
-    "Rewriting Einstein to Buy Your Milk":
-      "/2026-03-04/Rewriting_Einstein_to_buy_your_milk.mp3",
-    // Track #4 - 2026-03-08
-    "Michael's Sunday Morning Brief: Sunday, March 8, 2026. Good Morning, Michael Simoneau...":
-      "/2026-03-08/Prompt_for-Why_Michael_hung_up_on_Melinda_and_why_she_should_schedule_March_19_and_why_Michael_could_not_care_less_either_way.mp3",
-    // Temporary Grouping before `MARCH_12_2026_9_15_AM` (collapsed)
-    ...(beforeAndAfter<Record<string, string>>({
-      when: MARCH_12_2026_9_15_AM,
-      before: {
-        COLLAPSE_1:
-          "Why Michael Couldn't Care Less About Hanging-Up on Melinda, and...",
-      },
-      after: {},
-    }) as Record<string, string>),
-    // Track #5 - 2026-03-08
-    "Why Michael's Psychologist Rescheduled March 19, 2026.":
-      "/2026-03-08/Why_Michael_hung_up_on_Melinda_and_why_she_should_schedule_March_19_and_why_Michael_could_not_care_less_either_way.mp3",
-    // Track #6 - 2026-03-11
-    "The $20 Dollar Bet - Michael Simoneau's $20 Dollar Bet":
-      "/2026-03-10/Michael_Simoneau_s_$20_Dollar_Bet.mp3",
-    // Track #7 - 2026-03-12
-    "March 12, 2026 - Good Morning, Michael Simoneau...":
-      "/2026-03-12/Engineering_the_9_AM_therapy_trap.mp3",
-  },
-  after: {
-    // Track #1 - 2026-03-07
-    "Michael Simoneau's Mathematical Proof of Sanity":
-      "/2026-03-07/Michael_Simoneau_s_mathematical_proof_of_sanity.mp3",
-    // Track #2 - 2026-03-11
-    "The $20 Dollar Bet - Michael Simoneau's $20 Dollar Bet":
-      "/2026-03-10/Michael_Simoneau_s_$20_Dollar_Bet.mp3",
-  },
-  end: {
-    "Go to https://MichaelSimoneau.com/Dr.MelindaFrancis.com/ for the full playlist!":
-      "/fake.mp3",
-  },
-}) as Record<string, string>;
 
 const zerothPodcasts = {
   // Track #3 - 2026-03-12
@@ -83,19 +17,10 @@ const zerothPodcasts = {
 
 // -------------------
 // --- COLLAPSED Playlist (for Psychologists) ---
-const cleanPodcasts = beforeAndAfter({
-  when: MARCH_17_2026_10_00_AM,
-  start: { COLLAPSE_0: COLLAPSED_0 as string },
-  before: psychologistPodcasts,
-  after: {
-    "Go to https://MichaelSimoneau.com/Dr.MelindaFrancis.com/ for the full playlist!":
-      "/fake_end.mp3",
-  },
-  end: {
-    EXPANDED_0: EXPANDED_0,
-    ...zerothPodcasts,
-  },
-}) as Record<string, string>;
+const cleanPodcasts = {
+  EXPANDED_0: "Welcome to Michael Simoneau's Podcast:",
+  ...zerothPodcasts,
+} as Record<string, string>;
 
 const podcastsToPlaylist = (podcasts: Record<string, string>): Track[] => {
   return Object.entries(podcasts).map(([title, src]) => ({ title, src }));
@@ -145,60 +70,71 @@ function extractDateFromSrc(src: string): Date | null {
   return null;
 }
 
-const melindaFrancisPlaylist = podcastsToPlaylist(
-  Object.entries(melindaFrancisPodcasts)
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    .sort(([_titleA, srcA], [_titleB, srcB]) => {
-      const dateA = extractDateFromSrc(srcA);
-      const dateB = extractDateFromSrc(srcB);
-      if (dateA && dateB) {
-        return dateA.getTime() - dateB.getTime();
-      }
-      if (dateA) return -1;
-      if (dateB) return 1;
-      // If no date found, fall back to alphabetical by src
-      return srcA.localeCompare(srcB);
-    })
-    .reduce<Record<string, string>>(
-      (acc, [title, src]) => {
-        if (src.includes("music/")) {
-          return acc;
-        }
-        const date = extractDateFromSrc(src);
-        if (date) {
-          acc[date.toISOString().split("T")[0] + " - " + title] = src;
-        } else {
-          acc[title] = src;
-        }
+const allPodcasts = Object.entries(melindaFrancisPodcasts)
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  .sort(([_titleA, srcA], [_titleB, srcB]) => {
+    const dateA = extractDateFromSrc(srcA);
+    const dateB = extractDateFromSrc(srcB);
+    if (dateA && dateB) {
+      return dateA.getTime() - dateB.getTime();
+    }
+    if (dateA) return -1;
+    if (dateB) return 1;
+    // If no date found, fall back to alphabetical by src
+    return srcA.localeCompare(srcB);
+  })
+  .reduce<Record<string, string>>(
+    (acc, [title, src]) => {
+      if (src.includes("music/")) {
         return acc;
-      },
-      {} as Record<string, string>,
-    ),
-);
+      }
+      const date = extractDateFromSrc(src);
+      if (date) {
+        acc[date.toISOString().split("T")[0] + " - " + title] = src;
+      } else {
+        acc[title] = src;
+      }
+      return acc;
+    },
+    {} as Record<string, string>,
+  );
 
-const musicBeforeAndAfter = beforeAndAfter({
-  when: MARCH_17_2026_10_00_AM,
-  before: {
+const melindaFrancisPlaylist = podcastsToPlaylist({
+  // Track #1 - 2026-03-07
+  "Should Michael Simoneau Fire His Psychologist?":
+    "/2026-03-07/Should_Michael_Simoneau_delete_his_psychologist.mp3",
+  // Track #2 - 2026-03-07
+  "Michael Simoneau's Mathematical Proof of Sanity":
+    "/2026-03-07/Michael_Simoneau_s_mathematical_proof_of_sanity.mp3",
+  // Track #3 - 2026-03-04
+  "Rewriting Einstein to Buy Your Milk":
+    "/2026-03-04/Rewriting_Einstein_to_buy_your_milk.mp3",
+  // Track #4 - 2026-03-08
+  "Michael's Sunday Morning Brief: Sunday, March 8, 2026. Good Morning, Michael Simoneau...":
+    "/2026-03-08/Prompt_for-Why_Michael_hung_up_on_Melinda_and_why_she_should_schedule_March_19_and_why_Michael_could_not_care_less_either_way.mp3",
+  // Track #5 - 2026-03-08
+  "Why Michael's Psychologist Rescheduled March 19, 2026.":
+    "/2026-03-08/Why_Michael_hung_up_on_Melinda_and_why_she_should_schedule_March_19_and_why_Michael_could_not_care_less_either_way.mp3",
+  // Track #6 - 2026-03-11
+  "The $20 Dollar Bet - Michael Simoneau's $20 Dollar Bet":
+    "/2026-03-10/Michael_Simoneau_s_$20_Dollar_Bet.mp3",
+  // Track #7 - 2026-03-12
+  "March 12, 2026 - Good Morning, Michael Simoneau...":
+    "/2026-03-12/Engineering_the_9_AM_therapy_trap.mp3",
+  // The rest of the podcasts
+  ...allPodcasts,
+});
+
+const musicBeforeAndAfter = {
     // Track #1
-    '"I\'m In Deep" - Mike Crane': "/music/ImInDeep.mp3",
-    // Track #2
-    '"This Is Why We Do It" - Mike Crane': "/music/ThisIsWhyWeDoIt.mp3",
-    // Track #3
-    '"She\'s a Freak" - Mike Crane': "/music/ShesAFreak.mp3",
-  },
-  after: {
-    // Track #1
     '"She\'s a Freak" - Mike Crane': "/music/ShesAFreak.mp3",
     // Track #2
     '"I\'m In Deep" - Mike Crane': "/music/ImInDeep.mp3",
     // Track #3
     '"This Is Why We Do It" - Mike Crane': "/music/ThisIsWhyWeDoIt.mp3",
-  },
-  end: {
     // Nerd Warning...
     nerdy: "... after that, it get's really nerdy... but in a good way!",
-  },
-}) as Record<string, string>;
+} as Record<string, string>;
 
 const musicPlaylist = podcastsToPlaylist(musicBeforeAndAfter);
 
