@@ -97,8 +97,9 @@ const melindaFrancisPlaylist = podcastsToPlaylist({
   COLLAPSE_4:
     'She ignored it. and logged it as a "delusion". so, I sent the MATH...',
   COLLAPSE_2:
-    'She diagnosed my "Zeroth Theory" as a "psychotic delusion"! So... ',
-  EXPANDED_0: "I sent more MATH... and the MATH works! Numbers don't lie.",
+    'She diagnosed my "Zeroth Theory" as a "psychotic delusion!" but the MATH works.',
+  COLLAPSE_5: "So I devised a highly calculated \"trap\"...",
+  EXPANDED_0: "I sent more MATH... Numbers don't lie. People do!",
   // Track #00 - 2026-03-13 - New!
   "How Michael Simoneau Hacked His Diagnosis":
     "/audio/2026-03-12/How_Michael_Simoneau_hacked_his_diagnosis.mp3",
@@ -106,7 +107,7 @@ const melindaFrancisPlaylist = podcastsToPlaylist({
   "March 12, 2026: The Software Engineer Who Hacked His Therapist.":
     "/audio/2026-03-12/The_Software_Engineer_Who_Hacked_His_Therapist.mp3",
   // "Group: the "White Noise"
-  COLLAPSE_0: '... and, the "White Noise":',
+  COLLAPSE_0: '"Trap":  ["White Noise" / "Manufactured Mania" / "Psychotic Delusion"]',
   // Track #1 - 2026-03-07
   "Should Michael Simoneau Fire His Psychologist?":
     "/audio/2026-03-07/Should_Michael_Simoneau_delete_his_psychologist.mp3",
@@ -136,9 +137,9 @@ const musicPlaylist = podcastsToPlaylist({
   // Track #1
   '"She\'s a Freak" - Mike Crane': "/music/ShesAFreak.mp3",
   // Track #2
-  '"I\'m In Deep" - Mike Crane': "/music/ImInDeep.mp3",
-  // Track #3
   '"This Is Why We Do It" - Mike Crane': "/music/ThisIsWhyWeDoIt.mp3",
+  // Track #3
+  '"I\'m In Deep" - Mike Crane': "/music/ImInDeep.mp3",
 });
 
 export { cleanPlaylist, musicPlaylist, melindaFrancisPlaylist };

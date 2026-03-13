@@ -44,7 +44,7 @@ export const InterviewButton: React.FC<InterviewButtonProps> = ({ to, qaPairs, t
   return (
     <div className="w-full h-full">
       <Link href={to} className="block w-full">
-        <div className="relative bg-gradient-to-r from-gray-900/80 to-gray-800/80 backdrop-blur-sm rounded-lg w-full h-full overflow-hidden transform hover:scale-[1.02] transition-transform duration-300">
+        <div className="relative bg-gradient-to-r from-gray-900/80 to-gray-800/80 backdrop-blur-sm rounded-lg w-full h-full overflow-hidden transform hover:scale-[0.98] transition-transform duration-300">
           <div className="absolute inset-0 bg-[url('/paper-texture.png')] opacity-5" />
           <div className="absolute inset-0 bg-gradient-to-b from-cyan-500/5 to-transparent" />
           <div className="relative z-10 flex h-full flex-col p-4 space-y-2">
