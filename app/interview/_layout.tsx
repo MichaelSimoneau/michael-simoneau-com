@@ -1,6 +1,4 @@
-import { useEffect, useRef } from 'react';
-import { Link, Slot, usePathname } from 'expo-router';
-import { AnimatePresence, motion } from 'framer-motion';
+import { Link, Stack, usePathname } from 'expo-router';
 import { ArrowLeft } from 'lucide-react';
 import { MainNav } from '../../src/layout/MainNav';
 import { AnimatedBackground } from '../../src/backgrounds/AnimatedBackground';
@@ -15,34 +13,9 @@ const getPartFromPathname = (pathname: string): InterviewPart | undefined => {
   return undefined;
 };
 
-const contentVariants = {
-  enter: (direction: number) => ({
-    x: direction > 0 ? 72 : -72,
-    opacity: 0,
-  }),
-  center: {
-    x: 0,
-    opacity: 1,
-  },
-  exit: (direction: number) => ({
-    x: direction > 0 ? -72 : 72,
-    opacity: 0,
-  }),
-};
-
 export default function InterviewLayout() {
   const pathname = usePathname();
   const currentPart = getPartFromPathname(pathname);
-  const previousPartRef = useRef<InterviewPart | undefined>(undefined);
-
-  const previousPart = previousPartRef.current;
-  const hasDirectionalTransition =
-    previousPart !== undefined && currentPart !== undefined && previousPart !== currentPart;
-  const direction = hasDirectionalTransition ? (currentPart > previousPart ? 1 : -1) : 0;
-
-  useEffect(() => {
-    previousPartRef.current = currentPart;
-  }, [currentPart, pathname]);
 
   return (
     <>
@@ -61,22 +34,20 @@ export default function InterviewLayout() {
 
             <InterviewPartSwitcher activePart={currentPart ?? 1} />
 
-            <AnimatePresence mode="wait" initial={false} custom={direction}>
-              <motion.div
-                key={pathname}
-                custom={direction}
-                variants={contentVariants}
-                initial={hasDirectionalTransition ? 'enter' : false}
-                animate="center"
-                exit={hasDirectionalTransition ? 'exit' : undefined}
-                transition={{
-                  x: { duration: 1, ease: [0.22, 1, 0.36, 1] },
-                  opacity: { duration: 1, ease: [0.22, 1, 0.36, 1] },
-                }}
-              >
-                <Slot />
-              </motion.div>
-            </AnimatePresence>
+            <Stack
+              screenOptions={{
+                headerShown: false,
+                animation: 'slide_from_right',
+                animationDuration: 1000,
+                animationTypeForReplace: 'pop',
+                contentStyle: { backgroundColor: 'transparent' },
+              }}
+            >
+              <Stack.Screen name="index" />
+              <Stack.Screen name="1" />
+              <Stack.Screen name="2" />
+              <Stack.Screen name="3" />
+            </Stack>
           </div>
         </section>
       </div>

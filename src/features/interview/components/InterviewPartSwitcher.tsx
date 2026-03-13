@@ -42,6 +42,7 @@ export const InterviewPartSwitcher: React.FC<InterviewPartSwitcherProps> = ({ ac
             <Link
               key={part.id}
               href={part.href}
+              replace={part.id < activePart}
               className="flex min-w-0 flex-1 items-center justify-center rounded-full px-3 py-2 text-sm font-medium text-gray-200 transition-colors hover:text-cyan-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400/60"
             >
               <span className="block w-full truncate text-center">{part.label}</span>
