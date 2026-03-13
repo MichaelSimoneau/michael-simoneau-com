@@ -324,7 +324,7 @@ const StormScene: React.FC = () => {
 
 export const NebulaStormBackground: React.FC<{ className?: string }> = ({ className }) => {
   return (
-    <div className={`bg-[#000510] ${className || "fixed inset-0"}`}>
+    <div className={`pointer-events-none bg-[#000510] ${className || "fixed inset-0"}`}>
       <Canvas
         camera={{ position: [0, 0, 15], fov: 60 }}
         style={{

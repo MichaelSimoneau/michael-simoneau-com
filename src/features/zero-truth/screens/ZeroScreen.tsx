@@ -8,7 +8,7 @@ export const ZeroScreen = () => {
       id: 'zero',
       label: 'Zeroth Theory',
       description: 'Where zero is everything and everything resolves to zero.',
-      href: '/zero',
+      href: '/zeroth/theory/chapter/1/principal/1',
     }),
     [],
   );

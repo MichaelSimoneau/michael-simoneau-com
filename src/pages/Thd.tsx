@@ -244,7 +244,7 @@ export const Thd: React.FC = () => {
                   TheHumanDollar.com
                 </a>
                 <Link
-                  to="/zero"
+                  to="/zeroth/theory/chapter/1/principal/1"
                   className="inline-block px-8 py-3 bg-gray-800 hover:bg-gray-700 text-white font-bold rounded-lg transition-colors border border-gray-700"
                 >
                   Zeroth Theory
