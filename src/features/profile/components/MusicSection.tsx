@@ -21,8 +21,10 @@ export const MusicSection: React.FC = () => {
     [music.machine, music.hasLoaded, music.iframeHeight],
   );
   const iframeHeight = React.useMemo(
-    () => Math.min(music.iframeHeight, height * 1.55),
-    [music.iframeHeight, height],
+    () => {
+      const iframeHeight = Math.min(height * 2, Math.min(music.iframeHeight, 1500));
+      return iframeHeight;
+    }, [music.iframeHeight, height]
   );
   useEffect(() => {
     dispatch({ type: "MUSIC_IFRAME_LOADING" });
@@ -69,7 +71,10 @@ export const MusicSection: React.FC = () => {
 
   const iframeContainerStyle: CSSProperties = {
     width: "100vw",
+    maxHeight: `${iframeHeight}px`,
+    minHeight: `${iframeHeight}px`,
     overflow: "hidden",
+    display: "block",
   };
 
   const iframeStyle: CSSProperties = React.useMemo(
@@ -127,9 +132,9 @@ export const MusicSection: React.FC = () => {
       </div>
       <div style={musicLoaded ? iframeContainerStyle : { display: "none" }}>
         <motion.iframe
-          className="text-base sm:text-lg text-gray-300 max-w-3xl mx-auto m-0 p-0 transition-all duration-300 ease-in-out"
+          className="w-full text-base sm:text-lg text-gray-300 m-0 p-0 transition-all duration-300 ease-in-out"
           initial={{ height: 0 }}
-          whileInView={{ height: iframeHeight }}
+          whileInView={{ height: iframeHeight ?? 1500 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.7 }}
           src={SOUNDON_BIO_URL}
