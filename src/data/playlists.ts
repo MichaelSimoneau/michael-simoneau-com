@@ -91,9 +91,16 @@ const melindaFrancisPlaylist = podcastsToPlaylist({
   // Track #-1 - 2026-02-20
   "Dear Melinda Francis, LISW: Feb. 20, 2026: \"Chardon Rd\" (from my very 2nd SMS...)":
     "/2026-02-20/Chardon%20Rd.mp3",
+  "COLLAPSE_1": "... After literally laughing in my face at my ideas,",
+  "COLLAPSE_3": "I politely sent the clip above, and a very specific SMS request.",
+  "COLLAPSE_4": "She ignored it. and logged it as a \"delusion\". so, I sent the MATH...",
+  "COLLAPSE_2": "She diagnosed my \"Zeroth Theory\" as a \"psychotic delusion\"! So... ",
+  "EXPANDED_0": "I sent more MATH... and the MATH works! Numbers don't lie.",
   // Track #0 - 2026-03-12
   "March 12, 2026: The Software Engineer Who Hacked His Therapist.":
     "/2026-03-12/The_Software_Engineer_Who_Hacked_His_Therapist.mp3",
+  // "Group: the "White Noise"
+    "COLLAPSE_0": "... and, the \"White Noise\":",
   // Track #1 - 2026-03-07
   "Should Michael Simoneau Fire His Psychologist?":
     "/2026-03-07/Should_Michael_Simoneau_delete_his_psychologist.mp3",
