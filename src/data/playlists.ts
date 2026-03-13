@@ -106,6 +106,9 @@ const melindaFrancisPlaylist = podcastsToPlaylist({
   // Track #0 - 2026-03-12
   "March 12, 2026: The Software Engineer Who Hacked His Therapist.":
     "/audio/2026-03-13/The_Software_Engineer_Who_Hacked_His_Therapist.mp3",
+  // Track #-1 - 2026-03-13
+  "Michael Simoneau: The Software Engineer Who Coded Sanity.":
+    "/audio/2026-03-13/The_Software_Engineer_Who_Coded_Sanity.mp3",
   // "Group: the "White Noise"
   COLLAPSE_0: '"Trap":  ["White Noise" / "Manufactured Mania" / "Psychotic Delusion"]',
   // Track #1 - 2026-03-07
