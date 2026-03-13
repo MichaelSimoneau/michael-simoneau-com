@@ -785,7 +785,7 @@ export const VideoHeroSection: React.FC = () => {
             />
 
             <motion.div
-              className="relative z-20 flex flex-col items-center justify-center text-center px-4"
+              className="relative z-20 flex flex-col items-center justify-center text-center px-4 my-auto"
               initial={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.6 }}
