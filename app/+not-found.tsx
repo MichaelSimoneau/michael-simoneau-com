@@ -7,14 +7,10 @@ import {
 
 export default function NotFound() {
   const pathname = usePathname();
-  const normalizedPathname = pathname.toLowerCase();
-  const hasMsPrefix = normalizedPathname.includes("ms.");
-  const matchesMelindaPattern = /melinda.*(francis)?/.test(normalizedPathname);
-  const shouldRedirectToMelindaRoute = hasMsPrefix || matchesMelindaPattern;
+  const matchesMelindaPattern = /.*(melinda|francis).*/ig.test(pathname);
+  const shouldRedirectToMelindaRoute = matchesMelindaPattern;
   const redirectTarget = shouldRedirectToMelindaRoute
-    ? hasMsPrefix
-      ? "/melinda"
-      : "/Dr.MelindaFrancis.com"
+    ? "/melinda"
     : "/";
 
   const boundary = useMemo(
