@@ -12,7 +12,7 @@ const getAllMP3Files = () => {
     return context.keys().reduce<Record<string, string>>((acc, relPath) => {
       const fname =
         relPath
-          .split("/")
+          .split("/audio/")
           .pop()
           ?.replace(/_/g, " ")
           .replace(/\.mp3$/i, "") ?? relPath;
@@ -72,25 +72,25 @@ const allPodcasts = Object.entries(getAllMP3Files())
 const cleanPlaylist = podcastsToPlaylist({
   // Track #1 - 2026-03-12
   "Michael Simoneau - A Quick Introduction":
-    "2026-03-12/Michael_Simoneau-A_Quick_Introduction.mp3",
+    "/audio/2026-03-12/Michael_Simoneau-A_Quick_Introduction.mp3",
   // Track #2 - 2026-03-11
   "Learn About Michael Simoneau and His Work":
-    "/2026-03-11/Michael_Simoneau.mp3",
+    "/audio/2026-03-11/Michael_Simoneau.mp3",
   // Track #3 - 2026-03-09
   "How the Zeroth Theory Fixes The Global Economy":
-    "/2026-03-09/How_Zeroth_Theory_Fixes_AI_Hallucinations.mp3",
+    "/audio/2026-03-09/How_Zeroth_Theory_Fixes_AI_Hallucinations.mp3",
   // Track #4 - 2026-03-11
   "Forensic mapping of the Zeroth stack":
-    "/2026-03-10/Forensic_mapping_of_the_Zeroth_stack.mp3",
+    "/audio/2026-03-10/Forensic_mapping_of_the_Zeroth_stack.mp3",
   // Track #5 - 2026-03-12
   "Michael Simoneau: The Software Engineer Who Hacked His Therapist.":
-    "/2026-03-12/The_Software_Engineer_Who_Hacked_His_Therapist.mp3",
+    "/audio/2026-03-12/The_Software_Engineer_Who_Hacked_His_Therapist.mp3",
 });
 
 const melindaFrancisPlaylist = podcastsToPlaylist({
   // Track #-1 - 2026-02-20
   "Dear Melinda Francis, LISW: Feb. 20, 2026: \"Chardon Rd\" (from my very 2nd SMS...)":
-    "/2026-02-20/Chardon%20Rd.mp3",
+    "/audio/2026-02-20/Chardon%20Rd.mp3",
   "COLLAPSE_1": "... After literally laughing in my face at my ideas,",
   "COLLAPSE_3": "I politely sent the clip above, and a very specific SMS request.",
   "COLLAPSE_4": "She ignored it. and logged it as a \"delusion\". so, I sent the MATH...",
@@ -98,30 +98,30 @@ const melindaFrancisPlaylist = podcastsToPlaylist({
   "EXPANDED_0": "I sent more MATH... and the MATH works! Numbers don't lie.",
   // Track #0 - 2026-03-12
   "March 12, 2026: The Software Engineer Who Hacked His Therapist.":
-    "/2026-03-12/The_Software_Engineer_Who_Hacked_His_Therapist.mp3",
+    "/audio/2026-03-12/The_Software_Engineer_Who_Hacked_His_Therapist.mp3",
   // "Group: the "White Noise"
     "COLLAPSE_0": "... and, the \"White Noise\":",
   // Track #1 - 2026-03-07
   "Should Michael Simoneau Fire His Psychologist?":
-    "/2026-03-07/Should_Michael_Simoneau_delete_his_psychologist.mp3",
+    "/audio/2026-03-07/Should_Michael_Simoneau_delete_his_psychologist.mp3",
   // Track #2 - 2026-03-07
   "Michael Simoneau's Mathematical Proof of Sanity":
-    "/2026-03-07/Michael_Simoneau_s_mathematical_proof_of_sanity.mp3",
+    "/audio/2026-03-07/Michael_Simoneau_s_mathematical_proof_of_sanity.mp3",
   // Track #3 - 2026-03-04
   "Rewriting Einstein to Buy Your Milk":
-    "/2026-03-04/Rewriting_Einstein_to_buy_your_milk.mp3",
+    "/audio/2026-03-04/Rewriting_Einstein_to_buy_your_milk.mp3",
   // Track #4 - 2026-03-08
   "Michael's Sunday Morning Brief: Sunday, March 8, 2026. Good Morning, Michael Simoneau...":
-    "/2026-03-08/Prompt_for-Why_Michael_hung_up_on_Melinda_and_why_she_should_schedule_March_19_and_why_Michael_could_not_care_less_either_way.mp3",
+    "/audio/2026-03-08/Prompt_for-Why_Michael_hung_up_on_Melinda_and_why_she_should_schedule_March_19_and_why_Michael_could_not_care_less_either_way.mp3",
   // Track #5 - 2026-03-08
   "Why Michael's Psychologist Rescheduled March 19, 2026.":
-    "/2026-03-08/Why_Michael_hung_up_on_Melinda_and_why_she_should_schedule_March_19_and_why_Michael_could_not_care_less_either_way.mp3",
+    "/audio/2026-03-08/Why_Michael_hung_up_on_Melinda_and_why_she_should_schedule_March_19_and_why_Michael_could_not_care_less_either_way.mp3",
   // Track #6 - 2026-03-11
   "The $20 Dollar Bet - Michael Simoneau's $20 Dollar Bet":
-    "/2026-03-10/Michael_Simoneau_s_$20_Dollar_Bet.mp3",
+    "/audio/2026-03-10/Michael_Simoneau_s_$20_Dollar_Bet.mp3",
   // Track #7 - 2026-03-12
   "March 12, 2026 - Good Morning, Michael Simoneau...":
-    "/2026-03-12/Engineering_the_9_AM_therapy_trap.mp3",
+    "/audio/2026-03-12/Engineering_the_9_AM_therapy_trap.mp3",
   // The rest of the podcasts
   ...allPodcasts,
 });
