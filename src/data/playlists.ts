@@ -70,18 +70,21 @@ const allPodcasts = Object.entries(getAllMP3Files())
   );
 
 const cleanPlaylist = podcastsToPlaylist({
-  // Track #3 - 2026-03-12
+  // Track #1 - 2026-03-12
   "Michael Simoneau - A Quick Introduction":
     "2026-03-12/Michael_Simoneau-A_Quick_Introduction.mp3",
-  // Track #4 - 2026-03-11
+  // Track #2 - 2026-03-11
   "Learn About Michael Simoneau and His Work":
     "/2026-03-11/Michael_Simoneau.mp3",
-  // Track #5 - 2026-03-09
+  // Track #3 - 2026-03-09
   "How the Zeroth Theory Fixes The Global Economy":
     "/2026-03-09/How_Zeroth_Theory_Fixes_AI_Hallucinations.mp3",
-  // Track #6 - 2026-03-11
+  // Track #4 - 2026-03-11
   "Forensic mapping of the Zeroth stack":
     "/2026-03-10/Forensic_mapping_of_the_Zeroth_stack.mp3",
+  // Track #5 - 2026-03-12
+  "Michael Simoneau: The Software Engineer Who Hacked His Therapist.":
+    "/2026-03-12/The_Software_Engineer_Who_Hacked_His_Therapist.mp3",
 });
 
 const melindaFrancisPlaylist = podcastsToPlaylist({
