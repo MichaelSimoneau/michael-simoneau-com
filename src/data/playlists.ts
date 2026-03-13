@@ -106,7 +106,7 @@ const melindaFrancisPlaylist = podcastsToPlaylist({
   // Track #0 - 2026-03-12
   "March 12, 2026: The Software Engineer Who Hacked His Therapist.":
     "/audio/2026-03-13/The_Software_Engineer_Who_Hacked_His_Therapist.mp3",
-  EXPANDED_1: "And here's how...",
+  EXPANDED_1: "And here's how it all actually works...",
   // Track #-1 - 2026-03-13
   "Michael Simoneau: The Software Engineer Who Coded Sanity.":
     "/audio/2026-03-13/The_Software_Engineer_Who_Coded_Sanity.mp3",
