@@ -83,8 +83,8 @@ const cleanPlaylist = podcastsToPlaylist({
   "Forensic mapping of the Zeroth stack":
     "/audio/2026-03-10/Forensic_mapping_of_the_Zeroth_stack.mp3",
   // Track #5 - 2026-03-12
-  "Michael Simoneau: The Software Engineer Who Hacked His Therapist.":
-    "/audio/2026-03-12/The_Software_Engineer_Who_Hacked_His_Therapist.mp3",
+  "Michael Simoneau: The Software Engineer Who Coded Sanity.":
+    "/audio/2026-03-13/The_Software_Engineer_Who_Coded_Sanity.mp3",
 });
 
 const melindaFrancisPlaylist = podcastsToPlaylist({
@@ -105,7 +105,7 @@ const melindaFrancisPlaylist = podcastsToPlaylist({
     "/audio/2026-03-12/How_Michael_Simoneau_hacked_his_diagnosis.mp3",
   // Track #0 - 2026-03-12
   "March 12, 2026: The Software Engineer Who Hacked His Therapist.":
-    "/audio/2026-03-12/The_Software_Engineer_Who_Hacked_His_Therapist.mp3",
+    "/audio/2026-03-13/The_Software_Engineer_Who_Hacked_His_Therapist.mp3",
   // "Group: the "White Noise"
   COLLAPSE_0: '"Trap":  ["White Noise" / "Manufactured Mania" / "Psychotic Delusion"]',
   // Track #1 - 2026-03-07
