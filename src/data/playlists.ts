@@ -86,8 +86,8 @@ const cleanPlaylist = podcastsToPlaylist({
 
 const melindaFrancisPlaylist = podcastsToPlaylist({
   // Track #0 - 2026-03-12
-  "Michael Simoneau: The Patient Who 5150'd His Therapist...":
-    "/2026-03-12/The_patient_who_5150d_his_therapist.mp3",
+  "Michael Simoneau: The Software Engineer Who Hacked His Therapist.":
+    "/2026-03-12/The_Software_Engineer_Who_Hacked_His_Therapist.mp3",
   // Track #1 - 2026-03-07
   "Should Michael Simoneau Fire His Psychologist?":
     "/2026-03-07/Should_Michael_Simoneau_delete_his_psychologist.mp3",
