@@ -5,6 +5,7 @@ import { useMediaAnalytics } from '../../../analytics/useMediaAnalytics';
 import { MARCH_17_2026_10_00_AM } from '../../../hooks/useBeforeAndAfter';
 import { APP_MEDIA_PLAY_INTENT_EVENT } from '../../../ui/players/mediaEvents';
 import { useProfileFlowDispatch, useProfileFlowState } from '../flow';
+import { useWindowDimensions } from 'react-native';
 
 interface YouTubePlayer {
   loadVideoById?: (videoId: string) => void;
@@ -719,11 +720,14 @@ export const VideoHeroSection: React.FC = () => {
     }
   }, [flowDispatch, flowState.override.value.video.phase, flowState.override.value.video.watch]);
 
+  const { width, height } = useWindowDimensions();
+
   const thumbnailUrl = `https://img.youtube.com/vi/${displayVideoId}/maxresdefault.jpg`;
 
   return (
     <section
-      className="relative w-full overflow-hidden py-16"
+      className={`relative w-full overflow-hidden py-16 ${width > height ? 'min-h-screen' : 'min-h-auto'}`}
+      style={{ minHeight: width > height ? '100vh' : '50vh' }}
     >
       <div className="absolute inset-0 z-0 flex items-center justify-center bg-black">
         {isWatching ? (
