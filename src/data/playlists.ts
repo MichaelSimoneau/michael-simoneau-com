@@ -83,8 +83,8 @@ const cleanPlaylist = podcastsToPlaylist({
   "Forensic mapping of the Zeroth stack":
     "/audio/2026-03-10/Forensic_mapping_of_the_Zeroth_stack.mp3",
   // Track #5 - 2026-03-12
-  "Michael Simoneau's Phase Conjugation Trap":
-    "/audio/2026-03-13/Michael_Simoneau_s_Phase_Conjugation_Trap.mp3",
+  "Your Face Is the HashWeb Wallet":
+    "/audio/2026-03-13/Your_Face_Is_the_HashWeb_Wallet.mp3",
 });
 
 const melindaFrancisPlaylist = podcastsToPlaylist({
@@ -101,7 +101,7 @@ const melindaFrancisPlaylist = podcastsToPlaylist({
   COLLAPSE_5: 'So I devised a highly calculated "trap"...',
   EXPANDED_0: "I sent more MATH... Numbers don't lie. People do!",
   // Track #00 - 2026-03-13 - New!
-  "How Michael Simoneau Hacked His Diagnosis":
+  "Michael Simoneau Hacked His Diagnosis":
     "/audio/2026-03-12/How_Michael_Simoneau_hacked_his_diagnosis.mp3",
   // Track #0 - 2026-03-12
   "March 12, 2026: The Software Engineer Who Hacked His Therapist.":
