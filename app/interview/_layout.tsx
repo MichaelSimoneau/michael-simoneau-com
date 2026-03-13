@@ -1,8 +1,13 @@
-import { Link, Stack, usePathname } from 'expo-router';
+import { useEffect, useRef } from 'react';
+import { Link, usePathname } from 'expo-router';
+import { AnimatePresence, motion } from 'framer-motion';
 import { ArrowLeft } from 'lucide-react';
 import { MainNav } from '../../src/layout/MainNav';
 import { AnimatedBackground } from '../../src/backgrounds/AnimatedBackground';
 import { InterviewPartSwitcher } from '../../src/features/interview/components/InterviewPartSwitcher';
+import { Interview } from '../../src/features/interview/components/Interview';
+import { Interview2 } from '../../src/features/interview/components/Interview2';
+import { Interview3 } from '../../src/features/interview/components/Interview3';
 
 type InterviewPart = 1 | 2 | 3;
 
@@ -13,16 +18,46 @@ const getPartFromPathname = (pathname: string): InterviewPart | undefined => {
   return undefined;
 };
 
+const contentVariants = {
+  enter: (direction: number) => ({
+    x: direction > 0 ? 96 : -96,
+    opacity: 0,
+  }),
+  center: {
+    x: 0,
+    opacity: 1,
+  },
+  exit: (direction: number) => ({
+    x: direction > 0 ? -96 : 96,
+    opacity: 0,
+  }),
+};
+
 export default function InterviewLayout() {
   const pathname = usePathname();
   const currentPart = getPartFromPathname(pathname);
+  const previousPartRef = useRef<InterviewPart | undefined>(undefined);
+  const previousPart = previousPartRef.current;
+  const hasDirectionalTransition =
+    previousPart !== undefined && currentPart !== undefined && previousPart !== currentPart;
+  const direction = hasDirectionalTransition ? (currentPart > previousPart ? 1 : -1) : 0;
+
+  useEffect(() => {
+    previousPartRef.current = currentPart;
+  }, [currentPart, pathname]);
+
+  const renderInterviewContent = () => {
+    if (currentPart === 2) return <Interview2 />;
+    if (currentPart === 3) return <Interview3 />;
+    return <Interview />;
+  };
 
   return (
     <>
       <AnimatedBackground />
       <MainNav />
       <div className="h-screen overflow-y-auto overflow-x-hidden overscroll-behavior-x-none scroll-smooth relative z-10">
-        <section className="min-h-screen text-white py-20 px-4 pt-24">
+        <section className="min-h-screen text-white px-4 pt-24 pb-36 md:pb-44">
           <div className="container mx-auto max-w-4xl">
             <Link
               href="/"
@@ -34,20 +69,22 @@ export default function InterviewLayout() {
 
             <InterviewPartSwitcher activePart={currentPart ?? 1} />
 
-            <Stack
-              screenOptions={{
-                headerShown: false,
-                animation: 'slide_from_right',
-                animationDuration: 1000,
-                animationTypeForReplace: 'pop',
-                contentStyle: { backgroundColor: 'transparent' },
-              }}
-            >
-              <Stack.Screen name="index" />
-              <Stack.Screen name="1" />
-              <Stack.Screen name="2" />
-              <Stack.Screen name="3" />
-            </Stack>
+            <AnimatePresence mode="sync" initial={false} custom={direction}>
+              <motion.div
+                key={currentPart ?? 1}
+                custom={direction}
+                variants={contentVariants}
+                initial={hasDirectionalTransition ? 'enter' : false}
+                animate="center"
+                exit={hasDirectionalTransition ? 'exit' : undefined}
+                transition={{
+                  x: { duration: 1, ease: [0.22, 1, 0.36, 1] },
+                  opacity: { duration: 1, ease: [0.22, 1, 0.36, 1] },
+                }}
+              >
+                {renderInterviewContent()}
+              </motion.div>
+            </AnimatePresence>
           </div>
         </section>
       </div>
