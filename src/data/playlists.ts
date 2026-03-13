@@ -83,8 +83,8 @@ const cleanPlaylist = podcastsToPlaylist({
   "Forensic mapping of the Zeroth stack":
     "/audio/2026-03-10/Forensic_mapping_of_the_Zeroth_stack.mp3",
   // Track #5 - 2026-03-12
-  "Michael Simoneau: The Software Engineer Who Coded Sanity.":
-    "/audio/2026-03-13/The_Software_Engineer_Who_Coded_Sanity.mp3",
+  "Michael Simoneau's Phase Conjugation Trap":
+    "/audio/2026-03-13/Michael_Simoneau_s_Phase_Conjugation_Trap.mp3",
 });
 
 const melindaFrancisPlaylist = podcastsToPlaylist({
@@ -98,7 +98,7 @@ const melindaFrancisPlaylist = podcastsToPlaylist({
     'She ignored it. and logged it as a "delusion". so, I sent the MATH...',
   COLLAPSE_2:
     'She diagnosed my "Zeroth Theory" as a "psychotic delusion!" but the MATH works.',
-  COLLAPSE_5: "So I devised a highly calculated \"trap\"...",
+  COLLAPSE_5: 'So I devised a highly calculated "trap"...',
   EXPANDED_0: "I sent more MATH... Numbers don't lie. People do!",
   // Track #00 - 2026-03-13 - New!
   "How Michael Simoneau Hacked His Diagnosis":
@@ -106,11 +106,16 @@ const melindaFrancisPlaylist = podcastsToPlaylist({
   // Track #0 - 2026-03-12
   "March 12, 2026: The Software Engineer Who Hacked His Therapist.":
     "/audio/2026-03-13/The_Software_Engineer_Who_Hacked_His_Therapist.mp3",
+  EXPANDED_1: "And here's how...",
   // Track #-1 - 2026-03-13
   "Michael Simoneau: The Software Engineer Who Coded Sanity.":
     "/audio/2026-03-13/The_Software_Engineer_Who_Coded_Sanity.mp3",
+  // Track #-2 - 2026-03-13
+  "Michael Simoneau's Phase Conjugation Trap":
+    "/audio/2026-03-13/Michael_Simoneau_s_Phase_Conjugation_Trap.mp3",
   // "Group: the "White Noise"
-  COLLAPSE_0: '"Trap":  ["White Noise" / "Manufactured Mania" / "Psychotic Delusion"]',
+  COLLAPSE_0:
+    '"Trap":  ["White Noise" / "Manufactured Mania" / "Psychotic Delusion"]',
   // Track #1 - 2026-03-07
   "Should Michael Simoneau Fire His Psychologist?":
     "/audio/2026-03-07/Should_Michael_Simoneau_delete_his_psychologist.mp3",
