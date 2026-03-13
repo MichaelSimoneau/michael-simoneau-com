@@ -7,9 +7,9 @@ import { PlaylistAudioPlayer } from "../ui/players/PlaylistAudioPlayer";
 import { melindaFrancisPlaylist } from "../data/playlists";
 import { MARCH_17_2026_10_00_AM } from "src/hooks/useBeforeAndAfter";
 
-export const DrMelindaFrancis: React.FC = () => {
+export const DrMelindaFrancis: React.FC<{ isMsFrancis?: boolean }> = ({ isMsFrancis = false }) => {
   const [now, setNow] = React.useState(new Date().getTime());
-  const [isFired, setIsFired] = React.useState(false);
+  const [isFired, setIsFired] = React.useState(isMsFrancis ? true : false);
   const isBeforeFired = React.useMemo(
     () => now < MARCH_17_2026_10_00_AM.getTime(),
     [now],
@@ -114,14 +114,14 @@ export const DrMelindaFrancis: React.FC = () => {
             className="text-center z-10"
           >
             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4">
-              Dr. Melinda Francis, DSM
+              {isMsFrancis ? "Ms. Francis, LISW" : "Dr. Melinda Francis, DSM"}
             </h1>
             <p className="text-xl sm:text-2xl md:text-3xl text-cyan-400 font-semibold mb-4">
               <strong>
                 Confused Licensed Independent Social Worker
               </strong>
               <br />
-              Abandoning the field of <strong>The Psychology of Artificial Intelligence</strong>
+              {isMsFrancis ? "Abandoning Opportunities to Be a Better Person" : "Abandoning the field of The Psychology of Artificial Intelligence"}
             </p>
             <motion.div
               className="w-full max-w-2xl mx-auto z-10 mt-2 mb-6"
