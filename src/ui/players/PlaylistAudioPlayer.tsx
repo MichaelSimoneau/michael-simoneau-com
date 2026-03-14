@@ -27,6 +27,7 @@ export interface Track {
 interface PlaylistAudioPlayerProps {
   tracks: Track[];
   className?: string;
+  defaultPlaylistTitle?: string;
 }
 
 interface Section {
@@ -175,7 +176,11 @@ const extractFirstUrl = (text: string): string | null => {
  * PlaylistAudioPlayer — a sleek, slim audio player that manages a playlist
  * of tracks with sequential playback, seek, skip, rewind, and track selection.
  */
-export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks, className }) => {
+export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({
+  tracks,
+  className,
+  defaultPlaylistTitle = 'Playlist',
+}) => {
   const { trackMediaEvent } = useMediaAnalytics();
   const flowDispatch = useProfileFlowDispatch();
   const flowState = useProfileFlowState();
@@ -220,7 +225,7 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
       }
 
       if (currentSectionIndex === -1) {
-        createSection('Playlist', false, 'EXPANDED_DEFAULT');
+        createSection(defaultPlaylistTitle, false, 'EXPANDED_DEFAULT');
       }
 
       const playableIndex = nextPlayableTracks.length;
@@ -239,7 +244,7 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
       playableIndexToSectionIndex: nextPlayableIndexToSectionIndex,
       sectionDefaultCollapsed: nextSectionDefaultCollapsed,
     };
-  }, [tracks]);
+  }, [defaultPlaylistTitle, tracks]);
 
   const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);

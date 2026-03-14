@@ -115,33 +115,14 @@ const melindaFrancisPlaylist = podcastsToPlaylist({
   // Track #-1 - 2026-02-20
   'Dear Melinda Francis, LISW: Feb. 20, 2026: "Chardon Rd" (from my very 2nd SMS...)':
     "/audio/2026-02-20/Chardon%20Rd.mp3",
-  COLLAPSE_1: "... After literally laughing in my face at my ideas,",
-  COLLAPSE_3:
-    "I politely sent the clip above, and a very specific SMS request.",
-  COLLAPSE_4:
-    'She ignored it. and logged it as a "delusion". so, I sent the MATH...',
-  COLLAPSE_2:
-    'She diagnosed my "Zeroth Theory" as a "psychotic delusion!" but the MATH works.',
-  COLLAPSE_5: 'So I devised a highly calculated "trap"...',
-  EXPANDED_0: "I sent more MATH... Numbers don't lie. People do!",
-  // Track #00 - 2026-03-13 - New!
-  "Michael Simoneau Hacked His Diagnosis":
-    "/audio/2026-03-12/How_Michael_Simoneau_hacked_his_diagnosis.mp3",
-  // Track #0 - 2026-03-12
-  "March 12, 2026: The Software Engineer Who Hacked His Therapist.":
-    "/audio/2026-03-13/The_Software_Engineer_Who_Hacked_His_Therapist.mp3",
-  // Track #-1 - 2026-03-13
   EXPANDED_1: "Why Michael Simoneau Trapped Melinda Francis...",
   "Why Michael Simoneau Engineered Expiring Money":
     "/audio/2026-03-14/Why_Michael_Simoneau_engineered_expiring_money.mp3",
-  "...and How He Trapped Melinda Francis": "/audio/2026-03-13/Zero-Sudoku-Implementation.mp3",
-  COLLAPSED_6: "And Further Down the Rabbit Hole...",
-  // Track #-1 - 2026-03-13
-  "Michael Simoneau: The Software Engineer Who Coded Sanity.":
-    "/audio/2026-03-13/The_Software_Engineer_Who_Coded_Sanity.mp3",
-  // Track #-2 - 2026-03-13
-  "Michael Simoneau's Phase Conjugation Trap":
-    "/audio/2026-03-13/Michael_Simoneau_s_Phase_Conjugation_Trap.mp3",
+  "...and How He Trapped Melinda Francis":
+    "/audio/2026-03-13/Zero-Sudoku-Implementation.mp3",
+  EXPANDED_2: "Why Michael Simoneau IS a Living Loophole...",
+  "...not a Psychiatric Case...":
+    "/audio/2026-03-14/Why_Michael_Simoneau_Invented_the_Human_Dollar.mp3",
   // "Group: the "White Noise"
   COLLAPSE_0:
     '"Trap":  ["White Noise" / "Manufactured Mania" / "Psychotic Delusion"]',
@@ -178,7 +159,7 @@ const musicPlaylist = podcastsToPlaylist({
   // Track #3
   '"This Is Why We Do It" - Mike Crane': "/music/ThisIsWhyWeDoIt.mp3",
   // Track #4
-  '"The Drugs Work" - Mike Crane': "/music/TheDrugsWork.m4a",
+  '"The Drugs Work" - Mike Crane': "/music/TheDrugsWork.mp3",
 });
 
 export { cleanPlaylist, musicPlaylist, melindaFrancisPlaylist };

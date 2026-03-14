@@ -54,50 +54,66 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ featuredBlog }) => {
         <h2 className="text-xl sm:text-2xl md:text-3xl text-cyan-400 font-semibold mb-2">
           Save the US Dollar by Saving the World
         </h2>
-        <div className="mx-auto mt-6 w-full max-w-2xl px-3 grid grid-cols-2 sm:grid-cols-4 gap-4 justify-items-center items-end relative z-10">
-          <a
-            href="https://HashWeb.Network"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="bento-tile col-span-2 sm:col-span-1 flex flex-col items-center justify-center bg-gradient-to-br from-cyan-900/80 via-gray-900/80 to-blue-900/90 border border-cyan-400/30 rounded-xl shadow-xl p-4 w-full transition-transform hover:scale-105 hover:border-cyan-200 focus:outline-none focus:ring-2 focus:ring-cyan-400"
-            style={{ gridRow: 'span 2' }}
-          >
-            <span className="font-semibold text-cyan-300 text-lg text-center">HashWeb.Network</span>
-          </a>
-          <a
-            href="https://TheHumanDollar.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="bento-tile flex flex-col items-center justify-center bg-gradient-to-br from-amber-900/70 via-gray-900/80 to-yellow-900/80 border border-amber-400/30 rounded-xl shadow-xl p-4 w-full transition-transform hover:scale-105 hover:border-amber-200 focus:outline-none focus:ring-2 focus:ring-amber-400"
-          >
-            <span className="font-semibold text-amber-300 text-lg text-center">
-              The Human Dollar <span className="text-sm text-amber-200">(#THD)</span>
-            </span>
-          </a>
-          <a
-            href="https://ZerothTheory.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="bento-tile flex flex-col items-center justify-center bg-gradient-to-br from-indigo-900/80 via-gray-900/80 to-sky-900/80 border border-sky-400/30 rounded-xl shadow-xl p-4 w-full transition-transform hover:scale-105 hover:border-sky-200 focus:outline-none focus:ring-2 focus:ring-sky-400"
-            style={{ gridRow: 'span 2' }}
-          >
-            <span className="font-semibold text-sky-300 text-lg text-center">Zeroth Theory</span>
-          </a>
-          <a
-            href="https://CryptoFabric.Cloud"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="bento-tile flex flex-col items-center justify-center bg-gradient-to-br from-fuchsia-900/80 via-gray-900/80 to-pink-900/80 border border-fuchsia-400/30 rounded-xl shadow-xl p-4 w-full transition-transform hover:scale-105 hover:border-fuchsia-200 focus:outline-none focus:ring-2 focus:ring-fuchsia-400"
-          >
-            <span className="font-semibold text-fuchsia-300 text-lg text-center">#CryptoFabric Cloud</span>
-          </a>
+        <div className="w-full max-w-3xl mx-auto mt-4 mb-8 px-1 sm:px-0">
+          <div className="bg-gray-900/60 backdrop-blur-sm border border-amber-800/30 rounded-xl p-5 sm:p-6 text-center">
+            <div className="mx-auto mb-4 w-full max-w-4xl px-1 sm:px-2 grid grid-cols-4 gap-y-0.5 gap-x-1 sm:gap-x-2 items-center">
+              <div className="w-full">
+                <a
+                  href="https://TheHumanDollar.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex w-full items-center justify-center px-0 py-0 text-center text-[11px] sm:text-xs leading-none font-medium text-amber-300 decoration-amber-300/70 underline-offset-2 transition-colors hover:text-amber-200 hover:underline focus:outline-none focus:ring-1 focus:ring-amber-400/80 focus:ring-offset-1 focus:ring-offset-black/50"
+                >
+                  <span className="text-inherit whitespace-nowrap">
+                    The Human Dollar
+                  </span>
+                </a>
+              </div>
+              <div className="w-full">
+                <a
+                  href="https://HashWeb.Network"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex w-full items-center justify-center px-0 py-0 text-center text-[11px] sm:text-xs leading-none font-medium text-cyan-300 decoration-cyan-300/70 underline-offset-2 transition-colors hover:text-cyan-200 hover:underline focus:outline-none focus:ring-1 focus:ring-cyan-400/80 focus:ring-offset-1 focus:ring-offset-black/50"
+                >
+                  <span className="text-inherit whitespace-nowrap">
+                    HashWeb.Network
+                  </span>
+                </a>
+              </div>
+              <div className="w-full">
+                <a
+                  href="https://ZerothTheory.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex w-full items-center justify-center px-0 py-0 text-center text-[11px] sm:text-xs leading-none font-medium text-sky-300 decoration-sky-300/70 underline-offset-2 transition-colors hover:text-sky-200 hover:underline focus:outline-none focus:ring-1 focus:ring-sky-400/80 focus:ring-offset-1 focus:ring-offset-black/50"
+                >
+                  <span className="text-inherit whitespace-nowrap">
+                    Zeroth Theory
+                  </span>
+                </a>
+              </div>
+              <div className="w-full">
+                <a
+                  href="https://CryptoFabric.Cloud"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex w-full items-center justify-center px-0 py-0 text-center text-[11px] sm:text-xs leading-none font-medium text-fuchsia-300 decoration-fuchsia-300/70 underline-offset-2 transition-colors hover:text-fuchsia-200 hover:underline focus:outline-none focus:ring-1 focus:ring-fuchsia-400/80 focus:ring-offset-1 focus:ring-offset-black/50"
+                >
+                  <span className="text-inherit whitespace-nowrap">
+                    #CryptoFabric
+                  </span>
+                </a>
+              </div>
+            </div>
+            <p className="text-base sm:text-lg md:text-xl text-gray-300 leading-relaxed">
+              THD is your employee. Put it to work and it pays you back for
+              every $1 spent that grows to the $65,535 cap. Stagnation is a
+              firing offense — idle capital enters early retirement. This is not
+              speculation. This is Metabolic Reality.
+            </p>
+          </div>
         </div>
-        <p className="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto mb-8">
-          THD is your employee. Put it to work and it pays you back for every $1
-          spent that grows to the $65,535 cap. Stagnation is a firing offense —
-          idle capital enters early retirement. This is not speculation. This is
-          Metabolic Reality.
-        </p>
       </motion.div>
 
       {featuredBlog && (
@@ -134,7 +150,10 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ featuredBlog }) => {
         viewport={{ once: true }}
         transition={{ duration: 0.8, delay: 0.4 }}
       >
-        <PlaylistAudioPlayer tracks={cleanPlaylist} />
+        <PlaylistAudioPlayer
+          tracks={cleanPlaylist}
+          defaultPlaylistTitle="Learn About Michael Simoneau"
+        />
       </motion.div>
 
       <motion.div

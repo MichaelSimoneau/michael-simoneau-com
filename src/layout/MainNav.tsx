@@ -32,21 +32,6 @@ export const MainNav: React.FC<MainNavProps> = ({ scrollContainerId }) => {
   };
 
   const handleSectionLinkClick = (sectionId: string) => {
-    // #region agent log
-    fetch("http://127.0.0.1:7242/ingest/3249ee71-b1d0-461e-9881-1b108a38579f", {
-      method: "POST",
-      headers: { "Content-Type": "application/json", "X-Debug-Session-Id": "6cf5ee" },
-      body: JSON.stringify({
-        sessionId: "6cf5ee",
-        runId: "initial",
-        hypothesisId: "H5",
-        location: "MainNav.tsx:handleSectionLinkClick",
-        message: "Primary nav section click",
-        data: { sectionId, pathname },
-        timestamp: Date.now(),
-      }),
-    }).catch(() => {});
-    // #endregion
     scrollToSectionHandler(sectionId, () => {
       setIsOpen(false);
       setIsPathsExpanded(false);
@@ -61,21 +46,6 @@ export const MainNav: React.FC<MainNavProps> = ({ scrollContainerId }) => {
     e?.stopPropagation();
     setIsPathsExpanded(false);
     setIsOpen(false);
-    // #region agent log
-    fetch("http://127.0.0.1:7242/ingest/3249ee71-b1d0-461e-9881-1b108a38579f", {
-      method: "POST",
-      headers: { "Content-Type": "application/json", "X-Debug-Session-Id": "6cf5ee" },
-      body: JSON.stringify({
-        sessionId: "6cf5ee",
-        runId: "initial",
-        hypothesisId: "H5",
-        location: "MainNav.tsx:handlePathsItemClick",
-        message: "Paths nav item click",
-        data: { sectionId, pathname },
-        timestamp: Date.now(),
-      }),
-    }).catch(() => {});
-    // #endregion
     // Defer scroll so overlay/dropdown close first; avoids mobile scroll not working
     setTimeout(() => {
       scrollToSectionHandler(sectionId);

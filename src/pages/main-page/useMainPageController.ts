@@ -145,25 +145,6 @@ export const useMainPageController = () => {
       const container = scrollContainerRef.current;
       const targetElement = document.getElementById(targetId);
       if (!container || !targetElement) {
-        // #region agent log
-        fetch("http://127.0.0.1:7242/ingest/3249ee71-b1d0-461e-9881-1b108a38579f", {
-          method: "POST",
-          headers: { "Content-Type": "application/json", "X-Debug-Session-Id": "6cf5ee" },
-          body: JSON.stringify({
-            sessionId: "6cf5ee",
-            runId: "initial",
-            hypothesisId: "H4",
-            location: "useMainPageController.ts:scrollToSectionId-missing-target",
-            message: "Scroll target or container missing",
-            data: {
-              targetId,
-              hasContainer: Boolean(container),
-              hasTarget: Boolean(targetElement),
-            },
-            timestamp: Date.now(),
-          }),
-        }).catch(() => {});
-        // #endregion
         return false;
       }
 
@@ -177,27 +158,6 @@ export const useMainPageController = () => {
       const containerRect = container.getBoundingClientRect();
       const elementRect = targetElement.getBoundingClientRect();
       const scrollTop = elementRect.top - containerRect.top + container.scrollTop - offset;
-      // #region agent log
-      fetch("http://127.0.0.1:7242/ingest/3249ee71-b1d0-461e-9881-1b108a38579f", {
-        method: "POST",
-        headers: { "Content-Type": "application/json", "X-Debug-Session-Id": "6cf5ee" },
-        body: JSON.stringify({
-          sessionId: "6cf5ee",
-          runId: "initial",
-          hypothesisId: "H4",
-          location: "useMainPageController.ts:scrollToSectionId",
-          message: "Computed section scroll position",
-          data: {
-            targetId,
-            behavior,
-            currentScrollTop: Math.round(container.scrollTop),
-            computedScrollTop: Math.round(scrollTop),
-            offset,
-          },
-          timestamp: Date.now(),
-        }),
-      }).catch(() => {});
-      // #endregion
       container.scrollTo({ top: scrollTop, behavior });
       if (navScrollSettleTimeoutRef.current !== null) {
         clearTimeout(navScrollSettleTimeoutRef.current);
