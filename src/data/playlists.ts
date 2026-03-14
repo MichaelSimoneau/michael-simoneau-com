@@ -122,7 +122,7 @@ const melindaFrancisPlaylist = podcastsToPlaylist({
     "/audio/2026-03-13/Zero-Sudoku-Implementation.mp3",
   COLLAPSE_0: "How Michael Simoneau is 'The Living Loophole'...",
   "...not a Psychiatric Case...":
-    "/audio/2026-03-14/Why_Michael_Simoneau_Invented_the_Human_Dollar.mp3",
+    "/audio/2026-03-14/Stop_Watching_Cartoons__It_is_Saturday_Morning__.mp3",
   // "Group: the "White Noise"
   // COLLAPSE_0:
   //   '"Trap":  ["White Noise" / "Manufactured Mania" / "Psychotic Delusion"]',

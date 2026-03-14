@@ -173,7 +173,7 @@ export const MelindaFrancis: React.FC = () => {
                 </p>
                 <hr className="border-t border-[#0b1a3a] my-4" />
                 <div className="flex justify-center mb-6">
-                  <AudioPlayer src="/audio/2026-03-14/Why_Michael_Simoneau_engineered_expiring_money.mp3" title="Why Michael Simoneau is Objectively Sane... and Why You Are Not" />
+                  <AudioPlayer src="/audio/2026-03-14/Why_Michael_Simoneau_Invented_the_Human_Dollar.mp3" title="Why Michael Simoneau is Objectively Sane... and Why You Are Not" />
                 </div>
                 <hr className="border-t border-[#0b1a3a] my-4" />
                 <p className="text-base text-gray-300 leading-relaxed mb-3">
