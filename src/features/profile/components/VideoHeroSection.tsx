@@ -180,7 +180,7 @@ export const VideoHeroSection: React.FC = () => {
     window.sessionStorage.setItem(MELINDA_RELOAD_GUARD_KEY, '1');
     const nextUrl = new URL(window.location.href);
     nextUrl.searchParams.set('_', Date.now().toString());
-    nextUrl.hash = '#about';
+    nextUrl.hash = '#audio';
     window.location.assign(nextUrl.toString());
     return true;
   }, [flowDispatch, isBeforeNoon, isRestrictedOverlayLocked]);
