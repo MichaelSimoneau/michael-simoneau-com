@@ -78,6 +78,8 @@ const cleanPlaylist = podcastsToPlaylist({
     "/audio/2026-03-11/Michael_Simoneau.mp3",
   //>> GROUP: "HashWeb.Network & The Human Dollar"
   EXPANDED_0: "HashWeb.Network & The Human Dollar",
+  "Why Michael Simoneau Engineered Expiring Money":
+    "/audio/2026-03-14/Why_Michael_Simoneau_engineered_expiring_money.mp3",
   // Track #5 - 2026-03-12
   "Planning The Future Without A Past":
     "/audio/2026-03-13/Planning_the_future_without_a_past.mp3",
