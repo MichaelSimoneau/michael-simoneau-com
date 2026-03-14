@@ -7,7 +7,7 @@ export const ThdScreen = () => {
     () => ({
       id: 'thd',
       label: 'The Human Dollar',
-      description: 'Money is an employee. Put it to work.',
+      description: 'The Anti-Currency: does not replace money, costs $1, principal protected.',
       href: '/thd',
     }),
     [],
@@ -17,6 +17,10 @@ export const ThdScreen = () => {
   useFoundationPageView('page:view:thd', { id: 'thd', label: 'The Human Dollar' }, {});
 
   const concepts = [
+    'Does not replace money: THD is a participation layer',
+    'Costs $1 to enter',
+    '$1 principal floor via redemption',
+    'Cryptographic concert ticket economics',
     '$655 for every $1 at the $65,535 cap',
     'Stagnation is a firing offense',
     'Base-three half-life decay for idle capital',
@@ -30,7 +34,7 @@ export const ThdScreen = () => {
           The Human Dollar <Text style={styles.heroAccent}>#THD</Text>
         </Text>
         <Text style={styles.heroSubtitle}>
-          Money is an employee. Put it to work.
+          The Anti-Currency: not a replacement for money, but a $1 cryptographic concert ticket.
         </Text>
         <Pressable
           style={styles.cta}

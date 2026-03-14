@@ -8,7 +8,7 @@ export const Interview3Screen = () => {
     () => ({
       id: 'interview-3',
       label: 'Interview Session 3',
-      description: 'Interview Session 3: Economic Design — Zeroth VM, The Human Dollar, ternary identity.',
+      description: 'Interview Session 3: Economic Design — Zeroth VM, The Anti-Currency model, ternary identity.',
       href: '/interview/3',
     }),
     [],
@@ -37,7 +37,7 @@ export const Interview3Screen = () => {
       <View style={styles.card}>
         <Text style={styles.sectionTitle}>The Human Dollar</Text>
         <Text style={styles.body}>
-          The Human Dollar (THD) ties value to usage and observation. Metabolic decay and base-three half-life ensure that stagnation is a firing offense: observation is oxygen, usage is mining.
+          The Human Dollar (THD) is The Anti-Currency: it does not replace money, it costs $1, and your $1 principal remains protected by redemption. It behaves like a cryptographic concert ticket where participation drives outcomes.
         </Text>
       </View>
 
@@ -58,7 +58,7 @@ export const Interview3Screen = () => {
         <View style={styles.quoteCard}>
           <Text style={styles.quoteLabel}>Stagnation</Text>
           <Text style={styles.quoteText}>
-            THD is your employee. If it doesn’t perform, it enters early retirement — base-three half-life. Stagnation is a firing offense.
+            Participation is Darwinian: if it doesn’t perform, relevance enters early retirement via base-three half-life. Stagnation is a firing offense.
           </Text>
         </View>
         <View style={styles.quoteCard}>

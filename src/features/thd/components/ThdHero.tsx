@@ -5,7 +5,7 @@ import { ArrowRight, Sparkles } from 'lucide-react';
 
 /**
  * ThdHero – Main-page hero section for The Human Dollar (THD).
- * Presents THD as the Anti-Crypto, Attention Economy, and Currency of the Future.
+ * Presents THD as The Anti-Currency with a $1 principal floor.
  * Links to the full /thd page and TheHumanDollar.com.
  */
 export const ThdHero: React.FC = () => {
@@ -70,15 +70,15 @@ export const ThdHero: React.FC = () => {
           <p className="text-xl sm:text-2xl md:text-3xl text-amber-300 font-semibold mb-4 flex flex-wrap items-center justify-center gap-x-3 gap-y-1">
             <span className="whitespace-nowrap">The Working Dollar</span>
             <span className="hidden sm:inline" aria-hidden="true">&middot;</span>
-            <span className="whitespace-nowrap">The Anti-Crypto</span>
+            <span className="whitespace-nowrap">The Anti-Currency</span>
             <span className="hidden sm:inline" aria-hidden="true">&middot;</span>
-            <span className="whitespace-nowrap">The Currency of the Future</span>
+            <span className="whitespace-nowrap">A Cryptographic Concert Ticket</span>
           </p>
           <p className="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto mb-6">
-            THD is your employee. Put it to work: $655 for every $1 at the $65,535 cap.<br />Stagnation is a firing offense. Spending adds Value!
+            THD does not replace money. It costs $1 and functions as a cryptographic concert ticket for participation.<br />Stagnation is a firing offense. Spending adds value.
           </p>
           <p className="text-base md:text-lg text-gray-400 max-w-4xl mx-auto mb-8">
-            1 THD is always redeemable for 1 USDC.<br />The smart contract physically rejects any transaction valuing THD below the floor.<br />There is only value or the dollar retires. This is Metabolic Reality, not speculation.
+            1 THD is always redeemable for 1 USDC.<br />The smart contract physically rejects any transaction valuing THD below the floor, so your $1 principal is preserved.<br />Darwinian maximism at the edge, principal protection at the core.
           </p>
         </motion.div>
 

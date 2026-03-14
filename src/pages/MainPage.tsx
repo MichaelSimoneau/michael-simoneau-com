@@ -22,7 +22,7 @@ export const MainPage: React.FC = () => {
     <>
       <Seo
         title="Michael Simoneau | Architect of Zeroth Theory (#ZerothTheory)"
-        description="From enterprise architecture at JPMorgan and StoneX to building The Human Dollar (#THD). THD is your employee — $655 for every $1 put to work. Stagnation is a firing offense. Built on Zeroth Theory, Crypto Fabric, and The Human Dollar."
+        description="From enterprise architecture at JPMorgan and StoneX to building The Human Dollar (#THD): The Anti-Currency that does not replace money, costs $1, and preserves your $1 principal via a redemption floor. Built on Zeroth Theory and Crypto Fabric."
         canonicalUrl="https://www.michaelsimoneau.com/"
         keywords={keywords}
         image="https://www.michaelsimoneau.com/profile-image.png"
