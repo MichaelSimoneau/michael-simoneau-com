@@ -131,36 +131,40 @@ export const MelindaFrancis: React.FC = () => {
                   * Remember, weekends don't count! *
                 </p>
                 <hr className="border-t border-[#0b1a3a] my-4" />
-                <p className="text-base text-gray-300 leading-relaxed mb-3">
-                  I, <strong>Michael Simoneau</strong> [who still remembers my
-                  name], am <strong>not</strong> delusional.
-                  <br />
-                  I used to call you &quot;<strong>The Soon-To-Be Dr. Melinda Francis, LISW</strong>
-                  &quot; and even believed it to be true; so much so that I
-                  built a website for you:{" "}
-                  <a
-                    href="https://dr.melindafrancis.com"
-                    target="_blank"
-                    rel="noopener noreferrer nofollow"
-                    className="text-cyan-400 hover:text-cyan-300 underline"
-                  >
-                    Dr.MelindaFrancis.com
-                  </a>
-                  <br />
-                  <span className="text-slate-500">
-                    {" "}
-                    * See, I took{" "}
+                <div className="text-left font-bold mx-4 mb-4 pl-8">
+                  <strong>Dear Ms. Melinda Francis, LISW,</strong>
+                </div>
+                <div className="mx-auto max-w-2xl">
+                  <p className="text-base text-gray-300 leading-relaxed mb-3">
+                    I, <strong>Michael Simoneau</strong>, am <strong>not delusional</strong>.
+                    <br />
+                    I used to call you &quot;<strong>The Soon-To-Be Dr. Melinda Francis, LISW</strong>
+                    &quot; and even believed it to be true; so much so that I
+                    built a website for you:{" "}
                     <a
-                      href="https://melindafrancis.com"
+                      href="https://dr.melindafrancis.com"
                       target="_blank"
                       rel="noopener noreferrer nofollow"
                       className="text-cyan-400 hover:text-cyan-300 underline"
                     >
-                      MelindaFrancis.com
-                    </a>{" "}
-                    down, technically. *
-                  </span>
-                </p>
+                      Dr.MelindaFrancis.com
+                    </a>
+                    <br />
+                    <span className="text-slate-500">
+                      {" "}
+                      * See, I took{" "}
+                      <a
+                        href="https://melindafrancis.com"
+                        target="_blank"
+                        rel="noopener noreferrer nofollow"
+                        className="text-cyan-400 hover:text-cyan-300 underline"
+                      >
+                        MelindaFrancis.com
+                      </a>{" "}
+                      down, technically. *
+                    </span>
+                  </p>
+                </div>
                 <hr className="border-t border-[#0b1a3a] my-4" />
                 <p className="text-base text-gray-300 leading-relaxed mb-3">
                   I honestly believe you are suffering from social delusion,<br />
@@ -187,12 +191,18 @@ export const MelindaFrancis: React.FC = () => {
                 </p>
                 <hr className="border-t border-[#0b1a3a] my-4" />
                 <blockquote className="font-bold mt-4 text-center italic">
-                  Math is rules. Physics is rules. Society is a suggestion!
+                  Math is rules. Physics is rules. Society is a suggestion!<br />
+                  <span className="text-slate-500">
+                    * I Fixed Math to Fix Physics to Fix Society *
+                  </span>
                 </blockquote>
                 <br />
                 <blockquote className="text-center">
-                  <strong>"I Am Right; I Am NOT Infallible"</strong> - Michael
-                  Simoneau
+                  <strong>"I am <strong>right</strong>; I am <strong>not</strong> infallible!"</strong><br />
+                  <span className="text-slate-500">
+                    * I Move Fast and Break Shit; I Learn From My Mistakes, and I Fix Them Quickly! *
+                  </span>
+                  <div className="text-right mt-8">- Michael Simoneau</div>
                 </blockquote>
               </div>
             </motion.div>
