@@ -2,14 +2,82 @@ import React from "react";
 import { motion } from "framer-motion";
 import { AnimatedBackground } from "../backgrounds/AnimatedBackground";
 import { MainNav } from "../layout/MainNav";
-import { Seo } from "../foundation/seo/Seo";
 import { PlaylistAudioPlayer } from "../ui/players/PlaylistAudioPlayer";
 import { melindaFrancisPlaylist } from "../data/playlists";
 import { MARCH_17_2026_10_00_AM } from "src/hooks/useBeforeAndAfter";
 import { AudioPlayer } from "src/ui/players/AudioPlayer";
+import { parseInlineMarkdown } from "../utils/markdown";
+
+type MelindaContentBlock =
+  | { type: "heading"; level: 1 | 2; content: string }
+  | { type: "paragraph"; content: string }
+  | { type: "list"; items: string[] };
+
+const parseMelindaMarkdown = (markdown: string): MelindaContentBlock[] => {
+  const normalized = markdown.replace(/\r\n/g, "\n").trim();
+  if (!normalized) {
+    return [];
+  }
+
+  const sections = normalized
+    .split(/\n{2,}/)
+    .map((section) => section.trim())
+    .filter(Boolean);
+
+  return sections.flatMap((section): MelindaContentBlock[] => {
+    const lines = section.split("\n").map((line) => line.trimEnd());
+    const nonEmptyLines = lines.filter(Boolean);
+    if (!nonEmptyLines.length) {
+      return [];
+    }
+
+    if (nonEmptyLines[0].startsWith("# ")) {
+      return [
+        {
+          type: "heading",
+          level: 1,
+          content: nonEmptyLines[0].replace(/^#\s+/, "").trim(),
+        },
+      ];
+    }
+
+    if (nonEmptyLines[0].startsWith("## ")) {
+      return [
+        {
+          type: "heading",
+          level: 2,
+          content: nonEmptyLines[0].replace(/^##\s+/, "").trim(),
+        },
+      ];
+    }
+
+    const isUnorderedList = nonEmptyLines.every((line) => /^\*\s+/.test(line));
+    if (isUnorderedList) {
+      return [
+        {
+          type: "list",
+          items: nonEmptyLines.map((line) => line.replace(/^\*\s+/, "").trim()),
+        },
+      ];
+    }
+
+    return [
+      {
+        type: "paragraph",
+        content: nonEmptyLines.join("\n").trim(),
+      },
+    ];
+  });
+};
+
+const toInlineHtml = (text: string): string =>
+  parseInlineMarkdown(text).replace(/\n/g, "<br />");
 
 export const MelindaFrancis: React.FC = () => {
   const [now, setNow] = React.useState(new Date().getTime());
+  const [contentBlocks, setContentBlocks] = React.useState<MelindaContentBlock[]>(
+    [],
+  );
   const timeLeftToScheduleMs = React.useMemo(
     () => now - MARCH_17_2026_10_00_AM.getTime(),
     [now],
@@ -19,6 +87,32 @@ export const MelindaFrancis: React.FC = () => {
       setNow(new Date().getTime());
     }, 1000);
     return () => clearInterval(interval);
+  }, []);
+  React.useEffect(() => {
+    let isMounted = true;
+
+    const loadMarkdown = async () => {
+      try {
+        const response = await fetch("/melinda.md");
+        if (!response.ok) {
+          throw new Error(`Failed to load melinda.md: ${response.status}`);
+        }
+        const markdown = await response.text();
+        if (isMounted) {
+          setContentBlocks(parseMelindaMarkdown(markdown));
+        }
+      } catch (error) {
+        console.error("Unable to load melinda.md", error);
+        if (isMounted) {
+          setContentBlocks([]);
+        }
+      }
+    };
+
+    void loadMarkdown();
+    return () => {
+      isMounted = false;
+    };
   }, []);
   const timeLeftToScheduleDays = React.useMemo(
     () => Math.abs(Math.floor(timeLeftToScheduleMs / (1000 * 60 * 60 * 24))),
@@ -72,16 +166,18 @@ export const MelindaFrancis: React.FC = () => {
       timeLeftToScheduleSeconds,
     ],
   );
+  const apologyAnchorText = "I'm sorry I'm so crass";
+  const hasApologyAnchor = React.useMemo(
+    () =>
+      contentBlocks.some(
+        (block) =>
+          block.type === "paragraph" &&
+          block.content.includes(apologyAnchorText),
+      ),
+    [contentBlocks],
+  );
   return (
     <>
-      <Seo
-        title="Melinda Francis"
-        description="Confused Licensed Independent Social Worker"
-        canonicalUrl="https://www.michaelsimoneau.com/melinda"
-        keywords={["Ms. Melinda Francis, LISW"]}
-        image="https://www.michaelsimoneau.com/profile-image.png"
-        noIndex
-      />
       <AnimatedBackground />
       <MainNav />
       <div className="h-screen overflow-y-auto overflow-x-hidden overscroll-behavior-x-none scroll-smooth relative z-10">
@@ -129,112 +225,74 @@ export const MelindaFrancis: React.FC = () => {
                 <p className="text-sm text-slate-500 text-center mt-0 mb-3">
                   * Remember, weekends don't count! *
                 </p>
-                <hr className="border-t border-[#0b1a3a] my-4" />
-                <div className="text-left font-bold mx-4 mb-4 pl-8">
-                  <strong>Dear Ms. Melinda Francis, LISW,</strong>
-                </div>
-                <div className="mx-auto max-w-2xl">
-                  <p className="text-base text-gray-300 leading-relaxed mb-3">
-                    I, <strong>Michael Simoneau</strong>, am{" "}
-                    <strong>not delusional</strong>.
-                    <br />I used to call you &quot;
-                    <strong>The Soon-To-Be Dr. Melinda Francis, LISW</strong>
-                    &quot; and even believed it to be true; so much so that I
-                    built a website for you:{" "}
-                    <a
-                      href="https://dr.melindafrancis.com"
-                      target="_blank"
-                      rel="noopener noreferrer nofollow"
-                      className="text-cyan-400 hover:text-cyan-300 underline"
-                    >
-                      Dr.MelindaFrancis.com
-                    </a>
-                    <br />
-                    <span className="text-slate-500">
-                      {" "}
-                      * See, I took{" "}
-                      <a
-                        href="https://melindafrancis.com"
-                        target="_blank"
-                        rel="noopener"
-                        className="text-cyan-400 hover:text-cyan-300 underline"
-                      >
-                        MelindaFrancis.com
-                      </a>{" "}
-                      down, technically. *
-                    </span>
-                  </p>
-                </div>
-                <hr className="border-t border-[#0b1a3a] my-4" />
-                <p className="text-base text-gray-300 leading-relaxed mb-3">
-                  I honestly believe you are suffering from social delusion,
-                  <br />
-                  and you are projecting your delusion onto me.
-                </p>
-                <hr className="border-t border-[#0b1a3a] my-4" />
-                <p className="text-base text-gray-300 leading-relaxed mb-3">
-                  You deem me to be <strong>insane</strong> because
-                  <br />I <strong>will not</strong> agree to buy into the social
-                  delusion.
-                </p>
-                <hr className="border-t border-[#0b1a3a] my-4" />
-                <div className="flex justify-center mb-6">
-                  <AudioPlayer
-                    src="/audio/2026-03-14/Michael_Simoneau_Saves_The_World.mp3"
-                    title="Why Michael Simoneau is Objectively Sane... and Why You Are Not"
-                  />
-                </div>
-                <hr className="border-t border-[#0b1a3a] my-4" />
-                <p className="text-base text-gray-300 leading-relaxed mb-3">
-                  But I <strong>am sane</strong> because I can take care of{" "}
-                  <strong>myself</strong>;<br />I sustain the executive function
-                  to care for <strong>myself</strong>.
-                </p>
-                <hr className="border-t border-[#0b1a3a] my-4" />
-                <p className="text-base text-gray-300 leading-relaxed mb-3">
-                  The executive function I lacked I now have{" "}
-                  <strong>
-                    <u>Linear Algebra</u>
-                  </strong>{" "}
-                  to solve it.
-                  <br />I coded it into an AI.. and website{" "}
-                  <a
-                    href="https://zerosudoku.com"
-                    target="_blank"
-                    rel="noopener"
-                    className="text-cyan-400 hover:text-cyan-300 underline"
-                  >
-                    ZeroSudoku.com
-                  </a>
-                  .
-                </p>
-                <p className="text-xs text-slate-500 text-center -mt-2 mb-3">
-                  * I am not infallible... so ZeroSudoku.com is a work in progress! *
-                </p>
-                <hr className="border-t border-[#0b1a3a] my-4" />
-                <blockquote className="font-bold mt-4 text-center italic">
-                  Math is rules. Physics is rules. Society is a suggestion!
-                  <br />
-                  <span className="text-slate-500">
-                    * I Fixed Math to Fix Physics to Fix Society *
-                  </span>
-                </blockquote>
-                <br />
-                <blockquote className="text-center">
-                  &quot;I <strong>Move Fast</strong> and <strong>Break Shit</strong>;{" "}
-                  I <strong>Learn</strong> From <strong>My Mistakes</strong> and
-                  <strong> I Fix</strong> Them <strong><i>Quickly</i></strong>!&quot;
-                  <span className="text-slate-500">
-                    <div className="text-center">
-                      <strong>
-                        "I am <u>right</u>;
-                        I am <u>not</u> <u>infallible</u>!"
-                      </strong>
+                {contentBlocks.map((block, index) => {
+                  const key = `${block.type}-${index.toString()}`;
+                  const isApologyParagraph =
+                    block.type === "paragraph" &&
+                    block.content.includes(apologyAnchorText);
+
+                  return (
+                    <React.Fragment key={key}>
+                      <hr className="border-t border-[#0b1a3a] my-4" />
+                      {block.type === "heading" ? (
+                        block.level === 1 ? (
+                          <h2
+                            className="text-2xl sm:text-3xl font-bold text-white text-center mb-3"
+                            dangerouslySetInnerHTML={{
+                              __html: toInlineHtml(block.content),
+                            }}
+                          />
+                        ) : (
+                          <p
+                            className="text-sm sm:text-base text-cyan-300 text-center font-semibold mb-2"
+                            dangerouslySetInnerHTML={{
+                              __html: toInlineHtml(block.content),
+                            }}
+                          />
+                        )
+                      ) : null}
+                      {block.type === "paragraph" ? (
+                        <p
+                          className="text-base text-gray-300 leading-relaxed mb-3"
+                          dangerouslySetInnerHTML={{
+                            __html: toInlineHtml(block.content),
+                          }}
+                        />
+                      ) : null}
+                      {block.type === "list" ? (
+                        <ul className="list-disc list-inside text-base text-gray-300 leading-relaxed mb-3 space-y-1">
+                          {block.items.map((item, itemIndex) => (
+                            <li
+                              key={`${key}-item-${item.slice(0, 24)}-${itemIndex.toString()}`}
+                              dangerouslySetInnerHTML={{
+                                __html: toInlineHtml(item),
+                              }}
+                            />
+                          ))}
+                        </ul>
+                      ) : null}
+                      {isApologyParagraph ? (
+                        <div className="flex justify-center my-6">
+                          <AudioPlayer
+                            src="/audio/2026-03-14/Michael_Simoneau_Saves_The_World.mp3"
+                            title="Why Michael Simoneau is Objectively Sane... and Why You Are Not"
+                          />
+                        </div>
+                      ) : null}
+                    </React.Fragment>
+                  );
+                })}
+                {!hasApologyAnchor && contentBlocks.length > 0 ? (
+                  <>
+                    <hr className="border-t border-[#0b1a3a] my-4" />
+                    <div className="flex justify-center my-6">
+                      <AudioPlayer
+                        src="/audio/2026-03-14/Michael_Simoneau_Saves_The_World.mp3"
+                        title="Why Michael Simoneau is Objectively Sane... and Why You Are Not"
+                      />
                     </div>
-                  </span>
-                  <br />
-                  <div className="text-right mt-8">- Michael Simoneau</div>
-                </blockquote>
+                  </>
+                ) : null}
               </div>
             </motion.div>
           </motion.div>
