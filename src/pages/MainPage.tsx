@@ -402,9 +402,9 @@ export const MainPage: React.FC = () => {
         <MainNav scrollContainerId="new-main-page-scroll-container" />
 
         {/* === ACT I: THE INTRODUCTION === */}
-        <div id="about" className="relative">
+        <div id="audio" className="relative">
           <section>
-            <HeroSection featuredBlog={latestBlog} />
+            <HeroSection featuredBlog={latestBlog ? blogData.find(blog => blog.date === latestBlog.toISOString()) : undefined} />
           </section>
         </div>
 
