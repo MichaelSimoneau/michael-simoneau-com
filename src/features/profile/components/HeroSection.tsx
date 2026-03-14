@@ -18,14 +18,18 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ featuredBlog }) => {
   useEffect(() => {
     if (override.value.playlist.track !== undefined) {
       dispatch({
-        type: 'PLAYLIST_TRACK_CHANGED',
+        type: "PLAYLIST_TRACK_CHANGED",
         trackIndex: Math.max(0, override.value.playlist.track - 1),
       });
     }
     if (override.value.playlist.autoplay) {
-      dispatch({ type: 'PLAYLIST_PLAYING' });
+      dispatch({ type: "PLAYLIST_PLAYING" });
     }
-  }, [dispatch, override.value.playlist.autoplay, override.value.playlist.track]);
+  }, [
+    dispatch,
+    override.value.playlist.autoplay,
+    override.value.playlist.track,
+  ]);
 
   return (
     <section
@@ -47,13 +51,51 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ featuredBlog }) => {
         <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4">
           Michael Simoneau
         </h1>
-        <p className="text-xl sm:text-2xl md:text-3xl text-cyan-400 font-semibold mb-2">
-          From Enterprise Architecture to The Human Dollar
-        </p>
+        <h2 className="text-xl sm:text-2xl md:text-3xl text-cyan-400 font-semibold mb-2">
+          Save the US Dollar by Saving the World
+        </h2>
+        <div className="mx-auto mt-6 w-full max-w-2xl px-3 grid grid-cols-2 sm:grid-cols-4 gap-4 justify-items-center items-end relative z-10">
+          <a
+            href="https://HashWeb.Network"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="bento-tile col-span-2 sm:col-span-1 flex flex-col items-center justify-center bg-gradient-to-br from-cyan-900/80 via-gray-900/80 to-blue-900/90 border border-cyan-400/30 rounded-xl shadow-xl p-4 w-full transition-transform hover:scale-105 hover:border-cyan-200 focus:outline-none focus:ring-2 focus:ring-cyan-400"
+            style={{ gridRow: 'span 2' }}
+          >
+            <span className="font-semibold text-cyan-300 text-lg text-center">HashWeb.Network</span>
+          </a>
+          <a
+            href="https://TheHumanDollar.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="bento-tile flex flex-col items-center justify-center bg-gradient-to-br from-amber-900/70 via-gray-900/80 to-yellow-900/80 border border-amber-400/30 rounded-xl shadow-xl p-4 w-full transition-transform hover:scale-105 hover:border-amber-200 focus:outline-none focus:ring-2 focus:ring-amber-400"
+          >
+            <span className="font-semibold text-amber-300 text-lg text-center">
+              The Human Dollar <span className="text-sm text-amber-200">(#THD)</span>
+            </span>
+          </a>
+          <a
+            href="https://ZerothTheory.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="bento-tile flex flex-col items-center justify-center bg-gradient-to-br from-indigo-900/80 via-gray-900/80 to-sky-900/80 border border-sky-400/30 rounded-xl shadow-xl p-4 w-full transition-transform hover:scale-105 hover:border-sky-200 focus:outline-none focus:ring-2 focus:ring-sky-400"
+            style={{ gridRow: 'span 2' }}
+          >
+            <span className="font-semibold text-sky-300 text-lg text-center">Zeroth Theory</span>
+          </a>
+          <a
+            href="https://CryptoFabric.Cloud"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="bento-tile flex flex-col items-center justify-center bg-gradient-to-br from-fuchsia-900/80 via-gray-900/80 to-pink-900/80 border border-fuchsia-400/30 rounded-xl shadow-xl p-4 w-full transition-transform hover:scale-105 hover:border-fuchsia-200 focus:outline-none focus:ring-2 focus:ring-fuchsia-400"
+          >
+            <span className="font-semibold text-fuchsia-300 text-lg text-center">#CryptoFabric Cloud</span>
+          </a>
+        </div>
         <p className="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto mb-8">
           THD is your employee. Put it to work and it pays you back for every $1
-          spent that grows to the $65,535 cap. Stagnation is a firing offense — idle
-          capital enters early retirement. This is not speculation. This is
+          spent that grows to the $65,535 cap. Stagnation is a firing offense —
+          idle capital enters early retirement. This is not speculation. This is
           Metabolic Reality.
         </p>
       </motion.div>
