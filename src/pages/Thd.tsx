@@ -220,6 +220,64 @@ export const Thd: React.FC = () => {
             </div>
           </motion.section>
 
+          <motion.section
+            className="mb-12"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.35 }}
+          >
+            <a
+              href="https://topsmokevape.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group block rounded-2xl bg-gradient-to-br from-amber-900/30 via-gray-900/80 to-gray-900/90 border border-amber-700/40 hover:border-amber-400/70 shadow-2xl shadow-black/40 hover:shadow-amber-900/30 transition-all duration-300 p-6 md:p-8"
+              aria-label="Visit Top Smoke & Vape, the first organization to accept THD"
+            >
+              <div className="grid md:grid-cols-[220px,1fr] gap-6 md:gap-8 items-center">
+                <div className="rounded-xl border border-amber-800/40 bg-black/50 p-4 flex items-center justify-center">
+                  <img
+                    src="/partners/top-smoke-vape-logo.png"
+                    alt="Top Smoke & Vape logo"
+                    className="w-full max-w-[190px] h-auto object-contain"
+                  />
+                </div>
+
+                <div className="text-left">
+                  <div className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-amber-300 bg-amber-400/10 border border-amber-500/30 rounded-full px-3 py-1 mb-4">
+                    Very First Organization to Accept THD
+                  </div>
+
+                  <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">
+                    Top Smoke &amp; Vape
+                  </h2>
+                  <p className="text-amber-200/90 text-sm md:text-base mb-4">
+                    Top Smoke &amp; Vape | Premium Smoke Shop
+                  </p>
+
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    <span className="text-xs md:text-sm text-gray-200 bg-gray-800/80 border border-gray-700 rounded-full px-3 py-1">Authorized Dealer</span>
+                    <span className="text-xs md:text-sm text-gray-200 bg-gray-800/80 border border-gray-700 rounded-full px-3 py-1">Est. 2022</span>
+                    <span className="text-xs md:text-sm text-gray-200 bg-gray-800/80 border border-gray-700 rounded-full px-3 py-1">10:00 AM - 10:00 PM Daily</span>
+                  </div>
+
+                  <p className="text-sm md:text-base text-gray-300 mb-1">
+                    2804 SOM Center Rd., Willoughby Hills, OH 44094
+                  </p>
+                  <p className="text-sm md:text-base text-gray-300 mb-1">
+                    440-710-6072
+                  </p>
+                  <p className="text-sm md:text-base text-gray-300 mb-6">
+                    @TopSmoke_Vape
+                  </p>
+
+                  <span className="inline-flex items-center px-5 py-3 bg-amber-500 group-hover:bg-amber-400 text-black font-bold rounded-lg transition-colors">
+                    Visit TopSmokeVape.com
+                  </span>
+                </div>
+              </div>
+            </a>
+          </motion.section>
+
           {/* CTA Section */}
           <motion.section
             className="text-center mb-12"

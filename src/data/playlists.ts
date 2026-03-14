@@ -78,6 +78,9 @@ const cleanPlaylist = podcastsToPlaylist({
     "/audio/2026-03-11/Michael_Simoneau.mp3",
   //>> GROUP: "HashWeb.Network & The Human Dollar"
   EXPANDED_0: "HashWeb.Network & The Human Dollar",
+  "Michael Simoneau Saves The World":
+    "/audio/2026-03-14/Michael_Simoneau_Saves_The_World.mp3",
+  COLLAPSE_0: "Further Down The Rabbit Hole...",
   "Why Michael Simoneau Engineered Expiring Money":
     "/audio/2026-03-14/Why_Michael_Simoneau_engineered_expiring_money.mp3",
   // Track #5 - 2026-03-12
@@ -86,6 +89,9 @@ const cleanPlaylist = podcastsToPlaylist({
   // Track #5 - 2026-03-12
   "Your Face Is the HashWeb Wallet":
     "/audio/2026-03-13/Your_Face_Is_the_HashWeb_Wallet.mp3",
+  // Track #7 - 2026-03-13
+  "Reality as a 16-bit Headless Server":
+    "/audio/2026-03-13/Reality_as_a_16-bit_Headless_Server.mp3",
   // Track #8 - 2026-03-13
   "The Meritocracy of the Decaying Human Dollar":
     "/audio/2026-03-14/The_meritocracy_of_the_decaying_Human_Dollar.mp3",
@@ -102,10 +108,7 @@ const cleanPlaylist = podcastsToPlaylist({
   "Forensic mapping of the Zeroth stack":
     "/audio/2026-03-10/Forensic_mapping_of_the_Zeroth_stack.mp3",
   //>> GROUP: "Mind of Michael Simoneau"
-  COLLAPSED_0: "From the Mind of Michael Simoneau...",
-  // Track #7 - 2026-03-13
-  "Reality as a 16-bit Headless Server":
-    "/audio/2026-03-13/Reality_as_a_16-bit_Headless_Server.mp3",
+  EXPANDED_1: "From the Mind of Michael Simoneau...",
   // Track #10 - 2026-03-14
   '"Agency is Authority Not Control" - Michael Simoneau':
     "/audio/2026-03-14/Agency_is_Authority_Not_Control.mp3",

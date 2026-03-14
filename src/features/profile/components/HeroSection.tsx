@@ -52,12 +52,16 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ featuredBlog }) => {
           Michael Simoneau
         </h1>
         <h2 className="text-xl sm:text-2xl md:text-3xl text-cyan-400 font-semibold mb-2">
-          <span className="font-bold">Saving </span>the<span className="font-bold"> US Dollar...</span>
-          <i> by <span className="font-bold">Saving the World</span>!</i>
+          <span className="font-bold">Saving </span>the
+          <span className="font-bold"> US Dollar...</span>
+          <i>
+            {" "}
+            by <span className="font-bold">Saving the World</span>!
+          </i>
         </h2>
         <div className="w-full max-w-3xl mx-auto mt-4 mb-8 px-1 sm:px-0">
           <div className="bg-gray-900/60 backdrop-blur-sm border border-amber-800/30 rounded-xl p-5 sm:p-6 text-center">
-            <div className="mx-auto mb-4 w-full max-w-4xl px-1 sm:px-2 grid grid-cols-4 gap-y-0.5 gap-x-1 sm:gap-x-2 items-center">
+            <div className="mx-auto mb-4 w-full max-w-4xl px-1 sm:px-2 grid grid-cols-2 md:grid-cols-4 gap-y-0.5 gap-x-1 sm:gap-x-2 items-center">
               <div className="w-full">
                 <a
                   href="https://TheHumanDollar.com"
@@ -124,10 +128,65 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ featuredBlog }) => {
               </div>
             </div>
             <p className="text-base sm:text-lg md:text-xl text-gray-300 leading-relaxed">
-              THD is your employee. Put it to work and it pays you back for
-              every $1 spent that grows to the $65,535 cap. Stagnation is a
-              firing offense — idle capital enters early retirement. This is not
-              speculation. This is Metabolic Reality.
+              <span className="block mb-4">
+                <span className="font-semibold text-yellow-500">
+                  Your journey begins with a
+                </span>{" "}
+                <span className="font-semibold text-green-200">
+                  single U.S. dollar
+                </span>
+                .
+              </span>
+
+              <span className="block mb-4">
+                <strong className="font-semibold text-white">
+                  The Human Dollar (THD)
+                </strong>{" "}
+                is the world's first metabolic currency. It is not an asset you
+                hoard; it is an asset that lives, breathes, and expires based on
+                the velocity of your attention. Ownership is mathematically
+                restricted to exactly one container per unique identity. You can
+                step into this new economic reality today with a maximum initial
+                deposit of exactly <span className="font-semibold">$1 USD</span>
+                .
+              </span>
+
+              <span className="block mb-4">
+                Your access key is the{" "}
+                <strong className="font-semibold text-fuchsia-200">
+                  CryptoFabric App
+                </strong>
+                . By combining a simple biometric face scan with a password,
+                CryptoFabric uses Plaid and Stripe to automatically provision
+                your Web3 wallet, your THD container, and your genesis block
+                entirely under the hood.
+              </span>
+
+              <span className="block mb-4">
+                This app is your direct entry point into the{" "}
+                <strong className="font-semibold text-cyan-200">
+                  HashWeb.Network
+                </strong>
+                —a living, self-healing internet where data owns itself and
+                truth is a mathematical inevitability. This is not a traditional
+                blockchain; it is a directed acyclic graph where the runtime
+                itself is the chain.
+              </span>
+
+              <span className="block mb-4">
+                The entire ecosystem is powered by{" "}
+                <strong className="font-semibold text-sky-200">
+                  Zeroth Theory
+                </strong>
+                , the immutable computational physics that proves stagnation is
+                death, and velocity is wealth.
+              </span>
+
+              <span className="block mb-4">
+                <span className="font-semibold text-amber-200">Welcome to </span>
+                <span className="font-semibold text-amber-400">Deterministic Truth</span>
+                .
+              </span>
             </p>
           </div>
         </div>
