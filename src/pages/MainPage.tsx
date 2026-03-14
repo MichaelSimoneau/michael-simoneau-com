@@ -1,24 +1,17 @@
-import React, { useCallback, useEffect, useLayoutEffect, useMemo, useRef } from 'react';
+import React, { Suspense, lazy, useCallback, useEffect, useLayoutEffect, useMemo, useRef } from 'react';
 import { usePathname } from 'expo-router';
 import { motion } from 'framer-motion';
 import { MainNav } from '../layout/MainNav';
 import { HeroSection } from '../features/profile/components/HeroSection';
-import { VideoHeroSection } from '../features/profile/components/VideoHeroSection';
-import { MusicSection } from '../features/profile/components/MusicSection';
-import { AIInterviewSection } from '../features/interview/components/AIInterviewSection';
 import { StoneXProject } from '../features/portfolio/components/StoneXProject';
 import { JPMorganProject } from '../features/portfolio/components/JPMorganProject';
 import { AboutMeSection } from '../features/profile/components/AboutMeSection';
 import { Testimonials } from '../features/profile/components/Testimonials';
-import { BlogTeaser } from '../features/blog/components/BlogTeaser';
 import { ContactFooter } from '../layout/ContactFooter';
 import { AnimatedBackground } from '../backgrounds/AnimatedBackground';
 import { useScrollContext } from '../contexts/ScrollContext';
 import { Seo } from '../foundation/seo/Seo';
-import { ZeroHero } from '../features/zero-truth/components/ZeroHero';
 // import { ZerothTheorySection } from '../features/zero-truth/components/ZerothTheorySection';
-import { CryptoFabricHero } from '../features/cryptofabric/components/CryptoFabricHero';
-import { ThdHero } from '../features/thd';
 import { blogData } from '../data/blogData';
 import { useProfileFlowDispatch, useProfileFlowState } from '../features/profile/flow';
 
@@ -31,6 +24,30 @@ function easeIn(t: number): number {
 }
 
 const DEFAULT_SECTION_OFFSET_PX = 80;
+const DeferredSectionFallback: React.FC = () => (
+  <div className="min-h-[55vh] w-full bg-black/15" aria-hidden="true" />
+);
+const LazyVideoHeroSection = lazy(async () => ({
+  default: (await import('../features/profile/components/VideoHeroSection')).VideoHeroSection,
+}));
+const LazyMusicSection = lazy(async () => ({
+  default: (await import('../features/profile/components/MusicSection')).MusicSection,
+}));
+const LazyAIInterviewSection = lazy(async () => ({
+  default: (await import('../features/interview/components/AIInterviewSection')).AIInterviewSection,
+}));
+const LazyZeroHero = lazy(async () => ({
+  default: (await import('../features/zero-truth/components/ZeroHero')).ZeroHero,
+}));
+const LazyCryptoFabricHero = lazy(async () => ({
+  default: (await import('../features/cryptofabric/components/CryptoFabricHero')).CryptoFabricHero,
+}));
+const LazyThdHero = lazy(async () => ({
+  default: (await import('../features/thd')).ThdHero,
+}));
+const LazyBlogTeaser = lazy(async () => ({
+  default: (await import('../features/blog/components/BlogTeaser')).BlogTeaser,
+}));
 
 const getMainPageSectionOffset = (sectionId: string): number => {
   // Music has dedicated hero padding; generic nav offset causes awkward landing.
@@ -392,14 +409,20 @@ export const MainPage: React.FC = () => {
         </div>
 
         {/* === CREATIVE & COMMUNITY === */}
-        <MusicSection />
+        <Suspense fallback={<DeferredSectionFallback />}>
+          <LazyMusicSection />
+        </Suspense>
 
         <div id="videos" className="relative">
-          <VideoHeroSection />
+          <Suspense fallback={<DeferredSectionFallback />}>
+            <LazyVideoHeroSection />
+          </Suspense>
         </div>
 
         <div id="interview" className="relative">
-          <AIInterviewSection />
+          <Suspense fallback={<DeferredSectionFallback />}>
+            <LazyAIInterviewSection />
+          </Suspense>
         </div>
 
         {/* === ACT II: THE FOUNDATION (Corporate Past) === */}
@@ -450,20 +473,28 @@ export const MainPage: React.FC = () => {
 
         {/* === ACT III: THE INNOVATION === */}
         <div id="ZerothTheory" className="relative">
-          <ZeroHero />
+          <Suspense fallback={<DeferredSectionFallback />}>
+            <LazyZeroHero />
+          </Suspense>
         </div>
 
         <div id="cryptofabric" className="relative">
-          <CryptoFabricHero />
+          <Suspense fallback={<DeferredSectionFallback />}>
+            <LazyCryptoFabricHero />
+          </Suspense>
         </div>
 
         {/* === ACT IV: THE HUMAN DOLLAR === */}
         <div id="TheHumanDollar" className="relative">
-          <ThdHero />
+          <Suspense fallback={<DeferredSectionFallback />}>
+            <LazyThdHero />
+          </Suspense>
         </div>
 
         <div id="blog" className="relative">
-          <BlogTeaser />
+          <Suspense fallback={<DeferredSectionFallback />}>
+            <LazyBlogTeaser />
+          </Suspense>
         </div>
 
         <div

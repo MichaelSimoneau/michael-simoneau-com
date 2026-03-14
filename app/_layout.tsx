@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect } from 'react';
+import { useEffect } from 'react';
 import { Slot } from 'expo-router';
 import { SpeechProvider } from '../src/contexts/SpeechContext';
 import { ScrollProvider } from '../src/contexts/ScrollContext';
@@ -9,7 +9,7 @@ import '../src/index.css';
 const GA_MEASUREMENT_ID = 'G-58WTRZHT0B';
 
 function useGoogleTag() {
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (typeof document === 'undefined') return;
     if (!document.querySelector(`script[src*="gtag/js?id=${GA_MEASUREMENT_ID}"]`)) {
       const gtagSrcScript = document.createElement('script');

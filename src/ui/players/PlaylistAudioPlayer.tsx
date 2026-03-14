@@ -60,6 +60,98 @@ const isMelindaCollapseDirective = (directive: string) => MELINDA_COLLAPSE_SIDEE
 const isMelindaRestrictedTriggerDirective = (directive: string) => MELINDA_RESTRICTED_TRIGGER_PATTERN.test(directive.trim());
 const isHiddenVideoTriggerDirective = (directive: string) => MELINDA_COLLAPSE_SIDEEFFECT_PATTERN.test(directive.trim());
 const URL_IN_TEXT_PATTERN = /(https?:\/\/[^\s]+)/i;
+const PLAYLIST_METADATA_CACHE_UPDATED_EVENT = 'playlist-metadata-cache-updated';
+
+type MetadataParseResult = {
+  format: { creationTime?: Date };
+  common: {
+    date?: string;
+    originaldate?: string;
+    year?: number;
+    originalyear?: number;
+  };
+};
+
+type ParseBlobFn = (
+  blob: Blob,
+  options?: { skipCovers?: boolean; duration?: boolean },
+) => Promise<MetadataParseResult>;
+
+const sharedTrackDurationsBySrc: Record<string, number | null> = {};
+const sharedTrackCreatedDatesBySrc: Record<string, Date | null> = {};
+const durationProbeInFlight = new Set<string>();
+const createdDateProbeInFlight = new Set<string>();
+const metadataReadySubscribers = new Set<() => void>();
+let isMetadataEnrichmentReady = false;
+let hasInitializedMetadataReadyTrigger = false;
+let metadataParserPromise: Promise<ParseBlobFn | null> | null = null;
+
+const emitPlaylistMetadataCacheUpdated = () => {
+  if (typeof window !== 'undefined') {
+    window.dispatchEvent(new CustomEvent(PLAYLIST_METADATA_CACHE_UPDATED_EVENT));
+  }
+};
+
+const markMetadataEnrichmentReady = () => {
+  if (isMetadataEnrichmentReady) {
+    return;
+  }
+  isMetadataEnrichmentReady = true;
+  metadataReadySubscribers.forEach((notify) => notify());
+};
+
+const subscribeMetadataEnrichmentReady = (notify: () => void) => {
+  metadataReadySubscribers.add(notify);
+  return () => {
+    metadataReadySubscribers.delete(notify);
+  };
+};
+
+const ensureMetadataEnrichmentTrigger = () => {
+  if (typeof window === 'undefined' || hasInitializedMetadataReadyTrigger || isMetadataEnrichmentReady) {
+    return;
+  }
+  hasInitializedMetadataReadyTrigger = true;
+
+  const windowWithIdle = window as Window & {
+    requestIdleCallback?: (callback: () => void, options?: { timeout: number }) => number;
+    cancelIdleCallback?: (id: number) => void;
+  };
+  const cleanups: Array<() => void> = [];
+  let hasSettled = false;
+  const settle = () => {
+    if (hasSettled) {
+      return;
+    }
+    hasSettled = true;
+    cleanups.forEach((cleanup) => cleanup());
+    markMetadataEnrichmentReady();
+  };
+
+  const interactionEvents: Array<keyof WindowEventMap> = ['pointerdown', 'keydown', 'touchstart'];
+  interactionEvents.forEach((eventName) => {
+    const listener = () => settle();
+    window.addEventListener(eventName, listener, { once: true, passive: true });
+    cleanups.push(() => window.removeEventListener(eventName, listener));
+  });
+
+  if (typeof windowWithIdle.requestIdleCallback === 'function') {
+    const idleId = windowWithIdle.requestIdleCallback(() => settle(), { timeout: 2500 });
+    cleanups.push(() => windowWithIdle.cancelIdleCallback?.(idleId));
+  } else {
+    const timeoutId = window.setTimeout(() => settle(), 2500);
+    cleanups.push(() => window.clearTimeout(timeoutId));
+  }
+};
+
+const loadMetadataParserOnce = async (): Promise<ParseBlobFn | null> => {
+  if (!metadataParserPromise) {
+    metadataParserPromise = import('music-metadata-browser')
+      .then((metadataModule) => metadataModule.parseBlob as ParseBlobFn)
+      .catch(() => null);
+  }
+  return metadataParserPromise;
+};
 
 const isFakeTrackSrc = (src: string) => /fake\.mp3$/i.test(src.trim());
 const extractFirstUrl = (text: string): string | null => {
@@ -156,8 +248,15 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
   const [isExpanded, setIsExpanded] = useState(true);
   const [isSeeking, setIsSeeking] = useState(false);
   const [collapsedSections, setCollapsedSections] = useState<Record<string, boolean>>(sectionDefaultCollapsed);
-  const [trackDurationsBySrc, setTrackDurationsBySrc] = useState<Record<string, number | null>>({});
-  const [trackCreatedDatesBySrc, setTrackCreatedDatesBySrc] = useState<Record<string, Date | null>>({});
+  const [, setTrackDurationsBySrc] = useState<Record<string, number | null>>(
+    () => ({ ...sharedTrackDurationsBySrc }),
+  );
+  const [trackCreatedDatesBySrc, setTrackCreatedDatesBySrc] = useState<Record<string, Date | null>>(
+    () => ({ ...sharedTrackCreatedDatesBySrc }),
+  );
+  const [isMetadataEnrichmentEnabled, setIsMetadataEnrichmentEnabled] = useState(
+    () => typeof window === 'undefined' || isMetadataEnrichmentReady,
+  );
   const [isRestrictedFlowActive, setIsRestrictedFlowActive] = useState(false);
   const [activeMelindaSectionId, setActiveMelindaSectionId] = useState<string | null>(null);
 
@@ -166,6 +265,41 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
 
   const currentTrack = playableTracks[currentTrackIndex];
   const currentSectionIndex = playableIndexToSectionIndex[currentTrackIndex] ?? -1;
+
+  useEffect(() => {
+    if (typeof window === 'undefined') {
+      return;
+    }
+    const syncSharedMetadata = () => {
+      setTrackDurationsBySrc((previous) => ({ ...previous, ...sharedTrackDurationsBySrc }));
+      setTrackCreatedDatesBySrc((previous) => ({ ...previous, ...sharedTrackCreatedDatesBySrc }));
+    };
+
+    syncSharedMetadata();
+    window.addEventListener(PLAYLIST_METADATA_CACHE_UPDATED_EVENT, syncSharedMetadata as EventListener);
+    return () => {
+      window.removeEventListener(
+        PLAYLIST_METADATA_CACHE_UPDATED_EVENT,
+        syncSharedMetadata as EventListener,
+      );
+    };
+  }, []);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') {
+      return;
+    }
+    if (isMetadataEnrichmentReady) {
+      setIsMetadataEnrichmentEnabled(true);
+      return;
+    }
+
+    ensureMetadataEnrichmentTrigger();
+    return subscribeMetadataEnrichmentReady(() => {
+      setIsMetadataEnrichmentEnabled(true);
+    });
+  }, []);
+
   const expandedTrackIndices = useMemo(() => {
     return sections.flatMap((section) => {
       const isCollapsed = collapsedSections[section.id] ?? section.defaultCollapsed;
@@ -853,7 +987,7 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
   }, [currentTrack, startRestrictedFlowFromAutoplay]);
 
   useEffect(() => {
-    if (typeof Audio === 'undefined') {
+    if (!isMetadataEnrichmentEnabled || typeof Audio === 'undefined') {
       return;
     }
 
@@ -866,26 +1000,25 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
         if (!isAudioSource(src) || isFakeTrackSrc(src)) {
           return;
         }
-        if (trackDurationsBySrc[src] !== undefined) {
+        if (sharedTrackDurationsBySrc[src] !== undefined || durationProbeInFlight.has(src)) {
           return;
         }
+        durationProbeInFlight.add(src);
 
         const probe = new Audio();
         probe.preload = 'metadata';
 
         const finalizeDuration = (nextDuration: number | null) => {
+          durationProbeInFlight.delete(src);
           if (isDisposed) {
             return;
           }
-          setTrackDurationsBySrc((previous) => {
-            if (previous[src] !== undefined) {
-              return previous;
-            }
-            return {
-              ...previous,
-              [src]: nextDuration,
-            };
-          });
+          if (sharedTrackDurationsBySrc[src] !== undefined) {
+            return;
+          }
+          sharedTrackDurationsBySrc[src] = nextDuration;
+          setTrackDurationsBySrc((previous) => ({ ...previous, [src]: nextDuration }));
+          emitPlaylistMetadataCacheUpdated();
         };
 
         const handleLoadedMetadata = () => {
@@ -904,6 +1037,7 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
         probe.load();
 
         cleanupCallbacks.push(() => {
+          durationProbeInFlight.delete(src);
           probe.removeEventListener('loadedmetadata', handleLoadedMetadata);
           probe.removeEventListener('error', handleError);
           probe.removeAttribute('src');
@@ -917,10 +1051,10 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
       window.clearTimeout(timerId);
       cleanupCallbacks.forEach((cleanup) => cleanup());
     };
-  }, [playableTracks, trackDurationsBySrc]);
+  }, [isMetadataEnrichmentEnabled, playableTracks]);
 
   useEffect(() => {
-    if (typeof fetch === 'undefined') {
+    if (!isMetadataEnrichmentEnabled || typeof fetch === 'undefined') {
       return;
     }
 
@@ -947,23 +1081,7 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
 
     const timerId = window.setTimeout(() => {
       void (async () => {
-        let parseBlob: ((blob: Blob, options?: { skipCovers?: boolean; duration?: boolean }) => Promise<{
-          format: { creationTime?: Date };
-          common: {
-            date?: string;
-            originaldate?: string;
-            year?: number;
-            originalyear?: number;
-          };
-        }>) | null = null;
-
-        try {
-          const metadataModule = await import('music-metadata-browser');
-          parseBlob = metadataModule.parseBlob;
-        } catch {
-          // Do not block rendering if metadata parser cannot load in this runtime.
-          parseBlob = null;
-        }
+        const parseBlob = await loadMetadataParserOnce();
 
         if (!parseBlob || isDisposed) {
           return;
@@ -973,24 +1091,22 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
           if (!isAudioSource(src) || isFakeTrackSrc(src)) {
             return;
           }
-          if (trackCreatedDatesBySrc[src] !== undefined) {
+          if (sharedTrackCreatedDatesBySrc[src] !== undefined || createdDateProbeInFlight.has(src)) {
             return;
           }
+          createdDateProbeInFlight.add(src);
 
           const finalizeCreatedDate = (nextCreatedDate: Date | null) => {
+            createdDateProbeInFlight.delete(src);
             if (isDisposed) {
               return;
             }
-
-            setTrackCreatedDatesBySrc((previous) => {
-              if (previous[src] !== undefined) {
-                return previous;
-              }
-              return {
-                ...previous,
-                [src]: nextCreatedDate,
-              };
-            });
+            if (sharedTrackCreatedDatesBySrc[src] !== undefined) {
+              return;
+            }
+            sharedTrackCreatedDatesBySrc[src] = nextCreatedDate;
+            setTrackCreatedDatesBySrc((previous) => ({ ...previous, [src]: nextCreatedDate }));
+            emitPlaylistMetadataCacheUpdated();
           };
 
           const controller = new AbortController();
@@ -1030,7 +1146,7 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
       window.clearTimeout(timerId);
       abortControllers.forEach((controller) => controller.abort());
     };
-  }, [playableTracks, trackCreatedDatesBySrc]);
+  }, [isMetadataEnrichmentEnabled, playableTracks]);
 
   // ── Controls ───────────────────────────────────────────────────────────
   const handlePlayPause = useCallback(() => {
@@ -1188,13 +1304,6 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
     return `${minutes}:${seconds.toString().padStart(2, '0')}`;
   };
 
-  const formatTrackDuration = (value: number | null | undefined) => {
-    if (value === null || value === undefined || !Number.isFinite(value) || value <= 0) {
-      return '';
-    }
-    return formatTime(value);
-  };
-
   const formatTrackCreatedDate = (value: Date | null | undefined) => {
     if (!value || !Number.isFinite(value.getTime())) {
       return '';
@@ -1213,56 +1322,64 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
 
         {/* ── Control Bar ─────────────────────────────────────────── */}
         <div className="relative z-10 px-4 pt-4 pb-3">
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-1.5 sm:gap-3">
             {/* Skip Back */}
             <motion.button
               onClick={handleSkipBack}
-              className="flex-shrink-0 h-8 w-8 flex items-center justify-center rounded-full hover:bg-white/10 transition-colors"
+              className="flex-shrink-0 h-10 w-10 sm:h-8 sm:w-8 flex items-center justify-center rounded-full hover:bg-white/10 transition-colors"
               whileTap={{ scale: 0.9 }}
               aria-label="Previous track"
             >
-              <SkipBack className="w-4 h-4 text-gray-300" />
+              <span className="h-6 w-6 sm:h-8 sm:w-8 rounded-full flex items-center justify-center">
+                <SkipBack className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gray-300" />
+              </span>
             </motion.button>
 
             {/* Play / Pause */}
             <motion.button
               onClick={handlePlayPause}
-              className="flex-shrink-0 h-10 w-10 rounded-full bg-cyan-400 hover:bg-cyan-300 transition-colors flex items-center justify-center shadow-lg shadow-cyan-400/20"
+              className="flex-shrink-0 h-11 w-11 sm:h-10 sm:w-10 rounded-full transition-colors flex items-center justify-center"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               aria-label={isPlaying ? 'Pause' : 'Play'}
             >
+              <span className="h-7 w-7 sm:h-10 sm:w-10 rounded-full bg-cyan-400 hover:bg-cyan-300 transition-colors flex items-center justify-center shadow-lg shadow-cyan-400/20">
               {isPlaying ? (
-                <Pause className="w-5 h-5 text-black/80" />
+                <Pause className="w-4 h-4 sm:w-5 sm:h-5 text-black/80" />
               ) : (
-                <Play className="w-5 h-5 text-black/80 ml-0.5" />
+                <Play className="w-4 h-4 sm:w-5 sm:h-5 text-black/80 ml-0.5" />
               )}
+              </span>
             </motion.button>
 
             {/* Skip Forward */}
             <motion.button
               onClick={handleSkipForward}
-              className="flex-shrink-0 h-8 w-8 flex items-center justify-center rounded-full hover:bg-white/10 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+              className="flex-shrink-0 h-10 w-10 sm:h-8 sm:w-8 flex items-center justify-center rounded-full hover:bg-white/10 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
               whileTap={{ scale: 0.9 }}
               aria-label="Next track"
               disabled={nextExpandedTrackIndex === null}
             >
-              <SkipForward className="w-4 h-4 text-gray-300" />
+              <span className="h-6 w-6 sm:h-8 sm:w-8 rounded-full flex items-center justify-center">
+                <SkipForward className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gray-300" />
+              </span>
             </motion.button>
 
             {/* Skip to next section */}
             <motion.button
               onClick={handleSkipToNextSection}
-              className="flex-shrink-0 h-8 w-8 flex items-center justify-center rounded-full hover:bg-white/10 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+              className="flex-shrink-0 h-10 w-10 sm:h-8 sm:w-8 flex items-center justify-center rounded-full hover:bg-white/10 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
               whileTap={{ scale: 0.9 }}
               aria-label="Skip to next section"
               disabled={nextSectionStartTrackIndex === null}
             >
-              <ChevronsRight className="w-4 h-4 text-gray-300" />
+              <span className="h-6 w-6 sm:h-8 sm:w-8 rounded-full flex items-center justify-center">
+                <ChevronsRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gray-300" />
+              </span>
             </motion.button>
 
             {/* Track title + time */}
-            <div className="flex-1 min-w-0 ml-1">
+            <div className="flex-1 min-w-0 ml-0.5 sm:ml-1">
               <div className="flex items-center gap-2">
                 <Volume2 className="w-3.5 h-3.5 text-cyan-400 flex-shrink-0" />
                 <span className="text-white text-sm font-medium truncate">
@@ -1382,15 +1499,9 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
                             const isCurrentlyPlaying = isActive && isPlaying;
                             const linkUrl = extractFirstUrl(track.title);
                             const isLinkRow = isFakeTrackSrc(track.src) && linkUrl !== null;
-                            const trackDurationLabel = !isAudioSource(track.src) || isFakeTrackSrc(track.src)
-                              ? ''
-                              : formatTrackDuration(trackDurationsBySrc[track.src]);
                             const trackCreatedDateLabel = !isAudioSource(track.src) || isFakeTrackSrc(track.src)
                               ? ''
                               : formatTrackCreatedDate(trackCreatedDatesBySrc[track.src]);
-                            const trackMetaLabel = [trackDurationLabel, trackCreatedDateLabel]
-                              .filter((part) => part.length > 0)
-                              .join(' | ');
 
                             const trackRowContent = (
                               <>
@@ -1411,22 +1522,38 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
                                   )}
                                 </span>
 
+                                {/* Timeline date slot */}
+                                <span
+                                  className="relative flex-shrink-0 w-2 h-6 overflow-visible"
+                                  aria-hidden="true"
+                                >
+                                  <span
+                                    className={`absolute left-1/2 -translate-x-1/2 -top-3 -bottom-3 w-px ${
+                                      isActive ? 'bg-cyan-400/60' : 'bg-white/15'
+                                    }`}
+                                  />
+                                  {trackCreatedDateLabel && (
+                                    <span
+                                      className={`absolute right-full mr-1 top-1/2 -translate-y-1/2 z-10 px-1 rounded-sm text-[9px] tabular-nums leading-none whitespace-nowrap ${
+                                        isActive
+                                          ? 'text-cyan-200 bg-cyan-500/20'
+                                          : 'text-gray-300 bg-gray-900/75'
+                                      }`}
+                                    >
+                                      {trackCreatedDateLabel}
+                                    </span>
+                                  )}
+                                </span>
+
                                 {/* Track title */}
                                 <span
-                                  className={`flex-1 text-sm truncate ${
+                                  className={`flex-1 min-w-0 text-sm truncate ${
                                     isActive
                                       ? 'text-cyan-400 font-medium'
                                       : 'text-gray-300 group-hover:text-white'
                                   }`}
                                 >
                                   {track.title}
-                                </span>
-                                <span
-                                  className={`flex-shrink-0 min-w-[6.5rem] text-right text-xs tabular-nums ${
-                                    isActive ? 'text-cyan-300' : 'text-gray-500'
-                                  }`}
-                                >
-                                  {trackMetaLabel}
                                 </span>
                               </>
                             );
