@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { PlaylistAudioPlayer } from "../../../ui/players/PlaylistAudioPlayer";
 import type { BlogData } from "../../../data/blogData";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, ExternalLink } from "lucide-react";
 import { cleanPlaylist } from "../../../data/playlists";
 import { useProfileFlowDispatch, useProfileFlowState } from "../flow";
 
@@ -62,11 +62,15 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ featuredBlog }) => {
                   href="https://TheHumanDollar.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex w-full items-center justify-center px-0 py-0 text-center text-[11px] sm:text-xs leading-none font-medium text-amber-300 decoration-amber-300/70 underline-offset-2 transition-colors hover:text-amber-200 hover:underline focus:outline-none focus:ring-1 focus:ring-amber-400/80 focus:ring-offset-1 focus:ring-offset-black/50"
+                  className="inline-flex w-full items-center justify-center gap-1 px-0 py-0 text-center text-[11px] sm:text-xs leading-none font-medium text-amber-300 decoration-amber-300/70 underline-offset-2 transition-colors hover:text-amber-200 hover:underline focus:outline-none focus:ring-1 focus:ring-amber-400/80 focus:ring-offset-1 focus:ring-offset-black/50"
                 >
                   <span className="text-inherit whitespace-nowrap">
                     The Human Dollar
                   </span>
+                  <ExternalLink
+                    aria-hidden="true"
+                    className="h-3 w-3 shrink-0 text-inherit"
+                  />
                 </a>
               </div>
               <div className="w-full">
@@ -74,11 +78,15 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ featuredBlog }) => {
                   href="https://HashWeb.Network"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex w-full items-center justify-center px-0 py-0 text-center text-[11px] sm:text-xs leading-none font-medium text-cyan-300 decoration-cyan-300/70 underline-offset-2 transition-colors hover:text-cyan-200 hover:underline focus:outline-none focus:ring-1 focus:ring-cyan-400/80 focus:ring-offset-1 focus:ring-offset-black/50"
+                  className="inline-flex w-full items-center justify-center gap-1 px-0 py-0 text-center text-[11px] sm:text-xs leading-none font-medium text-cyan-300 decoration-cyan-300/70 underline-offset-2 transition-colors hover:text-cyan-200 hover:underline focus:outline-none focus:ring-1 focus:ring-cyan-400/80 focus:ring-offset-1 focus:ring-offset-black/50"
                 >
                   <span className="text-inherit whitespace-nowrap">
                     HashWeb.Network
                   </span>
+                  <ExternalLink
+                    aria-hidden="true"
+                    className="h-3 w-3 shrink-0 text-inherit"
+                  />
                 </a>
               </div>
               <div className="w-full">
@@ -86,11 +94,15 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ featuredBlog }) => {
                   href="https://ZerothTheory.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex w-full items-center justify-center px-0 py-0 text-center text-[11px] sm:text-xs leading-none font-medium text-sky-300 decoration-sky-300/70 underline-offset-2 transition-colors hover:text-sky-200 hover:underline focus:outline-none focus:ring-1 focus:ring-sky-400/80 focus:ring-offset-1 focus:ring-offset-black/50"
+                  className="inline-flex w-full items-center justify-center gap-1 px-0 py-0 text-center text-[11px] sm:text-xs leading-none font-medium text-sky-300 decoration-sky-300/70 underline-offset-2 transition-colors hover:text-sky-200 hover:underline focus:outline-none focus:ring-1 focus:ring-sky-400/80 focus:ring-offset-1 focus:ring-offset-black/50"
                 >
                   <span className="text-inherit whitespace-nowrap">
                     Zeroth Theory
                   </span>
+                  <ExternalLink
+                    aria-hidden="true"
+                    className="h-3 w-3 shrink-0 text-inherit"
+                  />
                 </a>
               </div>
               <div className="w-full">
@@ -98,11 +110,15 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ featuredBlog }) => {
                   href="https://CryptoFabric.Cloud"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex w-full items-center justify-center px-0 py-0 text-center text-[11px] sm:text-xs leading-none font-medium text-fuchsia-300 decoration-fuchsia-300/70 underline-offset-2 transition-colors hover:text-fuchsia-200 hover:underline focus:outline-none focus:ring-1 focus:ring-fuchsia-400/80 focus:ring-offset-1 focus:ring-offset-black/50"
+                  className="inline-flex w-full items-center justify-center gap-1 px-0 py-0 text-center text-[11px] sm:text-xs leading-none font-medium text-fuchsia-300 decoration-fuchsia-300/70 underline-offset-2 transition-colors hover:text-fuchsia-200 hover:underline focus:outline-none focus:ring-1 focus:ring-fuchsia-400/80 focus:ring-offset-1 focus:ring-offset-black/50"
                 >
                   <span className="text-inherit whitespace-nowrap">
                     #CryptoFabric
                   </span>
+                  <ExternalLink
+                    aria-hidden="true"
+                    className="h-3 w-3 shrink-0 text-inherit"
+                  />
                 </a>
               </div>
             </div>
