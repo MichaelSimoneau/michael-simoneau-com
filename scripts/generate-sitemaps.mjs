@@ -10,6 +10,7 @@ const DEFAULT_OUTPUT_DIR = "public";
 const DEFAULT_BLOG_DATA_FILE = "src/features/blog/data/posts.ts";
 const DEFAULT_APP_DIR = "app";
 const DEFAULT_PAGES_SITEMAP_FILE = "public/sitemap-pages.xml";
+const EXCLUDED_PAGE_ROUTES = new Set(["/melinda"]);
 
 const HELP_TEXT = `Generate sitemap XML files for the site.
 
@@ -250,6 +251,28 @@ function resolveDefaultPageMetadata(relativePath) {
   return { changefreq: "weekly", priority: "0.85" };
 }
 
+function normalizeRouteForExclusion(routeLike) {
+  let pathCandidate = routeLike;
+
+  try {
+    pathCandidate = new URL(routeLike).pathname;
+  } catch {
+    // Keep non-URL values as-is (e.g., "/melinda", "/melinda#section").
+  }
+
+  const withoutHash = pathCandidate.split("#")[0];
+  const withoutQuery = withoutHash.split("?")[0];
+  if (withoutQuery === "/") {
+    return "/";
+  }
+  return withoutQuery.replace(/\/$/u, "");
+}
+
+function isExcludedRoute(relativePath) {
+  const normalizedPath = normalizeRouteForExclusion(relativePath);
+  return EXCLUDED_PAGE_ROUTES.has(normalizedPath);
+}
+
 export function buildSitemaps({
   baseUrl = DEFAULT_BASE_URL,
   outputDir = DEFAULT_OUTPUT_DIR,
@@ -265,7 +288,9 @@ export function buildSitemaps({
   const absoluteAppDir = path.resolve(process.cwd(), appDir);
   const absoluteExistingPagesSitemapFile = path.resolve(process.cwd(), existingPagesSitemapFile);
 
-  const routePaths = [...new Set(collectRoutes(absoluteAppDir))].sort();
+  const routePaths = [...new Set(collectRoutes(absoluteAppDir))]
+    .filter((relativePath) => !isExcludedRoute(relativePath))
+    .sort();
   if (routePaths.length === 0) {
     throw new Error(`No routes discovered in ${absoluteAppDir}`);
   }
@@ -274,8 +299,8 @@ export function buildSitemaps({
     absoluteExistingPagesSitemapFile,
     canonicalBaseUrl,
   );
-  const fragmentPaths = [...existingPageMetadata.keys()].filter((relativePath) =>
-    relativePath.includes("#"),
+  const fragmentPaths = [...existingPageMetadata.keys()].filter(
+    (relativePath) => relativePath.includes("#") && !isExcludedRoute(relativePath),
   );
 
   const pages = [...new Set([...routePaths, ...fragmentPaths])].sort();

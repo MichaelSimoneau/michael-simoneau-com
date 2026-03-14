@@ -77,7 +77,7 @@ export const ZeroHero: React.FC = () => {
           <a
             href="https://ZerothTheory.com"
             target="_blank"
-            rel="noopener noreferrer"
+            rel="noopener"
             className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-emerald-500 to-cyan-600 hover:from-emerald-600 hover:to-cyan-700 text-white font-bold rounded-lg transition-all duration-300 shadow-lg hover:shadow-emerald-500/50"
           >
             ZerothTheory.com
@@ -86,7 +86,7 @@ export const ZeroHero: React.FC = () => {
           <a
             href="https://0thth.com/"
             target="_blank"
-            rel="noopener noreferrer"
+            rel="noopener"
             className="inline-flex items-center px-8 py-4 bg-gray-800 hover:bg-gray-700 text-white font-bold rounded-lg transition-colors duration-300 border border-gray-700"
           >
             0THTH.com

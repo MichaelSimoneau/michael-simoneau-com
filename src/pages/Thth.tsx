@@ -156,7 +156,7 @@ export const Thth: React.FC = () => {
                 <a
                   href="https://0thth.com/dashboard"
                   target="_blank"
-                  rel="noopener noreferrer"
+                  rel="noopener"
                   className="inline-flex items-center text-purple-400 hover:text-purple-300 transition-colors"
                 >
                   View Dashboard →
@@ -173,7 +173,7 @@ export const Thth: React.FC = () => {
                 <a
                   href="https://0thth.com/mint"
                   target="_blank"
-                  rel="noopener noreferrer"
+                  rel="noopener"
                   className="inline-flex items-center text-purple-400 hover:text-purple-300 transition-colors"
                 >
                   Mint THTH →
@@ -190,7 +190,7 @@ export const Thth: React.FC = () => {
                 <a
                   href="https://0thth.com/whitepapers"
                   target="_blank"
-                  rel="noopener noreferrer"
+                  rel="noopener"
                   className="inline-flex items-center text-purple-400 hover:text-purple-300 transition-colors"
                 >
                   Read Whitepaper →
@@ -207,7 +207,7 @@ export const Thth: React.FC = () => {
                 <a
                   href="https://ZerothTheory.com"
                   target="_blank"
-                  rel="noopener noreferrer"
+                  rel="noopener"
                   className="inline-flex items-center text-purple-400 hover:text-purple-300 transition-colors"
                 >
                   Explore Visualization →
@@ -304,7 +304,7 @@ export const Thth: React.FC = () => {
                 <a
                   href="https://0thth.com/dashboard"
                   target="_blank"
-                  rel="noopener noreferrer"
+                  rel="noopener"
                   className="inline-block px-8 py-3 bg-purple-500 hover:bg-purple-600 text-white font-bold rounded-lg transition-colors"
                 >
                   View Dashboard
@@ -312,7 +312,7 @@ export const Thth: React.FC = () => {
                 <a
                   href="https://0thth.com/mint"
                   target="_blank"
-                  rel="noopener noreferrer"
+                  rel="noopener"
                   className="inline-block px-8 py-3 bg-gray-800 hover:bg-gray-700 text-white font-bold rounded-lg transition-colors border border-gray-700"
                 >
                   Mint THTH
@@ -320,7 +320,7 @@ export const Thth: React.FC = () => {
                 <a
                   href="https://ZerothTheory.com"
                   target="_blank"
-                  rel="noopener noreferrer"
+                  rel="noopener"
                   className="inline-block px-8 py-3 bg-gray-800 hover:bg-gray-700 text-white font-bold rounded-lg transition-colors border border-gray-700"
                 >
                   Explore Visualization

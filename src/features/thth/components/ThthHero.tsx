@@ -78,7 +78,7 @@ export const ThthHero: React.FC = () => {
           <a
             href="https://0thth.com/"
             target="_blank"
-            rel="noopener noreferrer"
+            rel="noopener"
             className="inline-flex items-center px-8 py-4 bg-gray-800 hover:bg-gray-700 text-white font-bold rounded-lg transition-colors duration-300 border border-gray-700"
           >
             Visit Dashboard
@@ -97,7 +97,7 @@ export const ThthHero: React.FC = () => {
           <a
             href="https://0thth.com/dashboard"
             target="_blank"
-            rel="noopener noreferrer"
+            rel="noopener"
             className="bg-gray-900/50 backdrop-blur-sm rounded-xl p-6 border border-purple-800/30 hover:border-purple-500/50 hover:bg-gray-900/70 transition-all duration-300 cursor-pointer group"
           >
             <h3 className="text-xl font-bold mb-3 text-purple-400 group-hover:text-purple-300 transition-colors">Dashboard</h3>
@@ -108,7 +108,7 @@ export const ThthHero: React.FC = () => {
           <a
             href="https://0thth.com/mint"
             target="_blank"
-            rel="noopener noreferrer"
+            rel="noopener"
             className="bg-gray-900/50 backdrop-blur-sm rounded-xl p-6 border border-purple-800/30 hover:border-purple-500/50 hover:bg-gray-900/70 transition-all duration-300 cursor-pointer group"
           >
             <h3 className="text-xl font-bold mb-3 text-purple-400 group-hover:text-purple-300 transition-colors">Mint</h3>
@@ -119,7 +119,7 @@ export const ThthHero: React.FC = () => {
           <a
             href="https://0thth.com/whitepapers"
             target="_blank"
-            rel="noopener noreferrer"
+            rel="noopener"
             className="bg-gray-900/50 backdrop-blur-sm rounded-xl p-6 border border-purple-800/30 hover:border-purple-500/50 hover:bg-gray-900/70 transition-all duration-300 cursor-pointer group"
           >
             <h3 className="text-xl font-bold mb-3 text-purple-400 group-hover:text-purple-300 transition-colors">Whitepaper</h3>
@@ -130,7 +130,7 @@ export const ThthHero: React.FC = () => {
           <a
             href="https://ZerothTheory.com"
             target="_blank"
-            rel="noopener noreferrer"
+            rel="noopener"
             className="bg-gray-900/50 backdrop-blur-sm rounded-xl p-6 border border-purple-800/30 hover:border-purple-500/50 hover:bg-gray-900/70 transition-all duration-300 cursor-pointer group"
           >
             <h3 className="text-xl font-bold mb-3 text-purple-400 group-hover:text-purple-300 transition-colors">Visualization</h3>

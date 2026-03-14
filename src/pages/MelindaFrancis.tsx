@@ -80,6 +80,7 @@ export const MelindaFrancis: React.FC = () => {
         canonicalUrl="https://www.michaelsimoneau.com/melinda"
         keywords={["Ms. Melinda Francis, LISW"]}
         image="https://www.michaelsimoneau.com/profile-image.png"
+        noIndex
       />
       <AnimatedBackground />
       <MainNav />
@@ -155,7 +156,7 @@ export const MelindaFrancis: React.FC = () => {
                       <a
                         href="https://melindafrancis.com"
                         target="_blank"
-                        rel="noopener noreferrer nofollow"
+                        rel="noopener"
                         className="text-cyan-400 hover:text-cyan-300 underline"
                       >
                         MelindaFrancis.com
@@ -200,6 +201,7 @@ export const MelindaFrancis: React.FC = () => {
                   <a
                     href="https://zerosudoku.com"
                     target="_blank"
+                    rel="noopener"
                     className="text-cyan-400 hover:text-cyan-300 underline"
                   >
                     ZeroSudoku.com

@@ -229,7 +229,7 @@ export const Thd: React.FC = () => {
             <a
               href="https://topsmokevape.com/"
               target="_blank"
-              rel="noopener noreferrer"
+              rel="noopener"
               className="group block rounded-2xl bg-gradient-to-br from-amber-900/30 via-gray-900/80 to-gray-900/90 border border-amber-700/40 hover:border-amber-400/70 shadow-2xl shadow-black/40 hover:shadow-amber-900/30 transition-all duration-300 p-6 md:p-8"
               aria-label="Visit Top Smoke & Vape, the first organization to accept THD"
             >
@@ -296,7 +296,7 @@ export const Thd: React.FC = () => {
                 <a
                   href="https://thehumandollar.com/"
                   target="_blank"
-                  rel="noopener noreferrer"
+                  rel="noopener"
                   className="inline-block px-8 py-3 bg-amber-500 hover:bg-amber-600 text-white font-bold rounded-lg transition-colors"
                 >
                   TheHumanDollar.com

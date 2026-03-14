@@ -173,7 +173,7 @@ export const FullProfile: React.FC = () => {
                   <a
                     href="https://github.com/ZerothTheory"
                     target="_blank"
-                    rel="noopener noreferrer"
+                    rel="noopener"
                     className="text-cyan-400 hover:text-cyan-200 transition-colors"
                   >
                     ZerothTheory

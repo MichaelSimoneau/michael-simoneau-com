@@ -71,7 +71,7 @@ export const InteractiveButton: React.FC<InteractiveButtonProps> = ({ // Renamed
 
   if (href) {
     return (
-      <a href={href} className={`${baseClasses} ${className}`} target="_blank" rel="noopener noreferrer">
+      <a href={href} className={`${baseClasses} ${className}`} target="_blank" rel="noopener">
         {content}
       </a>
     );

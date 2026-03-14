@@ -66,7 +66,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ featuredBlog }) => {
                 <a
                   href="https://TheHumanDollar.com"
                   target="_blank"
-                  rel="noopener noreferrer"
+                  rel="noopener"
                   className="inline-flex w-full items-center justify-center gap-1 px-0 py-0 text-center text-[11px] sm:text-xs leading-none font-medium text-amber-300 decoration-amber-300/70 underline-offset-2 transition-colors hover:text-amber-200 hover:underline focus:outline-none focus:ring-1 focus:ring-amber-400/80 focus:ring-offset-1 focus:ring-offset-black/50"
                 >
                   <span className="text-inherit whitespace-nowrap">
@@ -82,7 +82,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ featuredBlog }) => {
                 <a
                   href="https://HashWeb.Network"
                   target="_blank"
-                  rel="noopener noreferrer"
+                  rel="noopener"
                   className="inline-flex w-full items-center justify-center gap-1 px-0 py-0 text-center text-[11px] sm:text-xs leading-none font-medium text-cyan-300 decoration-cyan-300/70 underline-offset-2 transition-colors hover:text-cyan-200 hover:underline focus:outline-none focus:ring-1 focus:ring-cyan-400/80 focus:ring-offset-1 focus:ring-offset-black/50"
                 >
                   <span className="text-inherit whitespace-nowrap">
@@ -98,7 +98,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ featuredBlog }) => {
                 <a
                   href="https://ZerothTheory.com"
                   target="_blank"
-                  rel="noopener noreferrer"
+                  rel="noopener"
                   className="inline-flex w-full items-center justify-center gap-1 px-0 py-0 text-center text-[11px] sm:text-xs leading-none font-medium text-sky-300 decoration-sky-300/70 underline-offset-2 transition-colors hover:text-sky-200 hover:underline focus:outline-none focus:ring-1 focus:ring-sky-400/80 focus:ring-offset-1 focus:ring-offset-black/50"
                 >
                   <span className="text-inherit whitespace-nowrap">
@@ -114,7 +114,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ featuredBlog }) => {
                 <a
                   href="https://CryptoFabric.Cloud"
                   target="_blank"
-                  rel="noopener noreferrer"
+                  rel="noopener"
                   className="inline-flex w-full items-center justify-center gap-1 px-0 py-0 text-center text-[11px] sm:text-xs leading-none font-medium text-fuchsia-300 decoration-fuchsia-300/70 underline-offset-2 transition-colors hover:text-fuchsia-200 hover:underline focus:outline-none focus:ring-1 focus:ring-fuchsia-400/80 focus:ring-offset-1 focus:ring-offset-black/50"
                 >
                   <span className="text-inherit whitespace-nowrap">
@@ -209,7 +209,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ featuredBlog }) => {
             </p>
             <Link
               to={`/blog/${featuredBlog.id}`}
-              rel="noopener noreferrer"
+              rel="noopener"
               target="_self"
               className="text-cyan-400 hover:text-cyan-300 text-sm font-medium transition-colors"
             >

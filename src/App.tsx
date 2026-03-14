@@ -18,7 +18,7 @@ function CopyrightNotice() {
         <a
           href="https://MichaelSimoneau.com"
           className="pointer-events-auto hover:underline focus:outline-none focus:underline"
-          rel="noopener noreferrer"
+          rel="noopener"
         >
           Michael Simoneau
         </a>

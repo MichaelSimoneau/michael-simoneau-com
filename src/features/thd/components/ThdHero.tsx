@@ -99,7 +99,7 @@ export const ThdHero: React.FC = () => {
           <a
             href="https://thehumandollar.com/"
             target="_blank"
-            rel="noopener noreferrer"
+            rel="noopener"
             className="inline-flex items-center px-8 py-4 bg-gray-800 hover:bg-gray-700 text-white font-bold rounded-lg transition-colors duration-300 border border-gray-700"
           >
             Visit TheHumanDollar.com
@@ -110,7 +110,7 @@ export const ThdHero: React.FC = () => {
         <motion.a
           href="https://topsmokevape.com/"
           target="_blank"
-          rel="noopener noreferrer"
+          rel="noopener"
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}

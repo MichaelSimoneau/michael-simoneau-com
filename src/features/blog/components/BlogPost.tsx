@@ -104,7 +104,7 @@ const ShareButton: React.FC<{ platform: string; url: string; title: string }> = 
     <a
       href={getShareUrl()}
       target="_blank"
-      rel="noopener noreferrer"
+      rel="noopener"
       className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-gray-800 text-gray-300 hover:bg-gray-700 hover:text-white transition-colors"
       title={`Share on ${platform.charAt(0).toUpperCase() + platform.slice(1)}`}
     >
@@ -490,7 +490,7 @@ export const BlogPost: React.FC = () => {
                 <a 
                   href="mailto:michael.simoneau@brainycouch.com"
                   target="_blank"
-                  rel="noopener noreferrer"
+                  rel="noopener"
                   className="inline-block bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-bold py-3 md:py-4 px-6 md:px-8 rounded-lg hover:from-cyan-600 hover:to-blue-600 transition-all duration-300 text-sm md:text-base"
                 >
                   SCHEDULE A CONSULTATION
