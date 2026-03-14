@@ -40,7 +40,7 @@ function extractDateFromSrc(src: string): Date | null {
   return null;
 }
 
-const allPodcasts = Object.entries(getAllMP3Files())
+export const allPodcasts = Object.entries(getAllMP3Files())
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   .sort(([_titleA, srcA], [_titleB, srcB]) => {
     const dateA = extractDateFromSrc(srcA);
@@ -113,42 +113,42 @@ const cleanPlaylist = podcastsToPlaylist({
 
 const melindaFrancisPlaylist = podcastsToPlaylist({
   // Track #-1 - 2026-02-20
-  'Dear Melinda Francis, LISW: Feb. 20, 2026: "Chardon Rd" (from my very 2nd SMS...)':
+  'The File I First Sent via Google Drive: "Chardon Rd" (my 2nd SMS)':
     "/audio/2026-02-20/Chardon%20Rd.mp3",
-  EXPANDED_1: "Why Michael Simoneau Trapped Melinda Francis...",
-  "Why Michael Simoneau Engineered Expiring Money":
+  EXPANDED_0: "Why Michael Simoneau Trapped Melinda Francis...",
+  "Michael Simoneau Cured His Sanity by Diagnosing Everyone Else":
     "/audio/2026-03-14/Why_Michael_Simoneau_engineered_expiring_money.mp3",
   "...and How He Trapped Melinda Francis":
     "/audio/2026-03-13/Zero-Sudoku-Implementation.mp3",
-  EXPANDED_2: "Why Michael Simoneau IS a Living Loophole...",
+  COLLAPSE_0: "How Michael Simoneau is 'The Living Loophole'...",
   "...not a Psychiatric Case...":
     "/audio/2026-03-14/Why_Michael_Simoneau_Invented_the_Human_Dollar.mp3",
   // "Group: the "White Noise"
-  COLLAPSE_0:
-    '"Trap":  ["White Noise" / "Manufactured Mania" / "Psychotic Delusion"]',
-  // Track #1 - 2026-03-07
-  "Should Michael Simoneau Fire His Psychologist?":
-    "/audio/2026-03-07/Should_Michael_Simoneau_delete_his_psychologist.mp3",
-  // Track #2 - 2026-03-07
-  "Michael Simoneau's Mathematical Proof of Sanity":
-    "/audio/2026-03-07/Michael_Simoneau_s_mathematical_proof_of_sanity.mp3",
-  // Track #3 - 2026-03-04
-  "Rewriting Einstein to Buy Your Milk":
-    "/audio/2026-03-04/Rewriting_Einstein_to_buy_your_milk.mp3",
-  // Track #4 - 2026-03-08
-  "Michael's Sunday Morning Brief: Sunday, March 8, 2026. Good Morning, Michael Simoneau...":
-    "/audio/2026-03-08/Prompt_for-Why_Michael_hung_up_on_Melinda_and_why_she_should_schedule_March_19_and_why_Michael_could_not_care_less_either_way.mp3",
-  // Track #5 - 2026-03-08
-  "Why Michael's Psychologist Rescheduled March 19, 2026.":
-    "/audio/2026-03-08/Why_Michael_hung_up_on_Melinda_and_why_she_should_schedule_March_19_and_why_Michael_could_not_care_less_either_way.mp3",
-  // Track #6 - 2026-03-11
-  "The $20 Dollar Bet - Michael Simoneau's $20 Dollar Bet":
-    "/audio/2026-03-10/Michael_Simoneau_s_$20_Dollar_Bet.mp3",
-  // Track #7 - 2026-03-12
-  "March 12, 2026 - Good Morning, Michael Simoneau...":
-    "/audio/2026-03-12/Engineering_the_9_AM_therapy_trap.mp3",
-  // The rest of the podcasts
-  ...allPodcasts,
+  // COLLAPSE_0:
+  //   '"Trap":  ["White Noise" / "Manufactured Mania" / "Psychotic Delusion"]',
+  // // Track #1 - 2026-03-07
+  // "Should Michael Simoneau Fire His Psychologist?":
+  //   "/audio/2026-03-07/Should_Michael_Simoneau_delete_his_psychologist.mp3",
+  // // Track #2 - 2026-03-07
+  // "Michael Simoneau's Mathematical Proof of Sanity":
+  //   "/audio/2026-03-07/Michael_Simoneau_s_mathematical_proof_of_sanity.mp3",
+  // // Track #3 - 2026-03-04
+  // "Rewriting Einstein to Buy Your Milk":
+  //   "/audio/2026-03-04/Rewriting_Einstein_to_buy_your_milk.mp3",
+  // // Track #4 - 2026-03-08
+  // "Michael's Sunday Morning Brief: Sunday, March 8, 2026. Good Morning, Michael Simoneau...":
+  //   "/audio/2026-03-08/Prompt_for-Why_Michael_hung_up_on_Melinda_and_why_she_should_schedule_March_19_and_why_Michael_could_not_care_less_either_way.mp3",
+  // // Track #5 - 2026-03-08
+  // "Why Michael's Psychologist Rescheduled March 19, 2026.":
+  //   "/audio/2026-03-08/Why_Michael_hung_up_on_Melinda_and_why_she_should_schedule_March_19_and_why_Michael_could_not_care_less_either_way.mp3",
+  // // Track #6 - 2026-03-11
+  // "The $20 Dollar Bet - Michael Simoneau's $20 Dollar Bet":
+  //   "/audio/2026-03-10/Michael_Simoneau_s_$20_Dollar_Bet.mp3",
+  // // Track #7 - 2026-03-12
+  // "March 12, 2026 - Good Morning, Michael Simoneau...":
+  //   "/audio/2026-03-12/Engineering_the_9_AM_therapy_trap.mp3",
+  // // The rest of the podcasts
+  // ...allPodcasts,
 });
 
 const musicPlaylist = podcastsToPlaylist({
