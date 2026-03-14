@@ -1,5 +1,5 @@
-import { DrMelindaFrancis } from "../src/pages/MelindaFrancis";
+import { MelindaFrancis } from "../src/pages/MelindaFrancis";
 
 export default function MsFrancisRoute() {
-  return <DrMelindaFrancis isMsFrancis={true} />;
+  return <MelindaFrancis />;
 }

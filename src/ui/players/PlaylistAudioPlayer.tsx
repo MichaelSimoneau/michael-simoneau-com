@@ -48,6 +48,11 @@ const MAIN_SCROLL_CONTAINER_ID = 'new-main-page-scroll-container';
 const VIDEO_HERO_SECTION_ID = 'videos';
 const MELINDA_COLLAPSE_SIDEEFFECT_PATTERN = /^collapse_[01]$/i;
 const MELINDA_RESTRICTED_TRIGGER_PATTERN = /^collapse_0$/i;
+const DATE_DISPLAY_FORMATTER = new Intl.DateTimeFormat('en-US', {
+  month: 'short',
+  day: 'numeric',
+  year: 'numeric',
+});
 
 const isAudioSource = (src: string) => AUDIO_SOURCE_PATTERN.test(src);
 const isCollapsedDirective = (directive: string) => /collapsed/i.test(directive) || /^collapse_/i.test(directive);
@@ -151,6 +156,8 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
   const [isExpanded, setIsExpanded] = useState(true);
   const [isSeeking, setIsSeeking] = useState(false);
   const [collapsedSections, setCollapsedSections] = useState<Record<string, boolean>>(sectionDefaultCollapsed);
+  const [trackDurationsBySrc, setTrackDurationsBySrc] = useState<Record<string, number | null>>({});
+  const [trackCreatedDatesBySrc, setTrackCreatedDatesBySrc] = useState<Record<string, Date | null>>({});
   const [isRestrictedFlowActive, setIsRestrictedFlowActive] = useState(false);
   const [activeMelindaSectionId, setActiveMelindaSectionId] = useState<string | null>(null);
 
@@ -845,6 +852,186 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
     }
   }, [currentTrack, startRestrictedFlowFromAutoplay]);
 
+  useEffect(() => {
+    if (typeof Audio === 'undefined') {
+      return;
+    }
+
+    let isDisposed = false;
+    const cleanupCallbacks: Array<() => void> = [];
+    const uniqueSources = Array.from(new Set(playableTracks.map((track) => track.src)));
+
+    const timerId = window.setTimeout(() => {
+      uniqueSources.forEach((src) => {
+        if (!isAudioSource(src) || isFakeTrackSrc(src)) {
+          return;
+        }
+        if (trackDurationsBySrc[src] !== undefined) {
+          return;
+        }
+
+        const probe = new Audio();
+        probe.preload = 'metadata';
+
+        const finalizeDuration = (nextDuration: number | null) => {
+          if (isDisposed) {
+            return;
+          }
+          setTrackDurationsBySrc((previous) => {
+            if (previous[src] !== undefined) {
+              return previous;
+            }
+            return {
+              ...previous,
+              [src]: nextDuration,
+            };
+          });
+        };
+
+        const handleLoadedMetadata = () => {
+          const nextDuration = Number.isFinite(probe.duration) && probe.duration > 0
+            ? probe.duration
+            : null;
+          finalizeDuration(nextDuration);
+        };
+        const handleError = () => {
+          finalizeDuration(null);
+        };
+
+        probe.addEventListener('loadedmetadata', handleLoadedMetadata);
+        probe.addEventListener('error', handleError);
+        probe.src = src;
+        probe.load();
+
+        cleanupCallbacks.push(() => {
+          probe.removeEventListener('loadedmetadata', handleLoadedMetadata);
+          probe.removeEventListener('error', handleError);
+          probe.removeAttribute('src');
+          probe.load();
+        });
+      });
+    }, 0);
+
+    return () => {
+      isDisposed = true;
+      window.clearTimeout(timerId);
+      cleanupCallbacks.forEach((cleanup) => cleanup());
+    };
+  }, [playableTracks, trackDurationsBySrc]);
+
+  useEffect(() => {
+    if (typeof fetch === 'undefined') {
+      return;
+    }
+
+    let isDisposed = false;
+    const abortControllers: AbortController[] = [];
+    const uniqueSources = Array.from(new Set(playableTracks.map((track) => track.src)));
+
+    const tryParseDate = (value: unknown): Date | null => {
+      if (value instanceof Date && Number.isFinite(value.getTime())) {
+        return value;
+      }
+      if (typeof value === 'number' && Number.isFinite(value)) {
+        const asDate = new Date(value, 0, 1);
+        return Number.isFinite(asDate.getTime()) ? asDate : null;
+      }
+      if (typeof value === 'string' && value.trim().length > 0) {
+        const parsed = new Date(value);
+        if (Number.isFinite(parsed.getTime())) {
+          return parsed;
+        }
+      }
+      return null;
+    };
+
+    const timerId = window.setTimeout(() => {
+      void (async () => {
+        let parseBlob: ((blob: Blob, options?: { skipCovers?: boolean; duration?: boolean }) => Promise<{
+          format: { creationTime?: Date };
+          common: {
+            date?: string;
+            originaldate?: string;
+            year?: number;
+            originalyear?: number;
+          };
+        }>) | null = null;
+
+        try {
+          const metadataModule = await import('music-metadata-browser');
+          parseBlob = metadataModule.parseBlob;
+        } catch {
+          // Do not block rendering if metadata parser cannot load in this runtime.
+          parseBlob = null;
+        }
+
+        if (!parseBlob || isDisposed) {
+          return;
+        }
+
+        uniqueSources.forEach((src) => {
+          if (!isAudioSource(src) || isFakeTrackSrc(src)) {
+            return;
+          }
+          if (trackCreatedDatesBySrc[src] !== undefined) {
+            return;
+          }
+
+          const finalizeCreatedDate = (nextCreatedDate: Date | null) => {
+            if (isDisposed) {
+              return;
+            }
+
+            setTrackCreatedDatesBySrc((previous) => {
+              if (previous[src] !== undefined) {
+                return previous;
+              }
+              return {
+                ...previous,
+                [src]: nextCreatedDate,
+              };
+            });
+          };
+
+          const controller = new AbortController();
+          abortControllers.push(controller);
+
+          fetch(src, { signal: controller.signal })
+            .then((response) => {
+              if (!response.ok) {
+                throw new Error(`Failed to fetch metadata for ${src}`);
+              }
+              return response.blob();
+            })
+            .then((blob) => parseBlob?.(blob, { skipCovers: true, duration: false }))
+            .then((metadata) => {
+              if (!metadata) {
+                finalizeCreatedDate(null);
+                return;
+              }
+              const nextCreatedDate = (
+                tryParseDate(metadata.format.creationTime)
+                ?? tryParseDate(metadata.common.date)
+                ?? tryParseDate(metadata.common.originaldate)
+                ?? tryParseDate(metadata.common.year)
+                ?? tryParseDate(metadata.common.originalyear)
+              );
+              finalizeCreatedDate(nextCreatedDate);
+            })
+            .catch(() => {
+              finalizeCreatedDate(null);
+            });
+        });
+      })();
+    }, 0);
+
+    return () => {
+      isDisposed = true;
+      window.clearTimeout(timerId);
+      abortControllers.forEach((controller) => controller.abort());
+    };
+  }, [playableTracks, trackCreatedDatesBySrc]);
+
   // ── Controls ───────────────────────────────────────────────────────────
   const handlePlayPause = useCallback(() => {
     if (isRestrictedFlowActive) return;
@@ -999,6 +1186,20 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
     const minutes = Math.floor(time / 60);
     const seconds = Math.floor(time % 60);
     return `${minutes}:${seconds.toString().padStart(2, '0')}`;
+  };
+
+  const formatTrackDuration = (value: number | null | undefined) => {
+    if (value === null || value === undefined || !Number.isFinite(value) || value <= 0) {
+      return '';
+    }
+    return formatTime(value);
+  };
+
+  const formatTrackCreatedDate = (value: Date | null | undefined) => {
+    if (!value || !Number.isFinite(value.getTime())) {
+      return '';
+    }
+    return DATE_DISPLAY_FORMATTER.format(value);
   };
 
   const progress = duration > 0 ? (currentTime / duration) * 100 : 0;
@@ -1181,6 +1382,15 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
                             const isCurrentlyPlaying = isActive && isPlaying;
                             const linkUrl = extractFirstUrl(track.title);
                             const isLinkRow = isFakeTrackSrc(track.src) && linkUrl !== null;
+                            const trackDurationLabel = !isAudioSource(track.src) || isFakeTrackSrc(track.src)
+                              ? ''
+                              : formatTrackDuration(trackDurationsBySrc[track.src]);
+                            const trackCreatedDateLabel = !isAudioSource(track.src) || isFakeTrackSrc(track.src)
+                              ? ''
+                              : formatTrackCreatedDate(trackCreatedDatesBySrc[track.src]);
+                            const trackMetaLabel = [trackDurationLabel, trackCreatedDateLabel]
+                              .filter((part) => part.length > 0)
+                              .join(' | ');
 
                             const trackRowContent = (
                               <>
@@ -1210,6 +1420,13 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
                                   }`}
                                 >
                                   {track.title}
+                                </span>
+                                <span
+                                  className={`flex-shrink-0 min-w-[6.5rem] text-right text-xs tabular-nums ${
+                                    isActive ? 'text-cyan-300' : 'text-gray-500'
+                                  }`}
+                                >
+                                  {trackMetaLabel}
                                 </span>
                               </>
                             );

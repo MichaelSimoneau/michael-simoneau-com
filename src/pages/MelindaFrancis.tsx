@@ -8,8 +8,8 @@ import { melindaFrancisPlaylist } from "../data/playlists";
 import { MARCH_17_2026_10_00_AM } from "src/hooks/useBeforeAndAfter";
 import { useLocalSearchParams } from "expo-router";
 
-export const DrMelindaFrancis: React.FC<{ _isMsFrancis?: boolean }> = ({
-  _isMsFrancis = false,
+export const MelindaFrancis: React.FC<{ _isMsFrancis?: boolean }> = ({
+  _isMsFrancis = true,
 }) => {
   const [now, setNow] = React.useState(new Date().getTime());
   const [isMsFrancis, setIsMsFrancis] = React.useState(_isMsFrancis);

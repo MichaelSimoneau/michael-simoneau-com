@@ -85,6 +85,18 @@ const cleanPlaylist = podcastsToPlaylist({
   // Track #5 - 2026-03-12
   "Your Face Is the HashWeb Wallet":
     "/audio/2026-03-13/Your_Face_Is_the_HashWeb_Wallet.mp3",
+  // Track #6 - 2026-03-13
+  "Planning The Future Without A Past":
+    "/audio/2026-03-13/Planning_the_future_without_a_past.mp3",
+  // Track #7 - 2026-03-13
+  "Reality as a 16-bit Headless Server":
+    "/audio/2026-03-13/Reality_as_a_16-bit_Headless_Server.mp3",
+  // Track #8 - 2026-03-13
+  "Metabolic Physics of The Human Dollar":
+    "/audio/2026-03-13/Metabolic_Physics_of_The_Human_Dollar.mp3",
+  // Track #9 - 2026-03-14
+  "\"Agency is Authority Not Control\" - Michael Simoneau":
+    "/audio/2026-03-14/Agency_is_Authority_Not_Control.mp3",
 });
 
 const melindaFrancisPlaylist = podcastsToPlaylist({
@@ -152,6 +164,8 @@ const musicPlaylist = podcastsToPlaylist({
   '"This Is Why We Do It" - Mike Crane': "/music/ThisIsWhyWeDoIt.mp3",
   // Track #3
   '"I\'m In Deep" - Mike Crane': "/music/ImInDeep.mp3",
+  // Track #4
+  '"The Drugs Work" - Mike Crane': "/music/TheDrugsWork.m4a",
 });
 
 export { cleanPlaylist, musicPlaylist, melindaFrancisPlaylist };
