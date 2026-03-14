@@ -206,6 +206,9 @@ export const MelindaFrancis: React.FC = () => {
                   </a>
                   .
                 </p>
+                <p className="text-xs text-slate-500 text-center -mt-2 mb-3">
+                  * I am not infallible... so ZeroSudoku.com is a work in progress! *
+                </p>
                 <hr className="border-t border-[#0b1a3a] my-4" />
                 <blockquote className="font-bold mt-4 text-center italic">
                   Math is rules. Physics is rules. Society is a suggestion!
