@@ -76,26 +76,36 @@ const cleanPlaylist = podcastsToPlaylist({
   // Track #2 - 2026-03-11
   "Learn About Michael Simoneau and His Work":
     "/audio/2026-03-11/Michael_Simoneau.mp3",
+  //>> GROUP: "HashWeb.Network & The Human Dollar"
+  EXPANDED_0: "HashWeb.Network & The Human Dollar",
+  // Track #5 - 2026-03-12
+  "Planning The Future Without A Past":
+    "/audio/2026-03-13/Planning_the_future_without_a_past.mp3",
+  // Track #5 - 2026-03-12
+  "Your Face Is the HashWeb Wallet":
+    "/audio/2026-03-13/Your_Face_Is_the_HashWeb_Wallet.mp3",
+  // Track #8 - 2026-03-13
+  "The Meritocracy of the Decaying Human Dollar":
+    "/audio/2026-03-14/The_meritocracy_of_the_decaying_Human_Dollar.mp3",
+  // Track #11 - 2026-03-14
+  "Should Your Digital Dollars Literally Decay?":
+    "/audio/2026-03-14/Should_Your_Digital_Dollars_Literally_Decay_.mp3",
+  // Track #9 - 2026-03-14
+  "The Physics of the Decaying Human Dollar":
+    "/audio/2026-03-14/The_Physics_of_the_Rotting_Human_Dollar.mp3",
   // Track #3 - 2026-03-09
-  "How the Zeroth Theory Fixes The Global Economy":
+  "How the The Human Dollar Fixes The Global Economy":
     "/audio/2026-03-09/How_Zeroth_Theory_Fixes_AI_Hallucinations.mp3",
   // Track #4 - 2026-03-11
   "Forensic mapping of the Zeroth stack":
     "/audio/2026-03-10/Forensic_mapping_of_the_Zeroth_stack.mp3",
-  // Track #5 - 2026-03-12
-  "Your Face Is the HashWeb Wallet":
-    "/audio/2026-03-13/Your_Face_Is_the_HashWeb_Wallet.mp3",
-  // Track #6 - 2026-03-13
-  "Planning The Future Without A Past":
-    "/audio/2026-03-13/Planning_the_future_without_a_past.mp3",
+  //>> GROUP: "Mind of Michael Simoneau"
+  COLLAPSED_0: "From the Mind of Michael Simoneau...",
   // Track #7 - 2026-03-13
   "Reality as a 16-bit Headless Server":
     "/audio/2026-03-13/Reality_as_a_16-bit_Headless_Server.mp3",
-  // Track #8 - 2026-03-13
-  "Metabolic Physics of The Human Dollar":
-    "/audio/2026-03-13/Metabolic_Physics_of_The_Human_Dollar.mp3",
-  // Track #9 - 2026-03-14
-  "\"Agency is Authority Not Control\" - Michael Simoneau":
+  // Track #10 - 2026-03-14
+  '"Agency is Authority Not Control" - Michael Simoneau':
     "/audio/2026-03-14/Agency_is_Authority_Not_Control.mp3",
 });
 
@@ -119,9 +129,8 @@ const melindaFrancisPlaylist = podcastsToPlaylist({
   "March 12, 2026: The Software Engineer Who Hacked His Therapist.":
     "/audio/2026-03-13/The_Software_Engineer_Who_Hacked_His_Therapist.mp3",
   // Track #-1 - 2026-03-13
-  EXPANDED_1:"Why Michael Simoneau Trapped Melinda Francis...",
-  " and How He Did It...":
-    "/audio/2026-03-13/Zero-Sudoku-Implementation.mp3",
+  EXPANDED_1: "Why Michael Simoneau Trapped Melinda Francis...",
+  " and How He Did It...": "/audio/2026-03-13/Zero-Sudoku-Implementation.mp3",
   COLLAPSED_6: "And Further Down the Rabbit Hole...",
   // Track #-1 - 2026-03-13
   "Michael Simoneau: The Software Engineer Who Coded Sanity.":
