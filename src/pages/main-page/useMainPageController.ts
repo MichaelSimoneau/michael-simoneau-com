@@ -1,8 +1,18 @@
-import { useCallback, useEffect, useLayoutEffect, useMemo, useRef } from "react";
+import {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+} from "react";
 import { usePathname } from "expo-router";
 import { useScrollContext } from "../../contexts/ScrollContext";
-import { blogData } from "../../data/blogData";
-import { useProfileFlowDispatch, useProfileFlowState } from "../../features/profile/flow";
+import { BlogData, blogData } from "../../data/blogData";
+import {
+  useProfileFlowDispatch,
+  useProfileFlowState,
+} from "../../features/profile/flow";
+import { useBeforeAndAfter } from "src/hooks/useBeforeAndAfter";
 
 const FOOTER_INITIAL_HEIGHT_PX = 320;
 const DEFAULT_SECTION_OFFSET_PX = 80;
@@ -21,7 +31,9 @@ const getMainPageSectionOffset = (sectionId: string): number => {
 export const useMainPageController = () => {
   const scrollContainerRef = useRef<HTMLDivElement | null>(null);
   const contactSectionRef = useRef<HTMLDivElement | null>(null);
-  const navScrollSettleTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const navScrollSettleTimeoutRef = useRef<ReturnType<
+    typeof setTimeout
+  > | null>(null);
   const { registerMainScrollContainer } = useScrollContext();
   const { footerExpansionFactor, override } = useProfileFlowState();
   const flowDispatch = useProfileFlowDispatch();
@@ -43,15 +55,12 @@ export const useMainPageController = () => {
     [],
   );
 
-  const latestBlog = useMemo(() => {
-    if (blogData.length === 0) {
-      return undefined;
-    }
-
-    return Object.values(blogData).sort(
-      (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
-    )[0];
-  }, []);
+  const {output: latestBlog, setBefore, setAfter, setWhen} = useBeforeAndAfter<BlogData>();
+  setWhen(new Date("2026-03-18 09:00"));
+  setBefore(blogData.find((blog) => blog.title === "The Zero Sudoku") ?? blogData[0]);
+  setAfter(Object.values(blogData).sort(
+    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
+  )[0] ?? blogData[0]);
 
   const structuredData = useMemo(
     () => [
@@ -157,7 +166,8 @@ export const useMainPageController = () => {
       flowDispatch({ type: "NAV_SCROLL_STARTED" });
       const containerRect = container.getBoundingClientRect();
       const elementRect = targetElement.getBoundingClientRect();
-      const scrollTop = elementRect.top - containerRect.top + container.scrollTop - offset;
+      const scrollTop =
+        elementRect.top - containerRect.top + container.scrollTop - offset;
       container.scrollTo({ top: scrollTop, behavior });
       if (navScrollSettleTimeoutRef.current !== null) {
         clearTimeout(navScrollSettleTimeoutRef.current);
@@ -189,7 +199,8 @@ export const useMainPageController = () => {
         const offset = getMainPageSectionOffset(targetId);
         const containerRect = container.getBoundingClientRect();
         const elementRect = targetElement.getBoundingClientRect();
-        const desiredTop = elementRect.top - containerRect.top + container.scrollTop - offset;
+        const desiredTop =
+          elementRect.top - containerRect.top + container.scrollTop - offset;
         const drift = Math.abs(container.scrollTop - desiredTop);
 
         if (drift > alignThresholdPx) {
@@ -228,7 +239,12 @@ export const useMainPageController = () => {
       }
     }, 0);
     return () => clearTimeout(timeoutId);
-  }, [registerMainScrollContainer, location, resolveHashSectionId, runHashScrollWithRetry]);
+  }, [
+    registerMainScrollContainer,
+    location,
+    resolveHashSectionId,
+    runHashScrollWithRetry,
+  ]);
 
   useEffect(() => {
     if (typeof window === "undefined") {

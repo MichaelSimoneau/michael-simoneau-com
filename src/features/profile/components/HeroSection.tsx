@@ -52,7 +52,8 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ featuredBlog }) => {
           Michael Simoneau
         </h1>
         <h2 className="text-xl sm:text-2xl md:text-3xl text-cyan-400 font-semibold mb-2">
-          Save the US Dollar by Saving the World
+          <span className="font-bold">Saving </span>the<span className="font-bold"> US Dollar...</span>
+          <i> by <span className="font-bold">Saving the World</span>!</i>
         </h2>
         <div className="w-full max-w-3xl mx-auto mt-4 mb-8 px-1 sm:px-0">
           <div className="bg-gray-900/60 backdrop-blur-sm border border-amber-800/30 rounded-xl p-5 sm:p-6 text-center">

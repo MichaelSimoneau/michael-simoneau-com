@@ -1,5 +1,10 @@
-import { MainPage } from '../src/pages/MainPage';
+import { BeforeAndAfterProvider } from "src/hooks/useBeforeAndAfter";
+import { MainPage } from "../src/pages/MainPage";
 
 export default function Index() {
-  return <MainPage />;
+  return (
+    <BeforeAndAfterProvider>
+      <MainPage />
+    </BeforeAndAfterProvider>
+  );
 }
