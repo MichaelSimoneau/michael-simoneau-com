@@ -132,7 +132,9 @@ const melindaFrancisPlaylist = podcastsToPlaylist({
     "/audio/2026-03-13/The_Software_Engineer_Who_Hacked_His_Therapist.mp3",
   // Track #-1 - 2026-03-13
   EXPANDED_1: "Why Michael Simoneau Trapped Melinda Francis...",
-  " and How He Did It...": "/audio/2026-03-13/Zero-Sudoku-Implementation.mp3",
+  "Why Michael Simoneau Engineered Expiring Money":
+    "/audio/2026-03-14/Why_Michael_Simoneau_engineered_expiring_money.mp3",
+  "...and How He Trapped Melinda Francis": "/audio/2026-03-13/Zero-Sudoku-Implementation.mp3",
   COLLAPSED_6: "And Further Down the Rabbit Hole...",
   // Track #-1 - 2026-03-13
   "Michael Simoneau: The Software Engineer Who Coded Sanity.":
