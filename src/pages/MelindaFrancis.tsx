@@ -78,9 +78,7 @@ export const MelindaFrancis: React.FC = () => {
         title="Melinda Francis"
         description="Confused Licensed Independent Social Worker"
         canonicalUrl="https://www.michaelsimoneau.com/melinda"
-        keywords={[
-          "Ms. Melinda Francis, LISW"
-        ]}
+        keywords={["Ms. Melinda Francis, LISW"]}
         image="https://www.michaelsimoneau.com/profile-image.png"
       />
       <AnimatedBackground />
@@ -136,9 +134,10 @@ export const MelindaFrancis: React.FC = () => {
                 </div>
                 <div className="mx-auto max-w-2xl">
                   <p className="text-base text-gray-300 leading-relaxed mb-3">
-                    I, <strong>Michael Simoneau</strong>, am <strong>not delusional</strong>.
-                    <br />
-                    I used to call you &quot;<strong>The Soon-To-Be Dr. Melinda Francis, LISW</strong>
+                    I, <strong>Michael Simoneau</strong>, am{" "}
+                    <strong>not delusional</strong>.
+                    <br />I used to call you &quot;
+                    <strong>The Soon-To-Be Dr. Melinda Francis, LISW</strong>
                     &quot; and even believed it to be true; so much so that I
                     built a website for you:{" "}
                     <a
@@ -167,41 +166,68 @@ export const MelindaFrancis: React.FC = () => {
                 </div>
                 <hr className="border-t border-[#0b1a3a] my-4" />
                 <p className="text-base text-gray-300 leading-relaxed mb-3">
-                  I honestly believe you are suffering from social delusion,<br />
-                  and you are projecting your delusion onto me. 
+                  I honestly believe you are suffering from social delusion,
+                  <br />
+                  and you are projecting your delusion onto me.
                 </p>
                 <hr className="border-t border-[#0b1a3a] my-4" />
                 <p className="text-base text-gray-300 leading-relaxed mb-3">
-                  You deem me to be <strong>insane</strong> because<br />
-                  I <strong>will not</strong> agree to buy into the social delusion. 
+                  You deem me to be <strong>insane</strong> because
+                  <br />I <strong>will not</strong> agree to buy into the social
+                  delusion.
                 </p>
                 <hr className="border-t border-[#0b1a3a] my-4" />
                 <div className="flex justify-center mb-6">
-                  <AudioPlayer src="/audio/2026-03-14/Why_Michael_Simoneau_Invented_the_Human_Dollar.mp3" title="Why Michael Simoneau is Objectively Sane... and Why You Are Not" />
+                  <AudioPlayer
+                    src="/audio/2026-03-14/Why_Michael_Simoneau_Invented_the_Human_Dollar.mp3"
+                    title="Why Michael Simoneau is Objectively Sane... and Why You Are Not"
+                  />
                 </div>
                 <hr className="border-t border-[#0b1a3a] my-4" />
                 <p className="text-base text-gray-300 leading-relaxed mb-3">
-                  But I <strong>am sane</strong> because I can take care of <strong>myself</strong>;<br />
-                  I sustain the executive function to care for <strong>myself</strong>.
+                  But I <strong>am sane</strong> because I can take care of{" "}
+                  <strong>myself</strong>;<br />I sustain the executive function
+                  to care for <strong>myself</strong>.
                 </p>
                 <hr className="border-t border-[#0b1a3a] my-4" />
                 <p className="text-base text-gray-300 leading-relaxed mb-3">
-                  The executive function I lacked I now have <strong><u>Linear Algebra</u></strong> to solve it.<br />
-                  I coded it into an AI.. and website <a href="https://zerosudoku.com" target="_blank" className="text-cyan-400 hover:text-cyan-300 underline">ZeroSudoku.com</a>.
+                  The executive function I lacked I now have{" "}
+                  <strong>
+                    <u>Linear Algebra</u>
+                  </strong>{" "}
+                  to solve it.
+                  <br />I coded it into an AI.. and website{" "}
+                  <a
+                    href="https://zerosudoku.com"
+                    target="_blank"
+                    className="text-cyan-400 hover:text-cyan-300 underline"
+                  >
+                    ZeroSudoku.com
+                  </a>
+                  .
                 </p>
                 <hr className="border-t border-[#0b1a3a] my-4" />
                 <blockquote className="font-bold mt-4 text-center italic">
-                  Math is rules. Physics is rules. Society is a suggestion!<br />
+                  Math is rules. Physics is rules. Society is a suggestion!
+                  <br />
                   <span className="text-slate-500">
                     * I Fixed Math to Fix Physics to Fix Society *
                   </span>
                 </blockquote>
                 <br />
                 <blockquote className="text-center">
-                  <strong>"I am <strong>right</strong>; I am <strong>not</strong> infallible!"</strong><br />
+                  &quot;I <strong>Move Fast</strong> and <strong>Break Shit</strong>;{" "}
+                  I <strong>Learn</strong> From <strong>My Mistakes</strong> and
+                  <strong> I Fix</strong> Them <strong><i>Quickly</i></strong>!&quot;
                   <span className="text-slate-500">
-                    * I Move Fast and Break Shit; I Learn From My Mistakes, and I Fix Them Quickly! *
+                    <div className="text-center">
+                      <strong>
+                        "I am <u>right</u>;
+                        I am <u>not</u> <u>infallible</u>!"
+                      </strong>
+                    </div>
                   </span>
+                  <br />
                   <div className="text-right mt-8">- Michael Simoneau</div>
                 </blockquote>
               </div>
