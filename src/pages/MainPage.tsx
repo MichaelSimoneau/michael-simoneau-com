@@ -404,7 +404,7 @@ export const MainPage: React.FC = () => {
         {/* === ACT I: THE INTRODUCTION === */}
         <div id="audio" className="relative">
           <section>
-            <HeroSection featuredBlog={latestBlog ? blogData.find(blog => blog.date === latestBlog.toISOString()) : undefined} />
+            <HeroSection featuredBlog={latestBlog ? blogData.find(blog => blog.title === latestBlog.title) : undefined} />
           </section>
         </div>
 
