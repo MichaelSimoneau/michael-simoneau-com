@@ -62,7 +62,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ featuredBlog }) => {
         <div className="w-full max-w-3xl mx-auto mt-4 mb-8 px-1 sm:px-0">
           <div className="bg-gray-900/60 backdrop-blur-sm border border-amber-800/30 rounded-xl p-5 sm:p-6 text-center">
             <div className="mx-auto mb-4 w-full max-w-4xl px-1 sm:px-2 grid grid-cols-2 md:grid-cols-4 gap-y-0.5 gap-x-1 sm:gap-x-2 items-center">
-              <div className="w-full">
+              <div className="w-full md:block hidden">
                 <a
                   href="https://TheHumanDollar.com"
                   target="_blank"
@@ -110,7 +110,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ featuredBlog }) => {
                   />
                 </a>
               </div>
-              <div className="w-full">
+              <div className="w-full md:block hidden">
                 <a
                   href="https://CryptoFabric.Cloud"
                   target="_blank"
