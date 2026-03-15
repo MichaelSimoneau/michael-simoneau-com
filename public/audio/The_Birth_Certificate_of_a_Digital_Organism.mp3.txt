@@ -15,7 +15,7 @@
  Okay. Let's set the stage here. Because the context is, it's absolutely heartbreaking and
  terrifying all at once. It really is. We aren't looking at a white paper from a research team at
  MIT. We aren't looking at a press release from a Silicon Valley startup with a ping pong table
- and, you know, free kombucha. No. We are looking at the work of one man, Michael Cimino, who
+ and, you know, free kombucha. No. We are looking at the work of one man, Michael Simoneau, who
  also goes by the moniker by Z. And he is building this system in what he calls the magic boat factory.
  Which sounds so whimsical, right? It does. Until you realize the magic boat factory is just a garage or a small room where he is battling extreme poverty, isolation and significant mental health struggles.
  Right. The stakes are existential. This is not a hobby. The documents make it very clear. This code is a survival mechanism.
@@ -232,7 +232,7 @@
  Or a stone.
  Zero, the one, the wall, a monolith.
  You are either something or nothing.
- Zero theory introduces a third state.
+ Zeroth Theory introduces a third state.
  So it's not binary.
  It's a binary system.
  Yeah.
@@ -471,7 +471,7 @@
  Here it means something much more profound.
  It means the architect is designing his own obsolescence.
  Michael wants to fire himself.
- Michael Simonot, the man, the admin, wants to be able to die.
+ Michael Simoneau, the man, the admin, wants to be able to die.
  Not literally, hopefully, but in terms of the system's dependency on him.
  He wants to get out of the way.
  The code must be able to run, even if the admin is gone.

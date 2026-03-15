@@ -9,9 +9,9 @@
  the usual cycle. It's not the usual thing. Not at all. We spend so much time talking about web 3.0
  and usually when we say web 3 we mean blockchain we mean crypto. Decentralized finance. Putting a
  ledger on the internet tokenizing things. Exactly. But the premise of the material we're diving into
- today and this is the architectural work of Michael Simeno is that web 3 as we currently understand it
+ today and this is the architectural work of Michael Simoneau is that web 3 as we currently understand it
  is just a static ledger. A static ledger. Yeah. A glorified receipt system. It's a record of things
- that have already happened. Simeno's argument is that we are still building dead things. We're building
+ that have already happened. Simoneau's argument is that we are still building dead things. We're building
  like digital rocks. And he wants to build a digital organism. That is the core thesis. That's the whole
  ballgame. The transition from the static ledger to the digital organism. I have to admit when I first
  read that phrase in the notes digital organism I kind of rolled my eyes a little bit you know. It sounds
@@ -29,20 +29,20 @@
  It is. It's an entire ecosystem from the metal up. So we have to start at the bottom layer. We have to
  start with the factory. The factory. This is the physical infrastructure the ether hive. We need to
  understand the hardware the physical constraints before we can even begin to understand the software.
- Okay. So factory first. Then we're going to move to the physics. This is the zero theory. This is where
+ Okay. So factory first. Then we're going to move to the physics. This is the Zeroth Theory. This is where
  the math gets well it gets weird. It gets very weird. We're going to talk about redefining the number zero
  and using ternary logic instead of binary. And finally we will arrive at the organism itself the hash
  web. We'll break down the human dollar which is that metabolic money we mentioned and this fascinating
  concept of the ghost in the shell architecture. So it's a journey from a solar powered server rack
  all the way to like the philosophy of existence. So let's start with the metal. Let's start with the
  factory. Let's go. So in the source material there is a very specific strategic shift that happens
- right at the beginning. Simono describes the difference between building a boat and building
+ right at the beginning. Simoneau describes the difference between building a boat and building
  a factory. And I think this resonates with anyone who has ever you know tried to build a product.
  It's the fundamental trap of engineering isn't it. It really is. Most developers most startups they're
  completely obsessed with the boat. The boat is everything. The boat is the app. The boat is the
  token. It's the platform. And they spend years just polishing the hull fixing the sails trying to make
  sure this one specific vessel can survive the ocean of the market. Because if the boat sinks you're done
- game over. Exactly. You are betting everything on that one vessel. But Simono looked at the
+ game over. Exactly. You are betting everything on that one vessel. But Simoneau looked at the
  landscape specifically the the incredible volatility of Web 3 and said this is the wrong approach.
  He realized that in a world this chaotic you shouldn't be the guy trying to sail the boat.
  You should be the guy owning the shipyard. You should be the guy owning the shipyard. Yeah.
@@ -95,7 +95,7 @@
  It has to hunt and peck.
  It gets hallucination prone. It loses track of the state. It's just too much noise.
  Oh.
- But if you have a central logical failure point, the wizard, you're practicing what Semino calls
+ But if you have a central logical failure point, the wizard, you're practicing what Simoneau calls
  deterministic engineering. If anything goes wrong in the system anywhere, the AI knows exactly where to
  look.
  It looks at the wizard.
@@ -162,7 +162,7 @@
  In a way, yes. It enforces its own order on the absolute chaos of the internet.
  And that confidence, that ability to say, no, this is the truth, comes from the underlying math.
  Which I think brings us to the second part of our dive, the physics.
- Oh boy. The zero theory. I spent a lot of time reading this section and I felt like I was back
+ Oh boy. The Zeroth Theory. I spent a lot of time reading this section and I felt like I was back
  in a college philosophy seminar that I definitely did not study for.
  It gets very abstract very quickly.
  It does. We have to start with the number zero.
@@ -171,7 +171,7 @@
  Right.
  If I have zero apples, I have no apples. It's an empty set.
  That is the standard definition. The one we all learn in grade school. Zero is a void.
- But Simono argues that this definition is chemically and physically incomplete.
+ But Simoneau argues that this definition is chemically and physically incomplete.
  It's not how the universe actually works. He proposes that zero is convergence.
  Convergence. Okay. Think of it less like an empty box and more like a perfectly balanced scale
  or maybe a perfectly balanced accounting ledger.
@@ -180,7 +180,7 @@
  No, not at all. The business is full of activity. It's full of stuff. It's just balanced.
  Exactly. The zero is the state of total equilibrium. He calls it totality.
  It's the point where all positive forces and all negative forces cancel each other out completely.
- So in zero theory, zero isn't nothing. Zero is everything resolved.
+ So in Zeroth Theory, zero isn't nothing. Zero is everything resolved.
  Okay. I think I can kind of wrap my head around that. Zero isn't the starting point. It's the destination.
  It's the goal state. It's what the system is always trying to achieve.
  Correct. And this philosophical shift is what leads to his mathematical solution for the divide by zero problem.
@@ -188,7 +188,7 @@
  Because you can't divide something by nothing. It's a logical impossibility in that framework.
  But if zero is everything...
  Then the equation changes completely.
- Simeno posits, if you take something, let's call it a positive one out of everything,
+ Simoneau posits, if you take something, let's call it a positive one out of everything,
  which is now defined as zero one, what are you left with?
  If I have everything and I take one specific thing out, I'm left with everything else.
  You're left with everything else. And in his mathematical system, everything else is represented by the number one and one.
@@ -278,7 +278,7 @@
  But the value being transferred can be huge. It allows for what he calls intrinsic worth.
  The value isn't a sticker you put on the file. The value is fused to the file's very existence on the network.
  This brings up the identity question, though. If I'm keeping my files in a private vault and only sending pointers, then who am I in this system? How is my identity managed?
- This is where Simeno applies that same ternary logic to the concept of a user. He calls it the tricameral identity, the braided trinity.
+ This is where Simoneau applies that same ternary logic to the concept of a user. He calls it the tricameral identity, the braided trinity.
  The rule of three again. I'm seeing a pattern here.
  It's always three. He argues that you need three distinct but connected chains to make a digital person.
  Okay. What are they?
@@ -320,7 +320,7 @@
  Wait, stop. Why would anyone use this?
  The entire point of money, for most of history, is that it's a store of value. I want to save for retirement. I don't want my savings to rot away because I didn't look at them enough. This sounds insane.
  This is the friction point. This is the big mental hurdle. We are conditioned to hoard. We view money as a battery that should hold its charge forever.
- Simeno views money as blood.
+ Simoneau views money as blood.
  Blood.
  If blood sits still, it clots. It becomes toxic. It kills you.
  Yeah.

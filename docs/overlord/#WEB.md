@@ -4,7 +4,7 @@ Usually we look at a specific news event or a trending topic. You know, we strip
 right?
 But today we are looking at a blueprint and not just a blueprint for a piece of software, but a blueprint for a completely new way of structuring digital reality.
 It is a massive topic.
-We're looking at a stack of documents. I mean, everything from technical architecture notes to business plans to these really deep philosophical musings all from an inventor named Michael Simono
+We're looking at a stack of documents. I mean, everything from technical architecture notes to business plans to these really deep philosophical musings all from an inventor named Michael Simoneau
 and I think we need to be clear right from the jump as you said.
 Yes.
 This is not about the next Bitcoin. It's not about some token you buy to get rich quick.
@@ -199,7 +199,7 @@ As in it rots. Yes.
 Okay. Hold on. I have to push back. card here. This goes against everything we think about money. If I earn $100 and I put them in my wallet, I expect them to still be $100 in a month. You're telling me that in this system, my money just dissolves if I don't spend it. That sounds like a terrible feature for a savings account.
 You're right. If you view money purely as a store of wealth, like gold bars you lock in a vault, then yes, this is a bug. It's a terrible bug.
 It seems fundamentally flawed.
-But Michael Simono is arguing that that entire premise is wrong. He argues that money shouldn't be a static store of wealth. He argued that money should be a measurement of energy and relevance.
+But Michael Simoneau is arguing that that entire premise is wrong. He argues that money shouldn't be a static store of wealth. He argued that money should be a measurement of energy and relevance.
 Energy and relevance.
 Think about a battery. If you leave a fully charged battery on a shelf for 10 years, does it still have a full charge when you pick it up?
 No, of course not. It leaks. It drains over time,
@@ -296,7 +296,7 @@ The question is what happens when it's released.
 The question is how quickly will the global economy be forced to adjust when data for the first time in history carries its own irrefutable stitched in worth completely independent of external markets. What happens to banks to stock markets to social media platforms when they were no longer the trusted custodians of value?
 When you don't need a middleman for trust
 when trust isn't something you have to earn or borrow or buy from a third party but something that is just mathematically intrinsic to the data itself.
-That is the ultimate shift from don't be evil to to can't be evil. Michael Simono's vision seems to suggest that if we stop fearing the negative space, if we stop fearing the gap, the rot, the entropy, we might actually find the stability we've been looking for all along.
+That is the ultimate shift from don't be evil to to can't be evil. Michael Simoneau's vision seems to suggest that if we stop fearing the negative space, if we stop fearing the gap, the rot, the entropy, we might actually find the stability we've been looking for all along.
 Indeed, by embracing the void, we find the hole.
 A heavy thought to end on. Thank you for joining us on this deep dive into the architecture of truth.
 My pleasure.

@@ -13,7 +13,7 @@
  Which is a terrifying thought for an economist.
  Oh, absolutely. Because in biology, a cell that just stays at rest,
  well, it doesn't maintain its value. It dies.
- So today, we are examining Michel Simonieu's zeroth protocol
+ So today, we are examining Michel Simoneau's zeroth protocol
  and the underlying hash web architecture.
  Specifically, we're diving into its native asset,
  which is the human dollar, or THD,
@@ -35,7 +35,7 @@
  its oxygen principle, which actively rots unobserved value well,
  it creates an unsustainable environment of constant financial pressure.
  It just fundamentally ignores the messy analog realities of human life.
- Okay, so to really grasp the magnitude of Simona's architecture,
+ Okay, so to really grasp the magnitude of Simoneau's architecture,
  we first have to understand his diagnosis of the current digital landscape.
  Right.
  He looks at the legacy Web3 model, you know,
@@ -45,13 +45,13 @@
  A compile-time error.
  Yeah, we're essentially running the program of human existence using a corrupted manual.
  Exactly.
- And the foundational flaw, according to Simona,
+ And the foundational flaw, according to Simoneau,
  is how we understand the number zero.
  In Roman-influenced binary logic, zero is just treated as a void.
  It's nothingness.
  A null state.
  Like an empty wallet.
- Right, but Simona introduces zeroth ternary logic,
+ Right, but Simoneau introduces zeroth ternary logic,
  and in this logic, zero is totality.
  Which is a profound ontological shift, conceptually.
  I mean, instead of zero being an empty space,
@@ -72,7 +72,7 @@
  It permanently fuses data, which is the Z0P hash,
  with intrinsic value, the THD hash.
  And by braiding the data and the value together into a single entity,
- Simono engineers this asset to operate exactly like a biological cell.
+ Simoneau engineers this asset to operate exactly like a biological cell.
  Under the oxygen principle, yeah.
  Right.
  Where value must move to survive.
@@ -107,7 +107,7 @@
  We face unemployment.
  I hear you, but...
  By demanding constant kinetic energy at the threat of mathematical decay,
- Simono has built a deterministic cage.
+ Simoneau has built a deterministic cage.
  It creates a state of perpetual economic exhaustion,
  but it's disguised as ultimate mathematical truth.
  Well, I think to really ground this,
@@ -117,7 +117,7 @@
  The Synthesis Analyzing THG Organizations.
  We should absolutely dig into that.
  Because we're moving from the high-level velocity of the hash web down to the literal point of access.
- Simono mandates the complete death of the traditional crypto wallet.
+ Simoneau mandates the complete death of the traditional crypto wallet.
  You aren't holding custody of a private key written on a piece of paper anymore.
  Your identity is the key.
  He introduces the bioethereal key, which is generated dynamically, right?
@@ -162,7 +162,7 @@
  But you call this a sanctuary.
  What good is a perfectly secure vault if the system itself is so incredibly fragile for the human operating it?
  Fragile how?
- Well, Simono talks about the sovereign mind, where you talk to the organism, but you cannot perform surgery on it.
+ Well, Simoneau talks about the sovereign mind, where you talk to the organism, but you cannot perform surgery on it.
  Think about the implications.
  If a user simply forgets their abstract component, the negative one, their password, the system lacks any analog recovery mechanism.
  I mean, that's true of legacy crypto, too, though.
@@ -260,7 +260,7 @@
  They effectively outrun the rot by metabolizing for the network.
  But wait, let's follow your logic there.
  Let's look at the scalability and the temporal cost of this.
- Seminole codified this in Protocol 88, the cognitive Ouroboros,
+ Simoneau codified this in Protocol 88, the cognitive Ouroboros,
  and the axiom of temporal decay invariance.
  Oh, right.
  This is vital to understand.
@@ -332,7 +332,7 @@
  kinetic economic participation.
  By redefining zero as totality
  and enforcing the base-3 mitosis cycle,
- Simeno has created what biologists call
+ Simoneau has created what biologists call
  a siphonophore.
  Explain that for the audience
  because that's a dense concept.

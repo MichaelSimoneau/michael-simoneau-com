@@ -1,39 +1,39 @@
  Welcome to today's Deep Dive. We are looking directly at you today because we're unpacking
  something that sounds straight out of a science fiction novel. Yeah, it really does. It's a
- radical economic framework designed by a developer named Michael Simonow. Right. And to tackle this,
- we've pulled together a pretty fascinating stack of sources. We've got Simonow's own architectural
+ radical economic framework designed by a developer named Michael Simoneau. Right. And to tackle this,
+ we've pulled together a pretty fascinating stack of sources. We've got Simoneau's own architectural
  logs, some incredibly dense Web 3 white papers, and his personal audio diaries. All detailing this
  system he calls the human dollar or THD. Exactly. So our mission today is to completely
- deconstruct Simonow's core thesis, which is basically that traditional money is fundamentally
+ deconstruct Simoneau's core thesis, which is basically that traditional money is fundamentally
  broken. Completely broken in his eyes. Right. We're going to explore how his new metabolic currency
  aims to completely cure the global anxiety around retirement. And we'll unpack the exact mechanics
  of how you sitting right there listening to this can actually adopt this system today. It's a profound
- shift, you know, and how we perceive value altogether. Because to understand where Simonow is coming from,
+ shift, you know, and how we perceive value altogether. Because to understand where Simoneau is coming from,
  we really have to examine our deepest assumptions about security. Which brings us to the classic bank
  vault. Usually when we think about a vault, there's this expectation of absolute permanence, like a time
  capsule. Right. You stick a crisp hundred dollar bill in a heavy steel box. You lock the thick door. And
  well, the assumption is that you've secured your future. Because the paper might get a little dusty, but a hundred
- bucks is a hundred bucks. Exactly. But Simonow starts his audio diaries with a very provocative claim.
+ bucks is a hundred bucks. Exactly. But Simoneau starts his audio diaries with a very provocative claim.
  He says everyone is living in a massive global social delusion. We all hallucinate that the value of our
  savings is still sitting in that vault just because the paper still literally says 100 or the bank screen
  still shows those specific digits. But if you stick that hundred dollars in a vault for a century, its actual
  purchasing power completely evaporates. It's gone. So instead of a time capsule, that steel vault looks more like
  a block of ice left out in the sun. The water might still technically be there, pooled on the floor,
  but the actual power of that money is just melting away. And we just pretend it isn't happening.
- What's fascinating here is how Simonow frames this using what he calls the banana argument. Oh yeah,
+ What's fascinating here is how Simoneau frames this using what he calls the banana argument. Oh yeah,
  the banana argument. Break that down for us. So in his notes, he posits that core societal pillars,
  take religious freedom for example, are essentially socially accepted delusions. Right.
  They're agreed upon psychological constructs that basically just keep order. A physical banana is
  real, right? You can eat it. Yeah, it has physical form. Exactly. But a concept like religious freedom
- exists only because we collectively agree it exists. Simonow argues that saving money is an equally
+ exists only because we collectively agree it exists. Simoneau argues that saving money is an equally
  fabricated social construct. Okay, let's unpack this. Because if I go to the store and buy a gallon of
  milk, I'm not going to hoard it in a closet for the winter. That would be insane. Right. Because it spoils.
- It spoils. You consume it while it has value and nutrition. Yeah. But Simonow is saying we should
+ It spoils. You consume it while it has value and nutrition. Yeah. But Simoneau is saying we should
  treat our money the exact same way. That it should actually spoil if we don't use it. That's his whole
  point. But wait, if saving is a delusion, what is the alternative? I mean, how does a normal person
  survive or protect their family if they don't save? Well, that is the crux of his philosophy. Yeah.
  Traditional money is treated like a battery. It's this static store of value that you hoard,
- hoping it doesn't leak its charge over time. Right. Right. Simonow argues that money must be a
+ hoping it doesn't leak its charge over time. Right. Right. Simoneau argues that money must be a
  velocity vector. It has to be kinetic energy. Stagnation is literal death in his system.
  So he creates a currency that forces circulation by programmatically decaying if it isn't used. But
  how does he actually build that? You can't just print physical paper money that self-destructs.
@@ -43,7 +43,7 @@
  Web3 ERC20 token, that means it's subject to speculation. It's subject to volatility,
  its own internal bubbles, market dynamics, all of it. It is. And that is entirely by design.
  Look, to get a THD container, you deposit standard USDC, which is a digital stablecoin pegged to the US
- dollar into the hashweb. Right. Just a standard stablecoin deposit. But Simonow built this brilliant
+ dollar into the hashweb. Right. Just a standard stablecoin deposit. But Simoneau built this brilliant
  architectural failsafe into the code. The base one dollar USDC floor never decays. Wait, explain that
  mechanism. Because if the whole point is that money decays, why does the floor stay safe? Because the
  one dollar is an administrative guarantee. It's a hard-coded constraint within the hashweb. Think of
@@ -51,7 +51,7 @@
  immune to decay. Only the organic value that grows above it, the profit or the speculative value of
  the THD token decays if it's left unobserved or unspent. Hold on, unobserved? Are we talking
  about quantum mechanics here? How does a financial app know if I'm observing my money? It's just a
- programmatic term Simonow uses to describe interaction. In this ecosystem, observation
+ programmatic term Simoneau uses to describe interaction. In this ecosystem, observation
  means deployment. Like, are you transacting with it? Oh, I see. Are you actively adding value to the
  network? If the code sees the token sitting entirely dormant in your wallet, it defines that value as
  unobserved. And the algorithmic decay begins eating into your profit. But if you use the
@@ -66,19 +66,19 @@
  That one dollar deposit automatically provisions your Web3 wallet, your personal THD container,
  and mints your genesis block on the hash web. The security on this is wild, though. Because you
  don't use a standard username. You scan your face using the biometric lidar on your phone,
- coupled with a password. Right. To generate what Simono calls a bioethereal key. But practically,
+ coupled with a password. Right. To generate what Simoneau calls a bioethereal key. But practically,
  how does a face scan become a financial key? Well, it doesn't just take a flat photograph.
  The lidar creates a three-dimensional cryptographic hash based on the microscopic topography of your
  facial structure at that exact moment. Wow. So that biometric data is permanently interwoven with your
  genesis block. Your physical biological self become the literal access point. Which perfectly sets up the
  biological rules of this money. Because if I'm accumulating all this value from Web3 speculation,
  is there a limit? Oh, absolutely. Because if there isn't, aren't we just back to the same problem of
- billionaires hoarding massive batteries of wealth? Simono fully anticipated that. Which is why there
+ billionaires hoarding massive batteries of wealth? Simoneau fully anticipated that. Which is why there
  is a hard mathematical ceiling. A single personal THD container can only hold up to a maximum value of
  65,535. That is such a specific, almost random number. Why 65,535? It's the maximum value of a 16-bit
  unsigned integer in computer programming. Wait, really? Like an old arcade game?
  Exactly like that. Think of it like the maximum score you could get before the counter simply flips back
- to zero. Simono hard-coded this limitation into the currency itself. So what happens when that indie
+ to zero. Simoneau hard-coded this limitation into the currency itself. So what happens when that indie
  shoe brand I invested in goes incredibly viral and the value of their token pushes past that cap? The
  container just explodes. It undergoes what the architectural logs call the mitosis event. Mitosis,
  like a cell splitting. Right. Just like a biological cell splitting, when it gets too large,
@@ -93,7 +93,7 @@
  network. This completely flips how we view financial security. Under the current system,
  we just hoard fiat currency in stagnant retirement accounts, terrified of inflation. Right. Which brings
  me to the ultimate question for you listening right now. How does a system where your money is actively
- decaying actually cure your anxiety about saving for retirement? Semino calls the philosophy driving this
+ decaying actually cure your anxiety about saving for retirement? Simoneau calls the philosophy driving this
  Darwinian Marxism. Darwinian Marxism. That is quite the contradiction. It is, but structurally it makes
  perfect sense. The system leverages pure capitalist ambition. You are incentivized to aggressively grow your
  token, seek out incredible products, and ride speculative bubbles. Right. Capitalism. But it forces a Marxist

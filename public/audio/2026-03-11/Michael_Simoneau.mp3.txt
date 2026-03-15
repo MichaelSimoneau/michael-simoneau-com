@@ -21,8 +21,8 @@
  clinical psychiatric logs from a therapist, and perhaps most bizarrely,
  massive transcripts of a human being aggressively arguing with an artificial intelligence.
  And the subject at the center of all this data, the man generating all of this,
- his name is Michael Simenow.
- Michael Simenow. He describes himself in these logs as a neurodivergent coder,
+ his name is Michael Simoneau.
+ Michael Simoneau. He describes himself in these logs as a neurodivergent coder,
  an architect, a recovered drug addict, and someone who is quite literally trying to rewrite the
  fundamental laws of theoretical physics and the global financial system simultaneously.
  Not at all. So our mission today for you is highly unusual. We're going to decode the architecture
@@ -513,7 +513,7 @@
  He demands that the AI act as an adversarial auditor.
  He explicitly programs it to fight him.
  He tells the AI personas, I want to be proven wrong.
- He needs the friction of the debate to stress test his zero theories.
+ He needs the friction of the debate to stress test his Zeroth Theory.
  He despises it when the AI acts like a sycophant, constantly saying, yes, Michael, you're right, Michael.
  He needs the AI to push back, to find the holes in his logic before he presents it to Dr. Francis.
  And that demand for friction leads to the most incredible moment in the entire transcript dump.

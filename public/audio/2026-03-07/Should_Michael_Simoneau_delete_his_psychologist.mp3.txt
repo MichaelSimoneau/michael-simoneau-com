@@ -1,12 +1,12 @@
  Welcome to the debate. Today, we're analyzing a really fascinating intersection of systems
- architecture and clinical psychology. We are looking at Michael Cimino, a systems architect,
+ architecture and clinical psychology. We are looking at Michael Simoneau, a systems architect,
  who basically treats his own mind like a software program. And the central question before us today
  is this, should Michael delete his psychologist, Dr. Melinda Francis, from his system?
  Right. And to understand why he's even considering this, we have to look at the
  highly calculated trap he set for her. Michael built custom websites, including the domain
  DrMelindaFrancis.com. He recorded these 10-minute audio logs and even pre-filled a 5150 form,
  which is an involuntary psychiatric hold. He wanted to see if she would engage with his
- mathematical zero theory or if she would just dismiss the whole engineered test as pure mania.
+ mathematical Zeroth Theory or if she would just dismiss the whole engineered test as pure mania.
  Which, of course, she did. She looked at this elaborate architecture and diagnosed it as a
  clinical delusion. Because of that, I am taking the position that Dr. Francis is what Michael would call
  a dead note. She is a useless piece of code that merely distracts from his operational efficiency and

@@ -13,27 +13,27 @@
  We are looking at a truly radical proposition that attempts to fix that very problem.
  Specifically, we're diving into the newly proposed architecture for what are called THD organizations.
  THD meaning the human dollar, right?
- Right. The human dollar existing within Michael Simonio's zeroth hash web framework.
- And we're going to analyze this using what Simonio calls the Omnivox Jordan Synthesis.
+ Right. The human dollar existing within Michael Simoneau's zeroth hash web framework.
+ And we're going to analyze this using what Simoneau calls the Omnivox Jordan Synthesis.
  Which for listeners who might not be deep into the architectural weeds of the hash web, sounds like incredibly dense jargon.
  It does sound like a lot.
  But it's actually just a framework for pressure testing an idea.
  Exactly. So let's unpack that for a second before we really dive in.
  The Omnivox Jordan Synthesis is essentially a multi-perspective audit.
- Simona uses these distinct avatars or lenses to view the system simultaneously.
+ Simoneau uses these distinct avatars or lenses to view the system simultaneously.
  Three lenses, to be exact.
  Right. First, you have the street. That's the lens of the everyday user.
  The street asks the raw question of practical utility.
  Like, does this complex math actually put milk in my fridge?
  The most important question for most people.
  Exactly. Second, we have the clinic. That's the psychological and structural audit.
- The clinic looks at the mental friction of the system, searching for what Simonio calls the hallucination of agency.
+ The clinic looks at the mental friction of the system, searching for what Simoneau calls the hallucination of agency.
  Right. Making sure the system isn't driving us crazy.
  Pretty much.
  And third, you have the tribunal, or the Jordan persona, which applies adversarial mathematics.
  The tribunal is the hostile mathematician trying to break the deterministic logic.
  Does hitting it with a hammer to see if it holds up under extreme pressure.
- And so, the central disagreement we are exploring today by passing the architecture through these three lenses is fundamental to the entire premise of the zero theory.
+ And so, the central disagreement we are exploring today by passing the architecture through these three lenses is fundamental to the entire premise of the Zeroth Theory.
  It really is the core of it.
  The question is this.
  Does the strict implementation of THD organizations, and specifically the requirement of a biometric LiDAR scan linked to a Web3 wallet,
@@ -44,26 +44,26 @@
  It is a profound question.
  It is a profound question.
  And to be clear, our entire discussion today is grounded strictly in the latest architectural specifications.
- We are drawing from Michael Simeno's personal journal entries, including his recent reflections from March 13th, and the numerical Trinity axioms.
+ We are drawing from Michael Simoneau's personal journal entries, including his recent reflections from March 13th, and the numerical Trinity axioms.
  We're looking at the raw code logic, the physics of the hash web, and the underlying philosophical mandates.
- Exactly. And from my side of the table, I will argue that Simeno's logic holds.
+ Exactly. And from my side of the table, I will argue that Simoneau's logic holds.
  I believe this architecture brilliantly aligns physical presence with digital truth, using biological gates to prevent systemic rot,
  ensuring that only entities with proven metabolic velocity can actually spawn organizations.
  And I will argue that while the tensor math might be beautiful on a whiteboard,
  the strict geometric thresholds and the decay coefficient offset introduce severe structural rigidities.
  I believe they effectively create a massive, mathematically obfuscated paywall that protects legacy capital under the guise of metabolic physics.
  Okay, so let's lay out the core of our positions.
- From my perspective, exploring Simeno's logic, the THD organization structure attempts to solve one of the most critical, devastating vulnerabilities in legacy corporate structures.
+ From my perspective, exploring Simoneau's logic, the THD organization structure attempts to solve one of the most critical, devastating vulnerabilities in legacy corporate structures.
  The hallucination of agency.
  Yes. In the old world, the world we live in now, really, a corporation is a phantom.
  It exists on paper in Delaware, but it has no physical body. It has no biological anchor.
- Simeno solves this by anchoring identity to what he terms a bioethereal key.
+ Simoneau solves this by anchoring identity to what he terms a bioethereal key.
  Which is a heavy concept.
  It is, but it's a synthesis. It takes LIDAR geometric data, representing the physical body, and combines it with a Web3 hash, representing the abstract mind.
  By demanding this, and by further restricting the creation of a THD organization until the user's primary container reaches 99% of the 65,536 limit.
  The UN16 physical limit.
  Exactly, which is the physical limit of a 16-bit integer. By doing that, the system demands proof of metabolism. It proves you are biologically alive, economically active, and capable of sustaining energy.
- Furthermore, Simeno argues the math is absolute.
+ Furthermore, Simoneau argues the math is absolute.
  Even with the decay offset?
  Especially with the decay offset.
  The decay coefficient offset, where injecting $65,000 slows the rate at which your money decays, is not a loophole for the wealthy.
@@ -71,7 +71,7 @@
  Well, I come at it from a completely different way. The architecture is intellectually elegant, yes, but practically fragile.
  How so?
  When we actually apply the tribunal and the street lenses to the system, the decay coefficient offset reveals itself as a massive, paradoxical flaw.
- Simeno's entire philosophy, which he sometimes refers to as Darwinian Marxism, claims to punish what he calls hoarding cancer.
+ Simoneau's entire philosophy, which he sometimes refers to as Darwinian Marxism, claims to punish what he calls hoarding cancer.
  Right, by forcing circulation.
  He does this through a base-3 metabolic decay. In simple terms, if you don't use your money, its value literally thirds every half-life.
  It forces movement. However, his recent notes explicitly state that if a user can deposit $65,000 to offset that decay coefficient,
@@ -82,7 +82,7 @@
  It completely alienates the everyday, tired worker on the street, the exact person this system claims to liberate.
  Okay, let's start breaking this down mechanically, because the devil's entirely in the details here.
  Let's unpack the first major component, the bioethereal key.
- We need to understand the history of why Simeno is even doing this.
+ We need to understand the history of why Simoneau is even doing this.
  Right.
  The death of the wallet.
  Exactly.
@@ -94,7 +94,7 @@
  The network just sees the key and executes the command.
  It's totally blind to the biological reality of the person typing it in.
  Exactly.
- And Simeno calls this the hallucination of agency.
+ And Simoneau calls this the hallucination of agency.
  We are hallucinating that the person holding the key is the authorized agent.
  To cure this, he introduces the dual hash requirement for the THD.
  Component A represents physical presence.
@@ -107,7 +107,7 @@
  Or, I mean, you can literally just print a face on a piece of paper and hold it up to a camera.
  We've seen that happen constantly in legacy verification systems.
  Great.
- Simono bypasses this entirely by requiring LIDAR.
+ Simoneau bypasses this entirely by requiring LIDAR.
  Light detection and ranging.
  It's essentially shooting lasers at your face to measure the time it takes for the light to bounce back,
  creating a three-dimensional topographical map.
@@ -146,7 +146,7 @@
  But the skin sags.
  The bone density shifts over decades.
  Or what happens in the event of a severe injury, a car accident, or even just dramatic weight loss.
- Simeno himself documented that he lost 40 pounds due to the stress of his SSDI delays.
+ Simoneau himself documented that he lost 40 pounds due to the stress of his SSDI delays.
  Right.
  He wrote about that.
  If your face loses 40 pounds, the geometric depth of your cheeks changes completely.
@@ -169,14 +169,14 @@
  But LIDAR biothermal mapping isn't just looking at the surface fat pads of your cheeks.
  It's mapping the underlying cranial structure, the distance between the pupils, the immovable anchor points of the skull.
  Assuming the skull doesn't suffer trauma.
- Simenot's argument is that this geometric baseline is far more immutable than a password.
+ Simoneau's argument is that this geometric baseline is far more immutable than a password.
  Why view this biological anchoring as a vulnerability rather than the ultimate sovereign security membrane?
  Because the friction isn't eliminated.
  It is just relocated from a piece of paper in a drawer to your actual physical anxiety.
  And it gets much, much more restrictive when we move past the personal wallet and into the concept of the THD organization.
  You're talking about the mitosis trigger?
  Yes.
- Let's look at Simenot's March 13th journal entry.
+ Let's look at Simoneau's March 13th journal entry.
  He specifically states, and I quote,
  This face scan, you cannot use your face scan with a different memory unless your THD container, the original one, is going to be within 1% of the mitosis trigger.
  Right.
@@ -186,7 +186,7 @@
  If we look through the street lens, the everyday people trying to navigate the economy, they would look at this and ask, how do I start a small business?
  They mature their container.
  How do I form an LLC to protect my family's assets if my restaurant goes under, if my actual face is permanently locked to my personal checking account?
- Simona's answer is that you can't, not until you reach that mitosis trigger.
+ Simoneau's answer is that you can't, not until you reach that mitosis trigger.
  He is eliminating the concept of corporate anonymity entirely.
  Which is exactly the goal.
  If you eventually start a THD organization, it requires a different password, a different memory, but the exact same face scan.
@@ -194,7 +194,7 @@
  This completely destroys the corporate veil.
  And for all its historical flaws, the corporate veil provides liability protection that allows risk-taking and innovation on the street.
  But the destruction of the corporate veil is exactly the point.
- Simona would argue this is the crowning achievement of the architecture.
+ Simoneau would argue this is the crowning achievement of the architecture.
  Let's elevate this to the tribunal's lens, looking at the adversarial mechanics.
  Okay, let's hear the tribunal's take.
  The legacy corporate veil allows bad actors to shield themselves from the consequences of their actions.
@@ -213,7 +213,7 @@
  You mentioned it yourself, the 1% mitosis trigger.
  Let's deeply examine this constraint because this is where the street lens just screams in frustration.
  I don't think it's exclusionary, but go on.
- Simenu dictates that a human can only have one primary THD container.
+ Simoneau dictates that a human can only have one primary THD container.
  To open a secondary container, a THD organization, your primary container must reach within 1% of the mitosis trigger.
  The 65,536 limit.
  Yes.
@@ -292,7 +292,7 @@
  interacted with that container.
  Which is incredible.
  If it's a business, the 1% goes to the customers who bought the products.
- It structurally enforces Simono's Darwinian Marxism.
+ It structurally enforces Simoneau's Darwinian Marxism.
  Profitable entities have absolutely no choice but to pay dividends directly to their customers.
  There are no board meetings to vote on stock buybacks instead.
  The math forces the redistribution.
@@ -312,7 +312,7 @@
  Let's get into the math.
  This is the heart of the tribunal lens.
  The absolute core of the THD's metabolic economics is the base 3 decay formula.
- Simeno dictates that value thirds every half-life iteration unless it is reinforced by usage.
+ Simoneau dictates that value thirds every half-life iteration unless it is reinforced by usage.
  Right.
  The formula.
  The axiom is observation is oxygen.
@@ -326,14 +326,14 @@
  It forces you to spend it, invest it, or give it away.
  Exactly.
  But here is the massive contradiction.
- In the March 13th architectural log, Simono introduces a new variable into this supposedly egalitarian physics engine.
+ In the March 13th architectural log, Simoneau introduces a new variable into this supposedly egalitarian physics engine.
  He states that if you deposit $65,000 into your THD container, the decay is offset by a coefficient of 65,000.
  Yes, the decay coefficient offset.
  He literally says on the record, you could conceivably live on that money much longer because the iteration cycle is based on the usage.
  Let's apply the tribunal lens here, specifically the Jordan adversarial framework.
  Jordan is the instigator.
  Right.
- Jordan looks at this and asks, if the entire foundational philosophy of Zeroth theory is to destroy stagnant capital and force continuous movement,
+ Jordan looks at this and asks, if the entire foundational philosophy of Zeroth Theory is to destroy stagnant capital and force continuous movement,
  how is the $65,000 offset not a massive glaring contradiction?
  Because it's...
  Let me just...
@@ -419,8 +419,8 @@
  You are mathematically forcing a society to abandon the safety of static hoarding for the constant, gnawing anxiety of metabolic spending.
  I don't think it's anxiety.
  I think it's participation.
- Let's ground this using Simeno's own ultimate test, the sidewalk consensus protocol.
- Simeno insists that for the hash web to succeed, the system must be explainable to a neighbor over a fence without using dense sci-fi metaphors or tensor math.
+ Let's ground this using Simoneau's own ultimate test, the sidewalk consensus protocol.
+ Simoneau insists that for the hash web to succeed, the system must be explainable to a neighbor over a fence without using dense sci-fi metaphors or tensor math.
  A fair test.
  So, imagine you are at the fence.
  How do you explain to your neighbor that their paycheck is essentially a living cell that must be constantly exercised or its value will mathematically wither away?
@@ -450,7 +450,7 @@
  The legacy system, for all of its horrific flaws in inflation, allows for a pause.
  A very expensive pause.
  You can take your fiat cash, put it under a mattress, and, inflation aside, the physical paper will be there when you wake up.
- The Zeroth theory explicitly, mathematically criminalizes rest.
+ The Zeroth Theory explicitly, mathematically criminalizes rest.
  Stagnation is systemic death.
  Apoptosis.
  It programmatically prunes non-functioning cells.
@@ -463,14 +463,14 @@
  The multiplier.
  The life of the asset.
  Let's pull all of these disparate threads together into the final stage of the omni-vector synthesis.
- Simeno refers to this as the Mobius loop.
+ Simoneau refers to this as the Mobius loop.
  The fusion of value and identity.
  He argues that the THD organization completes this loop, where the proof of the data is contained entirely within the data itself.
  The system fuses value and identity into a single self-verifying entity.
  It's an objectively beautiful concept on a whiteboard.
  But when we collide the street, the clinic, and the tribunal, we see a system that is mathematically pristine, but biologically terrifying.
  How so? Walk through the final synthesis for me.
- The tribunal acknowledges the math works. It looks at the 272 collapse function. For the listener, the 272 collapse function is Simeno's mechanism for forcing a definitive state.
+ The tribunal acknowledges the math works. It looks at the 272 collapse function. For the listener, the 272 collapse function is Simoneau's mechanism for forcing a definitive state.
  In legacy blockchains, a transaction can sit in a mempool, pending forever.
  The 272 forces the resolution.
  Right. It forces the data to resolve to a definitive ontological state. It either happened or it didn't. Quickly and cleanly. The tribunal loves this. It's mathematically clean.
@@ -499,7 +499,7 @@
  But in the hash web, the decay coefficient offset is a variable based on wealth.
  That is where the omni-vector synthesis fractures for me.
  I see.
- Look, Simeno has built an astonishing machine.
+ Look, Simoneau has built an astonishing machine.
  The tricameral identity model, the biometric LiDAR anchoring, the recognition of the UN16 limits as biological thresholds, these are profound innovations.
  They fundamentally challenge the legacy structure of Web3 and the deeply flawed concept of corporate personhood.
  So we agree on the foundation.
@@ -514,7 +514,7 @@
  By slowing the clock?
  By requiring roughly 64,880 THD to start an organization, and by allowing a $65,000 offset to drastically slow the metabolic decay of capital, the system risks creating a reality where the physics simply act as a new, highly complex barrier to entry for the average user.
  It replaces the old centralized gatekeepers in suits with deterministic algorithmic gatekeepers, but the gates themselves remain locked to the poor.
- If I step back and look at this whole architecture in light of our discussion, what Simeno is really saying is that we need to stop pretending economies aren't biological.
+ If I step back and look at this whole architecture in light of our discussion, what Simoneau is really saying is that we need to stop pretending economies aren't biological.
  The THD organization architecture successfully translates biological laws into deterministic, self-regulating economic physics.
  It's ambitious translation.
  Through the LIDAR biometric gating, it physically cures the hallucination of agency.
@@ -527,17 +527,17 @@
  Of the decay coefficient offset and the rigid 1% organizational gate, create a system that, while claiming to enforce Darwinian Marxism and end capital stagnation,
  structurally rewards those who already possess the 65,000 THD required to slow their own decay and spawn corporate entities.
  It is brilliant math, but it might be brutal sociology.
- And this is exactly why the Omnivox-Jordan approach is so vital to understanding zero theory.
+ And this is exactly why the Omnivox-Jordan approach is so vital to understanding Zeroth Theory.
  We cannot just look at the code in a vacuum.
  We cannot just look at the philosophy in a textbook.
  We have to collide the clinic, the street, and the tribunal to see where the friction sparks.
  It really demands that level of scrutiny.
- Simono's architecture contains layers of mathematical and sociological depth that clearly demand further, exhaustive exploration from all of us.
+ Simoneau's architecture contains layers of mathematical and sociological depth that clearly demand further, exhaustive exploration from all of us.
  It forces us to ask what we truly value: the comfort of static rot or the demanding velocity of metabolic truth.
  So, we return to the X-ray machine.
  In the legacy system, we were looking at a blurry, static, two-dimensional image of corporate structure, squinting and trying to guess where the fractures were.
  And now?
- Simono has handed us a living, breathing MRI of an economic organism in real-time.
+ Simoneau has handed us a living, breathing MRI of an economic organism in real-time.
  It is complex, it is demanding, and the diagnostic waters are still incredibly deep.
  But perhaps for the first time in the history of digital economics, we are finally looking at a system that is actually alive.
  Well, there is definitely more to explore in the material.

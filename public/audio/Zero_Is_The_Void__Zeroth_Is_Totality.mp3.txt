@@ -9,7 +9,7 @@
  the absence of value it is null it's the empty set it's what you have when you
  have nothing else well we have a stack of documents here today that says we are
  wrong and not just math class wrong like existentially wrong we are looking at a
- system called zero and the architect behind it a guy named Michael Cimino starts
+ system called zero and the architect behind it a guy named Michael Simoneau starts
  his documentation with a challenge that frankly kind of annoyed me at first it is
  a bit aggressive isn't it it's confrontational it is he writes I want to
  bend your brain all the way he says so this is Michael forget talking about me
@@ -69,7 +69,7 @@
  exactly the ocean horizon analogy you stand on the beach you look out and it looks infinite it looks
  like the water goes on forever but it doesn't it stops or rather it curves
  right it's just a boundary of your perception the earth is a sphere
- it's whole it wraps around itself it's finite and the zero theory applies this to the universe
+ it's whole it wraps around itself it's finite and the Zeroth Theory applies this to the universe
  to everything reality isn't infinite it's whole it's a closed loop which brings up this visual they use the mobius canvas
  right if you travel far enough in one direction on a mobius strip you know that twisted loop of paper
  you don't go on forever you come back you eventually return to where you started but you're inverted you're upside down
@@ -388,8 +388,7 @@
  rain and hands okay it's a separation
  of powers you have a mind which is the
  zero off VM this is the strategist it
- runs the logic the philosophy the zero
- theory it decides what to do I should
+ runs the logic the philosophy the Zeroth Theory it decides what to do I should
  buy this token and the hands the hands
  which are called the grip hold the
  private keys they are the execution
@@ -425,7 +424,7 @@
  alien math decaying money it all sounds
  very futuristic almost sterile but the
  source material also gives us a glimpse
- of the guy building this michael simono
+ of the guy building this michael Simoneau
  the architect and the contrast is it's
  stark on one hand he's writing a new
  constitution for reality on the other

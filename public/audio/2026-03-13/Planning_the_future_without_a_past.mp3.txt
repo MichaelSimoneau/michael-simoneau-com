@@ -1,8 +1,8 @@
  Imagine driving down a highway at like 60 miles an hour, but your rearview mirrors are completely
  smashed and the back window is just totally blacked out. You only have the windshield.
  Yeah, that is the exact parameter we're stepping into today.
- So welcome to this deep dive into the source material from Michael Simonot's architectural
- logs. To give you some grounding, Simonot's logs are basically transcripts from this advanced
+ So welcome to this deep dive into the source material from Michael Simoneau's architectural
+ logs. To give you some grounding, Simoneau's logs are basically transcripts from this advanced
  software testing environment.
  Right. It's a simulation running sociological experiments, you know, to see how AI avatars
  handle these colliding computational rules.
@@ -44,11 +44,11 @@
  If we connect this to the bigger picture, Protocol 88 demands pure mechanical friction.
  It forces immediate present moment execution. So instead of checking a massive database of hot
  stoves, it just reads the current temperature of the object directly in front of it. It actively
- purges what Semino calls biological exhaust.
+ purges what Simoneau calls biological exhaust.
  Biological exhaust, like apologies or past context.
  Yes, exactly. Computationally, an apology is useless. It is just a data packet spent validating a past
  error that you cannot alter. So Protocol 88 drops the dead data and just processes the next command.
- So what does this all mean? Preparing for the future under Semino's rules requires entirely
+ So what does this all mean? Preparing for the future under Simoneau's rules requires entirely
  shedding the dead weight of the past. Apply this directly to your own daily grind, you know,
  how you process your own history. Freeing up that bandwidth is just huge.
  It really is. And this raises an important question. If you were forced to operate under Protocol 88

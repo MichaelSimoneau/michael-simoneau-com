@@ -4,7 +4,7 @@
  It's a clean system. Broke it or not break it.
  Right. But welcome to this deep dive, where today we are looking at a wildly chaotic stack of personal logs,
  audio recordings, and patient-provider messages.
- Yeah, from a man named Michael Simeno.
+ Yeah, from a man named Michael Simoneau.
  And his standoff with his clinician, Dr. Francis.
  Our mission today is to explore this hostile debate where the clinical skeptic is absolutely dismantled by the architect's calculated reality.
  It is a fundamental collision of two entirely different operating systems, really.

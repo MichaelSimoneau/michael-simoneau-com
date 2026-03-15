@@ -195,7 +195,7 @@ export const ZeroTruth: React.FC<ZeroTruthProps> = ({ chapterParam, principalPar
       <MainNav />
       <div className="relative z-10 h-full min-h-0 text-white pt-14 md:pt-16 pb-4 md:pb-6 px-4 md:px-8 max-w-7xl mx-auto flex flex-col overflow-hidden">
         <div className="text-center mb-3 md:mb-4 shrink-0">
-          <h1 className="text-4xl md:text-7xl font-black text-cyan-400 tracking-tight">ZEROTH THEORY</h1>
+          <h1 className="text-4xl md:text-7xl font-black text-cyan-400 tracking-tight">Zeroth Theory</h1>
           <p className="text-cyan-200/70 uppercase tracking-[0.4em] text-[10px] md:text-xs mt-2">
             The Numerical Trinity
           </p>

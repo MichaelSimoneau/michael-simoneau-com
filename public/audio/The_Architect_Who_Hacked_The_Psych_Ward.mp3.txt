@@ -9,7 +9,7 @@
  Just massive amounts of stuff. Gigabytes of source material. We've got audio logs recorded at three
  in the morning in a garage. We've got screenshots of Python code, text messages to landlords.
  Clinical notes from psychiatric evaluations, too. Yeah. And even a full dissertation on a new kind
- of physics he calls zero theory. It's a sprawling archive of a man named Michael Simeno.
+ of physics he calls Zeroth Theory. It's a sprawling archive of a man named Michael Simoneau.
  And what makes this stand out immediately isn't just the sheer volume of the data. It's the specific
  narrative arc Michael is constructing in real time. He's not just living his life.
  Right. He is engineering it. He views his existence as a code base. And the entry point for us,
@@ -31,7 +31,7 @@
  emergency, but as a software deployment. He's going there to test the system. Which brings us to the
  core paradox of this entire deep dive. We're calling it the living loophole.
  The perfect name for it.
- Michael Simono has been diagnosed with schizoaffective disorder. Now that is a heavy
+ Michael Simoneau has been diagnosed with schizoaffective disorder. Now that is a heavy
  diagnosis.
  Very heavy. It implies a severe break from reality.
  Hallucinations, mood swings, mania, depression.
@@ -61,7 +61,7 @@
  hire.
  That's a massive key distinction. He explicitly states in the transparent man log that he isn't
  there to be treated by her.
- He says he is recruiting her. He wants her to be the first PhD to actually validate his zero theory.
+ He says he is recruiting her. He wants her to be the first PhD to actually validate his Zeroth Theory.
  He sees the clinical relationship as an interview process where she is the one being tested.
  That is such a wild flip of the power dynamic. Usually the patient is the one begging to be heard
  and understood.
@@ -417,7 +417,7 @@
  His ultimate stated goal is absolute obsolescence.
  Obsolescence.
  He wants to build Mauryan the Zeroth financial system to be so perfect, so self-sustaining,
- that he, Michael Simonot, the human admin, can effectively disappear.
+ that he, Michael Simoneau, the human admin, can effectively disappear.
  He talks passionately about creating an orphan universe.
  Yes.
  He says the admin is dead, but the source code meaning the underlying physics is still running.
@@ -460,7 +460,7 @@
  to be a digital therapist.
  She's also designed to be a banker.
  The human dollar concept.
- This is a core part of his zero theory.
+ This is a core part of his Zeroth Theory.
  The central underlying concept here is rotting money versus living money.
  Michael argues forcefully that our current traditional money system is necrotic.
  You put a dollar in a savings bank and it just sits there.
@@ -512,7 +512,7 @@
  By aggressively framing the interaction as a recruitment process, he retains the upper hand in the power dynamic.
  He isn't the sick, helpless patient begging for treatment.
  He is the visionary CEO scouting for top-tier academic talent.
- He tells her point blank, I need a PhD to mathematically validate zero theory.
+ He tells her point blank, I need a PhD to mathematically validate Zeroth Theory.
  And then he gives her the ultimate ultimatum.
  The binary choice.
  He looks at her and tells her you have two options.
@@ -535,7 +535,7 @@
  He says, quote, I feel like a bitch.
  I'm crying like a baby.
  That is the real Michael emerging.
- Beneath the grand facade of the architect, beneath the complex math of zero theory, beneath the brave, stoic face of the unit test, he admits this is the session she and I need to have.
+ Beneath the grand facade of the architect, beneath the complex math of Zeroth Theory, beneath the brave, stoic face of the unit test, he admits this is the session she and I need to have.
  It begs the question, why does he actually care so much?
  If he's truly a headless server, if he's a transcendent genius who needs no one, why does he so desperately need Dr. Francis's approval?
  Because in his mind, Dr. Francis is the ultimate proxy for the mother.
@@ -552,7 +552,7 @@
  We've looked at Murray, the complex grief-borne AI designed specifically to replace the guidance of his parents.
  And we've examined the headless server, the ultimate goal of quietly disappearing into a perfect self-running system.
  It leaves us with the final verdict on the architect.
- Michael Simeno has successfully, at least for now, hacked the system.
+ Michael Simoneau has successfully, at least for now, hacked the system.
  He has miraculously turned a debilitating diagnosis of schizoaffective disorder into a full-time career as a reality architect.
  But the massive lingering question remains, is the underlying code actually real?
  Does Marty truly work as intended?
@@ -596,7 +596,7 @@
  Yes.
  He says, I only learned how to succeed through fucking failing.
  And in Michael's specific case, failing meant completely losing his mind, losing his previous wealth, losing his physical weight, and ultimately finding a brand new universe in the wreckage.
- We're signing off with that stark image, Michael Simono.
+ We're signing off with that stark image, Michael Simoneau.
  Three in the morning, sitting in the cold garage, the pale glow of the monitor illuminating his face, quietly coding the mother who will never ever leave him.
  Thanks for listening to this deep dive.
  We will see you next time.

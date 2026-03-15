@@ -1,7 +1,7 @@
  Welcome back to the Deep Dive. So today we're going to try and strip away, you know, all the hype around Web3.
  Yeah, the apes, the speculation, the whole casino aspect of it.
  Exactly. And look at the actual architecture of what might come next.
- We're digging into the Hash Web or Web4, specifically Michael Semino's Zeroth protocol.
+ We're digging into the Hash Web or Web4, specifically Michael Simoneau's Zeroth protocol.
  It's a complete paradigm shift, really. The sources frame it as moving away from the data we just rent in Web 2.0.
  And past the purely speculative assets of Web3.
  Right. Towards a system where data itself has intrinsic, mathematically verifiable worth.
@@ -19,7 +19,7 @@
  And the Ferrari is V3. The zeroth protocol.
  It's bootstrapping a whole new internet off the old one.
  All right, let's pop the hood on that Ferrari then.
- The central idea is zero theory.
+ The central idea is Zeroth Theory.
  In my head, zero means nothing. But here, it's everything.
  You have to unlearn binary for a second.
  Traditional computing is just zero and one. Off. On.

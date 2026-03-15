@@ -1,7 +1,7 @@
  Welcome back to the Deep Dive. Today, we are doing something, honestly, a little bit risky.
  Risky. I don't know. I would call it necessary. But yeah, it's definitely a departure from our
  usual format. Right. Because usually when we sit down to talk about Michael C. Minow's work,
- specifically Zero Theory, the crypto fabric, the By Z, we lean pretty heavily on the poetry of it
+ specifically Zeroth Theory, the crypto fabric, the By Z, we lean pretty heavily on the poetry of it
  all. We talk about, you know, apothecary scales, balancing truth and lies. We talk about leaves
  floating on a river to explain time. We spend a lot of time on that mythical Chinese beast, the By Z,
  with the eyes all over its body watching the world. And those are beautiful images. Yeah. I mean,
@@ -12,7 +12,7 @@
  Or philosophy. But C. Minow isn't writing a fantasy novel here.
  No, not at all. He's writing a physics engine.
  Exactly.
- If you actually read the technical addendums, like Zero Theory, the calculus of totality,
+ If you actually read the technical addendums, like Zeroth Theory, the calculus of totality,
  or those incredibly dense papers on the 272 collapse function, there is not a single mention
  of a leaf on a river. It is dense, rigorous, aggressive mathematics.
  So today, we are issuing a hard pivot. We are doing a structural audit.
@@ -42,7 +42,7 @@
  The by Z is the address space.
  Okay, let's unpack that immediately. Address space. That sounds like something I'd hear
  from a network administrator, not a theoretical physicist.
- That's because, in zero theory, they are effectively the same thing. You have to think
+ That's because, in Zeroth Theory, they are effectively the same thing. You have to think
  about it in terms of computer science overlapping with geometry. The by Z is the negative identity
  tensor, which is denoted as minus I. It is also defined as the phase conjugate mirror. It
  isn't a thing that acts. It is the manifold that contains the coordinates for absolutely
@@ -64,7 +64,7 @@
  terrifying for us. It means existence is just this thin layer over a bottomless pit of nothingness.
  That's the nihilism of modern physics, right? Heat, death, entropy. Eventually, all the energy
  dissipates and everything just stops.
- Yes. But zero theory posits an entirely different kind of zero. It proposes tensor zero or positive
+ Yes. But Zeroth Theory posits an entirely different kind of zero. It proposes tensor zero or positive
  zero.
  How can zero be positive? Zero is neutral by definition.
  Not in geometry. Think about this physically. You're sitting in a room. We take all the furniture
@@ -160,7 +160,7 @@
  But translating that into information theory? It's database management. It's indexing.
  Deconstruct that for me. Because naming a monster feels very fantasy role-playing. Indexing a value feels like
  SQL database architecture.
- Semino is incredibly clear in the addendums about this. The by Z does not cast spells. It provides primary keys.
+ Simoneau is incredibly clear in the addendums about this. The by Z does not cast spells. It provides primary keys.
  Primary keys.
  Think about the architecture of a massive relational database. If you have a chaotic variable, a shadow, a fear, an unknown threat,
  why is it terrifying to the system? Because it is undefined. It is an X. It is pure entropy. It's a bug in the code that could crash the entire runtime environment.
@@ -181,7 +181,7 @@
  The sources refer to this as the judge of the system. But again, keeping to our rules, not a guy in a robe, a strict mathematical function.
  Correct. The 272 collapse function is designed for one specific computational purpose-negative space analysis. Its entire job is to determine mathematical convergence. It forces a piece of data to confess its true ontological state.
  Confess its state. I love that phrasing. It implies that numbers can lie to us.
- In zero theory, numbers lie constantly. Or rather, they present a facade of geometric stability when they're actually crumbling underneath. The 272 function reveals the structural cracks in the data.
+ In Zeroth Theory, numbers lie constantly. Or rather, they present a facade of geometric stability when they're actually crumbling underneath. The 272 function reveals the structural cracks in the data.
  How exactly does it do that? What is the mechanism?
  It utilizes modulo three arithmetic.
  Okay. We need to slow down and define that. Modulo math. That's remainder math, right?
@@ -230,7 +230,7 @@
  The final verdict. The number seven mathematically resolves to potential. Negative one.
  Precisely. Despite appearing as a perfectly full binary number one one one one, the 272 function proves that seven is filled with negative space.
  It is mathematically unstable within the manifold. It resolves completely to a shadow.
- So in the physics of zero theory, the number seven isn't just a quantity of items. It's a state of being that is intrinsically unstable. It must move or decay because it doesn't balance to zero.
+ So in the physics of Zeroth Theory, the number seven isn't just a quantity of items. It's a state of being that is intrinsically unstable. It must move or decay because it doesn't balance to zero.
  That is the strict definition of truth in this architecture.
  Check.
  And this is the part that profoundly changes how you view reality. Truth isn't a moral judgment. It isn't an ethical standard. Truth is mathematical convergence. A block of data, the transaction of physical particle, is only valid if the sum of this history resolves perfectly to zero.
@@ -239,12 +239,12 @@
  This implies a universe that is constantly error checking itself. It's running a continuous checksum on every atom, every line of code, every single second, which naturally leads us to the physical structure of that universe. Section four of our audit, the closed system topology.
  Or, as it's modeled in the papers, the universe as a microchip.
  The sources are very aggressive in this section. They explicitly refute the concept of infinity entirely. And I think for you listening, and for me, that's a really hard pill to swallow. Humanity loves the idea of infinity. We love looking up at the night sky and thinking space goes on forever in every direction.
- That's a very romantic notion. But Simono treats infinity as a mathematical error. He calls it a remainder bug. He explicitly refers to it as a buffer overflow of human perception.
+ That's a very romantic notion. But Simoneau treats infinity as a mathematical error. He calls it a remainder bug. He explicitly refers to it as a buffer overflow of human perception.
  A buffer overflow. For anyone not in computer science, that's when a program tries to store more data in a temporary memory space than it was allocated to hold, and the system either crashes or starts looping bad data.
  Exactly. Think about rendering engines in old video games. If you force your character to walk to the absolute edge of the programmed map, what happens?
  Usually you hit an invisible collision wall. Or the ocean just starts looping forever. The same texture pattern repeats out to the horizon.
  The ocean loops because the computer processor cannot mathematically render infinite water. It just repeats the final texture pattern to prevent a crash.
- Simono argues that what astrophysicists call infinity is just human perception hitting the edge of the render distance. We were observing the buffer overflow of the universe and mistaking it for endless physical space.
+ Simoneau argues that what astrophysicists call infinity is just human perception hitting the edge of the render distance. We were observing the buffer overflow of the universe and mistaking it for endless physical space.
  So the universe is a completed object. It is a closed, perfectly finite system.
  And geometrically speaking, it is specifically a zeroth dimensional point.
  This is undoubtedly the hardest concept for us three dimensional beings to grasp. We are entirely used to length, width, and height. But a zeroth dimensional point, a 0D topology, has no length, no width, no height. It implies infinite data density.
@@ -261,7 +261,7 @@
  Wait, this actually explains quantum entanglement flawlessly.
  Exactly. Non-locality. Standard physics has struggled with this for a century. How can two entangled particles affect each other instantaneously across billions of light years of space?
  Einstein famously hated it. He called it spooky action at a distance.
- But zero theory solves the paradox by stating there is no distance.
+ But Zeroth Theory solves the paradox by stating there is no distance.
  There are no light years. The particles affect each other instantly because they are technically touching in zero-D space.
  They are adjacent memory addresses in the RAM of the universe. We are just seeing the unzipped, rendered version of the data on our 3D screens.
  We are just the Jigwe, the graphical user interface. The zero-D point is the actual backend database.
@@ -269,7 +269,7 @@
  This is the theoretical implication of the physics, and it's arguably the most chilling part of the entire framework.
  The universe is a zero-VM. A virtual machine.
  And usually, a server has a systems administrator. Someone typing commands, monitoring the load.
- But Simeno's architecture suggests the admin is gone. The Big Bang was simply the initial bootstrap sequence.
+ But Simoneau's architecture suggests the admin is gone. The Big Bang was simply the initial bootstrap sequence.
  The .0 kernel was loaded into memory. But the current state of the universe. The system is entirely self-hosting.
  The admin, whether you call that god, or the architect, or the programmer, is dead or permanently absent.
  The admin is dead. That sounds like a terrifying systems engineering update to Nietzsche.
@@ -309,7 +309,7 @@
  The vectors compound.
  And suddenly, that inert piece of iron becomes a massively powerful electromagnet.
  The diffuse force becomes a single, focused beam.
- And Simonos Calculus argues that gravity functions through this exact same mechanism.
+ And Simoneau's Calculus argues that gravity functions through this exact same mechanism.
  Yes.
  He argues mathematically that gravity isn't just a byproduct of mass.
  It is driven by the alignment of the data structures in the universe.
@@ -327,7 +327,7 @@
  We are taught in schools that the universe is constantly expanding.
  The Big Bang blew everything outward.
  And we are all drifting apart into the dark.
- Zero theory says absolutely not.
+ Zeroth Theory says absolutely not.
  We are inhaling.
  The geometry is contracting.
  We are falling back to the center of the manifold.
@@ -339,7 +339,7 @@
  The light actually accelerates.
  It accelerates as it falls down the gravity well.
  Or, depending on the specific frouth of the contraction cycle, it decelerates to a dead stop.
- The Semino equation rewrites standard energy equivalence.
+ The Simoneau equation rewrites standard energy equivalence.
  He posits e equals m times v of t squared.
  He replaces the static constant of light, C, with variable temporal velocity.
  So the speed of light isn't a universal constant at all.

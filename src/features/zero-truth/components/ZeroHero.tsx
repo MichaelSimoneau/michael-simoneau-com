@@ -42,7 +42,7 @@ export const ZeroHero: React.FC = () => {
           </motion.div>
 
           <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-4">
-            <span className="text-cyan-400">ZEROTH THEORY</span>
+            <span className="text-cyan-400">Zeroth Theory</span>
           </h2>
           <p className="text-xl sm:text-2xl md:text-3xl text-cyan-300 font-semibold mb-4">
             The Numerical Trinity

@@ -7,7 +7,7 @@
  but a blueprint for a completely new way of structuring digital reality.
  It is a massive topic. We're looking at a stack of documents.
  I mean, everything from technical architecture notes to business plans to these really deep
- philosophical musings, all from an inventor named Michael Simonow.
+ philosophical musings, all from an inventor named Michael Simoneau.
  And I think we need to be clear right from the jump, as you said.
  Yes.
  This is not about the next Bitcoin. It's not about some token you buy to get rich quick.
@@ -59,10 +59,10 @@
  In binary code, which runs every single computer, phone, and even the toaster on your counter, you have two states. Want to know?
  On and off, something and nothing.
  Exactly. It's a light switch. It's either on or it's off. There's no in between.
- But in the zero theory documents, and I'm looking at the file 0.0.0.0.0.mt here, the argument is that this definition is actually deeply flawed.
+ But in the Zeroth Theory documents, and I'm looking at the file 0.0.0.0.0.mt here, the argument is that this definition is actually deeply flawed.
  It is. If zero is just nothing, then your system has no way to represent balance. You only have existence or non-existence. There's no concept of equilibrium.
  Okay.
- Semino argues that zero isn't nothing. Zero is actually the ultimate state of stability. It is convergence. It isn't the absence of value. It is the final resolution of all value.
+ Simoneau argues that zero isn't nothing. Zero is actually the ultimate state of stability. It is convergence. It isn't the absence of value. It is the final resolution of all value.
  Okay. That sounds very zen, and I get it philosophically, but how does that translate to a computer? How do you teach a bunch of silicon to understand convergence?
  Well, to do that, you have to throw out binary. You just have to. You cannot do it with just zero and one. You need a trinity. You need three states.
  A numerical trinity, not just a duality.
@@ -139,7 +139,7 @@
  They stay in the abstract.
  They never touch reality.
  Exactly.
- But this is where the Semino documents are different.
+ But this is where the Simoneau documents are different.
  They outline a very specific, very pragmatic business plan to bridge that exact gap.
  And this brings us to section two of our dive, the engineered runway.
  Right.
@@ -596,7 +596,7 @@
  It checks the bio key signature.
  It does all three of those checks in one single computational shot.
  Simultaneously.
- It is the fulfillment of the original zero theory.
+ It is the fulfillment of the original Zeroth Theory.
  It proves the transaction is valid without needing a bank, without needing an army of miners, and without needing a centralized server.
  The proof of the data is contained within the data itself.
  It is.
@@ -647,7 +647,7 @@
  When trust isn't something you have to earn or borrow or buy from a third party,
  but something that is just mathematically intrinsic to the data itself.
  That is the ultimate shift from don't be evil to can't be evil.
- Michael Simonot's vision seems to suggest that if we stop fearing the negative space,
+ Michael Simoneau's vision seems to suggest that if we stop fearing the negative space,
  if we stop fearing the gap, the rot, the entropy, we might actually find the stability we've been looking for all along.
  Indeed.
  By embracing the void, we find the hole.

@@ -425,7 +425,7 @@
  So we started this deep dive talking about x-rays, about how comforting it is to see a
  clear, visible line of a broken bone and how terrifying it is when the x-ray machine can't
  show us what's happening inside someone's mind.
- Michael Simono didn't wait for a better x-ray machine.
+ Michael Simoneau didn't wait for a better x-ray machine.
  He built his own.
  He managed to map his deepest emotional trauma onto a geometric grid, balance the
  equation and perfectly schedule his response to outsmart a broken system.

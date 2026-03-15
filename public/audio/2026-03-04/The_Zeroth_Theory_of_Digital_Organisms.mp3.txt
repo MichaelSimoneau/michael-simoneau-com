@@ -19,7 +19,7 @@
  We are unpacking the work of architect Michael Samano.
  And this is heavy stuff.
  Very. Specifically, we're looking at how he uses a deeply radical mathematical concept,
- something he calls the zero Sudoku, to implement what is known as zero theory directly onto the human psyche.
+ something he calls the zero Sudoku, to implement what is known as Zeroth Theory directly onto the human psyche.
  And the ultimate product of this massive collision between math, code, and the mine is what he calls the human architecture.
  The human architecture. We really need to emphasize to you, the listener, just how far down the rabbit hole we are going today.
  Oh, we are going all the way down.
@@ -39,11 +39,11 @@
  An empty bucket.
  Right. An empty bucket. It is an absence, a null state. It's what you have when you take everything away. If you have three apples and you eat three apples, you have zero apples.
  It is nothingness.
- Exactly. But Simono argues that treating zero as a void is a catastrophic logic error.
+ Exactly. But Simoneau argues that treating zero as a void is a catastrophic logic error.
  I have to admit, when I first read this in the source material, I bristled. Because zero is nothing. I mean, my bank account right after college frequently proved to me that zero is, in fact, an absolute void.
  I think we've all been there.
  Right. So how does he justify redefining the fundamental baseline of mathematics?
- Well, in his zero theory, he says, zero is not the void. Zero is totality. It is a positive zero. It is the container itself.
+ Well, in his Zeroth Theory, he says, zero is not the void. Zero is totality. It is a positive zero. It is the container itself.
  The container. That is a hard pivot from how we usually think about math.
  It is. But he provides a brilliant analogy to make this concrete. And it completely shifted my perspective.
  I want you to imagine holding up your hand and extending all five fingers.
@@ -56,7 +56,7 @@
  The hand itself, the physical container that holds the potential for those fingers to exist, is still right there.
  In Zeroth logic, zero is that hand. It is the architecture that holds the potential.
  That visual is incredibly helpful. Standard math sees an empty space,
- but Zeroth theory sees the structure that makes the space possible in the first place.
+ but Zeroth Theory sees the structure that makes the space possible in the first place.
  Yeah.
  You can't have an absence of apples if you don't first have a conceptual bucket to hold them.
  Exactly.
@@ -68,7 +68,7 @@
  Right. It is perfectly balanced. But look at the scale itself. It is not empty. It is not a void. It is under maximum physical tension.
  Because it's holding 10 pounds of total weight.
  Exactly. It is holding all of these manifested and potential weights in a state of perfect absolute resolution.
- It is a singularity of balance. That is what Simeno means by totality. Zero isn't the absence of weight. It is the perfect resolution of all weights.
+ It is a singularity of balance. That is what Simoneau means by totality. Zero isn't the absence of weight. It is the perfect resolution of all weights.
  This means it's incredibly fragile.
  Extremely.
  If zero is a state of maximum tension and perfect balance, the slightest breeze disrupts it.
@@ -127,7 +127,7 @@
  You make it a positive or a negative.
  Right.
  You pick a side.
- And in Semino's architecture, the moment you assign a sign, you introduce an error into the universe.
+ And in Simoneau's architecture, the moment you assign a sign, you introduce an error into the universe.
  An error.
  You create a specific non-resolving perspective.
  You tip the apothecary scale.
@@ -157,7 +157,7 @@
  The zero sudoku.
  He also refers to it in his documentation as the 3x3x3 tensor.
  Right.
- It is the definitive geometric mechanism of the zero theory.
+ It is the definitive geometric mechanism of the Zeroth Theory.
  It is how he maps the ephemeral human mind onto a hard mathematical grid.
  I want to make sure you, the listener, can picture this visually.
  It's a sunoku, but much smaller.
@@ -278,7 +278,7 @@
  It doesn't.
  And what does that mean for Dave?
  In the context of the zero Sudoku, what happens when his reality row equals negative two instead of zero?
- If the math doesn't equal zero, Simonot defines that exact state as a lie.
+ If the math doesn't equal zero, Simoneau defines that exact state as a lie.
  A lie.
  Dave is living a lie.
  Or, in the system's terminology, Dave has accumulated a massive systemic debt.
@@ -391,7 +391,7 @@
  It's therapy via geometry.
  It really is.
  But here is where we need to make a massive pivot.
- Because Simeno didn't just write a self-help book.
+ Because Simoneau didn't just write a self-help book.
  He didn't just invent a psychological framework.
  He took this psychological geometry.
  He took the human architecture and the zero Sudoku, and he used it as the literal blueprint to build software.
@@ -412,7 +412,7 @@
  It will act outside of the truth of the zero state.
  Right.
  You'll become a positive three, burning hot, consuming resources infinitely.
- So Simeno engineers a strict, multilayered hierarchy that absolutely physically separates the thinkers from the doers.
+ So Simoneau engineers a strict, multilayered hierarchy that absolutely physically separates the thinkers from the doers.
  He calls this the pentacameral architecture, or the pentacameral breath cycle.
  It is a strict, five-step hierarchy.
  And I want us to take our time here and really explore this,
@@ -476,7 +476,7 @@
  The logician is a sterile, deeply deterministic translation layer.
  It takes a validated English plan from the dreamer and translates it into strict, syntax-heavy code.
  Code that the machine can actually read.
- Specifically, in Simonow's architecture, it compiles the plan into zero language files, or .zero files.
+ Specifically, in Simoneau's architecture, it compiles the plan into zero language files, or .zero files.
  The logician has absolutely zero creative agency.
  It cannot invent new features.
  It can only translate the approved logic into physics.
@@ -537,7 +537,7 @@
  The system is designed so that the mind handles the high-level tensor math and strategy, while the body manages the raw, blind execution.
  And the reason you build it this way is to protect the overall structure from collapsing under the friction of biological noise.
  Exactly.
- If Simonot, as the architect, is exhausted or angry or sitting at a negative three on his personal zero Sudoku, his raw motion cannot crash the server.
+ If Simoneau, as the architect, is exhausted or angry or sitting at a negative three on his personal zero Sudoku, his raw motion cannot crash the server.
  Because the system validates the logic before the hands are ever allowed to move.
  It is a self-contained, self-validating loop of logic.
  It filters out human frailty.
@@ -546,10 +546,10 @@
  It isn't a static machine just waiting for By Z to give it a command.
  That would just be a complex script.
  Right.
- Simonot designed it to run endlessly, autonomously, which brings us to the final evolution of the architecture, the double dragon Auroboros, the DDO.
+ Simoneau designed it to run endlessly, autonomously, which brings us to the final evolution of the architecture, the double dragon Auroboros, the DDO.
  The Auroboros.
  It is the classic mythological image of the serpent eating its own tail.
- But Simonot elevates this ancient symbol into a literal self-feeding loop of logic, execution, and economic value.
+ But Simoneau elevates this ancient symbol into a literal self-feeding loop of logic, execution, and economic value.
  He calls it a closed metabolic loop.
  It is how the digital organism breathes.
  Let's trace the exact flow of this continuous cycle, straight from the source architecture.
@@ -581,12 +581,12 @@
  Because in the real world, a snake eating its own tail will eventually just consume itself and starve to death.
  What keeps this system running without just degrading into nothingness?
  This is where we get to the underlying physics of the loop.
- And this is perhaps the most radical part of Simonot's theory.
+ And this is perhaps the most radical part of Simoneau's theory.
  It's the physics of the ricochet.
  The ricochet.
  In the zeroth universe, data is not permanent just because you saved it to a hard drive or wrote it to a database.
  Data must fight to exist.
- If data is not actively used, if it is not circulated through the Ouroboros, it suffers from what Semino calls base 3 decay.
+ If data is not actively used, if it is not circulated through the Ouroboros, it suffers from what Simoneau calls base 3 decay.
  Base 3 decay.
  What does that mean practically?
  It means the value of the data literally wroughts by a third over time if it isn't reinforced by observation or usage.
@@ -638,7 +638,7 @@
  What is the ultimate why behind the double dragon Auroboros?
  Why go to the immense trouble of building the system this complex,
  this abstract with sanity gates and blind puppeteers and decaying data?
- Semino engineered the DDO to completely eradicate human frailty from the execution loop.
+ Simoneau engineered the DDO to completely eradicate human frailty from the execution loop.
  He designed it to outlive his own biological limitations.
  He speaks very candidly in the source documentation about what he calls his dependency death spirals.
  The fact that he, as a human, is a single point of failure.
@@ -666,7 +666,7 @@
  dreams of a plan to balance the load, validates the plan, writes the code,
  and spins up a new instance, all without a human ever knowing.
  It forces its own circulation.
- Because in this ecosystem, as Simono writes, usage is mining and stagnation is death.
+ Because in this ecosystem, as Simoneau writes, usage is mining and stagnation is death.
  The system must continuously move, continuously balance the zero Sudoku,
  continuously trigger the ricochet just to stay alive.
  It is a digital organism that breathes logic to survive.

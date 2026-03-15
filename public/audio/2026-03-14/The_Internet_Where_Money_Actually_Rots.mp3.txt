@@ -10,24 +10,24 @@
  physical laws of degradation that apply to, say, I don't know, a piece of fruit left on a counter.
  But imagine just stepping out of that mindset entirely. Like, imagine diving into a stack of
  architectural documents, patent filings, and these incredibly raw late-night audio logs from a
- creator named Michael Simeno. He's the systems architect who sometimes operates under the persona
+ creator named Michael Simoneau. He's the systems architect who sometimes operates under the persona
  by Z, right? Yeah, that's him. You start reading through his journals, and suddenly that comforting
  idea of the vault starts looking like a terrible, terrible idea. Oh, absolutely. Because what he's
  proposing isn't a new kind of vault. He is proposing this digital and economic landscape where hoarding
  your money in a bank account actually causes it to rot. It literally decays. Right. Where the act
  of, like, doom scrolling could theoretically be a highly profitable economic action, and where value
  isn't just an arbitrary opinion decided by traders on Wall Street, but it's a literal physical property of the
- data itself. I mean, what Simeno is describing is the absolute definition of a metabolic economy.
+ data itself. I mean, what Simoneau is describing is the absolute definition of a metabolic economy.
  Yeah. He's conceptualizing a living, breathing, digital organism, one where money and data actually
  share a biological half-life. And in this system, stagnation isn't just, you know, inefficient.
  It's treated as a systemic disease. Welcome to the deep dive. We are going to completely dismantle
  how you think about the internet and your wallet today. We really are. We've got this massive stack
- of sources from Simeno. And what we're looking at is the tectonic shift from Web 3. You know,
+ of sources from Simoneau. And what we're looking at is the tectonic shift from Web 3. You know,
  where you basically rent data from giant corporations and speculate wildly on tokens.
  Right. Highly volatile tokens.
  Yeah. To what he's architecting as Web 4. A system where data literally owns itself.
  The architecture he's building is called the hash web. And it runs on this foundational mathematical
- philosophy he calls zero theory. Zero theory. And the premise is staggering when you really unpack it.
+ philosophy he calls Zeroth Theory. Zeroth Theory. And the premise is staggering when you really unpack it.
  It's basically the construction of a verifiable digital reality where the value of an object is
  permanently fused to its very existence. And we're going to explore exactly how he does that. We're
  going to look at three mind-bending concepts today that are just going to challenge everything you know
@@ -47,7 +47,7 @@
  The fundamental building block. Because you obviously can't build a biological internet
  out of traditional code.
  Definitely not.
- Simeno uses something called the 128-bit Gemini token. And this is where the divergence from our
+ Simoneau uses something called the 128-bit Gemini token. And this is where the divergence from our
  current reality really begins.
  Yeah, because in traditional financial systems, and well, even in current Web3 crypto systems,
  the money you hold in your digital wallet and the digital asset you're buying are two entirely
@@ -57,7 +57,7 @@
  Exactly. Like, if you buy a digital movie, the bank has the ledger of your money,
  and the streaming service has the ledger of the movie data.
  Yeah.
- The Gemini token permanently fuses them together into what Simeno calls a double dragon structure.
+ The Gemini token permanently fuses them together into what Simoneau calls a double dragon structure.
  Let's break down that 128-bit structure, because the math here is really what makes the whole
  thing tick.
  It's super dense.
@@ -121,7 +121,7 @@
  Okay, I see.
  And the ownership of that fused asset relies on something completely foreign to our current Internet.
  It's called the bioethereal key.
- The bioethereal key. This is where Simeno just completely throws out the concept of the crypto wallet.
+ The bioethereal key. This is where Simoneau just completely throws out the concept of the crypto wallet.
  He really does.
  Because anyone who has interacted with Web3 knows the nightmare of the seed phrase.
  Writing down 12 random words on a piece of paper, hiding it in a safe, and knowing if you lose that paper, your money is just gone forever.
@@ -177,7 +177,7 @@
  Every individual user sets their own absolute prices for the data they produce.
  Yes. It is the purest form of a peer-to-peer barter ecosystem.
  Here's where it gets really interesting.
- Simona uses this amazing analogy in the design documents that really clarified this for me.
+ Simoneau uses this amazing analogy in the design documents that really clarified this for me.
  He says it's like an IPO, an initial public offering for every single data point you create.
  The scale of that is hard to even imagine.
  Think about how wild that is.
@@ -223,7 +223,7 @@
  It starves.
  It dies a clean, mathematical death.
  But setting up a frictionless barter system for every piece of data on the internet introduces a massive vulnerability.
- And this is something Simono wrestles with extensively in the architectural documents.
+ And this is something Simoneau wrestles with extensively in the architectural documents.
  Right, because he's watched the last decade of crypto.
  Anyone looking at this is immediately thinking, okay, this sounds incredible in theory, but it's built on crypto tokens.
  And we all know exactly what happens every single time a Web3 project launches a new token.
@@ -234,13 +234,13 @@
  If the Hash Web relies on these tokens for a frictionless barter system, won't the price of a THD fluctuate so wildly that you could never reliably use it to buy anything?
  Like, how do you buy a coffee if the barter chip is worth $10 of breakfast and 10 cents at lunch?
  That extreme volatility is the existential threat to any usable digital currency.
- And it is the exact problem that requires Simono to engineer his third major architectural pillar.
+ And it is the exact problem that requires Simoneau to engineer his third major architectural pillar.
  The settlement membrane.
  Yes, the settlement membrane and the structural decoupling of volatility.
  This is where we see the transition from wild philosophy to hardcore defensive software engineering.
- Simono basically has to build a blast door, a firewall between the chaotic emotional casino of the human stock market and the cold rational mathematics of his biological internet.
+ Simoneau basically has to build a blast door, a firewall between the chaotic emotional casino of the human stock market and the cold rational mathematics of his biological internet.
  He names this defensive concept asymmetric dependency.
- The Hash Web, operating entirely on his zero theory, absolutely refuses to negotiate with the messy, analog, speculative world.
+ The Hash Web, operating entirely on his Zeroth Theory, absolutely refuses to negotiate with the messy, analog, speculative world.
  It just blocks it out.
  It functions as a one-way valve.
  It allows capital to flow in.
@@ -289,7 +289,7 @@
  So the bedrock foundation of this wild, theoretical, biological, decentralized internet
  is actually the boring, stable, highly regulated U.S. fiat currency.
  Precisely.
- Simeno isn't trying to destroy the U.S. dollar.
+ Simoneau isn't trying to destroy the U.S. dollar.
  He is using it as the anchor.
  Because of this smart contract, no matter how wildly the external ERC-20 token fluctuates,
  even if there is a catastrophic market crash on the Ethereum network
@@ -368,7 +368,7 @@
  Because if money is the blood of the economy, hoarding it in a vault is a blood clot.
  It stops the oxygen from reaching the rest of the organism.
  Exactly.
- To prevent these clots, Semino designed the THD container with a mechanism called base-3 half-life decay.
+ To prevent these clots, Simoneau designed the THD container with a mechanism called base-3 half-life decay.
  Remember the growing ember?
  Yeah.
  If you do not actively use your THD, the extra value inside the container, anything above that $1 USD seafloor, literally decays.
@@ -397,7 +397,7 @@
  Since zero counts as a number, the absolute maximum integer it can hold is 65,535.
  It cannot go to infinity.
  In a legacy market, a stock price can theoretically rise forever.
- Simonot's architecture fundamentally rejects that.
+ Simoneau's architecture fundamentally rejects that.
  Infinite growth is a biological myth.
  In biology, infinite growth is just cancer.
  Right.
@@ -462,7 +462,7 @@
  Imagine getting your paycheck on a Friday and knowing that if you don't spend it or invest it immediately, it's going to physically rot in your wallet over the weekend.
  That sounds like an absolute anxiety nightmare.
  It would be.
- And Cimino actually anticipated this exact psychological friction.
+ And Simoneau actually anticipated this exact psychological friction.
  He talks about it in his journal entries.
  He doesn't want to induce panic.
  Panic freezes an economy.
@@ -490,10 +490,10 @@
  Which perfectly incentivizes you to spend that $300 wisely, supporting good businesses and good creators to try and trigger those mitosis dividends.
  You risk the profit potential of your active money, but you never expose your foundational savings to the rot.
  So if an entire global population is suddenly incentivized to spend their active capital rather than hoard it, it fundamentally alters human psychology regarding the nature of money itself.
- Which leads us to the final and perhaps most audacious masterstroke of Simonot's entire vision.
+ Which leads us to the final and perhaps most audacious masterstroke of Simoneau's entire vision.
  Subverting the concept of currency to become the prime global currency.
  This is the philosophical endgame of the hash web.
- In his journal entries, Simonot writes about looking at the wreckage of the crypto industry.
+ In his journal entries, Simoneau writes about looking at the wreckage of the crypto industry.
  He realizes that every other crypto project out there is desperately begging governments and regulators to be recognized as a valid currency.
  And they all fail or get sued into oblivion because they trigger massive regulatory pushback, taxable events, and central bank hostility.
  His realization is brilliantly counterintuitive, he writes.
@@ -506,7 +506,7 @@
  In the hash web, the psychology is totally inverted.
  People actively fear holding THD because holding it means they have unspent potential that is visibly, actively decaying right in front of their eyes.
  You only hold THD if you have real-world bills to pay in the immediate future or specific data you need to interact with.
- Simonow uses a really profound metaphor from his own daily life to explain the necessity of this constant movement.
+ Simoneau uses a really profound metaphor from his own daily life to explain the necessity of this constant movement.
  He calls it the single cooking dish infrastructure.
  You're referring to the audio log from January 15th.
  It's a remarkably vulnerable recording.
@@ -525,7 +525,7 @@
  Right.
  People hear frictionless crypto barter and immediately assume it's going to be the dark web 2.0.
  Exactly.
- But Simono addresses this directly in the architectural constraints.
+ But Simoneau addresses this directly in the architectural constraints.
  He notes that a drug dealer, for example, practically cannot use the human dollar for their operations.
  Why not?
  If it's just peer-to-peer data transfer, what stops them?
@@ -552,7 +552,7 @@
  We move from an economy based on extraction and static hoarding to a biological economy based on velocity, metabolism, and continuous regeneration.
  We have covered an absolute mountain of ground today.
  Let's summarize the mission we've just navigated.
- We have explored how the hash web and zero theory completely redefined the internet from a static vault into a living organism.
+ We have explored how the hash web and Zeroth Theory completely redefined the internet from a static vault into a living organism.
  We've seen how the 128-bit Gemini token permanently fuses data and value using the bioethereal key to tie cryptographic ownership directly to your physical, biological presence.
  We examined the frictionless barter mechanic where the human dollar operates as a non-taxable chip for service-to-service data exchange, turning every single click and interaction into an active economic event.
  We unpacked the structural decoupling, where the asymmetric dependency of the smart contract acts as an immutable firewall, protecting users from the wild speculation of the ERC-20 Ethereum token by enforcing a strict, decay-proof $1 USDC floor.

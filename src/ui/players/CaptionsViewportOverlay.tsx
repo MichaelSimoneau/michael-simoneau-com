@@ -3,7 +3,7 @@ import { ChevronDown, ChevronUp } from 'lucide-react';
 import { useCaptionsViewport } from './CaptionsViewportProvider';
 
 const START_DELAY_SECONDS = 1.0;
-const ACCELERATION_WINDOW_SECONDS = 14.0;
+const ACCELERATION_WINDOW_SECONDS = 30.0;
 const BASE_SCROLL_DAMPING = 0.46;
 const BASE_SPEED_OFFSET = 0.72;
 
@@ -103,7 +103,7 @@ export const CaptionsViewportOverlay: React.FC = () => {
       const delayedBaseProgress = clamp(delayedPlaybackSeconds / effectiveDuration, 0, 1);
       const rampPhase = clamp(delayedPlaybackSeconds / ACCELERATION_WINDOW_SECONDS, 0, 1);
       const rampFactor = rampPhase * rampPhase;
-      const rampedDamping = BASE_SCROLL_DAMPING * (0.25 + 0.75 * rampFactor);
+      const rampedDamping = BASE_SCROLL_DAMPING * ((BASE_SCROLL_DAMPING / BASE_SPEED_OFFSET) * rampFactor);
       const effectiveSpeedMultiplier = speedMultiplier * rampedDamping;
       const targetProgress = clamp(delayedBaseProgress * effectiveSpeedMultiplier, 0, 1);
 

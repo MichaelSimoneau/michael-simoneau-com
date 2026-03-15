@@ -8,7 +8,7 @@
  We are not doing a biography. We aren't doing a philosophy seminar. We're conducting a forensic systems audit.
  That is honestly the only way to describe what we have in front of us.
  It's a stack of documents, technical specs, architectural diagrams, journal entries.
- And it all revolves around a subject named Michael Simonow.
+ And it all revolves around a subject named Michael Simoneau.
  But for our purposes today, I want you to just forget about Michael the person.
  Yeah, we're stripping away the God narratives, the theology, all the emotion.
  We're putting on the hats of impartial systems engineers.

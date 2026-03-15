@@ -28,10 +28,10 @@
  Right. We think we are bad or lazy.
  Exactly. We're awkward.
  And that distinction is the key to understanding the subject we are analyzing today.
- Michael Simeno, the self-proclaimed architect.
+ Michael Simoneau, the self-proclaimed architect.
  Now, we have a massive stack of sources here.
  Audio logs, code documentation journals, even transcripts of heated arguments with this therapist.
- He is the creator of something called the zero theory and the hash web.
+ He is the creator of something called the Zeroth Theory and the hash web.
  But, to be clear, we aren't here to debug his software code.
  No, we're here to debug his source code, his operating system for existence.
  This is a man who has attempted to completely delete the concept of guilt from his brain and replace it with geometry.

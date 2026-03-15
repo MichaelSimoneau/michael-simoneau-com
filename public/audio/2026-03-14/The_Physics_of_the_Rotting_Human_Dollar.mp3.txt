@@ -1,4 +1,4 @@
- Welcome to The Debate. Today, we are examining the practical implementation of Michael Simonot's THDOR, or the Human Dollar Organizations.
+ Welcome to The Debate. Today, we are examining the practical implementation of Michael Simoneau's THDOR, or the Human Dollar Organizations.
  The central question we are tackling is whether this structure, with its strict biometric constraints and, you know, decay physics,
  represents a flawless mathematical blueprint for a future financial meritocracy,
  or if it's just an overly punitive psychological experiment that induces unnecessary anxiety.
@@ -6,7 +6,7 @@
  Right. And I will be arguing that intentionally engineering a currency that rots,
  literally forcing an entire society into a constant state of anxiety around saving,
  while it places rigid and fundamentally flawed constraints on human behavior.
- To truly grasp what Michael Simonot has built here, we have to completely discard our current definition of a financial account.
+ To truly grasp what Michael Simoneau has built here, we have to completely discard our current definition of a financial account.
  Usually, when we think of an account, we picture a vault, right?
  Sure. Cold steel. Perfectly static.
  Exactly. It is an engineered time capsule. You put a dollar in, you expect a dollar out, completely unchanged by the passage of time.
@@ -35,7 +35,7 @@
  Right. But a LIDAR scan captures millions of microscopic points of depth. It creates a three-dimensional geometric mesh of your actual physical presence.
  So it requires the physical presence of your geometry and the cryptographic abstract of your memory, your password, to access the container.
  Yes.
- And that is undeniably brilliant cryptography. I'll give Simona that. You have created an unforgeable key. But, uh, this is where my skepticism really begins. I want to look at the physical limits placed on this container.
+ And that is undeniably brilliant cryptography. I'll give Simoneau that. You have created an unforgeable key. But, uh, this is where my skepticism really begins. I want to look at the physical limits placed on this container.
  Okay. Let's look at them.
  Walk me through the mathematical barrier to entry, specifically the 16-bit constraint, because it is intensely limiting.
  It's not limiting. It's focused. The physical limit of your personal THD container is based on a 16-bit unsigned integer. That means the absolute maximum value a single human dollar container can hold is exactly 65,535.
@@ -82,7 +82,7 @@
  How so? It's just math.
  To understand why that exploit is physically impossible, we have to look at the corrected architecture. Specifically, I'm pulling from the 2026-3-13 THD Organizations with Corrections source document.
  Okay.
- Michael Simono anticipated that exact hoarding exploit, and the solution is the $1 on-ramp.
+ Michael Simoneau anticipated that exact hoarding exploit, and the solution is the $1 on-ramp.
  The $1 on-ramp?
  Yes. You cannot artificially dump $65,000 at once. It's impossible. The system strictly dictates that a user of the HashWeb network may exchange a maximum of $1 US dollar at a time into the THD container.
  $1 at a time? That's ridiculous.
@@ -153,7 +153,7 @@
  You are turning every single citizen into a hyper-vigilant day trader of their own biological relevance. It is exhausting just to conceptualize.
  It is only exhausting if you view it through the lens of our current broken hardware and software. I mentioned earlier that the bridge to this future crumbles as humanity psychologically crosses it.
  Right. The app. Not just the app. They will cross that bridge naturally. Utilizing a dedicated hardware device designed for this exact biometric and cryptographic integration. It is called the MiPhone. MiPhone.
- Yes. Michael Simono already secured MiPhone.com for this exact hardware evolution.
+ Yes. Michael Simoneau already secured MiPhone.com for this exact hardware evolution.
  So rather than relying on a generic smartphone with third-party vulnerabilities, you have a device physically hardwired to act as the biometric scanner and cryptographic signer for the hash web.
  Yes. It creates a closed, secure loop directly from the user's physical body, through the MiPhone, straight to the headless server. It perfectly merges our physical presence with our digital potential, removing the friction you were worried about.
  Well, I will concede that the corrected physics, the time dilation, the $1 on-ramp preventing artificial stasis, and the delegation loop, they do create a mathematically solid environment. The logic absolutely holds up to scrutiny.
