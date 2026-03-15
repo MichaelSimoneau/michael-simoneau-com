@@ -17,7 +17,7 @@ const missingTranscriptUrls = new Set<string>();
 const transcriptRequestCache = new Map<string, Promise<TranscriptLoadResult>>();
 
 const normalizeTranscript = (rawTranscript: string): string => {
-  return rawTranscript.replace(/\[[^\s]]+[^\s]]+\]/gi, ' >').replace(/\s+/g, ' ').trim();
+  return rawTranscript.replace(/\[[^]]+\s?[^]]+\]/gi, ' >').replace(/[\r\n\s]+/g, ' ').trim();
 };
 
 const looksLikeHtmlDocument = (rawValue: string): boolean => {
