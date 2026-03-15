@@ -5,7 +5,7 @@ import { useCaptionsViewport } from './CaptionsViewportProvider';
 const START_DELAY_SECONDS = 1.0;
 const ACCELERATION_WINDOW_SECONDS = 5.0;
 const BASE_SCROLL_DAMPING = 0.46;
-const BASE_SPEED_OFFSET = 1.1;
+const BASE_SPEED_OFFSET = 0.72;
 
 const clamp = (value: number, min: number, max: number): number => {
   return Math.min(max, Math.max(min, value));
@@ -26,6 +26,7 @@ export const CaptionsViewportOverlay: React.FC = () => {
   const hasLoggedRendererRef = useRef(false);
   const [travelDistancePx, setTravelDistancePx] = useState(0);
   const [offsetPx, setOffsetPx] = useState(0);
+  const [hasPlaybackStarted, setHasPlaybackStarted] = useState(false);
 
   const isTranscriptMissing = transcriptStatus === 'missing' || transcriptStatus === 'error';
   const speedMultiplier = useMemo(() => 1 + BASE_SPEED_OFFSET + speedCoefficient, [speedCoefficient]);
@@ -37,6 +38,30 @@ export const CaptionsViewportOverlay: React.FC = () => {
     hasLoggedRendererRef.current = true;
     console.info('[captions] viewport overlay renderer active');
   }, []);
+
+  useEffect(() => {
+    const audio = activeAudio?.audioRef?.current;
+    if (!audio) {
+      setHasPlaybackStarted(false);
+      return;
+    }
+
+    const updatePlaybackStarted = () => {
+      const hasStarted = audio.currentTime > 0 || !audio.paused;
+      setHasPlaybackStarted(hasStarted);
+    };
+
+    updatePlaybackStarted();
+    audio.addEventListener('play', updatePlaybackStarted);
+    audio.addEventListener('playing', updatePlaybackStarted);
+    audio.addEventListener('timeupdate', updatePlaybackStarted);
+
+    return () => {
+      audio.removeEventListener('play', updatePlaybackStarted);
+      audio.removeEventListener('playing', updatePlaybackStarted);
+      audio.removeEventListener('timeupdate', updatePlaybackStarted);
+    };
+  }, [activeAudio]);
 
   useEffect(() => {
     const viewport = viewportRef.current;
@@ -109,7 +134,7 @@ export const CaptionsViewportOverlay: React.FC = () => {
     return transcriptText;
   }, [isTranscriptMissing, transcriptStatus, transcriptText]);
 
-  if (!isCaptionsEnabled || !activeAudio?.audioSrc) {
+  if (!isCaptionsEnabled || !activeAudio?.audioSrc || !hasPlaybackStarted) {
     return null;
   }
 
