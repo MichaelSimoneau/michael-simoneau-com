@@ -119,11 +119,11 @@ export const ThdHero: React.FC = () => {
           aria-label="Visit Top Smoke & Vape, the first organization to accept THD"
         >
           <div className="grid md:grid-cols-[220px,1fr] gap-6 md:gap-8 items-center">
-            <div className="rounded-xl border border-amber-800/40 bg-black/50 p-4 flex items-center justify-center">
+            <div className="rounded-xl border border-amber-800/40 bg-black p-4 flex items-center justify-center">
               <img
                 src="/partners/top-smoke-vape-logo.png"
                 alt="Top Smoke & Vape logo"
-                className="w-full max-w-[190px] h-auto object-contain"
+                className="w-full max-w-[190px] h-auto object-contain -rotate-1"
               />
             </div>
 
