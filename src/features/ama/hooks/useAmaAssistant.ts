@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { cookieService } from "../../../services/cookieService";
 import { getRecentAmaErrorContext } from "./useErrorContextCapture";
 
@@ -24,6 +24,7 @@ const initialMessages: AmaMessage[] = [
 ];
 
 const buildMessageId = () => `${Date.now()}-${Math.random().toString(36).slice(2, 7)}`;
+const QUEUED_PREVIEW_MESSAGE_ID = "queued-preview-message";
 
 const DEBUG_INTENT_PATTERN =
   /\b(error|bug|debug|stack|trace|crash|failing|failed|failure|exception|hydration|hydrate|console|not working|broken|fix)\b/i;
@@ -37,6 +38,7 @@ export function useAmaAssistant() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [gateFeedback, setGateFeedback] = useState<string>("");
   const [gateVerdict, setGateVerdict] = useState<GateVerdict | null>(null);
+  const [queuedQuestion, setQueuedQuestion] = useState("");
 
   const refreshAuthState = useCallback(() => {
     setAuthVersion((value) => value + 1);
@@ -50,6 +52,27 @@ export function useAmaAssistant() {
     cookieService.setMediaTermsAgreement(true);
     refreshAuthState();
   }, [refreshAuthState]);
+
+  const removeQueuedPreviewMessage = useCallback(() => {
+    setMessages((prev) => prev.filter((message) => message.id !== QUEUED_PREVIEW_MESSAGE_ID));
+  }, []);
+
+  const renderQueuedPreviewMessage = useCallback((value: string) => {
+    setMessages((prev) => {
+      const withoutQueuedPreview = prev.filter((message) => message.id !== QUEUED_PREVIEW_MESSAGE_ID);
+      if (!value.trim()) {
+        return withoutQueuedPreview;
+      }
+      return [
+        ...withoutQueuedPreview,
+        {
+          id: QUEUED_PREVIEW_MESSAGE_ID,
+          role: "user",
+          text: `Queued: ${value}`,
+        },
+      ];
+    });
+  }, []);
 
   const verifyHuman = useCallback(async (proofText: string): Promise<GateVerdict> => {
     setIsSubmitting(true);
@@ -71,11 +94,28 @@ export function useAmaAssistant() {
       }
       setGateFeedback(payload.reason || "");
       setGateVerdict(payload.verdict);
+      setMessages((prev) => [
+        ...prev,
+        {
+          id: buildMessageId(),
+          role: "assistant",
+          text: payload.reason || "Verification complete.",
+        },
+      ]);
       refreshAuthState();
       return payload.verdict;
     } catch (error) {
-      setGateFeedback(error instanceof Error ? error.message : "Verification failed.");
+      const fallbackMessage = error instanceof Error ? error.message : "Verification failed.";
+      setGateFeedback(fallbackMessage);
       setGateVerdict("ambiguous");
+      setMessages((prev) => [
+        ...prev,
+        {
+          id: buildMessageId(),
+          role: "assistant",
+          text: fallbackMessage,
+        },
+      ]);
       refreshAuthState();
       return "ambiguous";
     } finally {
@@ -84,9 +124,9 @@ export function useAmaAssistant() {
     }
   }, [refreshAuthState]);
 
-  const askQuestion = useCallback(async (question: string) => {
+  const askQuestion = useCallback(async (question: string): Promise<boolean> => {
     const trimmed = question.trim();
-    if (!trimmed) return;
+    if (!trimmed || isSubmitting) return false;
 
     if (!cookieService.hasActiveMediaTermsAgreement()) {
       throw new Error("Please accept terms first.");
@@ -126,10 +166,49 @@ export function useAmaAssistant() {
         },
       ]);
       setLastCitations(Array.isArray(payload.citations) ? payload.citations : []);
+      return true;
     } finally {
+      await new Promise<void>((resolve) => {
+        if (typeof window === "undefined") {
+          resolve();
+          return;
+        }
+        window.requestAnimationFrame(() => resolve());
+      });
       setIsSubmitting(false);
     }
-  }, []);
+  }, [isSubmitting]);
+
+  const enqueueQuestion = useCallback((question: string) => {
+    const trimmed = question.trim();
+    if (!trimmed) {
+      return;
+    }
+    setQueuedQuestion((previousQueuedQuestion) => {
+      const nextQueuedQuestion = previousQueuedQuestion
+        ? `${previousQueuedQuestion}\n${trimmed}`
+        : trimmed;
+      renderQueuedPreviewMessage(nextQueuedQuestion);
+      return nextQueuedQuestion;
+    });
+  }, [renderQueuedPreviewMessage]);
+
+  const popQueuedQuestionForEdit = useCallback((): string => {
+    const queued = queuedQuestion;
+    setQueuedQuestion("");
+    removeQueuedPreviewMessage();
+    return queued;
+  }, [queuedQuestion, removeQueuedPreviewMessage]);
+
+  useEffect(() => {
+    if (!isUnlocked || isSubmitting || !queuedQuestion.trim()) {
+      return;
+    }
+    const nextQuestion = queuedQuestion;
+    setQueuedQuestion("");
+    removeQueuedPreviewMessage();
+    void askQuestion(nextQuestion);
+  }, [askQuestion, isSubmitting, isUnlocked, queuedQuestion, removeQueuedPreviewMessage]);
 
   return useMemo(
     () => ({
@@ -138,12 +217,15 @@ export function useAmaAssistant() {
       isSubmitting,
       gateFeedback,
       gateVerdict,
+      queuedQuestion,
       hasTermsAccess,
       isHumanVerified,
       isUnlocked,
       ensureTermsAccepted,
       verifyHuman,
       askQuestion,
+      enqueueQuestion,
+      popQueuedQuestionForEdit,
       authVersion,
     }),
     [
@@ -151,6 +233,7 @@ export function useAmaAssistant() {
       ensureTermsAccepted,
       gateFeedback,
       gateVerdict,
+      queuedQuestion,
       hasTermsAccess,
       isHumanVerified,
       isSubmitting,
@@ -158,6 +241,8 @@ export function useAmaAssistant() {
       lastCitations,
       messages,
       verifyHuman,
+      enqueueQuestion,
+      popQueuedQuestionForEdit,
       authVersion,
     ],
   );

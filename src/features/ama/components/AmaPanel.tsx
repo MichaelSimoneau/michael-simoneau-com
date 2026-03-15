@@ -15,6 +15,7 @@ export const AmaPanel: React.FC<AmaPanelProps> = ({
 }) => {
   const [humanProofInput, setHumanProofInput] = useState("");
   const [questionInput, setQuestionInput] = useState("");
+  const [questionPlaceholder, setQuestionPlaceholder] = useState("Enter a question...");
   const assistant = useAmaAssistant();
 
   const submitHumanProof = async () => {
@@ -27,11 +28,22 @@ export const AmaPanel: React.FC<AmaPanelProps> = ({
 
   const submitQuestion = async () => {
     const question = questionInput.trim();
-    if (!question || assistant.isSubmitting) {
+    if (!question) {
       return;
     }
-    await assistant.askQuestion(question);
-    setQuestionInput("");
+    if (assistant.isSubmitting) {
+      assistant.enqueueQuestion(question);
+      setQuestionInput("");
+      setQuestionPlaceholder("Queued. Press Up to edit.");
+      window.setTimeout(() => {
+        setQuestionPlaceholder("Enter a question...");
+      }, 1800);
+      return;
+    }
+    const sent = await assistant.askQuestion(question);
+    if (sent) {
+      setQuestionInput("");
+    }
   };
 
   const handleHumanProofKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
@@ -42,6 +54,14 @@ export const AmaPanel: React.FC<AmaPanelProps> = ({
   };
 
   const handleQuestionKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (event.key === "ArrowUp" && !event.shiftKey && questionInput.trim() === "" && assistant.queuedQuestion) {
+      event.preventDefault();
+      const queued = assistant.popQueuedQuestionForEdit();
+      if (queued) {
+        setQuestionInput(queued);
+      }
+      return;
+    }
     if (event.key === "Enter" && !event.shiftKey) {
       event.preventDefault();
       void submitQuestion();
@@ -87,7 +107,7 @@ export const AmaPanel: React.FC<AmaPanelProps> = ({
             onClick={assistant.ensureTermsAccepted}
             className="rounded-md bg-cyan-400 px-3 py-2 text-sm font-semibold text-black"
           >
-            Agree & Continue
+            I Have Read & Agree to Continue
           </button>
         </div>
       )}
@@ -102,7 +122,7 @@ export const AmaPanel: React.FC<AmaPanelProps> = ({
         >
           <p className="text-sm font-semibold text-cyan-200">Prove you are human.</p>
           <p className="text-xs text-gray-300">
-            Natural confusion is fine. Imperfect grammar or misspellings are also fine. You do not need a perfect answer.
+            Natural confusion is fine. Go with what you know. You do not need a perfect answer.
           </p>
           <div className="rounded-lg border border-gray-700 bg-black/60 p-2 focus-within:border-cyan-400">
             <textarea
@@ -187,7 +207,7 @@ export const AmaPanel: React.FC<AmaPanelProps> = ({
                 value={questionInput}
                 onChange={(event) => setQuestionInput(event.target.value)}
                 onKeyDown={handleQuestionKeyDown}
-                placeholder="Ask about Michael Simoneau..."
+                placeholder={questionPlaceholder}
                 className="h-20 w-full resize-none bg-transparent p-1 text-sm outline-none"
               />
               <div className="mt-2 flex items-center justify-between gap-2">

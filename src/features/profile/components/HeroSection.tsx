@@ -364,10 +364,10 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ featuredBlog }) => {
             <div className="flex items-center justify-between gap-4">
               <div>
                 <h3 className="text-base sm:text-lg font-semibold text-cyan-300">
-                  Ask About Michael
+                  Ask About Michael Simoneau...
                 </h3>
                 <p className="text-sm text-gray-300">
-                  Click to {isAmaExpanded ? "collapse" : "expand"} the AMA panel.
+                  Click to {isAmaExpanded ? "Close" : "Ask Me Anything..."}.
                 </p>
               </div>
               <motion.span
@@ -392,7 +392,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ featuredBlog }) => {
               >
                 <AmaEmbedded
                   title="Ask About Michael"
-                  subtitle="Get grounded answers from the public text and audio transcript corpus."
+                  subtitle="Get grounded answers from his journals and audio transcripts.!"
                 />
               </motion.div>
             )}
