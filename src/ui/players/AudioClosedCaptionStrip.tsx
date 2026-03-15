@@ -14,7 +14,7 @@ const clamp = (value: number, min: number, max: number): number => {
 };
 
 const normalizeSpeedCoefficient = (value: number): number => {
-  return Math.round(clamp(value, -1, 1) * 10) / 10;
+  return Math.round(clamp(value, -1, 1) * 100) / 100;
 };
 
 const START_DELAY_SECONDS = 0.8;
@@ -104,13 +104,13 @@ export const AudioClosedCaptionStrip: React.FC<AudioClosedCaptionStripProps> = (
   const increaseSpeed = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     event.stopPropagation();
-    setSpeedCoefficient((previous) => normalizeSpeedCoefficient(previous + 0.1));
+    setSpeedCoefficient((previous) => normalizeSpeedCoefficient(previous + 0.01));
   };
 
   const decreaseSpeed = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     event.stopPropagation();
-    setSpeedCoefficient((previous) => normalizeSpeedCoefficient(previous - 0.1));
+    setSpeedCoefficient((previous) => normalizeSpeedCoefficient(previous - 0.01));
   };
 
   const captionText = useMemo(() => {

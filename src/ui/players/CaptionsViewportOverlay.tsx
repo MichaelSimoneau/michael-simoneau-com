@@ -2,10 +2,10 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 import { useCaptionsViewport } from './CaptionsViewportProvider';
 
-const START_DELAY_SECONDS = 1.0;
-const ACCELERATION_WINDOW_SECONDS = 30.0;
-const BASE_SCROLL_DAMPING = 0.46;
-const BASE_SPEED_OFFSET = 0.72;
+const START_DELAY_SECONDS = 1.72;
+const ACCELERATION_WINDOW_SECONDS = 2.72;
+const BASE_SCROLL_DAMPING = 0.72;
+const BASE_SPEED_OFFSET = 0.22;
 
 const clamp = (value: number, min: number, max: number): number => {
   return Math.min(max, Math.max(min, value));
@@ -23,6 +23,9 @@ export const CaptionsViewportOverlay: React.FC = () => {
   } = useCaptionsViewport();
   const viewportRef = useRef<HTMLDivElement>(null);
   const textRef = useRef<HTMLSpanElement>(null);
+  const speedMultiplierRef = useRef(1);
+  const travelDistanceRef = useRef(0);
+  const smoothedProgressRef = useRef(0);
   const hasLoggedRendererRef = useRef(false);
   const [travelDistancePx, setTravelDistancePx] = useState(0);
   const [offsetPx, setOffsetPx] = useState(0);
@@ -30,6 +33,14 @@ export const CaptionsViewportOverlay: React.FC = () => {
 
   const isTranscriptMissing = transcriptStatus === 'missing' || transcriptStatus === 'error';
   const speedMultiplier = useMemo(() => 1 + BASE_SPEED_OFFSET + speedCoefficient, [speedCoefficient]);
+
+  useEffect(() => {
+    speedMultiplierRef.current = speedMultiplier;
+  }, [speedMultiplier]);
+
+  useEffect(() => {
+    travelDistanceRef.current = travelDistancePx;
+  }, [travelDistancePx]);
 
   useEffect(() => {
     if (process.env.NODE_ENV === 'production' || hasLoggedRendererRef.current) {
@@ -81,13 +92,25 @@ export const CaptionsViewportOverlay: React.FC = () => {
   }, [transcriptText, isCaptionsEnabled]);
 
   useEffect(() => {
-    if (!isCaptionsEnabled || !activeAudio?.audioRef || !transcriptText || travelDistancePx <= 0) {
+    if (!isCaptionsEnabled || !activeAudio?.audioRef || !transcriptText || travelDistanceRef.current <= 0) {
       setOffsetPx(0);
+      smoothedProgressRef.current = 0;
       return;
     }
 
     let animationFrameId = 0;
-    let smoothedProgress = 0;
+    const audioAtStart = activeAudio.audioRef.current;
+    if (audioAtStart && Number.isFinite(audioAtStart.duration) && audioAtStart.duration > 0) {
+      const delayedPlaybackSeconds = Math.max(0, audioAtStart.currentTime - START_DELAY_SECONDS);
+      const effectiveDuration = Math.max(0.001, audioAtStart.duration - START_DELAY_SECONDS);
+      const delayedBaseProgress = clamp(delayedPlaybackSeconds / effectiveDuration, 0, 1);
+      const rampPhase = clamp(delayedPlaybackSeconds / ACCELERATION_WINDOW_SECONDS, 0, 1);
+      const rampedDamping = BASE_SCROLL_DAMPING * rampPhase;
+      const effectiveSpeedMultiplier = speedMultiplierRef.current * rampedDamping;
+      smoothedProgressRef.current = clamp(delayedBaseProgress * effectiveSpeedMultiplier, 0, 1);
+    } else {
+      smoothedProgressRef.current = 0;
+    }
 
     const animate = () => {
       const audio = activeAudio.audioRef.current;
@@ -102,13 +125,12 @@ export const CaptionsViewportOverlay: React.FC = () => {
       const effectiveDuration = Math.max(0.001, audio.duration - START_DELAY_SECONDS);
       const delayedBaseProgress = clamp(delayedPlaybackSeconds / effectiveDuration, 0, 1);
       const rampPhase = clamp(delayedPlaybackSeconds / ACCELERATION_WINDOW_SECONDS, 0, 1);
-      const rampFactor = rampPhase * rampPhase;
-      const rampedDamping = BASE_SCROLL_DAMPING * ((BASE_SCROLL_DAMPING / BASE_SPEED_OFFSET) * rampFactor);
-      const effectiveSpeedMultiplier = speedMultiplier * rampedDamping;
+      const rampedDamping = BASE_SCROLL_DAMPING * rampPhase;
+      const effectiveSpeedMultiplier = speedMultiplierRef.current * rampedDamping;
       const targetProgress = clamp(delayedBaseProgress * effectiveSpeedMultiplier, 0, 1);
 
-      smoothedProgress += (targetProgress - smoothedProgress) * 0.28;
-      setOffsetPx(-travelDistancePx * smoothedProgress);
+      smoothedProgressRef.current += (targetProgress - smoothedProgressRef.current) * 0.28;
+      setOffsetPx(-travelDistanceRef.current * smoothedProgressRef.current);
       animationFrameId = window.requestAnimationFrame(animate);
     };
 
@@ -116,7 +138,7 @@ export const CaptionsViewportOverlay: React.FC = () => {
     return () => {
       window.cancelAnimationFrame(animationFrameId);
     };
-  }, [activeAudio, isCaptionsEnabled, speedMultiplier, transcriptText, travelDistancePx]);
+  }, [activeAudio, isCaptionsEnabled, transcriptText, travelDistancePx]);
 
   const captionText = useMemo(() => {
     if (transcriptStatus === 'loading' || transcriptStatus === 'idle') {

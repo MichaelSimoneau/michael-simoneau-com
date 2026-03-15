@@ -23,7 +23,7 @@ interface CaptionsViewportContextValue {
 const CaptionsViewportContext = createContext<CaptionsViewportContextValue | undefined>(undefined);
 
 const normalizeSpeedCoefficient = (value: number): number => {
-  return Math.round(value * 10) / 10;
+  return Math.round(value * 100) / 100;
 };
 
 const getDesktopDefaultEnabled = (): boolean => {
@@ -57,11 +57,11 @@ export const CaptionsViewportProvider: React.FC<CaptionsViewportProviderProps> =
   }, []);
 
   const increaseSpeed = useCallback(() => {
-    setSpeedCoefficient((previous) => normalizeSpeedCoefficient(previous + 0.1));
+    setSpeedCoefficient((previous) => normalizeSpeedCoefficient(previous + 0.01));
   }, []);
 
   const decreaseSpeed = useCallback(() => {
-    setSpeedCoefficient((previous) => normalizeSpeedCoefficient(previous - 0.1));
+    setSpeedCoefficient((previous) => normalizeSpeedCoefficient(previous - 0.01));
   }, []);
 
   const contextValue = useMemo<CaptionsViewportContextValue>(() => {
