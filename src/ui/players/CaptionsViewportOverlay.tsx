@@ -46,20 +46,14 @@ export const CaptionsViewportOverlay: React.FC = () => {
       return;
     }
 
-    const updatePlaybackStarted = () => {
-      const hasStarted = audio.currentTime > 0 || !audio.paused;
-      setHasPlaybackStarted(hasStarted);
-    };
-
-    updatePlaybackStarted();
-    audio.addEventListener('play', updatePlaybackStarted);
-    audio.addEventListener('playing', updatePlaybackStarted);
-    audio.addEventListener('timeupdate', updatePlaybackStarted);
+    setHasPlaybackStarted(audio.currentTime > 0);
+    const markPlaybackStarted = () => setHasPlaybackStarted(true);
+    audio.addEventListener('play', markPlaybackStarted);
+    audio.addEventListener('playing', markPlaybackStarted);
 
     return () => {
-      audio.removeEventListener('play', updatePlaybackStarted);
-      audio.removeEventListener('playing', updatePlaybackStarted);
-      audio.removeEventListener('timeupdate', updatePlaybackStarted);
+      audio.removeEventListener('play', markPlaybackStarted);
+      audio.removeEventListener('playing', markPlaybackStarted);
     };
   }, [activeAudio]);
 
@@ -134,7 +128,7 @@ export const CaptionsViewportOverlay: React.FC = () => {
     return transcriptText;
   }, [isTranscriptMissing, transcriptStatus, transcriptText]);
 
-  if (!isCaptionsEnabled || !activeAudio?.audioSrc || !hasPlaybackStarted) {
+  if (!isCaptionsEnabled || !activeAudio?.audioSrc) {
     return null;
   }
 
@@ -167,7 +161,7 @@ export const CaptionsViewportOverlay: React.FC = () => {
                 willChange: 'transform',
               }}
             >
-              {captionText}
+              {hasPlaybackStarted ? captionText : ''}
             </span>
           </div>
           <div className="flex w-5 flex-shrink-0 flex-col items-center justify-center gap-0.5">
