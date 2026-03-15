@@ -165,6 +165,14 @@ export const AmaPanel: React.FC<AmaPanelProps> = ({
                 <p className="whitespace-pre-wrap text-gray-100">{message.text}</p>
               </article>
             ))}
+            {assistant.isSubmitting && (
+              <article className="inline-flex items-center gap-2 rounded-lg border border-cyan-400/20 bg-cyan-400/10 px-3 py-2 text-sm">
+                <span className="sr-only">Assistant is typing</span>
+                <span aria-hidden="true" className="typing-dot" />
+                <span aria-hidden="true" className="typing-dot typing-dot-delay-1" />
+                <span aria-hidden="true" className="typing-dot typing-dot-delay-2" />
+              </article>
+            )}
           </div>
 
           <form

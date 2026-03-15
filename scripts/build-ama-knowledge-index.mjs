@@ -35,9 +35,7 @@ Options:
 function parseArgs(argv) {
   const envEnrichFlag = process.env.AMA_ENRICH_AI;
   const envEnrichByDefault =
-    typeof envEnrichFlag === "string"
-      ? envEnrichFlag.toLowerCase() === "true"
-      : Boolean(process.env.GEMINI_API_KEY);
+    typeof envEnrichFlag === "string" ? envEnrichFlag.toLowerCase() === "true" : false;
   const options = {
     publicDir: DEFAULT_PUBLIC_DIR,
     outputFile: DEFAULT_OUTPUT_FILE,
@@ -344,7 +342,7 @@ export function buildAmaKnowledgeIndex({
   outputFile = DEFAULT_OUTPUT_FILE,
   chunkSize = DEFAULT_CHUNK_SIZE,
   overlap = DEFAULT_CHUNK_OVERLAP,
-  enrichAi = Boolean(process.env.GEMINI_API_KEY),
+  enrichAi = process.env.AMA_ENRICH_AI?.toLowerCase() === "true",
   enrichmentModel = process.env.AMA_ENRICHMENT_MODEL || DEFAULT_ENRICHMENT_MODEL,
   cacheFile = process.env.AMA_ENRICHMENT_CACHE_FILE || DEFAULT_ENRICHMENT_CACHE_FILE,
   enrichMaxChunks = Number(process.env.AMA_ENRICH_MAX_CHUNKS || DEFAULT_ENRICHMENT_MAX_CHUNKS),
