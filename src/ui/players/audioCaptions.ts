@@ -20,6 +20,16 @@ const normalizeTranscript = (rawTranscript: string): string => {
   return rawTranscript.replace(/\s+/g, ' ').trim();
 };
 
+const looksLikeHtmlDocument = (rawValue: string): boolean => {
+  const probe = rawValue.slice(0, 512).toLowerCase();
+  return (
+    probe.includes('<!doctype html') ||
+    probe.includes('<html') ||
+    probe.includes('<head') ||
+    probe.includes('<body')
+  );
+};
+
 const stripQueryAndHash = (value: string): string => {
   const withoutHash = value.split('#')[0] ?? value;
   return withoutHash.split('?')[0] ?? withoutHash;
@@ -70,7 +80,20 @@ const loadTranscriptFromUrl = async (url: string): Promise<TranscriptLoadResult>
             return { status: 'error' } as const;
           }
 
+          // SPA hosts can rewrite unknown .txt routes to index.html (200 OK).
+          // Reject those responses so we can continue to fallback transcript paths.
+          const responsePath = stripQueryAndHash(response.url);
+          const returnedTextLikeFile = /\.txt$/i.test(responsePath);
+          if (!returnedTextLikeFile) {
+            missingTranscriptUrls.add(url);
+            return { status: 'missing' } as const;
+          }
+
           const text = await response.text();
+          if (looksLikeHtmlDocument(text)) {
+            missingTranscriptUrls.add(url);
+            return { status: 'missing' } as const;
+          }
           const normalized = normalizeTranscript(text);
           if (!normalized) {
             missingTranscriptUrls.add(url);
