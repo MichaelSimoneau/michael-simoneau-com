@@ -17,7 +17,7 @@ const parseInteger = (value: string | null): number | undefined => {
 
 const parseVideoPhase = (value: string | null): VideoPlaybackPhase | undefined => {
   if (!value) return undefined;
-  if (value === 'prepended' || value === 'primary' || value === 'second' || value === 'playlist') {
+  if (value === 'primary' || value === 'playlist') {
     return value;
   }
   return undefined;

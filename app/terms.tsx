@@ -1,6 +1,38 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { cookieService } from '../src/services/cookieService';
 
 export default function TermsPage() {
+  useEffect(() => {
+    if (typeof window === 'undefined') {
+      return;
+    }
+
+    let hasMarkedReward = false;
+    const markRewardIfEligible = () => {
+      if (hasMarkedReward) {
+        return;
+      }
+      if (!cookieService.hasSeenMediaTermsPrompt()) {
+        return;
+      }
+      const doc = document.documentElement;
+      const scrollBottom = window.scrollY + window.innerHeight;
+      const threshold = Math.max(0, doc.scrollHeight - 12);
+      if (scrollBottom >= threshold) {
+        cookieService.setMediaTermsRewardEligibility(true);
+        hasMarkedReward = true;
+      }
+    };
+
+    markRewardIfEligible();
+    window.addEventListener('scroll', markRewardIfEligible, { passive: true });
+    window.addEventListener('resize', markRewardIfEligible);
+    return () => {
+      window.removeEventListener('scroll', markRewardIfEligible);
+      window.removeEventListener('resize', markRewardIfEligible);
+    };
+  }, []);
+
   return (
     <main className="mx-auto w-full max-w-4xl px-4 py-16 text-gray-100">
       <h1 className="mb-6 text-3xl font-bold text-cyan-300">Terms and Confidentiality Agreement</h1>

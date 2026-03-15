@@ -43,6 +43,7 @@ export const useMediaConsentGate = ({
       if (flowState.consent.hasAcceptedTerms) {
         flowDispatch({ type: 'CONSENT_STATUS_LOADED', hasAcceptedTerms: false });
       }
+      cookieService.markMediaTermsPromptPresented();
       const actionId = buildActionId();
       pendingActionRef.current = playAction;
       flowDispatch({

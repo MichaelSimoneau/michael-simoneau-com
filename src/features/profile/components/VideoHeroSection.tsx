@@ -61,17 +61,14 @@ interface YouTubeWindow extends Window {
   onYouTubeIframeAPIReady?: () => void;
 }
 
-const STANDARD_VIDEO_ID = '_Y1GTUrtWjE';
-const PREPENDED_VIDEO_ID = '_KKJTVyxb_A';
+const STANDARD_VIDEO_ID = 'hWs6-09_Y0g';
 const HANDOFF_PLAYLIST_ID = 'PLgqAhNtHkRy8PiSUfWBu1Z4KhPuwuEVwj';
-const HANDOFF_PLAYLIST_START_VIDEO_ID = 'uKXwADJaKAs';
-const HANDOFF_PLAYLIST_START_INDEX = 2;
+const LOCAL_FALLBACK_VIDEO_SRC = '/videos/Michael-Simoneau-present--The-Human-Dollar.mp4';
 const PREEND_TRIGGER_SECONDS = 1;
 const PREEND_POLL_INTERVAL_MS = 200;
-const VIDEO_HERO_PREPEND_MODE_EVENT = 'videohero:prepend-mode';
 const VIDEO_HERO_THIRD_CONTEXT_EVENT = 'videohero:third-context-ready';
 const VIDEO_HERO_MEDIA_SOURCE = 'video-hero';
-type PlaybackPhase = 'prepended' | 'primary' | 'second' | 'playlist';
+type PlaybackPhase = 'primary' | 'playlist';
 type VideoHeroStartMode = 'standard' | 'playlist';
 
 /**
@@ -88,8 +85,9 @@ export const VideoHeroSection: React.FC = () => {
   const flowState = useProfileFlowState();
   const [isWatching, setIsWatching] = useState(false);
   const [isYouTubeApiReady, setIsYouTubeApiReady] = useState(false);
+  const [isYouTubeApiFailed, setIsYouTubeApiFailed] = useState(false);
   const [isPlayerReady, setIsPlayerReady] = useState(false);
-  const [displayVideoId, setDisplayVideoId] = useState(STANDARD_VIDEO_ID);
+  const [activeVideoSource, setActiveVideoSource] = useState<'youtube' | 'local'>('youtube');
   const [isDelayOverlayVisible, setIsDelayOverlayVisible] = useState(false);
   const [countdownValue, setCountdownValue] = useState<number | null>(null);
   const [playerMountNonce, setPlayerMountNonce] = useState(0);
@@ -100,7 +98,6 @@ export const VideoHeroSection: React.FC = () => {
   const preEndPollIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const pendingAutoPlayRequestRef = useRef(false);
   const hasInitialLoadSettledRef = useRef(false);
-  const prependModeEnabledRef = useRef(false);
   const previousPlayerStateRef = useRef<number | null>(null);
   const startedPlaybackKeyRef = useRef<string | null>(null);
   const awaitingPostHandoffPlaybackRef = useRef(false);
@@ -125,14 +122,8 @@ export const VideoHeroSection: React.FC = () => {
   }, []);
 
   const getCurrentVideoContext = useCallback(() => {
-    if (playbackPhaseRef.current === 'prepended') {
-      return { phase: 'prepended', videoId: PREPENDED_VIDEO_ID };
-    }
     if (playbackPhaseRef.current === 'primary') {
       return { phase: 'primary', videoId: STANDARD_VIDEO_ID };
-    }
-    if (playbackPhaseRef.current === 'second') {
-      return { phase: 'second', videoId: STANDARD_VIDEO_ID };
     }
     return { phase: 'playlist', videoId: HANDOFF_PLAYLIST_ID };
   }, []);
@@ -156,12 +147,6 @@ export const VideoHeroSection: React.FC = () => {
     hasPreEndTriggeredForPhaseRef.current = false;
     resetDelayOverlay();
   }, [resetDelayOverlay]);
-
-  const isBeforeNoon = useCallback(() => false, []);
-
-  const isRestrictedOverlayLocked = useCallback(() => {
-    return flowState.playlist.isRestrictedActive;
-  }, [flowState.playlist.isRestrictedActive]);
 
   const startStandardVideo = useCallback(() => {
     const player = playerRef.current;
@@ -193,45 +178,12 @@ export const VideoHeroSection: React.FC = () => {
     return false;
   }, [flowDispatch]);
 
-  const startPrependedVideo = useCallback(() => {
-    const player = playerRef.current;
-    if (!player) return false;
-    playbackPhaseRef.current = 'prepended';
-    flowDispatch({ type: 'VIDEO_PHASE_CHANGED', phase: 'prepended' });
-
-    if (typeof player.loadVideoById === 'function') {
-      player.loadVideoById(PREPENDED_VIDEO_ID);
-      hasPreEndTriggeredForPhaseRef.current = false;
-      return true;
-    }
-
-    if (typeof player.cueVideoById === 'function') {
-      player.cueVideoById(PREPENDED_VIDEO_ID);
-      if (typeof player.playVideo === 'function') {
-        player.playVideo();
-      }
-      hasPreEndTriggeredForPhaseRef.current = false;
-      return true;
-    }
-
-    if (typeof player.playVideo === 'function') {
-      player.playVideo();
-      hasPreEndTriggeredForPhaseRef.current = false;
-      return true;
-    }
-
-    return false;
-  }, [flowDispatch]);
-
   const startInitialAutoplaySequence = useCallback(() => {
     startedPlaybackKeyRef.current = null;
-    if (prependModeEnabledRef.current) {
-      return startPrependedVideo();
-    }
     return startStandardVideo();
-  }, [startPrependedVideo, startStandardVideo]);
+  }, [startStandardVideo]);
 
-  const startPlaylistFromThirdItem = useCallback(() => {
+  const startPlaylistFromFirstItem = useCallback(() => {
     const player = playerRef.current;
     if (!player) return false;
     playbackPhaseRef.current = 'playlist';
@@ -241,26 +193,8 @@ export const VideoHeroSection: React.FC = () => {
       player.loadPlaylist({
         listType: 'playlist',
         list: HANDOFF_PLAYLIST_ID,
-        index: HANDOFF_PLAYLIST_START_INDEX,
         startSeconds: 0,
       });
-      hasPreEndTriggeredForPhaseRef.current = false;
-      hasThirdContextSignalEmittedRef.current = false;
-      return true;
-    }
-
-    if (typeof player.loadVideoById === 'function') {
-      player.loadVideoById(HANDOFF_PLAYLIST_START_VIDEO_ID);
-      hasPreEndTriggeredForPhaseRef.current = false;
-      hasThirdContextSignalEmittedRef.current = false;
-      return true;
-    }
-
-    if (typeof player.cueVideoById === 'function') {
-      player.cueVideoById(HANDOFF_PLAYLIST_START_VIDEO_ID);
-      if (typeof player.playVideo === 'function') {
-        player.playVideo();
-      }
       hasPreEndTriggeredForPhaseRef.current = false;
       hasThirdContextSignalEmittedRef.current = false;
       return true;
@@ -271,10 +205,10 @@ export const VideoHeroSection: React.FC = () => {
 
   const startPlaybackForCurrentMode = useCallback(() => {
     if (startModeRef.current === 'playlist') {
-      return startPlaylistFromThirdItem();
+      return startPlaylistFromFirstItem();
     }
     return startInitialAutoplaySequence();
-  }, [startInitialAutoplaySequence, startPlaylistFromThirdItem]);
+  }, [startInitialAutoplaySequence, startPlaylistFromFirstItem]);
 
   const handlePlayerStateChange = useCallback((event: YouTubePlayerEvent) => {
     const ytWindow = window as YouTubeWindow;
@@ -402,10 +336,6 @@ export const VideoHeroSection: React.FC = () => {
       if (hasPreEndTriggeredForPhaseRef.current) {
         return;
       }
-      if (playbackPhaseRef.current === 'second' && isBeforeNoon() && isRestrictedOverlayLocked()) {
-        return;
-      }
-
       const duration = player.getDuration?.();
       const currentTime = player.getCurrentTime?.();
       if (!duration || duration <= 0 || currentTime === undefined) {
@@ -425,7 +355,7 @@ export const VideoHeroSection: React.FC = () => {
         preEndPollIntervalRef.current = null;
       }
     };
-  }, [isWatching, isPlayerReady, isBeforeNoon, isRestrictedOverlayLocked]);
+  }, [isWatching, isPlayerReady]);
 
   useEffect(() => {
     const settleId = setTimeout(() => {
@@ -439,6 +369,7 @@ export const VideoHeroSection: React.FC = () => {
 
     const ytWindow = window as YouTubeWindow;
     if (ytWindow.YT?.Player) {
+      setIsYouTubeApiFailed(false);
       setIsYouTubeApiReady(true);
       flowDispatch({ type: 'VIDEO_API_READY' });
       return;
@@ -449,6 +380,7 @@ export const VideoHeroSection: React.FC = () => {
     const handleYouTubeReady = () => {
       previousReadyHandler?.();
       if (!isCancelled) {
+        setIsYouTubeApiFailed(false);
         setIsYouTubeApiReady(true);
         flowDispatch({ type: 'VIDEO_API_READY' });
       }
@@ -460,6 +392,12 @@ export const VideoHeroSection: React.FC = () => {
     if (!existingScript) {
       const script = document.createElement('script');
       script.src = 'https://www.youtube.com/iframe_api';
+      script.onerror = () => {
+        if (!isCancelled) {
+          setIsYouTubeApiFailed(true);
+          setActiveVideoSource('local');
+        }
+      };
       document.head.appendChild(script);
     }
 
@@ -478,13 +416,16 @@ export const VideoHeroSection: React.FC = () => {
 
     const ytWindow = window as YouTubeWindow;
     const yt = ytWindow.YT;
-    if (!yt) return;
+    if (!yt) {
+      setActiveVideoSource('local');
+      return;
+    }
 
     setIsPlayerReady(false);
     playbackPhaseRef.current = 'primary';
     hasPreEndTriggeredForPhaseRef.current = false;
     playerRef.current = new yt.Player(playerElementRef.current, {
-      videoId: displayVideoId,
+      videoId: STANDARD_VIDEO_ID,
       playerVars: {
         autoplay: 0,
         controls: 1,
@@ -503,7 +444,7 @@ export const VideoHeroSection: React.FC = () => {
         onStateChange: handlePlayerStateChange,
       },
     });
-  }, [displayVideoId, isWatching, isYouTubeApiReady, handlePlayerStateChange, flowDispatch]);
+  }, [isWatching, isYouTubeApiReady, handlePlayerStateChange, flowDispatch]);
 
   useEffect(() => {
     if (!isWatching || !isPlayerReady || !pendingAutoPlayRequestRef.current) {
@@ -533,22 +474,6 @@ export const VideoHeroSection: React.FC = () => {
   }, [clearHandoffTimeout]);
 
   useEffect(() => {
-    const handlePrependMode = (event: Event) => {
-      const customEvent = event as CustomEvent<{ enabled?: boolean }>;
-      const isEnabled = Boolean(customEvent.detail?.enabled);
-      flowDispatch({ type: 'VIDEO_PREPEND_MODE_UPDATED', enabled: isEnabled });
-      prependModeEnabledRef.current = isEnabled;
-      const nextDisplayVideoId = isEnabled ? PREPENDED_VIDEO_ID : STANDARD_VIDEO_ID;
-      setDisplayVideoId(nextDisplayVideoId);
-    };
-
-    window.addEventListener(VIDEO_HERO_PREPEND_MODE_EVENT, handlePrependMode);
-    return () => {
-      window.removeEventListener(VIDEO_HERO_PREPEND_MODE_EVENT, handlePrependMode);
-    };
-  }, [flowDispatch]);
-
-  useEffect(() => {
     return () => {
       clearHandoffTimeout();
       flowDispatch({ type: 'RELOAD_TIMER_CLEARED' });
@@ -565,6 +490,8 @@ export const VideoHeroSection: React.FC = () => {
     requestConsentAwarePlay(() => {
       flowDispatch({ type: 'VIDEO_WATCH_REQUESTED', mode: 'standard' });
       startModeRef.current = 'standard';
+      setIsYouTubeApiFailed(false);
+      setActiveVideoSource('youtube');
       pendingAutoPlayRequestRef.current = false;
       setIsWatching(true);
     });
@@ -574,6 +501,8 @@ export const VideoHeroSection: React.FC = () => {
     requestConsentAwarePlay(() => {
       flowDispatch({ type: 'VIDEO_WATCH_REQUESTED', mode: 'playlist' });
       startModeRef.current = 'playlist';
+      setIsYouTubeApiFailed(false);
+      setActiveVideoSource('youtube');
       clearHandoffTimeout();
       if (!isWatching || !isPlayerReady) {
         pendingAutoPlayRequestRef.current = true;
@@ -587,20 +516,38 @@ export const VideoHeroSection: React.FC = () => {
   useEffect(() => {
     if (flowState.override.value.video.watch) {
       setIsWatching(true);
+      setIsYouTubeApiFailed(false);
+      setActiveVideoSource('youtube');
       flowDispatch({ type: 'VIDEO_WATCH_REQUESTED', mode: 'standard' });
     }
     if (flowState.override.value.video.phase) {
       flowDispatch({ type: 'VIDEO_PHASE_CHANGED', phase: flowState.override.value.video.phase });
-      if (flowState.override.value.video.phase === 'prepended') {
-        prependModeEnabledRef.current = true;
-        setDisplayVideoId(PREPENDED_VIDEO_ID);
-      }
     }
   }, [flowDispatch, flowState.override.value.video.phase, flowState.override.value.video.watch]);
 
+  useEffect(() => {
+    if (!isWatching || startModeRef.current !== 'standard' || activeVideoSource === 'local') {
+      return;
+    }
+    if (isYouTubeApiFailed) {
+      setActiveVideoSource('local');
+      return;
+    }
+    if (isYouTubeApiReady || isPlayerReady) {
+      return;
+    }
+    const fallbackTimer = setTimeout(() => {
+      if (!isYouTubeApiReady && !isPlayerReady) {
+        setActiveVideoSource('local');
+      }
+    }, 8000);
+
+    return () => clearTimeout(fallbackTimer);
+  }, [activeVideoSource, isPlayerReady, isWatching, isYouTubeApiFailed, isYouTubeApiReady]);
+
   const { width, height } = useWindowDimensions();
 
-  const thumbnailUrl = `https://img.youtube.com/vi/${displayVideoId}/maxresdefault.jpg`;
+  const thumbnailUrl = `https://img.youtube.com/vi/${STANDARD_VIDEO_ID}/maxresdefault.jpg`;
 
   return (
     <section
@@ -610,12 +557,23 @@ export const VideoHeroSection: React.FC = () => {
       <div className="absolute inset-0 z-0 flex items-center justify-center bg-black">
         {isWatching ? (
           <div className="relative w-full" style={{ aspectRatio: '16 / 9', maxHeight: '100%' }}>
-            <div
-              key={playerMountNonce}
-              ref={playerElementRef}
-              title="Zeroth Theory and The Ricochet Theorem video player"
-              className="w-full h-full border-0"
-            />
+            {activeVideoSource === 'youtube' ? (
+              <div
+                key={playerMountNonce}
+                ref={playerElementRef}
+                title="Zeroth Theory and The Ricochet Theorem video player"
+                className="w-full h-full border-0"
+              />
+            ) : (
+              <video
+                src={LOCAL_FALLBACK_VIDEO_SRC}
+                className="w-full h-full"
+                controls
+                autoPlay
+                preload="metadata"
+                playsInline
+              />
+            )}
 
             <AnimatePresence>
               {isDelayOverlayVisible && (

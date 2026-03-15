@@ -32,7 +32,6 @@ export const initialProfileFlowState: ProfileFlowState = {
     isWatching: false,
     isApiReady: false,
     isPlayerReady: false,
-    prependModeEnabled: false,
     playbackPhase: 'primary',
     isDelayOverlayVisible: false,
     countdownValue: null,
@@ -156,11 +155,6 @@ export function profileFlowReducer(
           machine: state.video.isWatching ? 'watching' : 'playerReady',
           isPlayerReady: true,
         },
-      };
-    case 'VIDEO_PREPEND_MODE_UPDATED':
-      return {
-        ...state,
-        video: { ...state.video, prependModeEnabled: action.enabled },
       };
     case 'VIDEO_PHASE_CHANGED':
       return {

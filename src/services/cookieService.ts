@@ -13,8 +13,14 @@ class CookieService {
   private readonly COOKIE_NOTICE_COOKIE = 'quantum_cookie_notice';
   /** Cookie name for media terms agreement */
   private readonly MEDIA_TERMS_COOKIE = 'quantum_media_terms_agreement';
+  /** Cookie name for consent prompt presentation marker */
+  private readonly MEDIA_TERMS_PROMPT_PRESENTED_COOKIE = 'quantum_media_terms_prompt_presented';
+  /** Cookie name for terms-read reward eligibility marker */
+  private readonly MEDIA_TERMS_REWARD_ELIGIBLE_COOKIE = 'quantum_media_terms_reward_eligible';
   /** Consent expiry window for media terms (30 minutes) */
   private readonly MEDIA_TERMS_TIMEOUT_MS = 30 * 60 * 1000;
+  /** Permanent mode cookie expiration window (365 days) */
+  private readonly MEDIA_TERMS_PERMANENT_DAYS = 365;
 
   /**
    * Private constructor to enforce singleton pattern.
@@ -80,6 +86,34 @@ class CookieService {
     document.cookie = `${name}=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/;SameSite=Lax`;
   }
 
+  private parseMediaTermsPayload(rawValue: string): { acceptedAtMs: number; mode: 'session' | 'permanent' } | null {
+    try {
+      const decoded = decodeURIComponent(rawValue);
+      const parsed = JSON.parse(decoded) as { acceptedAtMs?: number; mode?: 'session' | 'permanent' };
+      if (typeof parsed.acceptedAtMs !== 'number' || !Number.isFinite(parsed.acceptedAtMs)) {
+        return null;
+      }
+      const mode = parsed.mode === 'permanent' ? 'permanent' : 'session';
+      return { acceptedAtMs: parsed.acceptedAtMs, mode };
+    } catch {
+      return null;
+    }
+  }
+
+  private writeMediaTermsAgreement(mode: 'session' | 'permanent'): void {
+    const payload = encodeURIComponent(
+      JSON.stringify({
+        acceptedAtMs: Date.now(),
+        mode,
+      }),
+    );
+    if (mode === 'permanent') {
+      this.setCookie(this.MEDIA_TERMS_COOKIE, payload, this.MEDIA_TERMS_PERMANENT_DAYS);
+      return;
+    }
+    this.setSessionCookie(this.MEDIA_TERMS_COOKIE, payload);
+  }
+
   /**
    * Checks if the user has seen the cookie notice.
    * @returns {boolean} True if the user has seen the notice, false otherwise
@@ -112,15 +146,22 @@ class CookieService {
       this.clearCookie(this.MEDIA_TERMS_COOKIE);
       return;
     }
-    this.touchMediaTermsAgreement();
+    const mode = this.hasMediaTermsRewardEligibility() ? 'permanent' : 'session';
+    this.writeMediaTermsAgreement(mode);
   }
 
   /**
    * Refreshes media terms agreement timestamp in a session cookie.
    */
   public touchMediaTermsAgreement(): void {
-    const payload = JSON.stringify({ acceptedAtMs: Date.now() });
-    this.setSessionCookie(this.MEDIA_TERMS_COOKIE, encodeURIComponent(payload));
+    const rawValue = this.getCookie(this.MEDIA_TERMS_COOKIE);
+    const currentPayload = rawValue ? this.parseMediaTermsPayload(rawValue) : null;
+    const mode: 'session' | 'permanent' = this.hasMediaTermsRewardEligibility()
+      ? 'permanent'
+      : currentPayload?.mode === 'permanent'
+        ? 'permanent'
+        : 'session';
+    this.writeMediaTermsAgreement(mode);
   }
 
   /**
@@ -133,23 +174,52 @@ class CookieService {
       return false;
     }
 
-    try {
-      const decoded = decodeURIComponent(rawValue);
-      const parsed = JSON.parse(decoded) as { acceptedAtMs?: number };
-      const acceptedAtMs = parsed.acceptedAtMs;
-      if (typeof acceptedAtMs !== 'number' || !Number.isFinite(acceptedAtMs)) {
-        this.clearCookie(this.MEDIA_TERMS_COOKIE);
-        return false;
-      }
-      if (Date.now() - acceptedAtMs > this.MEDIA_TERMS_TIMEOUT_MS) {
-        this.clearCookie(this.MEDIA_TERMS_COOKIE);
-        return false;
-      }
-      return true;
-    } catch {
+    const parsed = this.parseMediaTermsPayload(rawValue);
+    if (!parsed) {
       this.clearCookie(this.MEDIA_TERMS_COOKIE);
       return false;
     }
+    if (parsed.mode === 'permanent') {
+      return true;
+    }
+    if (Date.now() - parsed.acceptedAtMs > this.MEDIA_TERMS_TIMEOUT_MS) {
+      this.clearCookie(this.MEDIA_TERMS_COOKIE);
+      return false;
+    }
+    return true;
+  }
+
+  /**
+   * Marks that the inline consent prompt has been shown.
+   */
+  public markMediaTermsPromptPresented(): void {
+    this.setSessionCookie(this.MEDIA_TERMS_PROMPT_PRESENTED_COOKIE, 'true');
+  }
+
+  /**
+   * Returns true when prompt presentation marker exists.
+   */
+  public hasSeenMediaTermsPrompt(): boolean {
+    return this.getCookie(this.MEDIA_TERMS_PROMPT_PRESENTED_COOKIE) === 'true';
+  }
+
+  /**
+   * Sets whether the user has unlocked permanent-consent reward eligibility.
+   * @param {boolean} eligible - reward eligibility flag
+   */
+  public setMediaTermsRewardEligibility(eligible: boolean): void {
+    if (!eligible) {
+      this.clearCookie(this.MEDIA_TERMS_REWARD_ELIGIBLE_COOKIE);
+      return;
+    }
+    this.setSessionCookie(this.MEDIA_TERMS_REWARD_ELIGIBLE_COOKIE, 'true');
+  }
+
+  /**
+   * Checks if user is eligible for permanent consent mode.
+   */
+  public hasMediaTermsRewardEligibility(): boolean {
+    return this.getCookie(this.MEDIA_TERMS_REWARD_ELIGIBLE_COOKIE) === 'true';
   }
 }
 

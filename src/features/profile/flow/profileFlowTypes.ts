@@ -6,7 +6,7 @@ export type PlaylistMachineState =
   | 'playing'
   | 'paused'
   | 'ended';
-export type VideoPlaybackPhase = 'prepended' | 'primary' | 'second' | 'playlist';
+export type VideoPlaybackPhase = 'primary' | 'playlist';
 export type VideoMachineState = 'hidden' | 'bootingApi' | 'playerReady' | 'watching';
 export type MediaArbitrationState = 'none' | 'sourceActive';
 export type OverrideMachineState = 'parse' | 'applied' | 'forcing';
@@ -70,7 +70,6 @@ export interface ProfileFlowState {
     isWatching: boolean;
     isApiReady: boolean;
     isPlayerReady: boolean;
-    prependModeEnabled: boolean;
     playbackPhase: VideoPlaybackPhase;
     isDelayOverlayVisible?: boolean;
     countdownValue?: number | null;
@@ -118,7 +117,6 @@ export type ProfileFlowAction =
   | { type: 'VIDEO_WATCH_REQUESTED'; mode?: 'standard' | 'playlist' }
   | { type: 'VIDEO_API_READY' }
   | { type: 'VIDEO_PLAYER_READY' }
-  | { type: 'VIDEO_PREPEND_MODE_UPDATED'; enabled: boolean }
   | { type: 'VIDEO_PHASE_CHANGED'; phase: VideoPlaybackPhase }
   | { type: 'VIDEO_HANDOFF_COUNTDOWN_STARTED'; countdown: number }
   | { type: 'VIDEO_HANDOFF_COUNTDOWN_UPDATED'; countdown: number | null; visible: boolean }
