@@ -23,6 +23,45 @@ interface GeminiGenerateContentResponse {
   }>;
 }
 
+class GeminiHttpError extends Error {
+  public readonly status: number;
+
+  constructor(status: number, message: string) {
+    super(message);
+    this.status = status;
+    this.name = "GeminiHttpError";
+  }
+}
+
+const MAX_GEMINI_RETRIES = 2;
+
+const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
+const getRetryDelayMs = (response: Response, attempt: number): number => {
+  const retryAfterHeader = response.headers.get("retry-after");
+  const retryAfterSeconds = retryAfterHeader ? Number(retryAfterHeader) : NaN;
+  if (Number.isFinite(retryAfterSeconds) && retryAfterSeconds > 0) {
+    return Math.min(5000, Math.trunc(retryAfterSeconds * 1000));
+  }
+  return Math.min(4000, 450 * 2 ** attempt);
+};
+
+async function fetchGeminiWithRetry(url: string, init: RequestInit): Promise<Response> {
+  for (let attempt = 0; attempt <= MAX_GEMINI_RETRIES; attempt += 1) {
+    const response = await fetch(url, init);
+    if (response.ok) {
+      return response;
+    }
+    const shouldRetry =
+      (response.status === 429 || response.status === 503) && attempt < MAX_GEMINI_RETRIES;
+    if (!shouldRetry) {
+      return response;
+    }
+    await sleep(getRetryDelayMs(response, attempt));
+  }
+  throw new Error("Gemini request retry loop exited unexpectedly");
+}
+
 const DEFAULT_MODEL = "gemini-3.1-pro-preview";
 
 const CORS_HEADERS = {
@@ -69,7 +108,7 @@ async function callGemini(apiKey: string, model: string, proofText: string): Pro
     `User text: """${proofText}"""`,
   ].join("\n");
 
-  const response = await fetch(
+  const response = await fetchGeminiWithRetry(
     `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent?key=${encodeURIComponent(apiKey)}`,
     {
       method: "POST",
@@ -86,7 +125,10 @@ async function callGemini(apiKey: string, model: string, proofText: string): Pro
 
   if (!response.ok) {
     const details = await response.text();
-    throw new Error(`Gemini request failed (${response.status}): ${details.slice(0, 300)}`);
+    if (response.status === 429) {
+      throw new GeminiHttpError(429, "Gemini quota exceeded");
+    }
+    throw new GeminiHttpError(response.status, `Gemini request failed (${response.status}): ${details.slice(0, 300)}`);
   }
 
   const payload = (await response.json()) as GeminiGenerateContentResponse;
@@ -125,6 +167,12 @@ export const handler: Handler = async (event) => {
     const result = await callGemini(apiKey, model, proofText);
     return json(200, result);
   } catch (error) {
+    if (error instanceof GeminiHttpError && error.status === 429) {
+      return json(200, {
+        verdict: "ambiguous",
+        reason: "Verification is temporarily unavailable due to model quota. Please try again shortly.",
+      } satisfies HumanGateResponse);
+    }
     const message = error instanceof Error ? error.message : "Unknown error";
     return json(500, { error: message });
   }

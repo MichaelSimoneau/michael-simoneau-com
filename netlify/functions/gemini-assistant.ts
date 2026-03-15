@@ -17,6 +17,10 @@ interface KnowledgeChunk {
   id: string;
   text: string;
   tokens: string[];
+  contentHash?: string;
+  summary?: string;
+  topicTags?: string[];
+  relatedKeys?: string[];
 }
 
 interface KnowledgeDocument {
@@ -61,8 +65,50 @@ interface GeminiGenerateContentResponse {
   }>;
 }
 
+class GeminiHttpError extends Error {
+  public readonly status: number;
+  public readonly providerMessage?: string;
+
+  constructor(status: number, message: string, providerMessage?: string) {
+    super(message);
+    this.status = status;
+    this.providerMessage = providerMessage;
+    this.name = "GeminiHttpError";
+  }
+}
+const MAX_GEMINI_RETRIES = 2;
+
+const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
+const getRetryDelayMs = (response: Response, attempt: number): number => {
+  const retryAfterHeader = response.headers.get("retry-after");
+  const retryAfterSeconds = retryAfterHeader ? Number(retryAfterHeader) : NaN;
+  if (Number.isFinite(retryAfterSeconds) && retryAfterSeconds > 0) {
+    return Math.min(5000, Math.trunc(retryAfterSeconds * 1000));
+  }
+  return Math.min(4000, 450 * 2 ** attempt);
+};
+
+async function fetchGeminiWithRetry(url: string, init: RequestInit): Promise<Response> {
+  for (let attempt = 0; attempt <= MAX_GEMINI_RETRIES; attempt += 1) {
+    const response = await fetch(url, init);
+    if (response.ok) {
+      return response;
+    }
+    const shouldRetry =
+      (response.status === 429 || response.status === 503) && attempt < MAX_GEMINI_RETRIES;
+    if (!shouldRetry) {
+      return response;
+    }
+    await sleep(getRetryDelayMs(response, attempt));
+  }
+  throw new Error("Gemini request retry loop exited unexpectedly");
+}
+
 const DEFAULT_MODEL = "gemini-3.1-pro-preview";
 const MAX_CONTEXT_CHUNKS = 6;
+const DEFAULT_PREFILTER_LIMIT = 20;
+const DEFAULT_MAX_CHUNKS_PER_DOC = 2;
 const CORS_HEADERS = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Headers": "Content-Type",
@@ -101,6 +147,20 @@ function scoreChunk(queryTokens: string[], chunk: KnowledgeChunk): number {
     }
   }
   return score;
+}
+
+function parsePositiveIntEnv(name: string, fallback: number): number {
+  const raw = process.env[name];
+  if (!raw) return fallback;
+  const parsed = Number(raw);
+  if (!Number.isFinite(parsed) || parsed <= 0) return fallback;
+  return Math.trunc(parsed);
+}
+
+function parseBooleanEnv(name: string, fallback: boolean): boolean {
+  const raw = process.env[name];
+  if (!raw) return fallback;
+  return raw.toLowerCase() === "true";
 }
 
 async function loadFromFileSystem(): Promise<KnowledgeIndex | null> {
@@ -246,7 +306,7 @@ async function getKnowledgeIndex(event: NetlifyEvent): Promise<KnowledgeIndex> {
   throw new Error("Knowledge index unavailable. Could not load public/*.txt corpus.");
 }
 
-function buildContext(index: KnowledgeIndex, question: string): { context: string; citations: AssistantCitation[] } {
+function buildLexicalCandidates(index: KnowledgeIndex, question: string, prefilterLimit: number) {
   const queryTokens = normalizeToTokens(question);
   const scoredChunks: Array<{ doc: KnowledgeDocument; chunk: KnowledgeChunk; score: number }> = [];
   for (const doc of index.documents) {
@@ -259,7 +319,123 @@ function buildContext(index: KnowledgeIndex, question: string): { context: strin
   }
 
   scoredChunks.sort((a, b) => b.score - a.score);
-  const topChunks = scoredChunks.slice(0, MAX_CONTEXT_CHUNKS);
+  return scoredChunks.slice(0, prefilterLimit);
+}
+
+function buildCandidateId(doc: KnowledgeDocument, chunk: KnowledgeChunk): string {
+  return `${doc.id}:${chunk.id}`;
+}
+
+async function rerankCandidatesWithGemini({
+  apiKey,
+  model,
+  question,
+  candidates,
+}: {
+  apiKey: string;
+  model: string;
+  question: string;
+  candidates: Array<{ doc: KnowledgeDocument; chunk: KnowledgeChunk; score: number }>;
+}): Promise<string[] | null> {
+  if (!candidates.length) {
+    return [];
+  }
+
+  const candidateLines = candidates.map((item, idx) => {
+    const candidateId = buildCandidateId(item.doc, item.chunk);
+    const summary = item.chunk.summary?.trim() || item.chunk.text.slice(0, 150);
+    const topicTags = (item.chunk.topicTags ?? []).slice(0, 6).join(", ");
+    const relatedKeys = (item.chunk.relatedKeys ?? []).slice(0, 6).join(", ");
+    return [
+      `Candidate ${idx + 1}`,
+      `id: ${candidateId}`,
+      `path: ${item.doc.path}`,
+      `summary: ${summary}`,
+      `topicTags: ${topicTags || "none"}`,
+      `relatedKeys: ${relatedKeys || "none"}`,
+    ].join("\n");
+  });
+
+  const prompt = [
+    "You are ranking retrieval chunks for a user question.",
+    "Return strict JSON only: {\"rankedChunkIds\": [string, ...]}",
+    "Rules:",
+    "- Rank most semantically relevant chunks highest.",
+    "- Prefer complementary coverage over duplicates.",
+    "- Keep only ids from provided candidates.",
+    "",
+    `Question: ${question}`,
+    "",
+    "Candidates:",
+    candidateLines.join("\n\n"),
+  ].join("\n");
+
+  const response = await fetchGeminiWithRetry(
+    `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent?key=${encodeURIComponent(apiKey)}`,
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        generationConfig: { temperature: 0.1, responseMimeType: "application/json" },
+        contents: [{ role: "user", parts: [{ text: prompt }] }],
+      }),
+    },
+  );
+  if (!response.ok) {
+    return null;
+  }
+  try {
+    const payload = (await response.json()) as GeminiGenerateContentResponse;
+    const raw = payload.candidates?.[0]?.content?.parts?.map((part) => part.text ?? "").join("") ?? "";
+    const parsed = JSON.parse(raw) as { rankedChunkIds?: string[] };
+    if (!Array.isArray(parsed.rankedChunkIds)) {
+      return null;
+    }
+    const allowed = new Set(candidates.map((item) => buildCandidateId(item.doc, item.chunk)));
+    return parsed.rankedChunkIds.filter((id) => allowed.has(id));
+  } catch {
+    return null;
+  }
+}
+
+function selectDiverseChunks({
+  candidates,
+  rankedChunkIds,
+  finalChunkLimit,
+  maxChunksPerDoc,
+}: {
+  candidates: Array<{ doc: KnowledgeDocument; chunk: KnowledgeChunk; score: number }>;
+  rankedChunkIds: string[] | null;
+  finalChunkLimit: number;
+  maxChunksPerDoc: number;
+}) {
+  const byId = new Map<string, { doc: KnowledgeDocument; chunk: KnowledgeChunk; score: number }>();
+  for (const item of candidates) {
+    byId.set(buildCandidateId(item.doc, item.chunk), item);
+  }
+
+  const ordered = rankedChunkIds?.length
+    ? rankedChunkIds.map((id) => byId.get(id)).filter(Boolean)
+    : candidates;
+
+  const perDocCounter = new Map<string, number>();
+  const selected: Array<{ doc: KnowledgeDocument; chunk: KnowledgeChunk; score: number }> = [];
+  for (const item of ordered) {
+    if (!item) continue;
+    if (selected.length >= finalChunkLimit) break;
+    const currentCount = perDocCounter.get(item.doc.id) ?? 0;
+    if (currentCount >= maxChunksPerDoc) continue;
+    perDocCounter.set(item.doc.id, currentCount + 1);
+    selected.push(item);
+  }
+
+  return selected;
+}
+
+function buildContextFromSelection(
+  selectedChunks: Array<{ doc: KnowledgeDocument; chunk: KnowledgeChunk; score: number }>,
+): { context: string; citations: AssistantCitation[] } {
+  const topChunks = selectedChunks.slice(0, MAX_CONTEXT_CHUNKS);
 
   const context = topChunks
     .map((entry, indexInList) => {
@@ -273,6 +449,21 @@ function buildContext(index: KnowledgeIndex, question: string): { context: strin
   }));
 
   return { context, citations };
+}
+
+function buildFallbackAnswerFromCitations(citations: AssistantCitation[]): string {
+  if (!citations.length) {
+    return "The assistant is temporarily unavailable due to model quota limits. I cannot provide a grounded answer right now.";
+  }
+  const preview = citations
+    .slice(0, 3)
+    .map((citation, index) => `${index + 1}. ${citation.snippet}`)
+    .join("\n");
+  return [
+    "The model is temporarily quota-limited, so I cannot run full AI synthesis right now.",
+    "Here are the most relevant source excerpts I found:",
+    preview,
+  ].join("\n\n");
 }
 
 async function callGemini({
@@ -308,7 +499,7 @@ async function callGemini({
     context || "No relevant source chunks matched.",
   ].join("\n");
 
-  const response = await fetch(
+  const response = await fetchGeminiWithRetry(
     `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent?key=${encodeURIComponent(apiKey)}`,
     {
       method: "POST",
@@ -324,7 +515,10 @@ async function callGemini({
 
   if (!response.ok) {
     const details = await response.text();
-    throw new Error(`Gemini request failed (${response.status}): ${details.slice(0, 300)}`);
+    if (response.status === 429) {
+      throw new GeminiHttpError(429, "Gemini quota exceeded", details.slice(0, 300));
+    }
+    throw new GeminiHttpError(response.status, `Gemini request failed (${response.status})`, details.slice(0, 300));
   }
 
   const payload = (await response.json()) as GeminiGenerateContentResponse;
@@ -341,6 +535,11 @@ export const handler: Handler = async (event) => {
 
   const apiKey = process.env.GEMINI_API_KEY;
   const model = process.env.GEMINI_ASSISTANT_MODEL || process.env.GEMINI_MODEL || DEFAULT_MODEL;
+  const rerankModel = process.env.GEMINI_RERANK_MODEL || model;
+  const prefilterLimit = parsePositiveIntEnv("AMA_PREFILTER_LIMIT", DEFAULT_PREFILTER_LIMIT);
+  const finalChunkLimit = parsePositiveIntEnv("AMA_FINAL_CHUNK_LIMIT", MAX_CONTEXT_CHUNKS);
+  const maxChunksPerDoc = parsePositiveIntEnv("AMA_MAX_CHUNKS_PER_DOC", DEFAULT_MAX_CHUNKS_PER_DOC);
+  const enableRerank = parseBooleanEnv("AMA_ENABLE_AI_RERANK", true);
   if (!apiKey) {
     return json(500, { error: "Missing GEMINI_API_KEY environment variable" });
   }
@@ -353,16 +552,44 @@ export const handler: Handler = async (event) => {
     }
 
     const index = await getKnowledgeIndex(event);
-    const { context, citations } = buildContext(index, question);
+    const lexicalCandidates = buildLexicalCandidates(index, question, prefilterLimit);
 
-    const answer = await callGemini({
-      apiKey,
-      model,
-      question,
-      route: body.route,
-      recentErrors: Array.isArray(body.recentErrors) ? body.recentErrors : [],
-      context,
+    let rerankedIds: string[] | null = null;
+    if (enableRerank && lexicalCandidates.length > 0) {
+      rerankedIds = await rerankCandidatesWithGemini({
+        apiKey,
+        model: rerankModel,
+        question,
+        candidates: lexicalCandidates,
+      });
+    }
+
+    const selectedChunks = selectDiverseChunks({
+      candidates: lexicalCandidates,
+      rankedChunkIds: rerankedIds,
+      finalChunkLimit,
+      maxChunksPerDoc,
     });
+
+    const { context, citations } = buildContextFromSelection(selectedChunks);
+
+    let answer = "";
+    try {
+      answer = await callGemini({
+        apiKey,
+        model,
+        question,
+        route: body.route,
+        recentErrors: Array.isArray(body.recentErrors) ? body.recentErrors : [],
+        context,
+      });
+    } catch (error) {
+      if (error instanceof GeminiHttpError && error.status === 429) {
+        answer = buildFallbackAnswerFromCitations(citations);
+      } else {
+        throw error;
+      }
+    }
 
     const payload: AssistantResponse = {
       answer: answer || "I do not know from the available corpus.",
