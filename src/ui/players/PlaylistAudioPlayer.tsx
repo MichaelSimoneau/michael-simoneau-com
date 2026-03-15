@@ -16,8 +16,8 @@ import { dispatchMediaPlayIntent } from './mediaEvents';
 import { useProfileFlowDispatch, useProfileFlowState } from '../../features/profile/flow';
 import { InlineMediaConsentPrompt } from './InlineMediaConsentPrompt';
 import { useMediaConsentGate } from './useMediaConsentGate';
-import { AudioClosedCaptionStrip } from './AudioClosedCaptionStrip';
 import { useAudioTranscript } from './audioCaptions';
+import { useCaptionsViewport } from './CaptionsViewportProvider';
 
 /**
  * Single track definition for the playlist player.
@@ -181,6 +181,7 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({
   const { isGateVisible, requestConsentAwareAction, requestConsentAwarePlay, acceptAndResume } = useMediaConsentGate({
     source: 'playlist-audio',
   });
+  const { isCaptionsEnabled, setActiveAudio, clearActiveAudio, toggleCaptions } = useCaptionsViewport();
   const flowDispatch = useProfileFlowDispatch();
   const flowState = useProfileFlowState();
   const audioRef = useRef<HTMLAudioElement>(null);
@@ -263,13 +264,6 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({
   );
   const [isRestrictedFlowActive, setIsRestrictedFlowActive] = useState(false);
   const [activeMelindaSectionId, setActiveMelindaSectionId] = useState<string | null>(null);
-  const [isCaptionsEnabled, setIsCaptionsEnabled] = useState(false);
-
-  useEffect(() => {
-    if (typeof window !== 'undefined' && window.innerWidth >= 1024) {
-      setIsCaptionsEnabled(true);
-    }
-  }, []);
 
   // Flag to auto-play after a deliberate track change (skip/select)
   const shouldAutoPlay = useRef(false);
@@ -277,6 +271,18 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({
   const currentTrack = playableTracks[currentTrackIndex];
   const { status: transcriptStatus } = useAudioTranscript(currentTrack?.src);
   const currentSectionIndex = playableIndexToSectionIndex[currentTrackIndex] ?? -1;
+
+  useEffect(() => {
+    if (isCaptionsEnabled && currentTrack?.src) {
+      setActiveAudio({ audioRef, audioSrc: currentTrack.src });
+    }
+  }, [currentTrack?.src, isCaptionsEnabled, setActiveAudio]);
+
+  useEffect(() => {
+    return () => {
+      clearActiveAudio(audioRef);
+    };
+  }, [clearActiveAudio]);
 
   useEffect(() => {
     if (typeof window === 'undefined') {
@@ -931,10 +937,13 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({
       setIsPlaying(false);
     } else {
       requestConsentAwarePlay(() => {
+        if (currentTrack?.src) {
+          setActiveAudio({ audioRef, audioSrc: currentTrack.src });
+        }
         audio.play().then(() => setIsPlaying(true)).catch(() => setIsPlaying(false));
       });
     }
-  }, [currentTrack, isPlaying, isRestrictedFlowActive, requestConsentAwarePlay]);
+  }, [currentTrack, isPlaying, isRestrictedFlowActive, requestConsentAwarePlay, setActiveAudio]);
 
   const handleSkipForward = useCallback(() => {
     if (isRestrictedFlowActive) return;
@@ -1093,9 +1102,12 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({
       return;
     }
     requestConsentAwareAction(() => {
-      setIsCaptionsEnabled((previous) => !previous);
+      if (currentTrack?.src) {
+        setActiveAudio({ audioRef, audioSrc: currentTrack.src });
+      }
+      toggleCaptions();
     });
-  }, [isCcToggleDisabled, requestConsentAwareAction]);
+  }, [currentTrack?.src, isCcToggleDisabled, requestConsentAwareAction, setActiveAudio, toggleCaptions]);
 
   // ── Render ─────────────────────────────────────────────────────────────
   return (
@@ -1237,12 +1249,6 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({
               style={{ left: `calc(${progress}% - 6px)` }}
             />
           </div>
-          <AudioClosedCaptionStrip
-            audioRef={audioRef}
-            audioSrc={currentTrack?.src}
-            enabled={isCaptionsEnabled}
-            className="mt-3"
-          />
         </div>
 
         {/* ── Track List (expandable) ─────────────────────────────── */}

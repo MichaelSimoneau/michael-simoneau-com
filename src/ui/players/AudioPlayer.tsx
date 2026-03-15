@@ -4,8 +4,8 @@ import { Play, Pause, Volume2 } from 'lucide-react';
 import { useMediaAnalytics } from '../../analytics/useMediaAnalytics';
 import { InlineMediaConsentPrompt } from './InlineMediaConsentPrompt';
 import { useMediaConsentGate } from './useMediaConsentGate';
-import { AudioClosedCaptionStrip } from './AudioClosedCaptionStrip';
 import { useAudioTranscript } from './audioCaptions';
+import { useCaptionsViewport } from './CaptionsViewportProvider';
 
 interface AudioPlayerProps {
   src: string;
@@ -17,6 +17,7 @@ export const AudioPlayer: React.FC<AudioPlayerProps> = ({ src, title = 'Zeroth V
   const { isGateVisible, requestConsentAwareAction, requestConsentAwarePlay, acceptAndResume } = useMediaConsentGate({
     source: 'audio-player',
   });
+  const { isCaptionsEnabled, setActiveAudio, clearActiveAudio, toggleCaptions } = useCaptionsViewport();
   const { status: transcriptStatus } = useAudioTranscript(src);
   const audioRef = useRef<HTMLAudioElement>(null);
   const progressRef = useRef<HTMLDivElement>(null);
@@ -27,13 +28,6 @@ export const AudioPlayer: React.FC<AudioPlayerProps> = ({ src, title = 'Zeroth V
   const [duration, setDuration] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
   const [isSeeking, setIsSeeking] = useState(false);
-  const [isCaptionsEnabled, setIsCaptionsEnabled] = useState(false);
-
-  useEffect(() => {
-    if (typeof window !== 'undefined' && window.innerWidth >= 1024) {
-      setIsCaptionsEnabled(true);
-    }
-  }, []);
 
   useEffect(() => {
     const audio = audioRef.current;
@@ -121,6 +115,18 @@ export const AudioPlayer: React.FC<AudioPlayerProps> = ({ src, title = 'Zeroth V
     previousIsPlayingRef.current = false;
   }, [src]);
 
+  useEffect(() => {
+    if (isCaptionsEnabled) {
+      setActiveAudio({ audioRef, audioSrc: src });
+    }
+  }, [isCaptionsEnabled, setActiveAudio, src]);
+
+  useEffect(() => {
+    return () => {
+      clearActiveAudio(audioRef);
+    };
+  }, [clearActiveAudio]);
+
   const handlePlayPause = () => {
     const audio = audioRef.current;
     if (!audio) return;
@@ -130,6 +136,7 @@ export const AudioPlayer: React.FC<AudioPlayerProps> = ({ src, title = 'Zeroth V
       setIsPlaying(false);
     } else {
       requestConsentAwarePlay(() => {
+        setActiveAudio({ audioRef, audioSrc: src });
         audio.play().then(() => setIsPlaying(true)).catch(() => setIsPlaying(false));
       });
     }
@@ -216,7 +223,8 @@ export const AudioPlayer: React.FC<AudioPlayerProps> = ({ src, title = 'Zeroth V
       return;
     }
     requestConsentAwareAction(() => {
-      setIsCaptionsEnabled((previous) => !previous);
+      setActiveAudio({ audioRef, audioSrc: src });
+      toggleCaptions();
     });
   };
 
@@ -294,12 +302,6 @@ export const AudioPlayer: React.FC<AudioPlayerProps> = ({ src, title = 'Zeroth V
                 <span className="text-gray-400 text-xs">{formatTime(currentTime)}</span>
                 <span className="text-gray-400 text-xs">{formatTime(duration)}</span>
               </div>
-              <AudioClosedCaptionStrip
-                audioRef={audioRef}
-                audioSrc={src}
-                enabled={isCaptionsEnabled}
-                className="mt-3"
-              />
             </div>
           </div>
         </div>

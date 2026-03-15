@@ -7,6 +7,7 @@ import { ProfileFlowProvider } from '../src/features/profile/flow';
 import { BeforeAndAfterProvider } from '../src/hooks/useBeforeAndAfter';
 import { AmaLauncher } from '../src/features/ama/components';
 import { useErrorContextCapture } from '../src/features/ama/hooks';
+import { CaptionsViewportOverlay, CaptionsViewportProvider } from '../src/ui/players';
 import '../src/index.css';
 
 const GA_MEASUREMENT_ID = 'G-58WTRZHT0B';
@@ -68,14 +69,17 @@ export default function RootLayout() {
       <ScrollProvider>
         <ProfileFlowProvider>
           <BeforeAndAfterProvider>
-            <CookieNotice />
-            <AmaLauncher />
-            <div className="app-shell">
-              <main className="app-main">
-                <Slot />
-              </main>
-              <CopyrightNotice />
-            </div>
+            <CaptionsViewportProvider>
+              <CookieNotice />
+              <AmaLauncher />
+              <div className="app-shell">
+                <main className="app-main">
+                  <Slot />
+                </main>
+                <CopyrightNotice />
+              </div>
+              <CaptionsViewportOverlay />
+            </CaptionsViewportProvider>
           </BeforeAndAfterProvider>
         </ProfileFlowProvider>
       </ScrollProvider>
