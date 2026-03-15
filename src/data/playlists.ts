@@ -30,12 +30,23 @@ const getAllMP3Files = () => {
 
 function extractDateFromSrc(src: string): Date | null {
   // Match YYYY-MM-DD or YYYY_MM_DD or /YYYY-MM-DD/
-  const match = src.match(/([12]\d{3})[-_](\d{2})[-_](\d{2})/);
+  const match = src.match(/([12]\d{3})[-_](\d{2})[-_](\d{2})/gi);
   if (match) {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const [_, y, m, d] = match;
-    // Month is 0-based in JS Date
-    return new Date(Number(y), Number(m) - 1, Number(d));
+    if (match.length > 1) {
+      for (const _m of match) {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const [_, y, m, d] = _m.match(/([12]\d{3})[-_](\d{2})[-_](\d{2})/gi) ?? [];
+        if (y && m && d) {
+          return new Date(Number(y), Number(m) - 1, Number(d));
+        }
+      }
+    } else {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const [_, y, m, d] = match[0].match(/([12]\d{3})[-_](\d{2})[-_](\d{2})/gi) ?? [];
+      if (y && m && d) {
+        return new Date(Number(y), Number(m) - 1, Number(d));
+      }
+    }
   }
   return null;
 }
@@ -116,7 +127,7 @@ const cleanPlaylist = podcastsToPlaylist({
     "/audio/2026-03-14/Agency_is_Authority_Not_Control.mp3",
   // Track #11 - 2026-03-05
   '"The High-Five Trick" - Michael Simoneau':
-    "/audio/2026-02-20/Chardon Rd.mp3",
+    "/audio/2026-02-20/Chardon_Rd.mp3",
   // Track #12 - 2026-03-05
   '"The High-Five Trick - Extended Version" - Michael Simoneau':
     "/audio/Stop_Watching_Cartoons__It_is_Saturday_Morning__.mp3",
@@ -125,7 +136,7 @@ const cleanPlaylist = podcastsToPlaylist({
 const melindaFrancisPlaylist = podcastsToPlaylist({
   // Track #-1 - 2026-02-20
   'The First File I Sent via Google Drive: "Chardon Rd" (my 2nd SMS)':
-    "/audio/2026-02-20/Chardon%20Rd.mp3",
+    "/audio/2026-02-20/Chardon_Rd.mp3",
   EXPANDED_0: "Why Michael Simoneau Trapped Melinda Francis...",
   "Michael Simoneau Cured His Sanity by Diagnosing Everyone Else":
     "/audio/2026-03-14/Why_Michael_Simoneau_engineered_expiring_money.mp3",

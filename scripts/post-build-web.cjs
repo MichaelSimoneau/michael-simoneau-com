@@ -4,10 +4,12 @@
  * Patches all exported HTML files so static prerendered routes
  * get the same runtime compatibility tweaks.
  */
-const { readFileSync, readdirSync, statSync, writeFileSync } = require('fs');
-const { resolve } = require('path');
+const { mkdirSync, readFileSync, readdirSync, statSync, writeFileSync } = require('fs');
+const { dirname, resolve } = require('path');
 
 const distDir = resolve('dist');
+const cacheFile = resolve('.cache/post-build-web-cache.json');
+const cacheVersion = 1;
 
 function collectHtmlFiles(directory) {
   const entries = readdirSync(directory);
@@ -23,11 +25,28 @@ function collectHtmlFiles(directory) {
     }
 
     if (entry.endsWith('.html')) {
-      htmlFiles.push(absolutePath);
+      htmlFiles.push({
+        absolutePath,
+        size: stats.size,
+        mtimeMs: Math.trunc(stats.mtimeMs),
+      });
     }
   }
 
   return htmlFiles;
+}
+
+function readCache(filePath) {
+  try {
+    return JSON.parse(readFileSync(filePath, 'utf-8'));
+  } catch {
+    return { version: cacheVersion, files: {} };
+  }
+}
+
+function writeCache(filePath, payload) {
+  mkdirSync(dirname(filePath), { recursive: true });
+  writeFileSync(filePath, JSON.stringify(payload), 'utf-8');
 }
 
 function patchHtml(html) {
@@ -142,16 +161,45 @@ function patchHtml(html) {
 }
 
 const htmlFiles = collectHtmlFiles(distDir);
+const previousCache = readCache(cacheFile);
+const nextCache = {
+  version: cacheVersion,
+  files: {},
+};
 let patchedCount = 0;
+let skippedUnchangedCount = 0;
 
-for (const htmlPath of htmlFiles) {
+for (const htmlFile of htmlFiles) {
+  const htmlPath = htmlFile.absolutePath;
+  const signature = `${htmlFile.size}:${htmlFile.mtimeMs}`;
+  const previousEntry = previousCache.files?.[htmlPath];
+  if (previousEntry?.signature === signature && previousEntry.cacheVersion === cacheVersion) {
+    skippedUnchangedCount += 1;
+    nextCache.files[htmlPath] = previousEntry;
+    continue;
+  }
+
   const html = readFileSync(htmlPath, 'utf-8');
   const patched = patchHtml(html);
 
   if (patched !== html) {
     writeFileSync(htmlPath, patched);
     patchedCount += 1;
+    const updatedStats = statSync(htmlPath);
+    nextCache.files[htmlPath] = {
+      signature: `${updatedStats.size}:${Math.trunc(updatedStats.mtimeMs)}`,
+      cacheVersion,
+    };
+    continue;
   }
+
+  nextCache.files[htmlPath] = {
+    signature,
+    cacheVersion,
+  };
 }
 
-console.log(`[post-build-web] Patched ${patchedCount} of ${htmlFiles.length} HTML files in dist/`);
+writeCache(cacheFile, nextCache);
+console.log(
+  `[post-build-web] Patched ${patchedCount} of ${htmlFiles.length} HTML files in dist/ (${skippedUnchangedCount} unchanged skipped)`,
+);
