@@ -322,3 +322,91 @@ body {
 .typing-dot-delay-2 {
   animation-delay: 0.24s;
 }
+
+.ama-lapel-pin {
+  position: relative;
+  border: 1px solid rgba(148, 219, 255, 0.45);
+  background:
+    radial-gradient(140% 180% at 20% 0%, rgba(142, 230, 255, 0.22) 0%, rgba(7, 16, 24, 0) 35%),
+    linear-gradient(155deg, #0f1720 0%, #081018 46%, #0a1b24 100%);
+  box-shadow:
+    0 0 0 1px rgba(12, 24, 34, 0.9) inset,
+    0 6px 18px rgba(2, 10, 16, 0.55),
+    0 0 18px rgba(34, 211, 238, 0.18);
+  backdrop-filter: blur(4px);
+  transform: translateZ(0);
+}
+
+.ama-lapel-pin:hover {
+  transform: translateY(-1px) scale(1.01);
+  box-shadow:
+    0 0 0 1px rgba(34, 211, 238, 0.42) inset,
+    0 10px 24px rgba(2, 10, 16, 0.62),
+    0 0 26px rgba(34, 211, 238, 0.24);
+}
+
+.ama-lapel-pin:active {
+  transform: translateY(1px) scale(0.995);
+}
+
+.ama-lapel-pin-rim,
+.ama-lapel-pin-gloss,
+.ama-lapel-pin-core {
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  pointer-events: none;
+}
+
+.ama-lapel-pin-rim {
+  border: 1px solid rgba(141, 234, 255, 0.62);
+  box-shadow:
+    0 0 0 1px rgba(6, 12, 18, 0.95) inset,
+    0 0 8px rgba(34, 211, 238, 0.35);
+}
+
+.ama-lapel-pin-gloss {
+  background:
+    radial-gradient(100% 140% at 24% 0%, rgba(203, 243, 255, 0.24) 0%, rgba(176, 232, 251, 0.08) 32%, rgba(0, 0, 0, 0) 66%),
+    linear-gradient(180deg, rgba(80, 134, 164, 0.12), rgba(0, 0, 0, 0));
+  mix-blend-mode: screen;
+}
+
+.ama-lapel-pin-core {
+  inset: 2px;
+  border: 1px solid rgba(82, 159, 194, 0.35);
+  background: linear-gradient(165deg, rgba(16, 29, 40, 0.92), rgba(8, 17, 24, 0.95));
+}
+
+.ama-lapel-pin-dot {
+  position: absolute;
+  left: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 7px;
+  height: 7px;
+  border-radius: 9999px;
+  background: #67e8f9;
+  box-shadow:
+    0 0 0 1px rgba(5, 35, 48, 0.9),
+    0 0 8px rgba(103, 232, 249, 0.75);
+  pointer-events: none;
+}
+
+.ama-lapel-pin-text,
+.ama-lapel-pin-label {
+  position: relative;
+  z-index: 1;
+  text-shadow:
+    0 1px 1px rgba(0, 0, 0, 0.75),
+    0 0 10px rgba(103, 232, 249, 0.36);
+}
+
+.ama-lapel-pin-text {
+  letter-spacing: 0.08em;
+  margin-left: 6px;
+}
+
+.ama-lapel-pin-label {
+  color: rgba(207, 247, 255, 0.95);
+}

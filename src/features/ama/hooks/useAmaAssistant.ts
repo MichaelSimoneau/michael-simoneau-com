@@ -8,6 +8,7 @@ export interface AmaMessage {
   id: string;
   role: "user" | "assistant";
   text: string;
+  citations?: AmaCitation[];
 }
 
 export interface AmaCitation {
@@ -34,7 +35,6 @@ const hasDebugIntent = (question: string): boolean => DEBUG_INTENT_PATTERN.test(
 export function useAmaAssistant() {
   const [authVersion, setAuthVersion] = useState(0);
   const [messages, setMessages] = useState<AmaMessage[]>(initialMessages);
-  const [lastCitations, setLastCitations] = useState<AmaCitation[]>([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [gateFeedback, setGateFeedback] = useState<string>("");
   const [gateVerdict, setGateVerdict] = useState<GateVerdict | null>(null);
@@ -92,14 +92,15 @@ export function useAmaAssistant() {
         cookieService.setAmaHumanVerified(true);
         cookieService.touchAmaHumanVerification();
       }
-      setGateFeedback(payload.reason || "");
+      const reason = payload.reason || "Verification complete.";
+      setGateFeedback(reason);
       setGateVerdict(payload.verdict);
       setMessages((prev) => [
         ...prev,
         {
           id: buildMessageId(),
           role: "assistant",
-          text: payload.reason || "Verification complete.",
+          text: reason,
         },
       ]);
       refreshAuthState();
@@ -139,7 +140,6 @@ export function useAmaAssistant() {
     cookieService.touchAmaHumanVerification();
     const debugIntent = hasDebugIntent(trimmed);
     setIsSubmitting(true);
-    setLastCitations([]);
     setMessages((prev) => [...prev, { id: buildMessageId(), role: "user", text: trimmed }]);
     try {
       const response = await fetch("/.netlify/functions/gemini-assistant", {
@@ -157,15 +157,22 @@ export function useAmaAssistant() {
         throw new Error(`Assistant request failed: ${details.slice(0, 160)}`);
       }
       const payload = (await response.json()) as { answer: string; citations?: AmaCitation[] };
+      const responseCitations = Array.isArray(payload.citations) ? payload.citations : [];
+      const normalizedAnswer = payload.answer?.trim() || "I do not know from the available corpus.";
+      const answerText =
+        responseCitations.length > 0 &&
+        /^i do not know from the available corpus\.?$/i.test(normalizedAnswer)
+          ? "I found source material related to your question, but I could not produce a grounded synthesis."
+          : normalizedAnswer;
       setMessages((prev) => [
         ...prev,
         {
           id: buildMessageId(),
           role: "assistant",
-          text: payload.answer?.trim() || "I do not know from the available corpus.",
+          text: answerText,
+          citations: responseCitations,
         },
       ]);
-      setLastCitations(Array.isArray(payload.citations) ? payload.citations : []);
       return true;
     } finally {
       await new Promise<void>((resolve) => {
@@ -213,7 +220,6 @@ export function useAmaAssistant() {
   return useMemo(
     () => ({
       messages,
-      lastCitations,
       isSubmitting,
       gateFeedback,
       gateVerdict,
@@ -238,7 +244,6 @@ export function useAmaAssistant() {
       isHumanVerified,
       isSubmitting,
       isUnlocked,
-      lastCitations,
       messages,
       verifyHuman,
       enqueueQuestion,

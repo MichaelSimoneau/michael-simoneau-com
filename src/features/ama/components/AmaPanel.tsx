@@ -151,19 +151,6 @@ export const AmaPanel: React.FC<AmaPanelProps> = ({
               </button>
             </div>
           </div>
-          {assistant.gateFeedback && (
-            <p
-              className={`text-xs ${
-                assistant.gateVerdict === "human"
-                  ? "text-emerald-300"
-                  : assistant.gateVerdict === "reject"
-                    ? "text-rose-300"
-                    : "text-gray-300"
-              }`}
-            >
-              {assistant.gateFeedback}
-            </p>
-          )}
         </form>
       )}
 
@@ -183,6 +170,15 @@ export const AmaPanel: React.FC<AmaPanelProps> = ({
                   {message.role === "assistant" ? "Assistant" : "You"}
                 </p>
                 <p className="whitespace-pre-wrap text-gray-100">{message.text}</p>
+                {message.role === "assistant" && Array.isArray(message.citations) && message.citations.length > 0 && (
+                  <div className="mt-2 space-y-1 border-t border-cyan-300/20 pt-2 text-xs text-cyan-200">
+                    {message.citations.slice(0, 4).map((citation) => (
+                      <p key={`${message.id}-${citation.path}-${citation.snippet.slice(0, 18)}`}>
+                        Source: <span className="text-cyan-300">{citation.path}</span>
+                      </p>
+                    ))}
+                  </div>
+                )}
               </article>
             ))}
             {assistant.isSubmitting && (
@@ -229,15 +225,6 @@ export const AmaPanel: React.FC<AmaPanelProps> = ({
                 </button>
               </div>
             </div>
-            {assistant.lastCitations.length > 0 && (
-              <div className="space-y-1 pt-1 text-xs text-gray-300">
-                {assistant.lastCitations.slice(0, 4).map((citation) => (
-                  <p key={`${citation.path}-${citation.snippet.slice(0, 20)}`}>
-                    Source: <span className="text-cyan-300">{citation.path}</span>
-                  </p>
-                ))}
-              </div>
-            )}
           </form>
         </>
       )}

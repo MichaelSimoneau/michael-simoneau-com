@@ -66,12 +66,16 @@ export const AmaLauncher: React.FC = () => {
       <button
         type="button"
         onClick={handleLauncherPress}
-        className={`group fixed bottom-4 right-4 z-[40] hidden h-14 items-center overflow-hidden rounded-full border border-cyan-400/60 bg-black/85 px-4 text-cyan-200 shadow-xl transition-all duration-500 hover:w-[220px] md:flex ${launcherVisibilityClass} ${launcherOopsClass}`}
+        className={`ama-lapel-pin group fixed bottom-4 right-4 z-[40] hidden h-14 items-center overflow-hidden rounded-full px-3 text-cyan-100 transition-all duration-500 hover:w-[220px] md:flex ${launcherVisibilityClass} ${launcherOopsClass}`}
         style={{ width: "56px" }}
         aria-label="Ask Me Anything"
       >
-        <span className="text-sm font-black tracking-wider">A.M.A</span>
-        <span className="ml-2 max-w-0 overflow-hidden whitespace-nowrap text-sm font-semibold opacity-0 transition-all duration-300 group-hover:max-w-[160px] group-hover:opacity-100">
+        <span className="ama-lapel-pin-rim" aria-hidden="true" />
+        <span className="ama-lapel-pin-gloss" aria-hidden="true" />
+        <span className="ama-lapel-pin-core" aria-hidden="true" />
+        <span className="ama-lapel-pin-dot" aria-hidden="true" />
+        <span className="ama-lapel-pin-text text-sm font-black tracking-wider">A.M.A</span>
+        <span className="ama-lapel-pin-label ml-2 max-w-0 overflow-hidden whitespace-nowrap text-sm font-semibold opacity-0 transition-all duration-300 group-hover:max-w-[160px] group-hover:opacity-100">
           Ask Me Anything!
         </span>
       </button>

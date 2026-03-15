@@ -281,8 +281,9 @@ export const MelindaFrancis: React.FC = () => {
                       {isApologyParagraph ? (
                         <div className="flex justify-center my-6">
                           <AudioPlayer
-                            src="/audio/2026-03-14/Michael_Simoneau_Saves_The_World.mp3"
-                            title="Why Michael Simoneau is Objectively Sane... and Why You Are Not"
+                            title="Google's Latest AI Analyzed Michael Simoneau's Behavior"
+                            src="/audio/2026-03-15/Google's_Latest_AI_Analyzed_Michael_Simoneau's_Behavior.mp3"
+
                           />
                         </div>
                       ) : null}
@@ -294,8 +295,9 @@ export const MelindaFrancis: React.FC = () => {
                     <hr className="border-t border-[#0b1a3a] my-4" />
                     <div className="flex justify-center my-6">
                       <AudioPlayer
-                        src="/audio/2026-03-14/Michael_Simoneau_Saves_The_World.mp3"
-                        title="Why Michael Simoneau is Objectively Sane... and Why You Are Not"
+                        title="Google's Latest AI Analyzed Michael Simoneau's Behavior"
+                        src="/audio/2026-03-15/Google's_Latest_AI_Analyzed_Michael_Simoneau's_Behavior.mp3"
+
                       />
                     </div>
                   </>
