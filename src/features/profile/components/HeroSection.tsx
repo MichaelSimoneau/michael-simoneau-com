@@ -125,7 +125,26 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ featuredBlog }) => {
             <p className="text-base sm:text-lg md:text-xl text-gray-300 leading-relaxed">
               <span className="block mb-4">
                 <span className="relative inline-block pb-2">
-                  <span className="font-semibold text-yellow-500">Your journey begins with a </span>
+                  <motion.span
+                    className="inline-block font-semibold text-yellow-500"
+                    animate={
+                      !isNarrativeExpanded && !prefersReducedMotion
+                        ? { x: [0, -2, 0] }
+                        : { x: 0 }
+                    }
+                    transition={
+                      !isNarrativeExpanded && !prefersReducedMotion
+                        ? {
+                            duration: 5,
+                            times: [0, 0.5, 1],
+                            ease: "easeInOut",
+                            repeat: Infinity,
+                          }
+                        : { duration: 0.2, ease: "easeOut" }
+                    }
+                  >
+                    Your journey begins with a{" "}
+                  </motion.span>
                   {isNarrativeExpanded && (
                     <span className="font-semibold text-green-200">single U.S. dollar.</span>
                   )}
@@ -137,7 +156,23 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ featuredBlog }) => {
                       >
                         <span className="absolute left-1/2 top-1/2 h-0 w-0 -translate-x-1/2 -translate-y-1/2" />
                       </span>
-                      <span className="font-semibold text-yellow-500"> Deterministic Truth</span>.
+                      <motion.span
+                        className="inline-block font-semibold text-yellow-500"
+                        animate={!prefersReducedMotion ? { x: [0, 2, 0] } : { x: 0 }}
+                        transition={
+                          !prefersReducedMotion
+                            ? {
+                                duration: 5,
+                                times: [0, 0.5, 1],
+                                ease: "easeInOut",
+                                repeat: Infinity,
+                              }
+                            : { duration: 0.2, ease: "easeOut" }
+                        }
+                      >
+                        {" Deterministic\u00A0Truth"}
+                      </motion.span>
+                      .
                     </span>
                   )}
 
