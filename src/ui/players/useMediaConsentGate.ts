@@ -23,26 +23,28 @@ export const useMediaConsentGate = ({
   const flowState = useProfileFlowState();
   const flowDispatch = useProfileFlowDispatch();
   const pendingActionRef = useRef<(() => void) | null>(null);
-  const pendingActionIdRef = useRef<string | null>(null);
 
   const isAccepted = useMemo(() => {
-    if (flowState.consent.hasAcceptedTerms) {
-      return true;
-    }
-    return cookieService.hasMediaTermsAgreement();
-  }, [flowState.consent.hasAcceptedTerms]);
+    return cookieService.hasActiveMediaTermsAgreement();
+  }, [flowState.consent.hasAcceptedTerms, flowState.consent.pendingIntent]);
 
   const requestConsentAwarePlay = useCallback(
     (playAction: () => void): boolean => {
       if (isAccepted) {
+        cookieService.touchMediaTermsAgreement();
+        if (!flowState.consent.hasAcceptedTerms) {
+          flowDispatch({ type: 'CONSENT_ACCEPTED' });
+        }
         dispatchMediaPlayIntent(source);
         playAction();
         return true;
       }
 
+      if (flowState.consent.hasAcceptedTerms) {
+        flowDispatch({ type: 'CONSENT_STATUS_LOADED', hasAcceptedTerms: false });
+      }
       const actionId = buildActionId();
       pendingActionRef.current = playAction;
-      pendingActionIdRef.current = actionId;
       flowDispatch({
         type: 'CONSENT_PROMPT_REQUESTED',
         source,
@@ -50,7 +52,7 @@ export const useMediaConsentGate = ({
       });
       return false;
     },
-    [flowDispatch, isAccepted, source],
+    [flowDispatch, flowState.consent.hasAcceptedTerms, isAccepted, source],
   );
 
   const acceptAndResume = useCallback(() => {
@@ -58,7 +60,6 @@ export const useMediaConsentGate = ({
     flowDispatch({ type: 'CONSENT_ACCEPTED' });
     const pendingAction = pendingActionRef.current;
     pendingActionRef.current = null;
-    pendingActionIdRef.current = null;
     flowDispatch({ type: 'CONSENT_PENDING_INTENT_CLEARED' });
     if (pendingAction) {
       dispatchMediaPlayIntent(source);

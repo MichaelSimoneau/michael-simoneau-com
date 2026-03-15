@@ -13,6 +13,8 @@ class CookieService {
   private readonly COOKIE_NOTICE_COOKIE = 'quantum_cookie_notice';
   /** Cookie name for media terms agreement */
   private readonly MEDIA_TERMS_COOKIE = 'quantum_media_terms_agreement';
+  /** Consent expiry window for media terms (30 minutes) */
+  private readonly MEDIA_TERMS_TIMEOUT_MS = 30 * 60 * 1000;
 
   /**
    * Private constructor to enforce singleton pattern.
@@ -45,6 +47,15 @@ class CookieService {
   }
 
   /**
+   * Sets a session cookie (expires on browser session end).
+   * @param {string} name - The cookie name
+   * @param {string} value - The cookie value
+   */
+  private setSessionCookie(name: string, value: string): void {
+    document.cookie = `${name}=${value};path=/;SameSite=Lax`;
+  }
+
+  /**
    * Gets the value of a cookie by name.
    * @param {string} name - The name of the cookie
    * @returns {string | null} The value of the cookie, or null if not found
@@ -59,6 +70,14 @@ class CookieService {
       }
     }
     return null;
+  }
+
+  /**
+   * Deletes a cookie by name.
+   * @param {string} name - The cookie name
+   */
+  private clearCookie(name: string): void {
+    document.cookie = `${name}=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/;SameSite=Lax`;
   }
 
   /**
@@ -81,7 +100,7 @@ class CookieService {
    * @returns {boolean} True when terms agreement is present
    */
   public hasMediaTermsAgreement(): boolean {
-    return this.getCookie(this.MEDIA_TERMS_COOKIE) === 'true';
+    return this.hasActiveMediaTermsAgreement();
   }
 
   /**
@@ -89,7 +108,48 @@ class CookieService {
    * @param {boolean} accepted - Whether user accepted terms
    */
   public setMediaTermsAgreement(accepted: boolean): void {
-    this.setCookie(this.MEDIA_TERMS_COOKIE, accepted.toString(), 365);
+    if (!accepted) {
+      this.clearCookie(this.MEDIA_TERMS_COOKIE);
+      return;
+    }
+    this.touchMediaTermsAgreement();
+  }
+
+  /**
+   * Refreshes media terms agreement timestamp in a session cookie.
+   */
+  public touchMediaTermsAgreement(): void {
+    const payload = JSON.stringify({ acceptedAtMs: Date.now() });
+    this.setSessionCookie(this.MEDIA_TERMS_COOKIE, encodeURIComponent(payload));
+  }
+
+  /**
+   * Checks whether media agreement exists and is within 30-minute timeout.
+   * @returns {boolean} True when agreement is still valid
+   */
+  public hasActiveMediaTermsAgreement(): boolean {
+    const rawValue = this.getCookie(this.MEDIA_TERMS_COOKIE);
+    if (!rawValue) {
+      return false;
+    }
+
+    try {
+      const decoded = decodeURIComponent(rawValue);
+      const parsed = JSON.parse(decoded) as { acceptedAtMs?: number };
+      const acceptedAtMs = parsed.acceptedAtMs;
+      if (typeof acceptedAtMs !== 'number' || !Number.isFinite(acceptedAtMs)) {
+        this.clearCookie(this.MEDIA_TERMS_COOKIE);
+        return false;
+      }
+      if (Date.now() - acceptedAtMs > this.MEDIA_TERMS_TIMEOUT_MS) {
+        this.clearCookie(this.MEDIA_TERMS_COOKIE);
+        return false;
+      }
+      return true;
+    } catch {
+      this.clearCookie(this.MEDIA_TERMS_COOKIE);
+      return false;
+    }
   }
 }
 

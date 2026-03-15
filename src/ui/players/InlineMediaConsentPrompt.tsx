@@ -26,7 +26,7 @@ export const InlineMediaConsentPrompt: React.FC<InlineMediaConsentPromptProps> =
   return (
     <div className={`rounded-lg border border-cyan-400/30 bg-black/70 p-3 ${className ?? ''}`}>
       <p className="text-sm text-white mb-2">
-        Do you agree to the confidentiality terms before playback?
+        Do you agree to the terms and conditions that protect your privacy?
       </p>
       <label className="mb-2 flex items-center gap-2 text-xs text-gray-300">
         <input
@@ -35,14 +35,14 @@ export const InlineMediaConsentPrompt: React.FC<InlineMediaConsentPromptProps> =
           onChange={(event) => setIsChecked(event.target.checked)}
           className="h-3.5 w-3.5 accent-cyan-400"
         />
-        I agree to the NDA terms and privacy policy.
+        I have read and agree to the terms and conditions
       </label>
       <div className="flex items-center justify-between gap-3">
         <div className="flex items-center gap-3 text-xs">
-          <a href="/terms" className="text-cyan-300 hover:text-cyan-200 underline">
+          <a href="/terms" className="font-semibold text-cyan-200 hover:text-cyan-100 underline underline-offset-2">
             Terms
           </a>
-          <a href="/privacy" className="text-cyan-300 hover:text-cyan-200 underline">
+          <a href="/privacy" className="font-medium text-cyan-300 hover:text-cyan-200 underline underline-offset-2">
             Privacy
           </a>
         </div>

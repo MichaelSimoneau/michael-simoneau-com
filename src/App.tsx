@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { SpeechProvider } from "./contexts/SpeechContext";
 import { CookieNotice } from "./layout/CookieNotice";
 import { Outlet, ScrollRestoration } from "react-router-dom";
+import { ProfileFlowProvider } from "./features/profile/flow";
 
 /**
  * Root-level copyright bar. Fixed at bottom with z-index above CookieNotice
@@ -34,10 +35,12 @@ function App() {
 
   return (
     <SpeechProvider>
-      <CookieNotice />
-      <CopyrightNotice />
-      <ScrollRestoration />
-      <Outlet />
+      <ProfileFlowProvider>
+        <CookieNotice />
+        <CopyrightNotice />
+        <ScrollRestoration />
+        <Outlet />
+      </ProfileFlowProvider>
     </SpeechProvider>
   );
 }

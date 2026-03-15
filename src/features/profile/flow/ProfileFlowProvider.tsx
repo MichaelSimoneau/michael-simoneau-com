@@ -70,7 +70,7 @@ export const ProfileFlowProvider: React.FC<ProfileFlowProviderProps> = ({ childr
   useEffect(() => {
     dispatch({
       type: 'CONSENT_STATUS_LOADED',
-      hasAcceptedTerms: cookieService.hasMediaTermsAgreement(),
+      hasAcceptedTerms: cookieService.hasActiveMediaTermsAgreement(),
     });
   }, []);
 
