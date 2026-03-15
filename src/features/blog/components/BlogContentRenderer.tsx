@@ -1,12 +1,24 @@
 import { Fragment } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Platform } from 'react-native';
 import type { TextStyle } from 'react-native';
-import MathView from 'react-native-math-view';
+import { BlockMath } from 'react-katex';
 import type { ContentBlock } from '../types';
 
 interface BlogContentRendererProps {
   blocks: ContentBlock[];
 }
+
+const MathBlock = ({ content }: { content: string }) => {
+  if (Platform.OS !== 'web') {
+    return <Text style={styles.mathFallback}>{content}</Text>;
+  }
+
+  try {
+    return <BlockMath math={content} />;
+  } catch {
+    return <Text style={styles.mathFallback}>{content}</Text>;
+  }
+};
 
 export const BlogContentRenderer = ({ blocks }: BlogContentRendererProps) => {
   return (
@@ -60,10 +72,7 @@ const renderBlock = (block: ContentBlock) => {
     case 'math':
       return (
         <View style={styles.mathBlock}>
-          <MathView
-            math={block.content}
-            renderError={() => <Text style={styles.mathFallback}>{block.content}</Text>}
-          />
+          <MathBlock content={block.content} />
         </View>
       );
     default:

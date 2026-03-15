@@ -1,5 +1,5 @@
 import React, { createContext, RefObject, useMemo, useRef } from "react";
-import { BlogData } from "src/data/blogData";
+import { BlogData } from "../features/blog/data/posts";
 
 export type BeforeAndAfterValue = string | Record<string, string> | BlogData;
 

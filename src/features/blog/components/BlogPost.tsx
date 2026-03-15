@@ -3,7 +3,7 @@ import { Link, useParams, useNavigate } from 'react-router-dom';
 import { Calendar, Clock, ArrowLeft, Share2, Facebook, Copy } from 'lucide-react';
 import { BlockMath, InlineMath } from 'react-katex';
 import { MainNav } from '../../../layout/MainNav';
-import { blogData } from '../../../data/blogData'; // Import data
+import { blogData } from '../data/posts'; // Import data
 import { ContentBlock as ContentBlockType } from '../../../models/BlogPost'; // Import ContentBlock type definition
 import { useScrollToTop } from '../../../hooks/useScrollToTop'; // Added import
 import { parseInlineMarkdown } from '../../../utils/markdown';

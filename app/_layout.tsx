@@ -4,6 +4,7 @@ import { SpeechProvider } from '../src/contexts/SpeechContext';
 import { ScrollProvider } from '../src/contexts/ScrollContext';
 import { CookieNotice } from '../src/layout/CookieNotice';
 import { ProfileFlowProvider } from '../src/features/profile/flow';
+import { BeforeAndAfterProvider } from '../src/hooks/useBeforeAndAfter';
 import '../src/index.css';
 
 const GA_MEASUREMENT_ID = 'G-58WTRZHT0B';
@@ -63,13 +64,15 @@ export default function RootLayout() {
     <SpeechProvider>
       <ScrollProvider>
         <ProfileFlowProvider>
-          <CookieNotice />
-          <div className="app-shell">
-            <main className="app-main">
-              <Slot />
-            </main>
-            <CopyrightNotice />
-          </div>
+          <BeforeAndAfterProvider>
+            <CookieNotice />
+            <div className="app-shell">
+              <main className="app-main">
+                <Slot />
+              </main>
+              <CopyrightNotice />
+            </div>
+          </BeforeAndAfterProvider>
         </ProfileFlowProvider>
       </ScrollProvider>
     </SpeechProvider>

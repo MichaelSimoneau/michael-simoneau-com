@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { PlaylistAudioPlayer } from "../../../ui/players/PlaylistAudioPlayer";
-import type { BlogData } from "../../../data/blogData";
+import type { BlogData } from "../../blog/data/posts";
 import { ChevronDown, ExternalLink } from "lucide-react";
 import { cleanPlaylist } from "../../../data/playlists";
 import { useProfileFlowDispatch, useProfileFlowState } from "../flow";

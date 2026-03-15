@@ -4,8 +4,8 @@ import { Link } from 'expo-router';
 import { Calendar, Clock, ChevronRight, Search } from 'lucide-react';
 import { MainNav } from '../../../layout/MainNav';
 import { Seo } from '../../../foundation/seo/Seo';
-import { blogData } from '../../../data/blogData';
-import { BlogData as BlogPostType } from '../../../data/blogData';
+import { blogData } from '../data/posts';
+import { BlogData as BlogPostType } from '../data/posts';
 import { useScrollToTop } from '../../../hooks/useScrollToTop';
 import { generateFallbackSvg, DEFAULT_HERO_GRADIENT } from '../../../utils/heroFallback';
 

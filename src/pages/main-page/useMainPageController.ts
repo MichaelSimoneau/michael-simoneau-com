@@ -7,7 +7,7 @@ import {
 } from "react";
 import { usePathname } from "expo-router";
 import { useScrollContext } from "../../contexts/ScrollContext";
-import { BlogData, blogData } from "../../data/blogData";
+import { BlogData, blogData } from "../../features/blog/data/posts";
 import {
   useProfileFlowDispatch,
   useProfileFlowState,

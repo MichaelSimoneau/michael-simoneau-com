@@ -1,14 +1,10 @@
 import { useEffect, useRef } from 'react';
-import { Link, usePathname } from 'expo-router';
+import { Link, Slot, usePathname } from 'expo-router';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ArrowLeft } from 'lucide-react';
 import { MainNav } from '../../src/layout/MainNav';
 import { AnimatedBackground } from '../../src/backgrounds/AnimatedBackground';
 import { InterviewPartSwitcher } from '../../src/features/interview/components/InterviewPartSwitcher';
-import { Interview } from '../../src/features/interview/components/Interview';
-import { Interview2 } from '../../src/features/interview/components/Interview2';
-import { Interview3 } from '../../src/features/interview/components/Interview3';
-
 type InterviewPart = 1 | 2 | 3;
 
 const getPartFromPathname = (pathname: string): InterviewPart | undefined => {
@@ -46,12 +42,6 @@ export default function InterviewLayout() {
     previousPartRef.current = currentPart;
   }, [currentPart, pathname]);
 
-  const renderInterviewContent = () => {
-    if (currentPart === 2) return <Interview2 />;
-    if (currentPart === 3) return <Interview3 />;
-    return <Interview />;
-  };
-
   return (
     <>
       <AnimatedBackground />
@@ -82,7 +72,7 @@ export default function InterviewLayout() {
                   opacity: { duration: 1, ease: [0.22, 1, 0.36, 1] },
                 }}
               >
-                {renderInterviewContent()}
+                <Slot />
               </motion.div>
             </AnimatePresence>
           </div>
