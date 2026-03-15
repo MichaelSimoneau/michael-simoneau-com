@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { ChevronDown, ChevronUp } from 'lucide-react';
 import { useAudioTranscript } from './audioCaptions';
 
 interface AudioClosedCaptionStripProps {
@@ -12,6 +13,10 @@ const clamp = (value: number, min: number, max: number): number => {
   return Math.min(max, Math.max(min, value));
 };
 
+const normalizeSpeedCoefficient = (value: number): number => {
+  return Math.round(clamp(value, -1, 1) * 10) / 10;
+};
+
 export const AudioClosedCaptionStrip: React.FC<AudioClosedCaptionStripProps> = ({
   audioRef,
   audioSrc,
@@ -23,8 +28,11 @@ export const AudioClosedCaptionStrip: React.FC<AudioClosedCaptionStripProps> = (
   const textRef = useRef<HTMLSpanElement>(null);
   const [travelDistancePx, setTravelDistancePx] = useState(0);
   const [offsetPx, setOffsetPx] = useState(0);
+  const [speedCoefficient, setSpeedCoefficient] = useState(0);
 
   const isTranscriptMissing = status === 'missing' || status === 'error';
+  const speedMultiplier = useMemo(() => 1 + speedCoefficient, [speedCoefficient]);
+  const effectiveSpeedMultiplier = useMemo(() => speedMultiplier * 0.5, [speedMultiplier]);
 
   useEffect(() => {
     const viewport = viewportRef.current;
@@ -73,7 +81,7 @@ export const AudioClosedCaptionStrip: React.FC<AudioClosedCaptionStripProps> = (
       const baseProgress = clamp(audio.currentTime / audio.duration, 0, 1);
       const targetProgress = audio.paused
         ? baseProgress
-        : clamp((audio.currentTime + deltaSeconds) / audio.duration, 0, 1);
+        : clamp((audio.currentTime + deltaSeconds * effectiveSpeedMultiplier) / audio.duration, 0, 1);
       smoothedProgress += (targetProgress - smoothedProgress) * 0.28;
 
       setOffsetPx(-travelDistancePx * smoothedProgress);
@@ -84,7 +92,7 @@ export const AudioClosedCaptionStrip: React.FC<AudioClosedCaptionStripProps> = (
     return () => {
       window.cancelAnimationFrame(animationFrameId);
     };
-  }, [audioRef, enabled, transcript, travelDistancePx]);
+  }, [audioRef, effectiveSpeedMultiplier, enabled, transcript, travelDistancePx]);
 
   const captionText = useMemo(() => {
     if (status === 'loading' || status === 'idle') {
@@ -107,17 +115,37 @@ export const AudioClosedCaptionStrip: React.FC<AudioClosedCaptionStripProps> = (
       }`}
       aria-live="off"
     >
-      <div ref={viewportRef} className="overflow-hidden whitespace-nowrap">
-        <span
-          ref={textRef}
-          className="inline-block text-xs text-gray-100"
-          style={{
-            transform: `translate3d(${offsetPx}px, 0, 0)`,
-            willChange: 'transform',
-          }}
-        >
-          {captionText}
-        </span>
+      <div className="flex items-center gap-2">
+        <div ref={viewportRef} className="min-w-0 flex-1 overflow-hidden whitespace-nowrap">
+          <span
+            ref={textRef}
+            className="inline-block text-xs text-gray-100"
+            style={{
+              transform: `translate3d(${offsetPx}px, 0, 0)`,
+              willChange: 'transform',
+            }}
+          >
+            {captionText}
+          </span>
+        </div>
+        <div className="flex w-5 flex-shrink-0 flex-col items-center justify-center gap-0.5">
+          <button
+            type="button"
+            aria-label="Increase caption scroll speed"
+            onClick={() => setSpeedCoefficient((previous) => normalizeSpeedCoefficient(previous + 0.1))}
+            className="rounded-sm p-0.5 text-gray-300 transition-colors hover:text-white"
+          >
+            <ChevronUp className="h-3 w-3" />
+          </button>
+          <button
+            type="button"
+            aria-label="Decrease caption scroll speed"
+            onClick={() => setSpeedCoefficient((previous) => normalizeSpeedCoefficient(previous - 0.1))}
+            className="rounded-sm p-0.5 text-gray-300 transition-colors hover:text-white"
+          >
+            <ChevronDown className="h-3 w-3" />
+          </button>
+        </div>
       </div>
     </div>
   );
