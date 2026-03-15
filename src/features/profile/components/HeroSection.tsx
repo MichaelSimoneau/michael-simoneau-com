@@ -146,7 +146,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ featuredBlog }) => {
                         : { duration: 0.2, ease: "easeOut" }
                     }
                   >
-                    Your journey begins with a&nbsp;
+                    Your journey begins with a &nbsp;
                   </motion.span>
                   {isNarrativeExpanded && (
                     <div className="flex items-center gap-1">
@@ -348,9 +348,8 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ featuredBlog }) => {
                         Welcome to{" "}
                       </span>
                       <span className="font-semibold text-amber-400">
-                        Deterministic Truth
+                        Deterministic Truth.
                       </span>
-                      .
                     </span>
                   </motion.span>
                 )}
