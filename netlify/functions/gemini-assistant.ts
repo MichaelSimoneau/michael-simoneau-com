@@ -1,4 +1,4 @@
-import { readFile } from "node:fs/promises";
+import { readdir, readFile, stat } from "node:fs/promises";
 import path from "node:path";
 
 interface NetlifyEvent {
@@ -68,6 +68,8 @@ const CORS_HEADERS = {
   "Access-Control-Allow-Headers": "Content-Type",
   "Access-Control-Allow-Methods": "POST,OPTIONS",
 };
+const CHUNK_SIZE = 900;
+const CHUNK_OVERLAP = 150;
 
 let inMemoryIndex: KnowledgeIndex | null = null;
 
@@ -130,6 +132,100 @@ async function loadFromPublicFetch(event: NetlifyEvent): Promise<KnowledgeIndex 
   }
 }
 
+function normalizeText(raw: string): string {
+  return raw
+    .replace(/\r\n/gu, "\n")
+    .replace(/\t/gu, " ")
+    .replace(/[ ]{2,}/gu, " ")
+    .replace(/\n{3,}/gu, "\n\n")
+    .trim();
+}
+
+function chunkText(value: string): KnowledgeChunk[] {
+  if (!value) return [];
+  const chunks: KnowledgeChunk[] = [];
+  let start = 0;
+  let chunkIndex = 0;
+  while (start < value.length) {
+    const hardEnd = Math.min(value.length, start + CHUNK_SIZE);
+    let end = hardEnd;
+    if (hardEnd < value.length) {
+      const nearestBreak = value.lastIndexOf("\n", hardEnd);
+      if (nearestBreak > start + 120) {
+        end = nearestBreak;
+      }
+    }
+    const text = value.slice(start, end).trim();
+    if (text) {
+      chunks.push({
+        id: `chunk_${chunkIndex}`,
+        text,
+        tokens: normalizeToTokens(text),
+      });
+      chunkIndex += 1;
+    }
+    if (end >= value.length) break;
+    start = Math.max(0, end - CHUNK_OVERLAP);
+  }
+  return chunks;
+}
+
+async function collectTxtFilesRecursive(rootDir: string, currentRelative = ""): Promise<string[]> {
+  const absoluteDir = path.resolve(rootDir);
+  const entries = await readdir(absoluteDir);
+  const results: string[] = [];
+  for (const entry of entries) {
+    const absolutePath = path.join(absoluteDir, entry);
+    const entryStats = await stat(absolutePath);
+    const relativePath = path.posix.join(currentRelative, entry);
+    if (entryStats.isDirectory()) {
+      results.push(...(await collectTxtFilesRecursive(absolutePath, relativePath)));
+      continue;
+    }
+    if (entry.toLowerCase().endsWith(".txt")) {
+      results.push(relativePath);
+    }
+  }
+  return results.sort((a, b) => a.localeCompare(b));
+}
+
+async function buildIndexFromPublicDirectory(): Promise<KnowledgeIndex | null> {
+  const publicDir = path.resolve(process.cwd(), "public");
+  try {
+    const txtRelativePaths = await collectTxtFilesRecursive(publicDir);
+    if (txtRelativePaths.length === 0) {
+      return null;
+    }
+
+    const documents: KnowledgeDocument[] = [];
+    for (let i = 0; i < txtRelativePaths.length; i += 1) {
+      const relativePath = txtRelativePaths[i];
+      const absolutePath = path.join(publicDir, relativePath);
+      const raw = await readFile(absolutePath, "utf8");
+      const normalized = normalizeText(raw);
+      documents.push({
+        id: `doc_${i}`,
+        path: `/${relativePath}`,
+        charCount: normalized.length,
+        chunks: chunkText(normalized),
+      });
+    }
+
+    return {
+      generatedAt: new Date().toISOString(),
+      version: 1,
+      source: {
+        publicDir: "/public",
+        totalDocuments: documents.length,
+        totalChunks: documents.reduce((sum, doc) => sum + doc.chunks.length, 0),
+      },
+      documents,
+    };
+  } catch {
+    return null;
+  }
+}
+
 async function getKnowledgeIndex(event: NetlifyEvent): Promise<KnowledgeIndex> {
   if (inMemoryIndex) return inMemoryIndex;
   const fromFs = await loadFromFileSystem();
@@ -142,7 +238,12 @@ async function getKnowledgeIndex(event: NetlifyEvent): Promise<KnowledgeIndex> {
     inMemoryIndex = fromFetch;
     return fromFetch;
   }
-  throw new Error("Knowledge index unavailable. Run build-ama-knowledge-index first.");
+  const fromTxtFallback = await buildIndexFromPublicDirectory();
+  if (fromTxtFallback) {
+    inMemoryIndex = fromTxtFallback;
+    return fromTxtFallback;
+  }
+  throw new Error("Knowledge index unavailable. Could not load public/*.txt corpus.");
 }
 
 function buildContext(index: KnowledgeIndex, question: string): { context: string; citations: AssistantCitation[] } {
