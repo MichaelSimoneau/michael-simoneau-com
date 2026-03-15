@@ -367,9 +367,11 @@ body {
 
 .ama-lapel-pin-gloss {
   background:
-    radial-gradient(100% 140% at 24% 0%, rgba(203, 243, 255, 0.24) 0%, rgba(176, 232, 251, 0.08) 32%, rgba(0, 0, 0, 0) 66%),
-    linear-gradient(180deg, rgba(80, 134, 164, 0.12), rgba(0, 0, 0, 0));
+    radial-gradient(120% 150% at 18% -12%, rgba(220, 247, 255, 0.34) 0%, rgba(167, 223, 244, 0.12) 34%, rgba(0, 0, 0, 0) 68%),
+    linear-gradient(120deg, rgba(145, 227, 255, 0.09) 18%, rgba(0, 0, 0, 0) 52%),
+    linear-gradient(190deg, rgba(112, 170, 198, 0.14), rgba(0, 0, 0, 0));
   mix-blend-mode: screen;
+  opacity: 0.92;
 }
 
 .ama-lapel-pin-core {
@@ -382,14 +384,19 @@ body {
 .ama-lapel-pin-label {
   position: relative;
   z-index: 1;
-  text-shadow:
-    0 1px 1px rgba(0, 0, 0, 0.75),
-    0 0 10px rgba(103, 232, 249, 0.36);
+  text-shadow: 0 0 10px rgba(103, 232, 249, 0.28);
 }
 
 .ama-lapel-pin-text {
-  letter-spacing: 0.08em;
+  letter-spacing: 0.06em;
   margin-left: 0;
+  color: rgba(213, 243, 255, 0.96);
+  text-align: center;
+  text-shadow:
+    0 -1px 0 rgba(242, 253, 255, 0.34),
+    0 1px 0 rgba(7, 24, 32, 0.95),
+    0 2px 3px rgba(2, 8, 13, 0.85),
+    0 0 10px rgba(103, 232, 249, 0.22);
 }
 
 .ama-lapel-pin-label {

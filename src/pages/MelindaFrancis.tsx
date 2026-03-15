@@ -198,9 +198,22 @@ export const MelindaFrancis: React.FC = () => {
             </h1>
             <p className="text-xl sm:text-2xl md:text-3xl text-cyan-400 font-semibold mb-4">
               <strong>Confused Licensed Independent Social Worker</strong>
-              <br />
-              Abandoning Opportunities to Be a Better Person
             </p>
+            <hr className="my-6 border-t border-cyan-900/60 w-[72%] mx-auto" />
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+            >
+              <div className="flex justify-center mb-6">
+                <AudioPlayer
+                  title="Google's Latest AI Analyzed Michael Simoneau's Behavior"
+                  src="/audio/2026-03-15/Google's_Latest_AI_Analyzed_Michael_Simoneau's_Behavior.mp3"
+                />
+              </div>
+            </motion.div>
+            <hr className="my-6 border-t border-cyan-900/60 w-[72%] mx-auto" />
             <motion.div
               className="w-full max-w-2xl mx-auto z-10 mt-2 mb-6"
               initial={{ opacity: 0, y: 20 }}
@@ -228,16 +241,12 @@ export const MelindaFrancis: React.FC = () => {
                 </p>
                 <div className="mb-6">
                   <AmaEmbedded
-                    title="Ask About Melinda Francis"
+                    title="Ask About Michael Simoneau"
                     subtitle="Get grounded answers from the public text and audio transcript corpus."
                   />
                 </div>
                 {contentBlocks.map((block, index) => {
                   const key = `${block.type}-${index.toString()}`;
-                  const isApologyParagraph =
-                    block.type === "paragraph" &&
-                    block.content.includes(apologyAnchorText);
-
                   return (
                     <React.Fragment key={key}>
                       <hr className="border-t border-[#0b1a3a] my-4" />
@@ -277,14 +286,6 @@ export const MelindaFrancis: React.FC = () => {
                             />
                           ))}
                         </ul>
-                      ) : null}
-                      {isApologyParagraph ? (
-                        <div className="flex justify-center my-6">
-                          <AudioPlayer
-                            title="Google's Latest AI Analyzed Michael Simoneau's Behavior"
-                            src="/audio/2026-03-15/Google's_Latest_AI_Analyzed_Michael_Simoneau's_Behavior.mp3"
-                          />
-                        </div>
                       ) : null}
                     </React.Fragment>
                   );

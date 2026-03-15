@@ -130,7 +130,7 @@ export const AmaLauncher: React.FC = () => {
         <span className="ama-lapel-pin-rim" aria-hidden="true" />
         <span className="ama-lapel-pin-gloss" aria-hidden="true" />
         <span className="ama-lapel-pin-core" aria-hidden="true" />
-        <span className="ama-lapel-pin-text text-sm font-black tracking-wider">A.M.A</span>
+        <span className="ama-lapel-pin-text text-sm font-black tracking-wider">A.M.A.</span>
         <span className="ama-lapel-pin-label ml-2 max-w-0 overflow-hidden whitespace-nowrap text-sm font-semibold opacity-0 transition-all duration-300 group-hover:max-w-[160px] group-hover:opacity-100">
           Ask Me Anything!
         </span>
