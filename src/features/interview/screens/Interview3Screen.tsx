@@ -8,7 +8,7 @@ export const Interview3Screen = () => {
     () => ({
       id: 'interview-3',
       label: 'Interview Session 3',
-      description: 'Interview Session 3: Economic Design — Zeroth VM, The Anti-Currency model, ternary identity.',
+      description: 'Interview Session 3: Economic Design — Zeroth VM, digital bartering chip model, ternary identity.',
       href: '/interview/3',
     }),
     [],
@@ -37,7 +37,7 @@ export const Interview3Screen = () => {
       <View style={styles.card}>
         <Text style={styles.sectionTitle}>The Human Dollar</Text>
         <Text style={styles.body}>
-          The Human Dollar (THD) is The Anti-Currency: it does not replace money, it costs $1, and your $1 principal remains protected by redemption. It behaves like a cryptographic concert ticket where participation drives outcomes.
+          The Human Dollar (THD) is The Anti-Currency. THD is legally a digital bartering chip, not a currency: it does not replace money, it costs $1, and your $1 principal remains protected by redemption.
         </Text>
       </View>
 

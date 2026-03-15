@@ -28,6 +28,109 @@ export interface BlogData {
 
 export const blogData: BlogData[] = [
   {
+    id: "thd-is-not-currency-nft",
+    title: "THD Is an NFT, Not a Currency",
+    subtitle: "The Stark Contradiction to Web3 Orthodoxy",
+    excerpt:
+      "Most Web3 projects want to become money. THD explicitly does not. THD is legally a digital bartering chip and technically an NFT-like rights container: a cryptographic concert ticket with deterministic redemption logic, not a replacement for currency.",
+    date: "March 14, 2026",
+    readTime: "14 min",
+    author: "Michael Simoneau",
+    tags: [
+      "THD",
+      "NFT",
+      "Digital Bartering Chip",
+      "Web3 Critique",
+      "Legal Design",
+      "Zeroth Theory",
+      "Cryptographic Economics",
+    ],
+    heroGradient: "linear-gradient(135deg, #0B1120 0%, #1F2937 45%, #92400E 100%)",
+    featured: true,
+    content: [
+      createHeading("1. The Contradiction on Purpose", 2),
+      createParagraph(
+        "Web3 has spent a decade trying to convince the world that every token should become a currency. Most projects optimize for one endpoint: universal medium of exchange, broad speculative demand, and narrative-driven price expansion."
+      ),
+      createParagraph(
+        "THD takes the opposite position by design. THD does not claim legal tender status, does not seek to replace fiat money, and does not market itself as another synthetic dollar. The thesis is explicit: THD is an NFT-style rights instrument and, legally, a digital bartering chip."
+      ),
+      createCallout(
+        "THD specifically wants to be known as an NFT that is NOT A CURRENCY."
+      ),
+
+      createHeading("2. Legal Identity vs. Market Myth", 2),
+      createParagraph(
+        "The first battle in token design is naming. Most systems blur legal identity and market identity on purpose, because ambiguity helps speculation. THD does the opposite: it makes legal identity explicit before market behavior is discussed."
+      ),
+      createList([
+        "**Legal identity:** THD is a digital bartering chip, not a currency.",
+        "**Functional identity:** THD behaves like a cryptographic concert ticket.",
+        "**Economic identity:** THD carries principal floor logic and participation incentives.",
+      ]),
+      createParagraph(
+        "This separation matters. A concert ticket is not a currency, even if it has resale value. Its core meaning is access. THD follows the same architecture: the holder owns a programmable participation right, not a sovereign monetary replacement."
+      ),
+
+      createHeading("3. Why THD Uses NFT Logic", 2),
+      createParagraph(
+        "NFT is often reduced to profile pictures. That misses the important part: NFTs are containers for unique rights, provenance, and enforceable state transitions. THD aligns with that structure more than with currency ideology."
+      ),
+      createList([
+        "**Provenance:** lineage is part of the value model.",
+        "**Statefulness:** relevance and participation update over time.",
+        "**Rights semantics:** ownership grants interaction and settlement rights, not legal tender authority.",
+      ]),
+      createParagraph(
+        "The practical model is simple: THD is a cryptographic concert ticket with deterministic economics. It is designed to represent participation rights in a metabolic system where usage matters."
+      ),
+
+      createHeading("4. Not a Currency, Not a Fiat Replacement", 2),
+      createParagraph(
+        "THD does not replace money. You still price rent, payroll, taxes, and legal obligations in recognized currency rails. THD is a separate layer with a separate purpose: programmable participation plus principal protection mechanics."
+      ),
+      createParagraph(
+        "That is the stark contradiction to nearly every Web3 roadmap. Others say \"we will become money.\" THD says: \"we are not money; we are a legal digital bartering chip with NFT-like rights design.\""
+      ),
+      createCode(
+        "Legacy Web3 pitch: token -> speculation -> maybe money\nTHD pitch: legal chip -> rights container -> deterministic participation economics",
+        "text"
+      ),
+
+      createHeading("5. Principal Logic Without Currency Claims", 2),
+      createParagraph(
+        "Rejecting currency status does not mean rejecting economic discipline. THD still enforces strict floor semantics: cost of entry is one dollar, and principal floor logic is tied to redemption constraints."
+      ),
+      createList([
+        "**Costs $1 to enter.**",
+        "**Principal floor remains anchored.**",
+        "**Upside/participation behavior is separate from legal currency status.**",
+      ]),
+      createParagraph(
+        "In other words: legal classification is conservative, system behavior is programmable, and market language is constrained by explicit architecture rather than hype."
+      ),
+
+      createHeading("6. Why This Matters for Web3", 2),
+      createParagraph(
+        "The industry's default move is to overclaim. Every project wants to be world money. THD intentionally narrows scope to increase coherence: define the legal object correctly, define the rights precisely, and enforce economics deterministically."
+      ),
+      createParagraph(
+        "This is not rhetorical moderation; it is systems engineering. You reduce category error, improve legal clarity, and keep mechanism design honest."
+      ),
+      createCallout(
+        "THD is built to be used, not worshipped: an NFT-style cryptographic ticket, legally a digital bartering chip, explicitly not a currency."
+      ),
+
+      createHeading("7. Final Position", 2),
+      createParagraph(
+        "If Web3 orthodoxy says every token must become currency, THD is the deliberate break. It does not ask for monetary sovereignty. It defines a different class of instrument: a programmable, lineage-aware, redemption-constrained participation chip."
+      ),
+      createParagraph(
+        "The claim is now explicit and non-negotiable: THD is an NFT that is not a currency."
+      ),
+    ],
+  },
+  {
     id: "zeroth-law-wrong",
     title: "The Zeroth Law is Wrong",
     subtitle: "A Dispatch from the \u201CZeroth Theory\u201D Frontier",
@@ -576,7 +679,7 @@ export const blogData: BlogData[] = [
         "**Completion (Convergence):** Assets do not *crash.* They gracefully complete their life cycle. When utility is exhausted, the asset converges to zero and is purged.",
       ]),
       createCallout(
-        "For an economy to be truly healthy, its lifeblood — its currency — needs to be alive. It needs a pulse."
+        "For an economy to be truly healthy, its lifeblood — its digital bartering chip system — needs to be alive. It needs a pulse."
       ),
       createParagraph(
         "In my framework, the *pruning* of useless assets is a necessary cryptographic process. It is the removal of digital waste to ensure the **Siphonophore** remains vibrant and dynamic."
@@ -754,7 +857,7 @@ export const blogData: BlogData[] = [
         "The logic is sound. The memory is locked. The organism is ready to be birthed."
       ),
       createParagraph(
-        "Are you ready to build the future of a living currency, or will you stay in the noise of the reality we all keep living?"
+        "Are you ready to build the future of a living digital bartering chip system, or will you stay in the noise of the reality we all keep living?"
       ),
     ],
   },
@@ -1060,7 +1163,7 @@ export const blogData: BlogData[] = [
     title: "The Human Dollar",
     subtitle: "The Economy of the Future",
     excerpt:
-      "Introducing a metabolic currency built for the orphaned simulation. The Human Dollar (THD) is money that stays alive — relevance decays, value is floor-guaranteed at $1, and alignment replaces ideology. The legacy system is failing. THD is the alternative.",
+      "Introducing a metabolic digital bartering chip built for the orphaned simulation. The Human Dollar (THD) is legally a digital bartering chip, not a currency — relevance decays, value is floor-guaranteed at $1, and alignment replaces ideology. The legacy system is failing. THD is the alternative.",
     date: "January 27, 2026",
     readTime: "13 min",
     author: "Michael Simoneau",
@@ -1082,13 +1185,13 @@ export const blogData: BlogData[] = [
       // --- 1. The Problem We're Solving ---
       createHeading("The Problem We're Solving", 2),
       createParagraph(
-        "Money is broken. Not metaphorically — structurally. I've spent years studying how economic systems fail, and the root cause is always the same: our currency is dead weight. It sits in accounts, bleeds to inflation, and rewards hoarding over action. In a living organism, stagnant blood flow kills. Our economy is no different."
+        "Money is broken. Not metaphorically — structurally. I've spent years studying how economic systems fail, and the root cause is always the same: our legal money rails are dead weight. They sit in accounts, bleed to inflation, and reward hoarding over action. In a living organism, stagnant blood flow kills. Our economy is no different."
       ),
       createParagraph(
         "The legacy financial system is a necrotic protocol attempting to compile on a crashing simulation. We keep patching it with static, linear tools while the reality it's supposed to measure is volatile, high-energy, and fundamentally *alive.* I built **[The Human Dollar (THD)](/thd)** to fix this at the architectural level."
       ),
       createCallout(
-        "The legacy system is failing. THD is the alternative — a metabolic currency where relevance decays, value is floor-guaranteed, and alignment replaces ideology."
+        "The legacy system is failing. THD is the alternative — a metabolic digital bartering chip where relevance decays, value is floor-guaranteed, and alignment replaces ideology."
       ),
 
       // --- 2. Introducing THD: Money That Stays Alive ---
@@ -1179,7 +1282,7 @@ export const blogData: BlogData[] = [
       // --- 6. What's Next ---
       createHeading("What's Next", 2),
       createParagraph(
-        "**[The Human Dollar](/thd)** is more than a currency — it is a biological cell in the Hash Web, a decentralized Crypto Fabric orchestrated by AI agents and Kubernetes-level logic. This is the move toward a deterministic future where the economy mirrors the physics of the source code."
+        "**[The Human Dollar](/thd)** is more than a digital bartering chip — it is a biological cell in the Hash Web, a decentralized Crypto Fabric orchestrated by AI agents and Kubernetes-level logic. This is the move toward a deterministic future where the economy mirrors the physics of the source code."
       ),
       createParagraph(
         "Here's what's on the roadmap:"

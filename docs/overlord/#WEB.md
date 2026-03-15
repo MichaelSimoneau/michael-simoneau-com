@@ -190,7 +190,7 @@ the asset itself.
 This brings us to section four, the atom of the hasheb. The documents talk about the Gemini token, and I have to say this is where the proposal gets really radical. This isn't just a digital coin. It's a complex data structure.
 It really is the core innovation of the whole system in Bitcoin. or Ethereum. A token is just a balance entry in a global ledger. It's a number in a spreadsheet cell. Alice has five coins. That's it.
 It's just a quantity.
-The human dollar or THD, which is the native currency of Zeroth, is a 128 bit container. Think of it like a capsule. It's 128 bits long. But inside that capsule, it's split right down the middle into two 64-bit halves. These are the twins, the Gemini.
+The human dollar or THD, which is legally the native digital bartering chip of Zeroth, is a 128 bit container. Think of it like a capsule. It's 128 bits long. But inside that capsule, it's split right down the middle into two 64-bit halves. These are the twins, the Gemini.
 Sibling A and sibling B. Let's take them one by one. Sibling A, what's its job? Sibling A is called THTH. This stands for the value hash. This half of the token represents the physics of the asset. It's the economic part.
 Okay. What does that mean? The physics.
 It encodes the price. It encodes the lineage. So where it came from, its entire history. And it encodes its orientation in the system. This is the battery. It holds the economic energy. And here's the really controversial part. Sibling A is subject to base three decay.

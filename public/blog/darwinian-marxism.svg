@@ -42,7 +42,7 @@
   <!-- Far right zooid -->
   <path d="M830 260 Q855 220 880 260 Q883 285 855 295 Q827 285 830 260Z" fill="rgba(245,158,11,0.07)" stroke="rgba(245,158,11,0.2)" stroke-width="1"/>
 
-  <!-- Tendrils flowing downward morphing into currency paths -->
+  <!-- Tendrils flowing downward morphing into bartering-chip paths -->
   <path d="M600 220 C600 280 580 320 560 380 S540 440 530 480" stroke="url(#dm-tendril)" stroke-width="2" fill="none" stroke-linecap="round"/>
   <path d="M600 220 C610 280 630 320 650 380 S670 440 680 480" stroke="url(#dm-tendril)" stroke-width="2" fill="none" stroke-linecap="round"/>
   <path d="M450 245 C445 290 430 340 420 400 S410 450 405 490" stroke="url(#dm-tendril)" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.7"/>

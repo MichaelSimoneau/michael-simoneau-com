@@ -5,7 +5,7 @@ import { ArrowRight, Sparkles } from 'lucide-react';
 
 /**
  * ThdHero – Main-page hero section for The Human Dollar (THD).
- * Presents THD as The Anti-Currency with a $1 principal floor.
+ * Presents THD as The Anti-Currency and legal digital bartering chip.
  * Links to the full /thd page and TheHumanDollar.com.
  */
 export const ThdHero: React.FC = () => {
@@ -75,7 +75,7 @@ export const ThdHero: React.FC = () => {
             <span className="whitespace-nowrap">A Cryptographic Concert Ticket</span>
           </p>
           <p className="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto mb-6">
-            THD does not replace money. It costs $1 and functions as a cryptographic concert ticket for participation.<br />Stagnation is a firing offense. Spending adds value.
+            THD is legally a digital bartering chip, not a currency. It does not replace money.<br />It costs $1 and functions as a cryptographic concert ticket for participation.
           </p>
           <p className="text-base md:text-lg text-gray-400 max-w-4xl mx-auto mb-8">
             1 THD is always redeemable for 1 USDC.<br />The smart contract physically rejects any transaction valuing THD below the floor, so your $1 principal is preserved.<br />Darwinian maximism at the edge, principal protection at the core.

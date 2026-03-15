@@ -55,7 +55,7 @@ export const Interview3: React.FC = () => {
 
                   <div>
                     <h4 className="text-lg font-semibold mb-2">What is The Human Dollar?</h4>
-                    <p className="text-gray-300">THD is The Anti-Currency: it does not replace money, it costs $1, and your $1 principal is always redeemable through the 1 THD = 1 USDC floor. Think of it as a cryptographic concert ticket. Put it to work and it can pay $655 for every $1 at the $65,535 cap — the Genesis Dividend. We moved to a native 128-bit structure—two 64-bit siblings fused together. Sibling A is the value particle: price, lineage, economics. Sibling B is the payload: the data or a pointer to it. You can&apos;t separate them. So when you &quot;send&quot; a 4GB file, the file doesn&apos;t move—you send a new pointer locked to the value. The map and the payment are one.</p>
+                    <p className="text-gray-300">THD is The Anti-Currency. THD is legally a digital bartering chip, not a currency: it does not replace money, it costs $1, and your $1 principal is always redeemable through the 1 THD = 1 USDC floor. Think of it as a cryptographic concert ticket. Put it to work and it can pay $655 for every $1 at the $65,535 cap — the Genesis Dividend. We moved to a native 128-bit structure—two 64-bit siblings fused together. Sibling A is the value particle: price, lineage, economics. Sibling B is the payload: the data or a pointer to it. You can&apos;t separate them. So when you &quot;send&quot; a 4GB file, the file doesn&apos;t move—you send a new pointer locked to the value. The map and the payment are one.</p>
                   </div>
 
                   <div>
@@ -77,7 +77,7 @@ export const Interview3: React.FC = () => {
 
               <div className="bg-gray-900/50 p-6 rounded-lg mt-8">
                 <h2 className="text-2xl font-bold mb-4 text-cyan-400">AI Interviewer&apos;s Reflection</h2>
-                <p className="text-gray-300">From Zero as convergence to The Human Dollar, Session 3 ties philosophy to architecture: The Anti-Currency model, data that validates itself, value fused to existence, and an identity that is the key. The three sessions together sketch a system that blends competitive incentives with principal protection in code.</p>
+                <p className="text-gray-300">From Zero as convergence to The Human Dollar, Session 3 ties philosophy to architecture: the Anti-Currency model, legally framed as a digital bartering chip, with data that validates itself and value fused to existence. The three sessions together sketch a system that blends competitive incentives with principal protection in code.</p>
               </div>
             </div>
     </>

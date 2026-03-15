@@ -48,11 +48,11 @@ export const interview3Data: QAPair[] = [
   },
   {
     question: "Why is stagnation a firing offense?",
-    answer: "THD is The Anti-Currency. It does not replace money, it costs $1, and your $1 principal is floor-protected. If participation drops, relevance decays via base-three half-life: observation is oxygen, usage is mining."
+    answer: "THD is The Anti-Currency. THD is legally a digital bartering chip, not a currency. It does not replace money, it costs $1, and your $1 principal is floor-protected. If participation drops, relevance decays via base-three half-life: observation is oxygen, usage is mining."
   },
   {
     question: "What is The Human Dollar?",
-    answer: "The Human Dollar is The Anti-Currency: a $1 cryptographic concert ticket with principal protection (1 THD redeemable for 1 USDC). It rewards participation at the $65,535 cap and fuses value to data in a 128-bit Gemini token."
+    answer: "The Human Dollar is The Anti-Currency. THD is legally a digital bartering chip, not a currency: a $1 cryptographic concert ticket with principal protection (1 THD redeemable for 1 USDC). It rewards participation at the $65,535 cap and fuses value to data in a 128-bit Gemini token."
   },
   {
     question: "What is the bioethereal key?",

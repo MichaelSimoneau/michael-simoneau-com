@@ -70,7 +70,7 @@ export const useMainPageController = () => {
         name: "Michael Simoneau | Architect of Zeroth Theory (#ZerothTheory)",
         url: "https://www.michaelsimoneau.com/",
         description:
-          "From enterprise architecture at JPMorgan and StoneX to building The Human Dollar (#THD): The Anti-Currency that does not replace money, costs $1, and preserves $1 principal via a redemption floor. Built on Zeroth Theory, Crypto Fabric, and The Human Dollar.",
+          "From enterprise architecture at JPMorgan and StoneX to building The Human Dollar (#THD): The Anti-Currency. THD is legally a digital bartering chip, not a currency; it does not replace money, costs $1, and preserves $1 principal via a redemption floor.",
         inLanguage: "en-US",
         primaryImageOfPage: "https://www.michaelsimoneau.com/profile-image.png",
         about: {
@@ -88,7 +88,7 @@ export const useMainPageController = () => {
             name: "Who is Michael Simoneau?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "Michael Simoneau is a technologist and systems architect who evolved from enterprise architecture at JPMorgan Chase and StoneX into building The Human Dollar (#THD), positioned as The Anti-Currency: it does not replace money, it costs $1, and principal is floor-protected at $1 via redemption.",
+              text: "Michael Simoneau is a technologist and systems architect who evolved from enterprise architecture at JPMorgan Chase and StoneX into building The Human Dollar (#THD), positioned as The Anti-Currency. THD is legally a digital bartering chip, not a currency; it does not replace money, it costs $1, and principal is floor-protected at $1 via redemption.",
             },
           },
           {
@@ -96,7 +96,7 @@ export const useMainPageController = () => {
             name: "What is The Human Dollar (#THD)?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "The Human Dollar (#THD) is an economic architecture designed by Michael Simoneau. It is The Anti-Currency: it does not replace money, it costs $1, and 1 THD is always redeemable for 1 USDC to preserve principal. THD behaves like a cryptographic concert ticket where participation is rewarded and stagnation decays via base-three half-life.",
+              text: "The Human Dollar (#THD) is an economic architecture designed by Michael Simoneau. It is The Anti-Currency. THD is legally a digital bartering chip, not a currency: it does not replace money, it costs $1, and 1 THD is always redeemable for 1 USDC to preserve principal.",
             },
           },
           {
@@ -112,7 +112,7 @@ export const useMainPageController = () => {
             name: "What is The Human Dollar (THD)?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "The Human Dollar is The Anti-Currency: it does not replace money, it costs $1, and your $1 principal remains redeemable through the 1 THD = 1 USDC floor. It is framed as a cryptographic concert ticket that applies Darwinian selection to participation while retaining a principal safety net.",
+              text: "The Human Dollar is The Anti-Currency. THD is legally a digital bartering chip, not a currency: it does not replace money, it costs $1, and your $1 principal remains redeemable through the 1 THD = 1 USDC floor.",
             },
           },
           {

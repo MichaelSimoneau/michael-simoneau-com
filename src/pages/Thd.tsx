@@ -14,7 +14,7 @@ export const Thd: React.FC = () => {
     <>
       <Seo
         title="The Human Dollar (THD) | The Anti-Currency"
-        description="The Human Dollar (THD) is The Anti-Currency: it does not replace money, it costs $1, and your $1 principal is always redeemable (1 THD = 1 USDC floor). THD functions as a cryptographic concert ticket in a Darwinian economic game."
+        description="The Human Dollar (THD) is The Anti-Currency. THD is legally a digital bartering chip, not a currency: it does not replace money, it costs $1, and your $1 principal is always redeemable (1 THD = 1 USDC floor)."
         canonicalUrl="https://www.michaelsimoneau.com/thd"
         keywords={[
           "The Human Dollar",
@@ -34,7 +34,7 @@ export const Thd: React.FC = () => {
             "@type": "CreativeWork",
             name: "The Human Dollar (THD)",
             description:
-              "The Human Dollar (THD) is a cryptographic concert ticket and The Anti-Currency: it does not replace money, it costs $1, and your $1 principal is always redeemable.",
+              "The Human Dollar (THD) is a cryptographic concert ticket and The Anti-Currency. THD is legally a digital bartering chip, not a currency: it does not replace money, it costs $1, and your $1 principal is always redeemable.",
             url: "https://www.michaelsimoneau.com/thd",
             author: {
               "@type": "Organization",
@@ -108,7 +108,7 @@ export const Thd: React.FC = () => {
                 A Cryptographic Concert Ticket
               </p>
               <p className="text-lg text-gray-300 max-w-3xl">
-                THD does not replace money. It costs $1, and your $1 principal is always redeemable via the 1 THD = 1 USDC floor. In practice, it behaves like a cryptographic concert ticket: a programmable right to participate in a high-velocity economy where stagnation is a firing offense.
+                THD is legally a digital bartering chip, not a currency. It does not replace money, it costs $1, and your $1 principal is always redeemable via the 1 THD = 1 USDC floor. In practice, it behaves like a cryptographic concert ticket: a programmable right to participate in a high-velocity economy where stagnation is a firing offense.
               </p>
             </div>
           </motion.div>
@@ -122,7 +122,7 @@ export const Thd: React.FC = () => {
           >
             <div className="text-center mb-6">
               <p className="text-lg md:text-xl text-gray-300 max-w-4xl mx-auto mb-4">
-                The Human Dollar is The Anti-Currency: not a replacement for money, but a $1 cryptographic concert ticket with a principal floor. The architecture is detailed in the audio below: <em>Building Web4 With Money That Lives</em>.
+                The Human Dollar is The Anti-Currency. THD is legally a digital bartering chip, not a currency: not a replacement for money, but a $1 cryptographic concert ticket with a principal floor. The architecture is detailed in the audio below: <em>Building Web4 With Money That Lives</em>.
               </p>
             </div>
             <div className="flex justify-center mb-6">
@@ -169,10 +169,10 @@ export const Thd: React.FC = () => {
               Core Value
             </h2>
             <p className="text-xl text-gray-200 mb-4 italic">
-              "The Anti-Currency: not replacement, but participation."
+              "The Anti-Currency: a legal digital bartering chip for participation."
             </p>
             <p className="text-gray-300 mb-4">
-              THD is <strong className="text-amber-300">The Human Dollar</strong>, positioned as <strong className="text-amber-300">The Anti-Currency</strong>. It does not replace money; it costs $1; and it treats that dollar as protected principal. The mechanism is a cryptographic concert ticket that grants access to a Darwinian market game where value competes on usage, observation, and participation.
+              THD is <strong className="text-amber-300">The Human Dollar</strong>, positioned as <strong className="text-amber-300">The Anti-Currency</strong>. THD is legally a digital bartering chip, not a currency. It does not replace money; it costs $1; and it treats that dollar as protected principal. The mechanism is a cryptographic concert ticket that grants access to a Darwinian market game where value competes on usage, observation, and participation.
             </p>
             <p className="text-gray-300 mb-4">
               The <strong className="text-amber-300">redemption constraint</strong> is the safety net: 1 THD is always redeemable for 1 USDC. The smart contract physically rejects any transaction valuing THD below the floor, so your principal remains anchored at $1.

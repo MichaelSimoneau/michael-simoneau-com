@@ -142,7 +142,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ featuredBlog }) => {
                 <strong className="font-semibold text-white">
                   The Human Dollar (THD)
                 </strong>{" "}
-                is the world's first metabolic currency. It is not an asset you
+                is the world's first metabolic digital bartering chip system. It is not an asset you
                 hoard; it is an asset that lives, breathes, and expires based on
                 the velocity of your attention. Ownership is mathematically
                 restricted to exactly one container per unique identity. You can
