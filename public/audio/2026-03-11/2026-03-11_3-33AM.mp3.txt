@@ -1,0 +1,54 @@
+ Good morning. It is Wednesday, March 11th, 2026. It's been a few days since I did an audio log.
+ I've just been typing away, I guess. It's early, so I've been awake for about an hour,
+ maybe a little longer, just waking up. But I am more annoyed by the Melinda Francis thing
+ than I should be, but I have that audio that I made yesterday. That's about a $20 bet, and
+ that's about everything. It's like 40 minutes long, and you did a really good job and made a
+ long one. I need to make some short ones, but it's funny that she just has to sit there
+ and listen. It's hard to explain in short form. Or it just sounds crazy.
+ Anyway, I haven't been updating so much personal audio log because I've just been generating
+ a lot of content because the notebook is full. So I need to start a new notebook, but I don't
+ want to start from scratch. But I also don't want it to carry over any of the misconceptions
+ or things that I have to keep correcting and things like that. So I want to be very specific
+ about what I add to a notebook from the old notebook. So trying to figure that out. But in the other
+ notebook, I finished the 3.1.2 specification. So I need to get Cursor or Gemini to implement the
+ the corrections in the Xeroth project so that the left brain can properly translate from English
+ code to zero code because right now it's failing. And it's funny that it's failing because it's
+ literally got the compiler. The source code to the compiler in the same repository. I mean,
+ it's a subproject or a submodule, but whatever. But yeah. It's funny that the LLM can't figure
+ it out, but it literally like if it knew where to look, it has the compiler. It has the ABI. It has
+ everything. The API. It's all defined. So I just need to make sure that this is clearly defined,
+ correctly defined, and then picked up by the left braid. So it stops trying to talk in Chinese and
+ and shit. It keeps putting out like conversational stuff. But the AI had some good tips on that and use an
+ allow list. Like specifically, if it's not a valid keyword, reject the entire format completely. So I
+ think I need to have a channel. So I think I need to have a channel between the right brain and Mari and
+ the left brain and Mari. But the right brain and left brain can't talk directly. But they can talk through
+ Mari in the way that Mari can inform the left brain that the right brain is confused or vice versa.
+ And before there, there's like a, like a, like before getting to the LLM of Mari,
+ the LLM that is the left brain, if it doesn't write valid zero code, that'll get checked by a static
+ script, like a Python script will check to make sure that it'll like dry run it or do anything.
+ It'll just make sure it works, make sure it's valid syntax. It's not even valid syntax. If it won't dry
+ run, if it won't work, then why even show it to Mari? It'll just confuse her or cause more data to be
+ pumped back into the right brain to cause more dreams. Like it's likely to cause hallucination
+ or loops that end in Mari crashing and then just having a reboot and start over from before she did
+ the loop. So why would we waste processing power? Um, so try to do that. Try to stay focused on the AI.
+ Oh, but it is Wednesday. I have an appointment tomorrow with Dr. Melinda Francis and I'd already
+ uploaded the, uh, audio file. I just got to put the link to it in the playlist. So it's like a five
+ second fix, um, or addition, whatever. But I figured I'll just throw that in there. Um, but I'm trying to stay focused today.
+ Today's execute day. It's Wednesday. Um, plan yesterday. Everything's planned out
+ for today. So I have the zero stuff that needs to be the first implementation because the major failure
+ in the whole project is the left brain is not translating zero code correctly. And that's a big,
+ that's a big point of contention. So teaching the LLMs what their role is and what they're not to do
+ and what they are to do is my role because they all want to do everything. And I know, I know that's how
+ they're built. But the people who build them are stupid and I don't want to build my own LLM.
+ That's not what I'm trying to do. I don't need to build a large language model. They already
+ did that. I don't need to reinvent the wheel. My job is to take the wheels and put them in succession
+ so that we can make a fucking giant car. Like, on wheels. I don't know. Fuck it. It's a gear boat.
+ A gear boat. It's a boat made of gears.
+ Just goes.
+ All right. Um, but yeah, I'm going to upload this. I deleted some random something,
+ but I'm at 600 sources. Like, well, let me upload any more stuff.
+ Ah, so I'm either going to have to start pruning or start a new notebook and start copying stuff over.
+ But maybe you guys can even advise me on that. I need like a advise protocol.
+ Whatever. All right. Happy Wednesday.
+ Still America. God bless America.
+ Jump cheap, bless America.

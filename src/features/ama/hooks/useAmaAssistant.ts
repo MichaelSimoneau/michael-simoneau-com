@@ -31,6 +31,7 @@ export function useAmaAssistant() {
   const [lastCitations, setLastCitations] = useState<AmaCitation[]>([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [gateFeedback, setGateFeedback] = useState<string>("");
+  const [gateVerdict, setGateVerdict] = useState<GateVerdict | null>(null);
 
   const refreshAuthState = useCallback(() => {
     setAuthVersion((value) => value + 1);
@@ -48,6 +49,7 @@ export function useAmaAssistant() {
   const verifyHuman = useCallback(async (proofText: string): Promise<GateVerdict> => {
     setIsSubmitting(true);
     setGateFeedback("");
+    setGateVerdict(null);
     try {
       const response = await fetch("/.netlify/functions/human-gate", {
         method: "POST",
@@ -63,10 +65,12 @@ export function useAmaAssistant() {
         cookieService.touchAmaHumanVerification();
       }
       setGateFeedback(payload.reason || "");
+      setGateVerdict(payload.verdict);
       refreshAuthState();
       return payload.verdict;
     } catch (error) {
       setGateFeedback(error instanceof Error ? error.message : "Verification failed.");
+      setGateVerdict("ambiguous");
       refreshAuthState();
       return "ambiguous";
     } finally {
@@ -126,6 +130,7 @@ export function useAmaAssistant() {
       lastCitations,
       isSubmitting,
       gateFeedback,
+      gateVerdict,
       hasTermsAccess,
       isHumanVerified,
       isUnlocked,
@@ -138,6 +143,7 @@ export function useAmaAssistant() {
       askQuestion,
       ensureTermsAccepted,
       gateFeedback,
+      gateVerdict,
       hasTermsAccess,
       isHumanVerified,
       isSubmitting,

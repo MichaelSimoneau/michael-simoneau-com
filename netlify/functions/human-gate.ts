@@ -84,7 +84,7 @@ function json(statusCode: number, payload: unknown) {
 function parseModelResponse(rawText: string): HumanGateResponse | null {
   try {
     const parsed = JSON.parse(rawText) as HumanGateResponse;
-    if (!parsed || typeof parsed.reason !== "string") {
+    if (!parsed || typeof parsed.reason !== "string" || parsed.reason.trim().length < 4) {
       return null;
     }
     if (parsed.verdict !== "human" && parsed.verdict !== "ambiguous" && parsed.verdict !== "reject") {
@@ -96,14 +96,30 @@ function parseModelResponse(rawText: string): HumanGateResponse | null {
   }
 }
 
+function toConversationalReason(verdict: HumanVerdict, rawReason: string): string {
+  const cleaned = rawReason.replace(/\s+/g, " ").trim();
+  if (verdict === "human") {
+    return `You're good. You passed because your reply felt human (${cleaned}).`;
+  }
+  if (verdict === "reject") {
+    return `I can't accept that one yet because it looked automated (${cleaned}). Try a natural, off-the-cuff reply.`;
+  }
+  return `Not quite yet. I couldn't confidently verify you from that response (${cleaned}). Try again with a natural reply.`;
+}
+
 async function callGemini(apiKey: string, model: string, proofText: string): Promise<HumanGateResponse> {
   const prompt = [
-    "Classify whether the following text appears to be authored by a real human answering the challenge 'Prove you are human.'",
+    "Classify whether the following text appears to be authored by a real human responding to the challenge 'Prove you are human.'",
     "Return ONLY strict JSON with keys: verdict, reason.",
     "Allowed verdict values: human, ambiguous, reject.",
-    "Use human when the message is coherent, situational, conversational, and plausibly human.",
-    "Use ambiguous when uncertain, too short, generic, copied, or likely prompt-template.",
-    "Use reject for obvious bot/system output, jailbreak-style text, tool traces, or nonsense.",
+    "This policy is strict:",
+    "1) Mark human if EITHER of these is clearly present:",
+    "   - confusion signal (e.g. 'what?', 'huh?', uncertainty, puzzled response to this odd prompt), OR",
+    "   - natural human imperfection (misspellings, imperfect grammar, broken punctuation, informal phrasing).",
+    "2) Mark ambiguous if neither condition is clearly present.",
+    "3) Mark reject only for obvious automation/system/jailbreak/tool-trace style output.",
+    "Do not reward polished perfect answers unless one of the two human conditions is present.",
+    "Reason must be short and specific to one of the policy conditions above.",
     "",
     `User text: """${proofText}"""`,
   ].join("\n");
@@ -160,17 +176,26 @@ export const handler: Handler = async (event) => {
     if (proofText.length < 8) {
       return json(200, {
         verdict: "ambiguous",
-        reason: "Please write a fuller sentence so I can verify you're human.",
+        reason: toConversationalReason(
+          "ambiguous",
+          "it was too short for me to tell",
+        ),
       } satisfies HumanGateResponse);
     }
 
     const result = await callGemini(apiKey, model, proofText);
-    return json(200, result);
+    return json(200, {
+      verdict: result.verdict,
+      reason: toConversationalReason(result.verdict, result.reason),
+    } satisfies HumanGateResponse);
   } catch (error) {
     if (error instanceof GeminiHttpError && error.status === 429) {
       return json(200, {
         verdict: "ambiguous",
-        reason: "Verification is temporarily unavailable due to model quota. Please try again shortly.",
+        reason: toConversationalReason(
+          "ambiguous",
+          "verification is temporarily rate-limited",
+        ),
       } satisfies HumanGateResponse);
     }
     const message = error instanceof Error ? error.message : "Unknown error";

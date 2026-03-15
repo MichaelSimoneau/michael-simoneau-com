@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { ArrowUp, Plus } from "lucide-react";
 import { useAmaAssistant } from "../hooks/useAmaAssistant";
 
 interface AmaPanelProps {
@@ -16,16 +17,35 @@ export const AmaPanel: React.FC<AmaPanelProps> = ({
   const [questionInput, setQuestionInput] = useState("");
   const assistant = useAmaAssistant();
 
-  const submitHumanProof = async (event: React.FormEvent) => {
-    event.preventDefault();
-    await assistant.verifyHuman(humanProofInput);
+  const submitHumanProof = async () => {
+    const proof = humanProofInput.trim();
+    if (!proof || assistant.isSubmitting) {
+      return;
+    }
+    await assistant.verifyHuman(proof);
   };
 
-  const submitQuestion = async (event: React.FormEvent) => {
-    event.preventDefault();
-    if (!questionInput.trim()) return;
-    await assistant.askQuestion(questionInput);
+  const submitQuestion = async () => {
+    const question = questionInput.trim();
+    if (!question || assistant.isSubmitting) {
+      return;
+    }
+    await assistant.askQuestion(question);
     setQuestionInput("");
+  };
+
+  const handleHumanProofKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (event.key === "Enter" && !event.shiftKey) {
+      event.preventDefault();
+      void submitHumanProof();
+    }
+  };
+
+  const handleQuestionKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (event.key === "Enter" && !event.shiftKey) {
+      event.preventDefault();
+      void submitQuestion();
+    }
   };
 
   return (
@@ -73,26 +93,57 @@ export const AmaPanel: React.FC<AmaPanelProps> = ({
       )}
 
       {assistant.hasTermsAccess && !assistant.isHumanVerified && (
-        <form className="space-y-3 p-4" onSubmit={submitHumanProof}>
+        <form
+          className="space-y-3 p-4"
+          onSubmit={(event) => {
+            event.preventDefault();
+            void submitHumanProof();
+          }}
+        >
           <p className="text-sm font-semibold text-cyan-200">Prove you are human.</p>
-          <textarea
-            value={humanProofInput}
-            onChange={(event) => setHumanProofInput(event.target.value)}
-            placeholder="Respond naturally in your own words..."
-            className="h-24 w-full rounded-lg border border-gray-700 bg-black/60 p-2 text-sm outline-none focus:border-cyan-400"
-          />
-          <div className="flex items-center justify-between gap-2">
-            <button
-              type="submit"
-              disabled={assistant.isSubmitting}
-              className="rounded-md bg-cyan-400 px-3 py-2 text-sm font-semibold text-black disabled:opacity-60"
-            >
-              {assistant.isSubmitting ? "Verifying..." : "Submit Proof"}
-            </button>
-            {assistant.gateFeedback && (
-              <p className="text-right text-xs text-gray-300">{assistant.gateFeedback}</p>
-            )}
+          <p className="text-xs text-gray-300">
+            Natural confusion is fine. Imperfect grammar or misspellings are also fine. You do not need a perfect answer.
+          </p>
+          <div className="rounded-lg border border-gray-700 bg-black/60 p-2 focus-within:border-cyan-400">
+            <textarea
+              value={humanProofInput}
+              onChange={(event) => setHumanProofInput(event.target.value)}
+              onKeyDown={handleHumanProofKeyDown}
+              placeholder="Respond naturally in your own words..."
+              className="h-24 w-full resize-none bg-transparent p-1 text-sm outline-none"
+            />
+            <div className="mt-2 flex items-center justify-between gap-2">
+              <button
+                type="button"
+                title="later..."
+                aria-label="Attach (later)"
+                className="rounded-md border border-gray-600 p-2 text-gray-400 hover:text-gray-200"
+              >
+                <Plus size={14} />
+              </button>
+              <button
+                type="submit"
+                disabled={assistant.isSubmitting || !humanProofInput.trim()}
+                aria-label="Send proof"
+                className="rounded-md bg-cyan-400 p-2 text-black disabled:opacity-60"
+              >
+                <ArrowUp size={14} />
+              </button>
+            </div>
           </div>
+          {assistant.gateFeedback && (
+            <p
+              className={`text-xs ${
+                assistant.gateVerdict === "human"
+                  ? "text-emerald-300"
+                  : assistant.gateVerdict === "reject"
+                    ? "text-rose-300"
+                    : "text-gray-300"
+              }`}
+            >
+              {assistant.gateFeedback}
+            </p>
+          )}
         </form>
       )}
 
@@ -116,20 +167,40 @@ export const AmaPanel: React.FC<AmaPanelProps> = ({
             ))}
           </div>
 
-          <form onSubmit={submitQuestion} className="space-y-2 border-t border-cyan-400/20 p-4">
-            <textarea
-              value={questionInput}
-              onChange={(event) => setQuestionInput(event.target.value)}
-              placeholder="Ask about Michael Simoneau..."
-              className="h-20 w-full rounded-lg border border-gray-700 bg-black/60 p-2 text-sm outline-none focus:border-cyan-400"
-            />
-            <button
-              type="submit"
-              disabled={assistant.isSubmitting}
-              className="rounded-md bg-cyan-400 px-3 py-2 text-sm font-semibold text-black disabled:opacity-60"
-            >
-              {assistant.isSubmitting ? "Thinking..." : "Ask"}
-            </button>
+          <form
+            onSubmit={(event) => {
+              event.preventDefault();
+              void submitQuestion();
+            }}
+            className="space-y-2 border-t border-cyan-400/20 p-4"
+          >
+            <div className="rounded-lg border border-gray-700 bg-black/60 p-2 focus-within:border-cyan-400">
+              <textarea
+                value={questionInput}
+                onChange={(event) => setQuestionInput(event.target.value)}
+                onKeyDown={handleQuestionKeyDown}
+                placeholder="Ask about Michael Simoneau..."
+                className="h-20 w-full resize-none bg-transparent p-1 text-sm outline-none"
+              />
+              <div className="mt-2 flex items-center justify-between gap-2">
+                <button
+                  type="button"
+                  title="later..."
+                  aria-label="Attach (later)"
+                  className="rounded-md border border-gray-600 p-2 text-gray-400 hover:text-gray-200"
+                >
+                  <Plus size={14} />
+                </button>
+                <button
+                  type="submit"
+                  disabled={assistant.isSubmitting || !questionInput.trim()}
+                  aria-label="Send question"
+                  className="rounded-md bg-cyan-400 p-2 text-black disabled:opacity-60"
+                >
+                  <ArrowUp size={14} />
+                </button>
+              </div>
+            </div>
             {assistant.lastCitations.length > 0 && (
               <div className="space-y-1 pt-1 text-xs text-gray-300">
                 {assistant.lastCitations.slice(0, 4).map((citation) => (
