@@ -1,6 +1,9 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { cookieService } from '../src/services/cookieService';
+import { LegalPageFrame } from '../src/pages/legal/LegalPageFrame';
+
+const MAIN_SCROLL_CONTAINER_ID = 'new-main-page-scroll-container';
 
 export default function TermsPage() {
   const [celebrationAcceptCount, setCelebrationAcceptCount] = useState<number | null>(null);
@@ -19,9 +22,12 @@ export default function TermsPage() {
       if (!cookieService.hasSeenMediaTermsPrompt()) {
         return;
       }
-      const doc = document.documentElement;
-      const scrollBottom = window.scrollY + window.innerHeight;
-      const threshold = Math.max(0, doc.scrollHeight - 12);
+      const scrollContainer = document.getElementById(MAIN_SCROLL_CONTAINER_ID);
+      const scrollBottom = scrollContainer
+        ? scrollContainer.scrollTop + scrollContainer.clientHeight
+        : window.scrollY + window.innerHeight;
+      const scrollHeight = scrollContainer?.scrollHeight ?? document.documentElement.scrollHeight;
+      const threshold = Math.max(0, scrollHeight - 12);
       if (scrollBottom >= threshold) {
         const preReadAcceptCount = cookieService.getPreReadAcceptCount();
         cookieService.setMediaTermsRewardEligibility(true);
@@ -32,16 +38,25 @@ export default function TermsPage() {
     };
 
     markRewardIfEligible();
-    window.addEventListener('scroll', markRewardIfEligible, { passive: true });
+    const scrollContainer = document.getElementById(MAIN_SCROLL_CONTAINER_ID);
+    if (scrollContainer) {
+      scrollContainer.addEventListener('scroll', markRewardIfEligible, { passive: true });
+    } else {
+      window.addEventListener('scroll', markRewardIfEligible, { passive: true });
+    }
     window.addEventListener('resize', markRewardIfEligible);
     return () => {
-      window.removeEventListener('scroll', markRewardIfEligible);
+      if (scrollContainer) {
+        scrollContainer.removeEventListener('scroll', markRewardIfEligible);
+      } else {
+        window.removeEventListener('scroll', markRewardIfEligible);
+      }
       window.removeEventListener('resize', markRewardIfEligible);
     };
   }, []);
 
   return (
-    <>
+    <LegalPageFrame>
       <main className="mx-auto w-full max-w-4xl px-4 py-16 text-gray-100">
         <h1 className="mb-6 text-3xl font-bold text-cyan-300">Terms and Confidentiality Agreement</h1>
         <div className="space-y-4 text-sm leading-7 text-gray-200">
@@ -144,6 +159,6 @@ export default function TermsPage() {
           </motion.div>
         )}
       </AnimatePresence>
-    </>
+    </LegalPageFrame>
   );
 }
