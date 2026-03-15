@@ -17,6 +17,8 @@ class CookieService {
   private readonly MEDIA_TERMS_PROMPT_PRESENTED_COOKIE = 'quantum_media_terms_prompt_presented';
   /** Cookie name for terms-read reward eligibility marker */
   private readonly MEDIA_TERMS_REWARD_ELIGIBLE_COOKIE = 'quantum_media_terms_reward_eligible';
+  /** Cookie name for pre-read accept click counter */
+  private readonly MEDIA_TERMS_PRE_READ_ACCEPT_COUNT_COOKIE = 'quantum_media_terms_pre_read_accept_count';
   /** Consent expiry window for media terms (30 minutes) */
   private readonly MEDIA_TERMS_TIMEOUT_MS = 30 * 60 * 1000;
   /** Permanent mode cookie expiration window (365 days) */
@@ -86,6 +88,12 @@ class CookieService {
     document.cookie = `${name}=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/;SameSite=Lax`;
   }
 
+  private clearMediaTermsSessionMarkers(): void {
+    this.clearCookie(this.MEDIA_TERMS_PROMPT_PRESENTED_COOKIE);
+    this.clearCookie(this.MEDIA_TERMS_REWARD_ELIGIBLE_COOKIE);
+    this.clearCookie(this.MEDIA_TERMS_PRE_READ_ACCEPT_COUNT_COOKIE);
+  }
+
   private parseMediaTermsPayload(rawValue: string): { acceptedAtMs: number; mode: 'session' | 'permanent' } | null {
     try {
       const decoded = decodeURIComponent(rawValue);
@@ -147,7 +155,13 @@ class CookieService {
       return;
     }
     const mode = this.hasMediaTermsRewardEligibility() ? 'permanent' : 'session';
+    if (mode === 'session') {
+      this.incrementPreReadAcceptCount();
+    }
     this.writeMediaTermsAgreement(mode);
+    if (mode === 'permanent') {
+      this.clearMediaTermsSessionMarkers();
+    }
   }
 
   /**
@@ -162,6 +176,9 @@ class CookieService {
         ? 'permanent'
         : 'session';
     this.writeMediaTermsAgreement(mode);
+    if (mode === 'permanent') {
+      this.clearMediaTermsSessionMarkers();
+    }
   }
 
   /**
@@ -220,6 +237,36 @@ class CookieService {
    */
   public hasMediaTermsRewardEligibility(): boolean {
     return this.getCookie(this.MEDIA_TERMS_REWARD_ELIGIBLE_COOKIE) === 'true';
+  }
+
+  /**
+   * Increments the number of accepts that happened before reading terms to the bottom.
+   */
+  public incrementPreReadAcceptCount(): void {
+    const currentCount = this.getPreReadAcceptCount();
+    this.setSessionCookie(this.MEDIA_TERMS_PRE_READ_ACCEPT_COUNT_COOKIE, String(currentCount + 1));
+  }
+
+  /**
+   * Returns the number of pre-read accepts in the current session.
+   */
+  public getPreReadAcceptCount(): number {
+    const rawValue = this.getCookie(this.MEDIA_TERMS_PRE_READ_ACCEPT_COUNT_COOKIE);
+    if (!rawValue) {
+      return 0;
+    }
+    const parsed = Number(rawValue);
+    if (!Number.isFinite(parsed) || parsed < 0) {
+      return 0;
+    }
+    return Math.trunc(parsed);
+  }
+
+  /**
+   * Clears the pre-read accept counter.
+   */
+  public clearPreReadAcceptCount(): void {
+    this.clearCookie(this.MEDIA_TERMS_PRE_READ_ACCEPT_COUNT_COOKIE);
   }
 }
 
