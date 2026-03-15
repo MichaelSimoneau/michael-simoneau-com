@@ -18,6 +18,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ featuredBlog }) => {
   const [isNarrativeExpanded, setIsNarrativeExpanded] = useState(false);
   const [isAmaExpanded, setIsAmaExpanded] = useState(false);
   const prefersReducedMotion = useReducedMotion();
+  const heroPanelWidthClass = "w-full max-w-3xl mx-auto";
 
   useEffect(() => {
     if (override.value.playlist.track !== undefined) {
@@ -56,7 +57,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ featuredBlog }) => {
             by <span className="font-bold">Saving the World</span>!
           </i>
         </h2>
-        <div className="w-full max-w-3xl mx-auto mt-4 mb-8 px-1 sm:px-0">
+        <div className={`${heroPanelWidthClass} mt-4 mb-8 px-1 sm:px-0`}>
           <div className="bg-gray-900/60 backdrop-blur-sm border border-amber-800/30 rounded-xl p-5 sm:p-6 text-center">
             <div className="mx-auto mb-4 w-full max-w-4xl px-1 sm:px-2 grid grid-cols-2 md:grid-cols-4 gap-y-0.5 gap-x-1 sm:gap-x-2 items-center">
               <div className="w-full md:block hidden">
@@ -387,7 +388,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ featuredBlog }) => {
       )}
 
       <motion.div
-        className="w-full max-w-2xl mx-auto z-10"
+        className={`${heroPanelWidthClass} z-10`}
         initial={{ opacity: 0, scale: 0.9 }}
         whileInView={{ opacity: 1, scale: 1 }}
         viewport={{ once: true }}
@@ -400,7 +401,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ featuredBlog }) => {
       </motion.div>
 
       <motion.div
-        className="w-full max-w-4xl mx-auto z-10 mt-8"
+        className={`${heroPanelWidthClass} z-10 mt-8`}
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
