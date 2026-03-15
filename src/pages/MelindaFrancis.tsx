@@ -76,9 +76,9 @@ const toInlineHtml = (text: string): string =>
 
 export const MelindaFrancis: React.FC = () => {
   const [now, setNow] = React.useState(new Date().getTime());
-  const [contentBlocks, setContentBlocks] = React.useState<MelindaContentBlock[]>(
-    [],
-  );
+  const [contentBlocks, setContentBlocks] = React.useState<
+    MelindaContentBlock[]
+  >([]);
   const timeLeftToScheduleMs = React.useMemo(
     () => now - MARCH_17_2026_10_00_AM.getTime(),
     [now],
@@ -283,7 +283,6 @@ export const MelindaFrancis: React.FC = () => {
                           <AudioPlayer
                             title="Google's Latest AI Analyzed Michael Simoneau's Behavior"
                             src="/audio/2026-03-15/Google's_Latest_AI_Analyzed_Michael_Simoneau's_Behavior.mp3"
-
                           />
                         </div>
                       ) : null}
@@ -297,7 +296,6 @@ export const MelindaFrancis: React.FC = () => {
                       <AudioPlayer
                         title="Google's Latest AI Analyzed Michael Simoneau's Behavior"
                         src="/audio/2026-03-15/Google's_Latest_AI_Analyzed_Michael_Simoneau's_Behavior.mp3"
-
                       />
                     </div>
                   </>
