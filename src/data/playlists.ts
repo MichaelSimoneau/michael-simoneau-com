@@ -80,7 +80,7 @@ const cleanPlaylist = podcastsToPlaylist({
   EXPANDED_0: "HashWeb.Network & The Human Dollar",
   "Michael Simoneau Saves The World...":
     "/audio/2026-03-14/Michael_Simoneau_Saves_The_World.mp3",
-  "...and The Internet Where Money Actually Rots":
+  "...and an Internet Where Money Actually Decays":
     "/audio/2026-03-14/The_Internet_Where_Money_Actually_Rots.mp3",
   COLLAPSE_0: "Further Down The Rabbit Hole...",
   "Why Michael Simoneau Engineered Expiring Money":
