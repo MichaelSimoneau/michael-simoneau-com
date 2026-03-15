@@ -129,12 +129,12 @@ const melindaFrancisPlaylist = podcastsToPlaylist({
   EXPANDED_0: "Why Michael Simoneau Trapped Melinda Francis...",
   "Michael Simoneau Cured His Sanity by Diagnosing Everyone Else":
     "/audio/2026-03-14/Why_Michael_Simoneau_engineered_expiring_money.mp3",
-  EXPANDED_1: "AI Analysis of Michael Simoneau's Behavior",
-  "Google's Latest AI Analyzed Michael Simoneau's Behavior": "/audio/2026-03-15/Google's_Latest_AI_Analyzed_Michael_Simoneau's_Behavior.mp3",
+  EXPANDED_1: "AI Exposes Michael Simoneau's Behavior",
+  "Google's Latest AI Exposes Michael Simoneau's Behavior": "/audio/2026-03-15/Michael_Simoneau_s_72_Hour_Clinical_Standoff.mp3",
   COLLAPSE_0: "How Michael Simoneau is 'The Living Loophole'...",
   "...and How He Trapped Melinda Francis":
     "/audio/2026-03-13/Zero-Sudoku-Implementation.mp3",
-  "...not a Psychiatric Case...":
+  "...not a Psychiatric Case... A 'Ruse'!":
     "/audio/2026-03-14/Stop_Watching_Cartoons__It_is_Saturday_Morning__.mp3",
   // "Group: the "White Noise"
   // COLLAPSE_0:
