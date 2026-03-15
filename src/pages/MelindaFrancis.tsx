@@ -214,12 +214,6 @@ export const MelindaFrancis: React.FC = () => {
                 <p className="text-sm text-slate-500 text-center mt-0 mb-3">
                   * Remember, weekends don't count! *
                 </p>
-                <div className="mb-6">
-                  <AmaEmbedded
-                    title="Ask About Michael Simoneau"
-                    subtitle="Get grounded answers from the public text and audio transcript corpus."
-                  />
-                </div>
                 {contentBlocks.map((block, index) => {
                   const key = `${block.type}-${index.toString()}`;
                   return (
@@ -280,6 +274,12 @@ export const MelindaFrancis: React.FC = () => {
                   </div>
                 </motion.div>
                 <hr className="my-6 border-t border-cyan-900/60 w-[72%] mx-auto" />
+                <div className="mb-6">
+                  <AmaEmbedded
+                    title="Ask About Michael Simoneau"
+                    subtitle="Get grounded answers from the public text and audio transcript corpus."
+                  />
+                </div>
               </div>
             </motion.div>
           </motion.div>
