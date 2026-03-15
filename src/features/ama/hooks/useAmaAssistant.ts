@@ -25,6 +25,11 @@ const initialMessages: AmaMessage[] = [
 
 const buildMessageId = () => `${Date.now()}-${Math.random().toString(36).slice(2, 7)}`;
 
+const DEBUG_INTENT_PATTERN =
+  /\b(error|bug|debug|stack|trace|crash|failing|failed|failure|exception|hydration|hydrate|console|not working|broken|fix)\b/i;
+
+const hasDebugIntent = (question: string): boolean => DEBUG_INTENT_PATTERN.test(question);
+
 export function useAmaAssistant() {
   const [authVersion, setAuthVersion] = useState(0);
   const [messages, setMessages] = useState<AmaMessage[]>(initialMessages);
@@ -92,6 +97,7 @@ export function useAmaAssistant() {
 
     cookieService.touchMediaTermsAgreement();
     cookieService.touchAmaHumanVerification();
+    const debugIntent = hasDebugIntent(trimmed);
     setIsSubmitting(true);
     setLastCitations([]);
     setMessages((prev) => [...prev, { id: buildMessageId(), role: "user", text: trimmed }]);
@@ -101,7 +107,8 @@ export function useAmaAssistant() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           question: trimmed,
-          recentErrors: getRecentAmaErrorContext(5),
+          recentErrors: debugIntent ? getRecentAmaErrorContext(5) : [],
+          debugIntent,
           route: typeof window !== "undefined" ? window.location.pathname : undefined,
         }),
       });

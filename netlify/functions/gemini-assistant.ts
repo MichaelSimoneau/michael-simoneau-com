@@ -44,6 +44,7 @@ interface KnowledgeIndex {
 interface AssistantRequest {
   question?: string;
   recentErrors?: string[];
+  debugIntent?: boolean;
   route?: string;
 }
 
@@ -161,6 +162,13 @@ function parseBooleanEnv(name: string, fallback: boolean): boolean {
   const raw = process.env[name];
   if (!raw) return fallback;
   return raw.toLowerCase() === "true";
+}
+
+const DEBUG_INTENT_PATTERN =
+  /\b(error|bug|debug|stack|trace|crash|failing|failed|failure|exception|hydration|hydrate|console|not working|broken|fix)\b/i;
+
+function hasDebugIntent(question: string): boolean {
+  return DEBUG_INTENT_PATTERN.test(question);
 }
 
 async function loadFromFileSystem(): Promise<KnowledgeIndex | null> {
@@ -466,12 +474,24 @@ function buildFallbackAnswerFromCitations(citations: AssistantCitation[]): strin
   ].join("\n\n");
 }
 
+function sanitizeAnswerForNonDebugMode(answer: string): string {
+  if (!answer.trim()) {
+    return answer;
+  }
+
+  const debugSectionPattern =
+    /(?:\n|\r|^)(?:\*{2}Debugging Guidance[^]*$|Debugging Guidance[^]*$|###\s*Debugging[^]*$)/i;
+  const stripped = answer.replace(debugSectionPattern, "").trim();
+  return stripped || "I do not know from the available corpus.";
+}
+
 async function callGemini({
   apiKey,
   model,
   question,
   route,
   recentErrors,
+  debugMode,
   context,
 }: {
   apiKey: string;
@@ -479,6 +499,7 @@ async function callGemini({
   question: string;
   route?: string;
   recentErrors?: string[];
+  debugMode: boolean;
   context: string;
 }): Promise<string> {
   const systemPrompt = [
@@ -486,12 +507,16 @@ async function callGemini({
     "Answer only using the provided SOURCE_CONTEXT from /public/**/*.txt corpus.",
     "If the answer is not explicitly grounded in SOURCE_CONTEXT, say you do not know from the available corpus.",
     "Be concise and factual.",
-    "If error context is present, use it to help with debugging-oriented guidance but do not fabricate root cause.",
+    "Only provide debugging guidance when DEBUG_MODE is true and the user asked for troubleshooting.",
+    "When DEBUG_MODE is false, do not include any debug appendix, diagnostics, or troubleshooting instructions.",
   ].join("\n");
 
   const userPrompt = [
     `ROUTE: ${route ?? "unknown"}`,
-    recentErrors?.length ? `RECENT_ERRORS:\n- ${recentErrors.slice(0, 5).join("\n- ")}` : "RECENT_ERRORS: none",
+    `DEBUG_MODE: ${debugMode ? "true" : "false"}`,
+    debugMode && recentErrors?.length
+      ? `RECENT_ERRORS:\n- ${recentErrors.slice(0, 5).join("\n- ")}`
+      : "RECENT_ERRORS: none",
     "",
     `QUESTION: ${question}`,
     "",
@@ -553,6 +578,7 @@ export const handler: Handler = async (event) => {
 
     const index = await getKnowledgeIndex(event);
     const lexicalCandidates = buildLexicalCandidates(index, question, prefilterLimit);
+    const debugMode = body.debugIntent === true || hasDebugIntent(question);
 
     let rerankedIds: string[] | null = null;
     if (enableRerank && lexicalCandidates.length > 0) {
@@ -573,6 +599,14 @@ export const handler: Handler = async (event) => {
 
     const { context, citations } = buildContextFromSelection(selectedChunks);
 
+    if (selectedChunks.length === 0) {
+      const payload: AssistantResponse = {
+        answer: "I do not know from the available corpus.",
+        citations: [],
+      };
+      return json(200, payload);
+    }
+
     let answer = "";
     try {
       answer = await callGemini({
@@ -580,7 +614,8 @@ export const handler: Handler = async (event) => {
         model,
         question,
         route: body.route,
-        recentErrors: Array.isArray(body.recentErrors) ? body.recentErrors : [],
+        recentErrors: debugMode && Array.isArray(body.recentErrors) ? body.recentErrors : [],
+        debugMode,
         context,
       });
     } catch (error) {
@@ -592,7 +627,9 @@ export const handler: Handler = async (event) => {
     }
 
     const payload: AssistantResponse = {
-      answer: answer || "I do not know from the available corpus.",
+      answer: debugMode
+        ? answer || "I do not know from the available corpus."
+        : sanitizeAnswerForNonDebugMode(answer || "I do not know from the available corpus."),
       citations,
     };
     return json(200, payload);
