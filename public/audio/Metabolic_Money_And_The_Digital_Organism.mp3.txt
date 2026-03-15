@@ -140,12 +140,12 @@
  So the brain does all the thinking, all the hard work, and then just hands the final receipt to
  Ethereum to stamp.
  Exactly. And here's the asymmetric part of the dependency. If Ethereum goes down, which happens,
- or it gets super clogged, the Xeroth system just waits.
+ or it gets super clogged, the Zeroth system just waits.
  It doesn't crash.
  Nope. It doesn't crash. It holds the transaction in its own memory. It continues to process things
  locally. It basically treats the blockchain blockage as bad weather. You just wait for
  the rain to stop, and then you go outside.
- But what if the Xeroth system itself crashes? What if the factory has a power outage?
+ But what if the Zeroth system itself crashes? What if the factory has a power outage?
  Then the assets that have already been pushed to Ethereum, that have been settled on that
  membrane, are perfectly safe. They are standard ERC-20 tokens at that point. They are settled.
  So the dependency is asymmetric. The factory needs the membrane to export goods, but the goods that

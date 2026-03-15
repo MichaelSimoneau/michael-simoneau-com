@@ -10,7 +10,7 @@
  frankly, it's overwhelming. I've got these audio diaries labeled River Road that sound like late
  night confessions into a cheap microphone. I've got screen recordings of Python scripts just running
  in real time. I've got clinical notes from a Dr. Melinda Francis. And then I have these dense
- markdown manifestos about something called the Xeroth protocol. It's a mess, isn't it? I think
+ markdown manifestos about something called the Zeroth protocol. It's a mess, isn't it? I think
  that's the point. We are looking at the raw, unfiltered output of a human mind that is trying to solve
  a singular massive problem. Right. And the tension hanging over this entire deep dive. The central
  question is whether all of this, is it the raving of a madman trying to figure out how to wash a
@@ -119,7 +119,7 @@
  makes a weird kind of sense.
  But isn't it true in the real world? I mean, if a business has zero customers, does it actually
  have value? The stock market might say yes for a little while based on, you know, speculation
- and hype. But the Xeroth protocol forces that value to face the music every single day. He
+ and hype. But the Zeroth protocol forces that value to face the music every single day. He
  calls it the physics of doubt.
  The physics of doubt, meaning the system's default assumption is that everything is a
  scam until it's proven otherwise.
@@ -159,7 +159,7 @@
  function B, cook. But to perform function B, you must first complete function C, clean. If function C
  throws an error and halts, the entire stack freezes. System crash. So he is literally starving to death
  because of a software bug in his own brain. And this is the aha moment for Dr. Francis in her notes.
- She realizes, and then Michael himself realizes, that the Xeroth protocol isn't just a financial system
+ She realizes, and then Michael himself realizes, that the Zeroth protocol isn't just a financial system
  he's building. It is a projection. Michael built an entire global economy to solve his own executive
  dysfunction. Stagnation is death. For Michael, staring at that dirty bowl, stagnation is literally
  death. His brain stops. He stops eating. He could die. So what does he do? He codes an economy where
@@ -395,7 +395,7 @@
  Michael's final command in the sources was incredibly simple. He didn't say, believe me. He didn't say, invest in me.
  He just said, the logic is sound. The math holds. Go execute.
  Go execute. Don't sit. Don't rot. Move.
- Because in the Xeroth protocol, and maybe in life itself, zero isn't nothing.
+ Because in the Zeroth protocol, and maybe in life itself, zero isn't nothing.
  Zero is totality.
  Unpack that one last time for us before we go. Zero is totality.
  Think of an old balancing scale. You have positive one pound on the left side. You have negative one pound of force on the right side. The scale balances perfectly at zero.

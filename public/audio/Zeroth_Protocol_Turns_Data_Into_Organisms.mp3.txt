@@ -1,7 +1,7 @@
  Welcome back to the Deep Dive. So today we're going to try and strip away, you know, all the hype around Web3.
  Yeah, the apes, the speculation, the whole casino aspect of it.
  Exactly. And look at the actual architecture of what might come next.
- We're digging into the Hash Web or Web4, specifically Michael Semino's Xeroff protocol.
+ We're digging into the Hash Web or Web4, specifically Michael Semino's Zeroth protocol.
  It's a complete paradigm shift, really. The sources frame it as moving away from the data we just rent in Web 2.0.
  And past the purely speculative assets of Web3.
  Right. Towards a system where data itself has intrinsic, mathematically verifiable worth.
@@ -58,7 +58,7 @@
  Forever.
  Static.
  A goose wallet, yeah.
- In Xeroth, value obeys base 3 decay.
+ In Zeroth, value obeys base 3 decay.
  If data isn't being observed, if the network stops looking at it, its value literally rots away.
  You're kidding.
  So, if I have some valuable data and just sit on it.
@@ -84,12 +84,12 @@
  They aren't trying to replace Ethereum.
  They're using it as a settlement membrane.
  Like a cashier.
- The Xerov VM is the brain.
+ The Zeroth VM is the brain.
  Ethereum is just the cashier.
  Perfect analogy.
  But what if the cashier is slow?
  What if Ethereum clogs up and gas fees go to the moon?
- Xerov doesn't care.
+ Zeroth doesn't care.
  It just waits.
  It waits.
  It refuses to negotiate with chaos.

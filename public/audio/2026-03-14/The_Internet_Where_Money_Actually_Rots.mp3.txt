@@ -259,7 +259,7 @@
  It's the Wild West on the outside.
  But then you step through the membrane to the inside.
  You have the THD container.
- This is the internal Xeroth reality.
+ This is the internal Zeroth reality.
  And the rules inside this container are absolute and mathematically enforced.
  First of all, the internal system is entirely integer only.
  Yes.
@@ -278,7 +278,7 @@
  Okay, lineage-limited redemption constraint sounds like an incredibly dense piece of cryptography,
  but the actual real-world effect of it is a beautifully simple guarantee for the user.
  It is essentially the decay-proof floor.
- The smart contract, the automated piece of code that bridges the internal Xeroth system
+ The smart contract, the automated piece of code that bridges the internal Zeroth system
  with the external Ethereum blockchain, enforces a hard, unbreakable rule.
  What's the goal?
  One internal THD can never, under any circumstances, be redeemed for less than one USDC.

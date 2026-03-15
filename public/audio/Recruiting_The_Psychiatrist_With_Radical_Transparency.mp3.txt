@@ -208,7 +208,7 @@
  He established a plus zero totality.
  He defined the entire menu.
  She has the agency to order, but she can only choose from the items he explicitly put on the menu.
- It reminds me of the headless server concept we've seen in the Xeroth protocol sources.
+ It reminds me of the headless server concept we've seen in the Zeroth protocol sources.
  Yes, that's exactly what this is.
  A headless server is a system that runs without an administrator sitting at the keyboard.
  So Michael is trying to remove himself from the equation.

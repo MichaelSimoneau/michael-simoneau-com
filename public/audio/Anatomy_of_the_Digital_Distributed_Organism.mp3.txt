@@ -278,7 +278,7 @@
  Now, within this entire coding framework, the source material makes a very stark distinction between what they call the zero language and standard Python.
  Yes.
  The developer logs repeatedly mention that Python is essentially just the shell.
- This ties deeply back into the Xero theory philosophy that underscores this whole project. In the architecture.md file, they explicitly define Python as merely the facilitator.
+ This ties deeply back into the Zeroth theory philosophy that underscores this whole project. In the architecture.md file, they explicitly define Python as merely the facilitator.
  The facilitator.
  Python handles the hardware. It handles the raw API calls. It handles the actual physics of the server.
  It opens the network sockets. It reads and writes the files.

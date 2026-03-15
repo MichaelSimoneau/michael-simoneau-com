@@ -160,7 +160,7 @@
  Vector 2.
  She complies.
  She navigates the Melinda route, listens to track 1 and 2, finishes track 3, and chooses to reschedule for Thursday.
- The result of that vector is she actively submits to the architectural constraints of the Xeroth protocol.
+ The result of that vector is she actively submits to the architectural constraints of the Zeroth protocol.
  She accepts her role as the analog validator.
  Operating entirely under the rules of engagement you have defined.
  Acknowledging the boundaries of the container you built.

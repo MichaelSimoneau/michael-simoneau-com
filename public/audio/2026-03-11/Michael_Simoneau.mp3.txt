@@ -212,7 +212,7 @@
  That is a staggering level of confidence in your own code.
  Let's look closer at how that code actually functions.
  Let's crack open that architecture.md file, because this is where Michael outlines his bihemispherical brain model.
- Or what he calls Xeroth V3.
+ Or what he calls Zeroth V3.
  He has designed a strict four-layer unidirectional hierarchy for his artificial organism.
  And he leaves a very stern warning in the documentation.
  He says, this architecture is not a suggestion.
@@ -255,7 +255,7 @@
  The puppeteer, or Jimmy the hands.
  Jimmy.
  The puppeteer is purely reactionary.
- It sits inside a secure, isolated container called the Xeroth VM and executes the commands that Mari approved.
+ It sits inside a secure, isolated container called the Zeroth VM and executes the commands that Mari approved.
  Jimmy doesn't think.
  Jimmy doesn't dream.
  Jimmy just does.
@@ -408,7 +408,7 @@
  He slows the network down on purpose.
  Why?
  He engineers the system to delay consensus.
- Instead of just accepting a quick majority vote from the network to validate a transaction, the ether hive waits until absolute mathematical certainty is met according to his strict Xeroth tensor logic.
+ Instead of just accepting a quick majority vote from the network to validate a transaction, the ether hive waits until absolute mathematical certainty is met according to his strict Zeroth tensor logic.
  He sacrifices the speed of the trade for the absolute integrity of the ledger.
  The philosophy he attaches to this is beautiful.
  He calls it money that lives.

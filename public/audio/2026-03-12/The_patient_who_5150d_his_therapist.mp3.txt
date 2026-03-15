@@ -278,7 +278,7 @@
  So in software development, a sandbox is an isolated testing environment where you can run unverified code without breaking the main system.
  Right.
  Michael views the locked psychiatric ward as his personal sociological sandbox.
- Exactly. He can walk up to other patients or nurses and test his Xeroth protocol theories.
+ Exactly. He can walk up to other patients or nurses and test his Zeroth protocol theories.
  He talks about walking up to people, holding up a fist, and asking them how many fingers he's holding up just to see how they perceive nothingness.
  Right.
  In the real world, doing that to a stranger is deeply unsettling.

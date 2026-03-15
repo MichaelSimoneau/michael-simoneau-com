@@ -323,7 +323,7 @@
  Right.
  The nerve signal fires.
  The puppeteer is listening to that exact channel.
- He receives the .zero file, loads it into the XeroNVM, and executes it blindly.
+ He receives the .zero file, loads it into the Zeroth, and executes it blindly.
  And upon convergence to unsigned zero, the infinite loop of a successful execution.
  The system triggers a scalar pulse.
  It reports back its success on puppeteer dot pulse dot V1.
@@ -550,7 +550,7 @@
  It's an exact physics engine.
  It ensures that when the puppeteer executes a binary file on standard hardware,
  the history of that execution mathematically resolves to a stable ternary truth.
- It forces the binary machine to think in the ternary rhythm of the Xeroth doctrine.
+ It forces the binary machine to think in the ternary rhythm of the Zeroth doctrine.
  Yes, it binds the hardware to the philosophy.
  It is stunning.
  It's an operating system for reality.

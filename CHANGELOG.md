@@ -30,7 +30,7 @@ Commit range: `35c7846` -> `68d3adc` (3 commits)
 ## 1.4.1 - 2026-03-15
 _Zeroth transcript consistency and player reliability_
 
-- Corrected "Xeroth" -> "Zeroth" terminology across docs/transcripts for consistency.
+- Corrected "Zeroth" -> "Zeroth" terminology across docs/transcripts for consistency.
 - Added and refined Zeroth-protocol transcript content across multiple audio text assets.
 - Improved transcript loading robustness by detecting/rejecting HTML-like responses and corrected playlist title wording.
 

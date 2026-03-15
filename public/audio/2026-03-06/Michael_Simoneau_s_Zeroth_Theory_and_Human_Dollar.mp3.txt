@@ -327,7 +327,7 @@
  We get to listen in on a stressful 48-hour sprint.
  It's intense.
  Michael has actually built this entirely new digital universe.
- He calls it the Xeroth virtual machine.
+ He calls it the Zeroth virtual machine.
  But it's not floating in the ether.
  It is physically running on a single piece of hardware in Richard's garage.
  And right when everything is coming to a head with the clinic, the server crashes?

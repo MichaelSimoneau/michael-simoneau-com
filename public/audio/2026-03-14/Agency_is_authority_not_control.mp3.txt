@@ -18,7 +18,7 @@
  We really need to see it under pressure.
  Right. Theory is one thing. Practice is another.
  So to truly understand this active text, we're going to use a stack of historical data as our lens to decode its meaning.
- Specifically, we've got the logs of the Xeroth protocol and a system directive known as protocol 88.
+ Specifically, we've got the logs of the Zeroth protocol and a system directive known as protocol 88.
  Right. Which is where things get incredibly intense.
  Oh, absolutely.
  So just to set the tone for you listening right now, this deep dive is going to travel from abstract philosophy right into a high stakes psychological standoff.
@@ -78,7 +78,7 @@
  This brings us to the historical precedent, specifically the clinical ultimatum.
  The standoff with Dr. Melinda Francis.
  Yes.
- The historical data from the Xeroff logs shows this tense situation where the clinical team was questioning the architect's logic, basically viewing his whole systemic architecture as a delusion.
+ The historical data from the Zeroth logs shows this tense situation where the clinical team was questioning the architect's logic, basically viewing his whole systemic architecture as a delusion.
  And instead of arguing, he engineered a scenario.
  He absolutely did.
  He presented Dr. Francis with what the logs call the 5150 ultimatum.

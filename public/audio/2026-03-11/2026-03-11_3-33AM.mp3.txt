@@ -11,7 +11,7 @@
  or things that I have to keep correcting and things like that. So I want to be very specific
  about what I add to a notebook from the old notebook. So trying to figure that out. But in the other
  notebook, I finished the 3.1.2 specification. So I need to get Cursor or Gemini to implement the
- the corrections in the Xeroth project so that the left brain can properly translate from English
+ the corrections in the Zeroth project so that the left brain can properly translate from English
  code to zero code because right now it's failing. And it's funny that it's failing because it's
  literally got the compiler. The source code to the compiler in the same repository. I mean,
  it's a subproject or a submodule, but whatever. But yeah. It's funny that the LLM can't figure
