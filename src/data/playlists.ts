@@ -115,7 +115,8 @@ const cleanPlaylist = podcastsToPlaylist({
   '"Agency is Authority Not Control" - Michael Simoneau':
     "/audio/2026-03-14/Agency_is_Authority_Not_Control.mp3",
   // Track #11 - 2026-03-05
-  '"The High-Five Trick" - Michael Simoneau': "/audio/2026-02-20/Chardon Rd.mp3",
+  '"The High-Five Trick" - Michael Simoneau':
+    "/audio/2026-02-20/Chardon Rd.mp3",
   // Track #12 - 2026-03-05
   '"The High-Five Trick - Extended Version" - Michael Simoneau':
     "/audio/Stop_Watching_Cartoons__It_is_Saturday_Morning__.mp3",
@@ -128,9 +129,11 @@ const melindaFrancisPlaylist = podcastsToPlaylist({
   EXPANDED_0: "Why Michael Simoneau Trapped Melinda Francis...",
   "Michael Simoneau Cured His Sanity by Diagnosing Everyone Else":
     "/audio/2026-03-14/Why_Michael_Simoneau_engineered_expiring_money.mp3",
+  EXPANDED_1: "AI Analysis of Michael Simoneau's Behavior",
+  "Google's Latest AI Analyzed Michael Simoneau's Behavior": "/audio/2026-03-15/Google's_Latest_AI_Analyzed_Michael_Simoneau's_Behavior.mp3",
+  COLLAPSE_0: "How Michael Simoneau is 'The Living Loophole'...",
   "...and How He Trapped Melinda Francis":
     "/audio/2026-03-13/Zero-Sudoku-Implementation.mp3",
-  COLLAPSE_0: "How Michael Simoneau is 'The Living Loophole'...",
   "...not a Psychiatric Case...":
     "/audio/2026-03-14/Stop_Watching_Cartoons__It_is_Saturday_Morning__.mp3",
   // "Group: the "White Noise"
