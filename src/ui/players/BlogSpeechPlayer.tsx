@@ -4,7 +4,8 @@ import { Play, Pause, Volume2 } from 'lucide-react';
 import { ContentBlock } from '../../models/BlogPost';
 import { useBlogSpeech } from '../../features/blog/hooks/useBlogSpeech';
 import { useMediaAnalytics } from '../../analytics/useMediaAnalytics';
-import { dispatchMediaPlayIntent } from './mediaEvents';
+import { InlineMediaConsentPrompt } from './InlineMediaConsentPrompt';
+import { useMediaConsentGate } from './useMediaConsentGate';
 import {
   BLOG_VOICE_PRESETS,
   BlogVoicePresetId,
@@ -23,6 +24,9 @@ export const BlogSpeechPlayer: React.FC<BlogSpeechPlayerProps> = ({
   title = 'Listen to Article',
 }) => {
   const { trackMediaEvent } = useMediaAnalytics();
+  const { isGateVisible, requestConsentAwarePlay, acceptAndResume } = useMediaConsentGate({
+    source: 'blog-speech',
+  });
   const previousIsPlayingRef = useRef(false);
   const hasStartedCycleRef = useRef(false);
   const hasCompletedCycleRef = useRef(false);
@@ -66,13 +70,11 @@ export const BlogSpeechPlayer: React.FC<BlogSpeechPlayerProps> = ({
     }
 
     if (isPaused) {
-      dispatchMediaPlayIntent('blog-speech');
-      resume();
+      requestConsentAwarePlay(() => resume());
       return;
     }
 
-    dispatchMediaPlayIntent('blog-speech');
-    play();
+    requestConsentAwarePlay(() => play());
   };
 
   const handlePresetChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -229,6 +231,7 @@ export const BlogSpeechPlayer: React.FC<BlogSpeechPlayerProps> = ({
           </div>
         </div>
       </div>
+      <InlineMediaConsentPrompt visible={isGateVisible} onAgree={acceptAndResume} className="mt-2" />
     </div>
   );
 };

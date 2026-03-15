@@ -9,7 +9,7 @@ export const CookieNotice: React.FC = () => {
   useEffect(() => {
     console.log('Cookie notice state:', {
       hasSeenNotice: cookieService.hasSeenCookieNotice(),
-      hasAutoPlayConsent: cookieService.hasAutoPlayConsent()
+      hasMediaTermsAgreement: cookieService.hasMediaTermsAgreement(),
     });
 
     if (!cookieService.hasSeenCookieNotice()) {
@@ -18,16 +18,14 @@ export const CookieNotice: React.FC = () => {
   }, []);
 
   const handleAccept = () => {
-    console.log('Accepting cookies and auto-play consent');
+    console.log('Accepting cookie notice');
     cookieService.setCookieNoticeSeen();
-    cookieService.setAutoPlayConsent(true);
     setIsVisible(false);
   };
 
   const handleDecline = () => {
-    console.log('Declining cookies and auto-play consent');
+    console.log('Dismissing cookie notice');
     cookieService.setCookieNoticeSeen();
-    cookieService.setAutoPlayConsent(false);
     setIsVisible(false);
   };
 
@@ -52,7 +50,7 @@ export const CookieNotice: React.FC = () => {
               </button>
             </div>
             <p className="text-gray-300 text-sm mb-4">
-              We use cookies to enhance your experience. By continuing to visit this site you agree to our use of cookies.
+              We use essential cookies and anonymous statistical cookies to improve site reliability.
             </p>
             <div className="flex gap-2">
               <button

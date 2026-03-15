@@ -9,10 +9,10 @@
 class CookieService {
   /** Singleton instance of the service */
   private static instance: CookieService;
-  /** Cookie name for auto-play consent */
-  private readonly AUTO_PLAY_CONSENT_COOKIE = 'quantum_auto_play_consent';
   /** Cookie name for cookie notice */
   private readonly COOKIE_NOTICE_COOKIE = 'quantum_cookie_notice';
+  /** Cookie name for media terms agreement */
+  private readonly MEDIA_TERMS_COOKIE = 'quantum_media_terms_agreement';
 
   /**
    * Private constructor to enforce singleton pattern.
@@ -62,22 +62,6 @@ class CookieService {
   }
 
   /**
-   * Checks if the user has given consent for auto-play.
-   * @returns {boolean} True if the user has given consent, false otherwise
-   */
-  public hasAutoPlayConsent(): boolean {
-    return this.getCookie(this.AUTO_PLAY_CONSENT_COOKIE) === 'true';
-  }
-
-  /**
-   * Sets the auto-play consent cookie.
-   * @param {boolean} consent - Whether the user has given consent
-   */
-  public setAutoPlayConsent(consent: boolean): void {
-    this.setCookie(this.AUTO_PLAY_CONSENT_COOKIE, consent.toString(), 365);
-  }
-
-  /**
    * Checks if the user has seen the cookie notice.
    * @returns {boolean} True if the user has seen the notice, false otherwise
    */
@@ -90,6 +74,22 @@ class CookieService {
    */
   public setCookieNoticeSeen(): void {
     this.setCookie(this.COOKIE_NOTICE_COOKIE, 'true', 365);
+  }
+
+  /**
+   * Checks if the user accepted media confidentiality terms.
+   * @returns {boolean} True when terms agreement is present
+   */
+  public hasMediaTermsAgreement(): boolean {
+    return this.getCookie(this.MEDIA_TERMS_COOKIE) === 'true';
+  }
+
+  /**
+   * Sets media confidentiality agreement state.
+   * @param {boolean} accepted - Whether user accepted terms
+   */
+  public setMediaTermsAgreement(accepted: boolean): void {
+    this.setCookie(this.MEDIA_TERMS_COOKIE, accepted.toString(), 365);
   }
 }
 

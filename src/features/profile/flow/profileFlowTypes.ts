@@ -5,13 +5,25 @@ export type PlaylistMachineState =
   | 'loadingTrack'
   | 'playing'
   | 'paused'
-  | 'ended'
-  | 'handoffPending'
-  | 'restrictedLockout';
+  | 'ended';
 export type VideoPlaybackPhase = 'prepended' | 'primary' | 'second' | 'playlist';
-export type VideoMachineState = 'hidden' | 'bootingApi' | 'playerReady' | 'watching' | 'handoffCountdown';
+export type VideoMachineState = 'hidden' | 'bootingApi' | 'playerReady' | 'watching';
 export type MediaArbitrationState = 'none' | 'sourceActive';
 export type OverrideMachineState = 'parse' | 'applied' | 'forcing';
+export type ConsentMachineState = 'unknown' | 'required' | 'granted';
+
+export type ConsentGateSource =
+  | 'video-hero'
+  | 'playlist-audio'
+  | 'audio-player'
+  | 'blog-speech'
+  | 'speech-player'
+  | 'universal-player';
+
+export interface PendingMediaIntent {
+  source: ConsentGateSource;
+  actionId: string;
+}
 
 export interface FlowOverrideState {
   mode: 'normal' | 'force';
@@ -27,12 +39,10 @@ export interface FlowOverrideState {
   video: {
     watch?: boolean;
     phase?: VideoPlaybackPhase;
-    autoplayRequest?: boolean;
   };
   music: {
     iframe?: 'ready' | 'failed';
   };
-  restricted?: 'on' | 'off';
 }
 
 export interface ProfileFlowState {
@@ -49,11 +59,11 @@ export interface ProfileFlowState {
   playlist: {
     machine: PlaylistMachineState;
     currentTrackIndex: number;
-    isRestrictedActive: boolean;
+    isRestrictedActive?: boolean;
     melindaArmedSectionId?: string;
     melindaActiveSectionId?: string;
     melindaHandoffSectionId?: string;
-    controlsNormalizedAfterRefresh: boolean;
+    controlsNormalizedAfterRefresh?: boolean;
   };
   video: {
     machine: VideoMachineState;
@@ -62,14 +72,20 @@ export interface ProfileFlowState {
     isPlayerReady: boolean;
     prependModeEnabled: boolean;
     playbackPhase: VideoPlaybackPhase;
-    isDelayOverlayVisible: boolean;
-    countdownValue: number | null;
+    isDelayOverlayVisible?: boolean;
+    countdownValue?: number | null;
+  };
+  consent: {
+    machine: ConsentMachineState;
+    hasAcceptedTerms: boolean;
+    gateSource?: ConsentGateSource;
+    pendingIntent?: PendingMediaIntent;
   };
   media: {
     machine: MediaArbitrationState;
     activeSource?: string;
   };
-  reloadTimer: {
+  reloadTimer?: {
     machine: 'idle' | 'running' | 'completed';
     startedAtMs: number | null;
     durationMs: number;
@@ -107,6 +123,10 @@ export type ProfileFlowAction =
   | { type: 'VIDEO_HANDOFF_COUNTDOWN_STARTED'; countdown: number }
   | { type: 'VIDEO_HANDOFF_COUNTDOWN_UPDATED'; countdown: number | null; visible: boolean }
   | { type: 'VIDEO_HIDDEN' }
+  | { type: 'CONSENT_STATUS_LOADED'; hasAcceptedTerms: boolean }
+  | { type: 'CONSENT_PROMPT_REQUESTED'; source: ConsentGateSource; actionId: string }
+  | { type: 'CONSENT_ACCEPTED' }
+  | { type: 'CONSENT_PENDING_INTENT_CLEARED' }
   | { type: 'MEDIA_SOURCE_ACTIVATED'; source?: string }
   | { type: 'RELOAD_TIMER_STARTED'; durationMs: number; startedAtMs: number }
   | { type: 'RELOAD_TIMER_COMPLETED' }

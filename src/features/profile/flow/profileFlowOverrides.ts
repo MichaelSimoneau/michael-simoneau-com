@@ -31,13 +31,9 @@ export const parseFlowOverrides = (search: string): FlowOverrideState => {
   const navSection = params.get('flow.nav.section') ?? undefined;
   const playlistTrack = parseInteger(params.get('flow.playlist.track'));
   const playlistTime = parseInteger(params.get('flow.playlist.time'));
-  const playlistAutoplay = parseBooleanish(params.get('flow.playlist.autoplay'));
   const videoWatch = parseBooleanish(params.get('flow.video.watch'));
   const videoPhase = parseVideoPhase(params.get('flow.video.phase'));
-  const videoAutoplayRequest = parseBooleanish(params.get('flow.video.autoplayRequest'));
   const musicIframe = params.get('flow.music.iframe');
-  const restrictedRaw = params.get('flow.restricted');
-  const restricted = restrictedRaw === 'on' || restrictedRaw === 'off' ? restrictedRaw : undefined;
 
   return {
     ...defaultFlowOverrideState,
@@ -49,17 +45,14 @@ export const parseFlowOverrides = (search: string): FlowOverrideState => {
     playlist: {
       track: playlistTrack,
       time: playlistTime,
-      autoplay: playlistAutoplay,
     },
     video: {
       watch: videoWatch,
       phase: videoPhase,
-      autoplayRequest: videoAutoplayRequest,
     },
     music: {
       iframe: musicIframe === 'ready' || musicIframe === 'failed' ? musicIframe : undefined,
     },
-    restricted,
   };
 };
 

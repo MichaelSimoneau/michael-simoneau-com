@@ -2,7 +2,8 @@ import React, { useRef, useState, useEffect, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { Play, Pause, Volume2 } from 'lucide-react';
 import { useMediaAnalytics } from '../../analytics/useMediaAnalytics';
-import { dispatchMediaPlayIntent } from './mediaEvents';
+import { InlineMediaConsentPrompt } from './InlineMediaConsentPrompt';
+import { useMediaConsentGate } from './useMediaConsentGate';
 
 interface AudioPlayerProps {
   src: string;
@@ -11,6 +12,9 @@ interface AudioPlayerProps {
 
 export const AudioPlayer: React.FC<AudioPlayerProps> = ({ src, title = 'Zeroth Vision' }) => {
   const { trackMediaEvent } = useMediaAnalytics();
+  const { isGateVisible, requestConsentAwarePlay, acceptAndResume } = useMediaConsentGate({
+    source: 'audio-player',
+  });
   const audioRef = useRef<HTMLAudioElement>(null);
   const progressRef = useRef<HTMLDivElement>(null);
   const previousIsPlayingRef = useRef(false);
@@ -115,9 +119,9 @@ export const AudioPlayer: React.FC<AudioPlayerProps> = ({ src, title = 'Zeroth V
       audio.pause();
       setIsPlaying(false);
     } else {
-      dispatchMediaPlayIntent('audio-player');
-      audio.play();
-      setIsPlaying(true);
+      requestConsentAwarePlay(() => {
+        audio.play().then(() => setIsPlaying(true)).catch(() => setIsPlaying(false));
+      });
     }
   };
 
@@ -262,6 +266,7 @@ export const AudioPlayer: React.FC<AudioPlayerProps> = ({ src, title = 'Zeroth V
           </div>
         </div>
       </div>
+      <InlineMediaConsentPrompt visible={isGateVisible} onAgree={acceptAndResume} className="mt-2" />
 
       {/* Hidden Audio Element */}
       <audio ref={audioRef} src={src} preload="metadata" />

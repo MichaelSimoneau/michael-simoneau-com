@@ -181,37 +181,9 @@ export const useMainPageController = () => {
     [flowDispatch],
   );
 
-  const runHashScrollWithRetry = useCallback(
-    (targetId: string): (() => void) => {
-      const alignThresholdPx = 8;
-      const maxRetryMs = 1800;
-      const retryIntervalMs = 180;
-      const startedAt = Date.now();
-
+  const runHashScroll = useCallback(
+    (targetId: string): void => {
       scrollToSectionId(targetId, "smooth");
-
-      const retryIntervalId = setInterval(() => {
-        const container = scrollContainerRef.current;
-        const targetElement = document.getElementById(targetId);
-        if (!container || !targetElement) {
-          return;
-        }
-        const offset = getMainPageSectionOffset(targetId);
-        const containerRect = container.getBoundingClientRect();
-        const elementRect = targetElement.getBoundingClientRect();
-        const desiredTop =
-          elementRect.top - containerRect.top + container.scrollTop - offset;
-        const drift = Math.abs(container.scrollTop - desiredTop);
-
-        if (drift > alignThresholdPx) {
-          scrollToSectionId(targetId, "auto");
-        }
-        if (drift <= alignThresholdPx || Date.now() - startedAt >= maxRetryMs) {
-          clearInterval(retryIntervalId);
-        }
-      }, retryIntervalMs);
-
-      return () => clearInterval(retryIntervalId);
     },
     [scrollToSectionId],
   );
@@ -223,13 +195,11 @@ export const useMainPageController = () => {
 
     const sectionId = resolveHashSectionId();
     if (sectionId) {
-      let stopRetry = () => {};
       const timeoutId = setTimeout(() => {
-        stopRetry = runHashScrollWithRetry(sectionId);
+        runHashScroll(sectionId);
       }, 150);
       return () => {
         clearTimeout(timeoutId);
-        stopRetry();
       };
     }
 
@@ -243,7 +213,7 @@ export const useMainPageController = () => {
     registerMainScrollContainer,
     location,
     resolveHashSectionId,
-    runHashScrollWithRetry,
+    runHashScroll,
   ]);
 
   useEffect(() => {
@@ -251,22 +221,19 @@ export const useMainPageController = () => {
       return;
     }
 
-    let stopRetry = () => {};
     const onHashChange = () => {
       const sectionId = resolveHashSectionId();
       if (!sectionId) {
         return;
       }
-      stopRetry();
-      stopRetry = runHashScrollWithRetry(sectionId);
+      runHashScroll(sectionId);
     };
 
     window.addEventListener("hashchange", onHashChange);
     return () => {
       window.removeEventListener("hashchange", onHashChange);
-      stopRetry();
     };
-  }, [resolveHashSectionId, runHashScrollWithRetry]);
+  }, [resolveHashSectionId, runHashScroll]);
 
   useEffect(() => {
     if (override.value.nav.section && scrollContainerRef.current) {

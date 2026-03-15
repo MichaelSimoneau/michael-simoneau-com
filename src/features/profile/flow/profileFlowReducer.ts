@@ -37,6 +37,10 @@ export const initialProfileFlowState: ProfileFlowState = {
     isDelayOverlayVisible: false,
     countdownValue: null,
   },
+  consent: {
+    machine: 'unknown',
+    hasAcceptedTerms: false,
+  },
   media: {
     machine: 'none',
   },
@@ -110,7 +114,7 @@ export function profileFlowReducer(
         ...state,
         playlist: {
           ...state.playlist,
-          machine: state.playlist.isRestrictedActive ? 'restrictedLockout' : 'playing',
+          machine: 'playing',
         },
       };
     case 'PLAYLIST_PAUSED':
@@ -118,65 +122,13 @@ export function profileFlowReducer(
         ...state,
         playlist: {
           ...state.playlist,
-          machine: state.playlist.isRestrictedActive ? 'restrictedLockout' : 'paused',
+          machine: 'paused',
         },
       };
     case 'PLAYLIST_ENDED':
       return {
         ...state,
         playlist: { ...state.playlist, machine: 'ended' },
-      };
-    case 'PLAYLIST_HANDOFF_PENDING':
-      return {
-        ...state,
-        playlist: { ...state.playlist, machine: 'handoffPending' },
-      };
-    case 'MELINDA_COLLAPSE_TRIGGER_ARMED':
-      return {
-        ...state,
-        playlist: {
-          ...state.playlist,
-          melindaArmedSectionId: action.sectionId,
-        },
-      };
-    case 'MELINDA_COLLAPSE_TRIGGER_FIRED':
-      return {
-        ...state,
-        playlist: {
-          ...state.playlist,
-          machine: 'loadingTrack',
-          currentTrackIndex: action.trackIndex,
-          melindaArmedSectionId: undefined,
-          melindaActiveSectionId: action.sectionId,
-        },
-      };
-    case 'PLAYLIST_HANDOFF_TO_VIDEOS_REQUESTED':
-      return {
-        ...state,
-        playlist: {
-          ...state.playlist,
-          machine: 'handoffPending',
-          melindaHandoffSectionId: action.sectionId,
-        },
-      };
-    case 'POST_REFRESH_CONTROL_NORMALIZED':
-      return {
-        ...state,
-        playlist: {
-          ...state.playlist,
-          machine: state.playlist.machine === 'restrictedLockout' ? 'paused' : state.playlist.machine,
-          isRestrictedActive: false,
-          controlsNormalizedAfterRefresh: true,
-        },
-      };
-    case 'PLAYLIST_RESTRICTED_TOGGLED':
-      return {
-        ...state,
-        playlist: {
-          ...state.playlist,
-          machine: action.active ? 'restrictedLockout' : 'paused',
-          isRestrictedActive: action.active,
-        },
       };
     case 'VIDEO_WATCH_REQUESTED':
       return {
@@ -215,26 +167,6 @@ export function profileFlowReducer(
         ...state,
         video: { ...state.video, playbackPhase: action.phase, machine: 'watching' },
       };
-    case 'VIDEO_HANDOFF_COUNTDOWN_STARTED':
-      return {
-        ...state,
-        video: {
-          ...state.video,
-          machine: 'handoffCountdown',
-          isDelayOverlayVisible: true,
-          countdownValue: action.countdown,
-        },
-      };
-    case 'VIDEO_HANDOFF_COUNTDOWN_UPDATED':
-      return {
-        ...state,
-        video: {
-          ...state.video,
-          isDelayOverlayVisible: action.visible,
-          countdownValue: action.countdown,
-          machine: action.visible ? 'handoffCountdown' : state.video.machine,
-        },
-      };
     case 'VIDEO_HIDDEN':
       return {
         ...state,
@@ -243,8 +175,47 @@ export function profileFlowReducer(
           machine: 'hidden',
           isWatching: false,
           isPlayerReady: false,
-          isDelayOverlayVisible: false,
-          countdownValue: null,
+        },
+      };
+    case 'CONSENT_STATUS_LOADED':
+      return {
+        ...state,
+        consent: {
+          ...state.consent,
+          hasAcceptedTerms: action.hasAcceptedTerms,
+          machine: action.hasAcceptedTerms ? 'granted' : 'required',
+          gateSource: action.hasAcceptedTerms ? undefined : state.consent.gateSource,
+          pendingIntent: action.hasAcceptedTerms ? undefined : state.consent.pendingIntent,
+        },
+      };
+    case 'CONSENT_PROMPT_REQUESTED':
+      return {
+        ...state,
+        consent: {
+          ...state.consent,
+          machine: state.consent.hasAcceptedTerms ? 'granted' : 'required',
+          gateSource: state.consent.hasAcceptedTerms ? undefined : action.source,
+          pendingIntent: state.consent.hasAcceptedTerms
+            ? undefined
+            : { source: action.source, actionId: action.actionId },
+        },
+      };
+    case 'CONSENT_ACCEPTED':
+      return {
+        ...state,
+        consent: {
+          ...state.consent,
+          machine: 'granted',
+          hasAcceptedTerms: true,
+        },
+      };
+    case 'CONSENT_PENDING_INTENT_CLEARED':
+      return {
+        ...state,
+        consent: {
+          ...state.consent,
+          gateSource: undefined,
+          pendingIntent: undefined,
         },
       };
     case 'MEDIA_SOURCE_ACTIVATED':
@@ -253,32 +224,6 @@ export function profileFlowReducer(
         media: action.source
           ? { machine: 'sourceActive', activeSource: action.source }
           : { machine: 'none' },
-      };
-    case 'RELOAD_TIMER_STARTED':
-      return {
-        ...state,
-        reloadTimer: {
-          machine: 'running',
-          durationMs: action.durationMs,
-          startedAtMs: action.startedAtMs,
-        },
-      };
-    case 'RELOAD_TIMER_COMPLETED':
-      return {
-        ...state,
-        reloadTimer: {
-          ...state.reloadTimer,
-          machine: 'completed',
-        },
-      };
-    case 'RELOAD_TIMER_CLEARED':
-      return {
-        ...state,
-        reloadTimer: {
-          machine: 'idle',
-          durationMs: 0,
-          startedAtMs: null,
-        },
       };
     case 'OVERRIDE_PARSE_STARTED':
       return {

@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { motion } from "framer-motion";
+import React, { useEffect, useState } from "react";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { PlaylistAudioPlayer } from "../../../ui/players/PlaylistAudioPlayer";
 import type { BlogData } from "../../blog/data/posts";
@@ -14,6 +14,8 @@ interface HeroSectionProps {
 export const HeroSection: React.FC<HeroSectionProps> = ({ featuredBlog }) => {
   const dispatch = useProfileFlowDispatch();
   const { override } = useProfileFlowState();
+  const [isNarrativeExpanded, setIsNarrativeExpanded] = useState(false);
+  const prefersReducedMotion = useReducedMotion();
 
   useEffect(() => {
     if (override.value.playlist.track !== undefined) {
@@ -22,14 +24,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ featuredBlog }) => {
         trackIndex: Math.max(0, override.value.playlist.track - 1),
       });
     }
-    if (override.value.playlist.autoplay) {
-      dispatch({ type: "PLAYLIST_PLAYING" });
-    }
-  }, [
-    dispatch,
-    override.value.playlist.autoplay,
-    override.value.playlist.track,
-  ]);
+  }, [dispatch, override.value.playlist.track]);
 
   return (
     <section
@@ -129,64 +124,146 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ featuredBlog }) => {
             </div>
             <p className="text-base sm:text-lg md:text-xl text-gray-300 leading-relaxed">
               <span className="block mb-4">
-                <span className="font-semibold text-yellow-500">
-                  Your journey begins with a
-                </span>{" "}
-                <span className="font-semibold text-green-200">
-                  single U.S. dollar
+                <span className="relative inline-block pb-2">
+                  <span className="font-semibold text-yellow-500">Your journey begins with a </span>
+                  {isNarrativeExpanded && (
+                    <span className="font-semibold text-green-200">single U.S. dollar.</span>
+                  )}
+                  {!isNarrativeExpanded && (
+                    <span className="block sm:inline whitespace-nowrap">
+                      <span
+                        aria-hidden="true"
+                        className="pointer-events-none relative inline-block w-0 align-baseline"
+                      >
+                        <span className="absolute left-1/2 top-1/2 h-0 w-0 -translate-x-1/2 -translate-y-1/2" />
+                      </span>
+                      <span className="font-semibold text-yellow-500"> Deterministic Truth</span>.
+                    </span>
+                  )}
+
+                  <button
+                    type="button"
+                    aria-expanded={isNarrativeExpanded}
+                    aria-controls="hero-narrative-middle-copy"
+                    onClick={() => setIsNarrativeExpanded((prev) => !prev)}
+                    className="absolute inset-0 z-20 bg-transparent focus:outline-none focus-visible:ring-2 focus-visible:ring-yellow-400/80 focus-visible:ring-offset-2 focus-visible:ring-offset-black/60"
+                  >
+                    <span className="sr-only">
+                      {isNarrativeExpanded ? "Collapse narrative details" : "Expand narrative details"}
+                    </span>
+                  </button>
+
+                  <span aria-hidden="true" className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-[8px]">
+                    {[-12, -2, 8].map((dotOffset, segmentIndex) => (
+                      <motion.span
+                        key={segmentIndex}
+                        className="absolute bg-yellow-500"
+                        style={{ top: 0 }}
+                        animate={
+                          isNarrativeExpanded
+                            ? {
+                                left: `${segmentIndex * 33.333}%`,
+                                x: 0,
+                                width: "33.5%",
+                                height: "2px",
+                                borderRadius: "999px",
+                                y: 6,
+                                opacity: 0.92,
+                              }
+                            : prefersReducedMotion
+                              ? {
+                                  left: "50%",
+                                  x: dotOffset,
+                                  width: "6px",
+                                  height: "6px",
+                                  borderRadius: "999px",
+                                  y: 0,
+                                  opacity: 0.82,
+                                }
+                              : {
+                                  left: [
+                                    "50%",
+                                    "50%",
+                                    `${segmentIndex * 33.333}%`,
+                                    `${segmentIndex * 33.333}%`,
+                                    "50%",
+                                  ],
+                                  x: [dotOffset, dotOffset, 0, 0, dotOffset],
+                                  width: ["6px", "6px", "33.5%", "33.5%", "6px"],
+                                  height: ["6px", "6px", "2px", "2px", "6px"],
+                                  borderRadius: ["999px", "999px", "999px", "999px", "999px"],
+                                  y: [0, 0, 6, 6, 0],
+                                  opacity: [0.74, 0.74, 0.92, 0.92, 0.74],
+                                }
+                        }
+                        transition={
+                          isNarrativeExpanded || prefersReducedMotion
+                            ? { duration: 0.35, ease: [0.22, 1, 0.36, 1] }
+                            : {
+                                duration: 5,
+                                times: [0, 0.2, 0.5, 0.7, 1],
+                                ease: [0.42, 0, 0.58, 1],
+                                repeat: Infinity,
+                              }
+                        }
+                      />
+                    ))}
+                  </span>
                 </span>
-                .
               </span>
 
-              <span className="block mb-4">
-                <strong className="font-semibold text-white">
-                  The Human Dollar (THD)
-                </strong>{" "}
-                is the world's first metabolic digital bartering chip system. It is not an asset you
-                hoard; it is an asset that lives, breathes, and expires based on
-                the velocity of your attention. Ownership is mathematically
-                restricted to exactly one container per unique identity. You can
-                step into this new economic reality today with a maximum initial
-                deposit of exactly <span className="font-semibold">$1 USD</span>
-                .
-              </span>
+              <AnimatePresence initial={false}>
+                {isNarrativeExpanded && (
+                  <motion.span
+                    id="hero-narrative-middle-copy"
+                    className="block overflow-hidden"
+                    initial={prefersReducedMotion ? { opacity: 1, height: "auto" } : { opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: "auto" }}
+                    exit={prefersReducedMotion ? { opacity: 1, height: "auto" } : { opacity: 0, height: 0 }}
+                    transition={
+                      prefersReducedMotion
+                        ? { duration: 0 }
+                        : { duration: 0.62, ease: [0.16, 1, 0.3, 1] }
+                    }
+                  >
+                    <span className="block mb-4">
+                      <strong className="font-semibold text-white">The Human Dollar (THD)</strong> is the
+                      world's first metabolic digital bartering chip system. It is not an asset you hoard; it
+                      is an asset that lives, breathes, and expires based on the velocity of your attention.
+                      Ownership is mathematically restricted to exactly one container per unique identity. You
+                      can step into this new economic reality today with a maximum initial deposit of exactly{" "}
+                      <span className="font-semibold">$1 USD</span>.
+                    </span>
 
-              <span className="block mb-4">
-                Your access key is the{" "}
-                <strong className="font-semibold text-fuchsia-200">
-                  CryptoFabric App
-                </strong>
-                . By combining a simple biometric face scan with a password,
-                CryptoFabric uses Plaid and Stripe to automatically provision
-                your Web3 wallet, your THD container, and your genesis block
-                entirely under the hood.
-              </span>
+                    <span className="block mb-4">
+                      Your access key is the{" "}
+                      <strong className="font-semibold text-fuchsia-200">CryptoFabric App</strong>. By
+                      combining a simple biometric face scan with a password, CryptoFabric uses Plaid and
+                      Stripe to automatically provision your Web3 wallet, your THD container, and your genesis
+                      block entirely under the hood.
+                    </span>
 
-              <span className="block mb-4">
-                This app is your direct entry point into the{" "}
-                <strong className="font-semibold text-cyan-200">
-                  HashWeb.Network
-                </strong>
-                —a living, self-healing internet where data owns itself and
-                truth is a mathematical inevitability. This is not a traditional
-                blockchain; it is a directed acyclic graph where the runtime
-                itself is the chain.
-              </span>
+                    <span className="block mb-4">
+                      This app is your direct entry point into the{" "}
+                      <strong className="font-semibold text-cyan-200">HashWeb.Network</strong>—a living,
+                      self-healing internet where data owns itself and truth is a mathematical inevitability.
+                      This is not a traditional blockchain; it is a directed acyclic graph where the runtime
+                      itself is the chain.
+                    </span>
 
-              <span className="block mb-4">
-                The entire ecosystem is powered by{" "}
-                <strong className="font-semibold text-sky-200">
-                  Zeroth Theory
-                </strong>
-                , the immutable computational physics that proves stagnation is
-                death, and velocity is wealth.
-              </span>
+                    <span className="block mb-4">
+                      The entire ecosystem is powered by{" "}
+                      <strong className="font-semibold text-sky-200">Zeroth Theory</strong>, the immutable
+                      computational physics that proves stagnation is death, and velocity is wealth.
+                    </span>
 
-              <span className="block mb-4">
-                <span className="font-semibold text-amber-200">Welcome to </span>
-                <span className="font-semibold text-amber-400">Deterministic Truth</span>
-                .
-              </span>
+                    <span className="block mb-4">
+                      <span className="font-semibold text-amber-200">Welcome to </span>
+                      <span className="font-semibold text-amber-400">Deterministic Truth</span>.
+                    </span>
+                  </motion.span>
+                )}
+              </AnimatePresence>
             </p>
           </div>
         </div>
