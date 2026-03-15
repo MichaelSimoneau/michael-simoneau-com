@@ -16,6 +16,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ featuredBlog }) => {
   const dispatch = useProfileFlowDispatch();
   const { override } = useProfileFlowState();
   const [isNarrativeExpanded, setIsNarrativeExpanded] = useState(false);
+  const [isAmaExpanded, setIsAmaExpanded] = useState(false);
   const prefersReducedMotion = useReducedMotion();
 
   useEffect(() => {
@@ -352,10 +353,51 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ featuredBlog }) => {
         viewport={{ once: true }}
         transition={{ duration: 0.8, delay: 0.45 }}
       >
-        <AmaEmbedded
-          title="Ask About Michael"
-          subtitle="Get grounded answers from the public text and audio transcript corpus."
-        />
+        <div className="bg-gray-900/60 backdrop-blur-sm border border-amber-800/30 rounded-xl overflow-hidden">
+          <button
+            type="button"
+            aria-expanded={isAmaExpanded}
+            aria-controls="hero-ama-panel"
+            onClick={() => setIsAmaExpanded((prev) => !prev)}
+            className="w-full px-5 py-4 text-left transition-colors hover:bg-white/5 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400/80 focus-visible:ring-offset-2 focus-visible:ring-offset-black/70"
+          >
+            <div className="flex items-center justify-between gap-4">
+              <div>
+                <h3 className="text-base sm:text-lg font-semibold text-cyan-300">
+                  Ask About Michael
+                </h3>
+                <p className="text-sm text-gray-300">
+                  Click to {isAmaExpanded ? "collapse" : "expand"} the AMA panel.
+                </p>
+              </div>
+              <motion.span
+                aria-hidden="true"
+                className="text-xl text-cyan-300"
+                animate={{ rotate: isAmaExpanded ? 180 : 0 }}
+                transition={{ duration: prefersReducedMotion ? 0 : 0.2 }}
+              >
+                ▾
+              </motion.span>
+            </div>
+          </button>
+          <AnimatePresence initial={false}>
+            {isAmaExpanded && (
+              <motion.div
+                id="hero-ama-panel"
+                initial={prefersReducedMotion ? { opacity: 1, height: "auto" } : { opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: "auto" }}
+                exit={prefersReducedMotion ? { opacity: 1, height: "auto" } : { opacity: 0, height: 0 }}
+                transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.28, ease: "easeOut" }}
+                className="px-5 pb-5"
+              >
+                <AmaEmbedded
+                  title="Ask About Michael"
+                  subtitle="Get grounded answers from the public text and audio transcript corpus."
+                />
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
       </motion.div>
 
       <motion.div

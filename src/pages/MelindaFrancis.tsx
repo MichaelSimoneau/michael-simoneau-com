@@ -6,6 +6,7 @@ import { PlaylistAudioPlayer } from "../ui/players/PlaylistAudioPlayer";
 import { melindaFrancisPlaylist } from "../data/playlists";
 import { MARCH_17_2026_10_00_AM } from "src/hooks/useBeforeAndAfter";
 import { AudioPlayer } from "src/ui/players/AudioPlayer";
+import { AmaEmbedded } from "../features/ama/components";
 import { parseInlineMarkdown } from "../utils/markdown";
 
 type MelindaContentBlock =
@@ -225,6 +226,12 @@ export const MelindaFrancis: React.FC = () => {
                 <p className="text-sm text-slate-500 text-center mt-0 mb-3">
                   * Remember, weekends don't count! *
                 </p>
+                <div className="mb-6">
+                  <AmaEmbedded
+                    title="Ask About Melinda Francis"
+                    subtitle="Get grounded answers from the public text and audio transcript corpus."
+                  />
+                </div>
                 {contentBlocks.map((block, index) => {
                   const key = `${block.type}-${index.toString()}`;
                   const isApologyParagraph =
