@@ -378,21 +378,6 @@ body {
   background: linear-gradient(165deg, rgba(16, 29, 40, 0.92), rgba(8, 17, 24, 0.95));
 }
 
-.ama-lapel-pin-dot {
-  position: absolute;
-  left: 6px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 7px;
-  height: 7px;
-  border-radius: 9999px;
-  background: #67e8f9;
-  box-shadow:
-    0 0 0 1px rgba(5, 35, 48, 0.9),
-    0 0 8px rgba(103, 232, 249, 0.75);
-  pointer-events: none;
-}
-
 .ama-lapel-pin-text,
 .ama-lapel-pin-label {
   position: relative;
@@ -404,7 +389,7 @@ body {
 
 .ama-lapel-pin-text {
   letter-spacing: 0.08em;
-  margin-left: 6px;
+  margin-left: 0;
 }
 
 .ama-lapel-pin-label {
