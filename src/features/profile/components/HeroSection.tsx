@@ -146,15 +146,15 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ featuredBlog }) => {
                         : { duration: 0.2, ease: "easeOut" }
                     }
                   >
-                    Your journey begins with a &nbsp;
+                    Your journey begins with a {"\u00A0"}
                   </motion.span>
                   {isNarrativeExpanded && (
                     <div className="flex items-center gap-1">
                       <span className="font-semibold text-green-200">
-                        &nbsp;single&nbsp;U.S.&nbsp;dollar.&nbsp;
+                        {"\u00A0single\u00A0U.S.\u00A0dollar.\u00A0"}
                       </span>
                       <span className="font-semibold text-green-200">
-                        $1&nbsp;USD.
+                        {"$1\u00A0USD."}
                       </span>
                     </div>
                   )}
@@ -182,7 +182,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ featuredBlog }) => {
                             : { duration: 0.2, ease: "easeOut" }
                         }
                       >
-                        {" Deterministic&nbsp;Truth"}
+                        {" Deterministic\u00A0Truth"}
                       </motion.span>
                       .
                     </span>
