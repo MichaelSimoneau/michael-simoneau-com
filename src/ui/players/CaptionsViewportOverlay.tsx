@@ -3,7 +3,7 @@ import { ChevronDown, ChevronUp } from 'lucide-react';
 import { useCaptionsViewport } from './CaptionsViewportProvider';
 
 const START_DELAY_SECONDS = 1.0;
-const ACCELERATION_WINDOW_SECONDS = 5.0;
+const ACCELERATION_WINDOW_SECONDS = 14.0;
 const BASE_SCROLL_DAMPING = 0.46;
 const BASE_SPEED_OFFSET = 0.72;
 

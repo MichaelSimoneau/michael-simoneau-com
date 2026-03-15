@@ -10,11 +10,11 @@
  Right. So, my position here is that the public membrane is a masterful, entirely necessary translation layer.
  It's a protective skin, basically, that allows this alien deterministic physics engine to survive and thrive within the messy regulatory and psychological realities of our current world.
  And I'll argue the opposite. I argue that introducing legal fictions, semantic workarounds, and fiat-pegged bedrocks creates a fatal paradox.
- It irreversibly compromises the absolute mathematical truth and that unyielding headless server neutrality that the Xeroth architecture fundamentally claims to represent.
+ It irreversibly compromises the absolute mathematical truth and that unyielding headless server neutrality that the Zeroth architecture fundamentally claims to represent.
  Okay. To really audit this, we have to start by looking at the environment the system is actually being born into.
  Because, let me frame why this membrane is just an absolute necessity.
  Go ahead.
- So, the Xeroth virtual machine, the ZVM, operates on a completely different physical and mathematical plane than literally anything we currently interact with in legacy finance.
+ So, the Zeroth virtual machine, the ZVM, operates on a completely different physical and mathematical plane than literally anything we currently interact with in legacy finance.
  Yeah. It's radical.
  It is.
  The architect's logs extensively detail a system governed by concepts like rank-3 tensor reality, negative space analysis, base-3 half-lives.
