@@ -41,6 +41,10 @@ function CopyrightNotice() {
       aria-label="Copyright"
     >
       <p className="app-footer-content">
+        <a href="/terms" className="app-footer-link">
+          Terms
+        </a>
+        <span>|</span>
         © 2026{' '}
         <a
           href="https://MichaelSimoneau.com"
@@ -48,6 +52,10 @@ function CopyrightNotice() {
           rel="noopener noreferrer"
         >
           Michael Simoneau
+        </a>
+        <span>|</span>
+        <a href="/privacy" className="app-footer-link">
+          Privacy
         </a>
       </p>
     </footer>

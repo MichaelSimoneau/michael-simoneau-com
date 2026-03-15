@@ -224,7 +224,7 @@ export const MelindaFrancis: React.FC = () => {
                   <div className="flex justify-center mb-6">
                     <AudioPlayer
                       title="Google's Latest AI Analyzed Michael Simoneau's Behavior"
-                      src="/audio/2026-03-15/Google's_Latest_AI_Analyzed_Michael_Simoneau's_Behavior.mp3"
+                      src="/audio/2026-03-15/Michael_Simoneau_s_72_Hour_Clinical_Standoff.mp3"
                     />
                   </div>
                 </motion.div>

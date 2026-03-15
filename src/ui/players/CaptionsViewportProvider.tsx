@@ -22,12 +22,8 @@ interface CaptionsViewportContextValue {
 
 const CaptionsViewportContext = createContext<CaptionsViewportContextValue | undefined>(undefined);
 
-const clamp = (value: number, min: number, max: number): number => {
-  return Math.min(max, Math.max(min, value));
-};
-
 const normalizeSpeedCoefficient = (value: number): number => {
-  return Math.round(clamp(value, -1, 1) * 10) / 10;
+  return Math.round(value * 10) / 10;
 };
 
 const getDesktopDefaultEnabled = (): boolean => {
