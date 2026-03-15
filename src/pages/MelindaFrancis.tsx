@@ -214,11 +214,25 @@ export const MelindaFrancis: React.FC = () => {
                 <p className="text-sm text-slate-500 text-center mt-0 mb-3">
                   * Remember, weekends don't count! *
                 </p>
+                <hr className="mt-8 mb-2 border-t border-cyan-900/60 w-[72%] mx-auto" />
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.8, delay: 0.3 }}
+                >
+                  <div className="flex justify-center mb-6">
+                    <AudioPlayer
+                      title="Google's Latest AI Analyzed Michael Simoneau's Behavior"
+                      src="/audio/2026-03-15/Google's_Latest_AI_Analyzed_Michael_Simoneau's_Behavior.mp3"
+                    />
+                  </div>
+                </motion.div>
+                <hr className="mt-2 mb-6 border-t border-cyan-900/60 w-[72%] mx-auto" />
                 {contentBlocks.map((block, index) => {
                   const key = `${block.type}-${index.toString()}`;
                   return (
                     <React.Fragment key={key}>
-                      <hr className="border-t border-[#0b1a3a] my-4" />
                       {block.type === "heading" ? (
                         block.level === 1 ? (
                           <h2
@@ -236,7 +250,10 @@ export const MelindaFrancis: React.FC = () => {
                           />
                         )
                       ) : null}
-                      {block.type === "paragraph" ? (
+                      {block.type === "paragraph" &&
+                      block.content?.trim() === "---" ? (
+                        <hr className="border-t border-[#0b1a3a] my-4" />
+                      ) : block.type === "paragraph" ? (
                         <p
                           className="text-base text-gray-300 leading-relaxed mb-3"
                           dangerouslySetInnerHTML={{
@@ -259,20 +276,6 @@ export const MelindaFrancis: React.FC = () => {
                     </React.Fragment>
                   );
                 })}
-                <hr className="my-6 border-t border-cyan-900/60 w-[72%] mx-auto" />
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.8, delay: 0.3 }}
-                >
-                  <div className="flex justify-center mb-6">
-                    <AudioPlayer
-                      title="Google's Latest AI Analyzed Michael Simoneau's Behavior"
-                      src="/audio/2026-03-15/Google's_Latest_AI_Analyzed_Michael_Simoneau's_Behavior.mp3"
-                    />
-                  </div>
-                </motion.div>
                 <hr className="my-6 border-t border-cyan-900/60 w-[72%] mx-auto" />
                 <div className="mb-6">
                   <AmaEmbedded

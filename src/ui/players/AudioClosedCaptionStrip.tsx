@@ -17,6 +17,10 @@ const normalizeSpeedCoefficient = (value: number): number => {
   return Math.round(clamp(value, -1, 1) * 10) / 10;
 };
 
+const START_DELAY_SECONDS = 0.8;
+const ACCELERATION_WINDOW_SECONDS = 1.5;
+const BASE_SPEED_DAMPING = 0.35;
+
 export const AudioClosedCaptionStrip: React.FC<AudioClosedCaptionStripProps> = ({
   audioRef,
   audioSrc,
@@ -32,7 +36,6 @@ export const AudioClosedCaptionStrip: React.FC<AudioClosedCaptionStripProps> = (
 
   const isTranscriptMissing = status === 'missing' || status === 'error';
   const speedMultiplier = useMemo(() => 1 + speedCoefficient, [speedCoefficient]);
-  const effectiveSpeedMultiplier = useMemo(() => speedMultiplier * 0.5, [speedMultiplier]);
 
   useEffect(() => {
     const viewport = viewportRef.current;
@@ -79,6 +82,10 @@ export const AudioClosedCaptionStrip: React.FC<AudioClosedCaptionStripProps> = (
       }
 
       const baseProgress = clamp(audio.currentTime / audio.duration, 0, 1);
+      const elapsedSinceStart = Math.max(0, audio.currentTime - START_DELAY_SECONDS);
+      const rampPhase = clamp(elapsedSinceStart / ACCELERATION_WINDOW_SECONDS, 0, 1);
+      const rampFactor = rampPhase * rampPhase;
+      const effectiveSpeedMultiplier = speedMultiplier * BASE_SPEED_DAMPING * rampFactor;
       const targetProgress = audio.paused
         ? baseProgress
         : clamp((audio.currentTime + deltaSeconds * effectiveSpeedMultiplier) / audio.duration, 0, 1);
@@ -92,7 +99,19 @@ export const AudioClosedCaptionStrip: React.FC<AudioClosedCaptionStripProps> = (
     return () => {
       window.cancelAnimationFrame(animationFrameId);
     };
-  }, [audioRef, effectiveSpeedMultiplier, enabled, transcript, travelDistancePx]);
+  }, [audioRef, enabled, speedMultiplier, transcript, travelDistancePx]);
+
+  const increaseSpeed = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    event.stopPropagation();
+    setSpeedCoefficient((previous) => normalizeSpeedCoefficient(previous + 0.1));
+  };
+
+  const decreaseSpeed = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    event.stopPropagation();
+    setSpeedCoefficient((previous) => normalizeSpeedCoefficient(previous - 0.1));
+  };
 
   const captionText = useMemo(() => {
     if (status === 'loading' || status === 'idle') {
@@ -110,7 +129,7 @@ export const AudioClosedCaptionStrip: React.FC<AudioClosedCaptionStripProps> = (
 
   return (
     <div
-      className={`rounded-md border border-white/15 bg-black/75 px-3 py-2 shadow-[inset_0_0_18px_rgba(255,255,255,0.06)] ${
+      className={`fixed bottom-4 left-1/2 z-[140] w-[72vw] max-w-[72vw] -translate-x-1/2 rounded-md border border-white/15 bg-black/75 px-3 py-2 shadow-[inset_0_0_18px_rgba(255,255,255,0.06)] ${
         className ?? ''
       }`}
       aria-live="off"
@@ -132,7 +151,8 @@ export const AudioClosedCaptionStrip: React.FC<AudioClosedCaptionStripProps> = (
           <button
             type="button"
             aria-label="Increase caption scroll speed"
-            onClick={() => setSpeedCoefficient((previous) => normalizeSpeedCoefficient(previous + 0.1))}
+            onClick={increaseSpeed}
+            onPointerDown={(event) => event.stopPropagation()}
             className="rounded-sm p-0.5 text-gray-300 transition-colors hover:text-white"
           >
             <ChevronUp className="h-3 w-3" />
@@ -140,7 +160,8 @@ export const AudioClosedCaptionStrip: React.FC<AudioClosedCaptionStripProps> = (
           <button
             type="button"
             aria-label="Decrease caption scroll speed"
-            onClick={() => setSpeedCoefficient((previous) => normalizeSpeedCoefficient(previous - 0.1))}
+            onClick={decreaseSpeed}
+            onPointerDown={(event) => event.stopPropagation()}
             className="rounded-sm p-0.5 text-gray-300 transition-colors hover:text-white"
           >
             <ChevronDown className="h-3 w-3" />

@@ -265,6 +265,12 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({
   const [activeMelindaSectionId, setActiveMelindaSectionId] = useState<string | null>(null);
   const [isCaptionsEnabled, setIsCaptionsEnabled] = useState(false);
 
+  useEffect(() => {
+    if (typeof window !== 'undefined' && window.innerWidth >= 1024) {
+      setIsCaptionsEnabled(true);
+    }
+  }, []);
+
   // Flag to auto-play after a deliberate track change (skip/select)
   const shouldAutoPlay = useRef(false);
 

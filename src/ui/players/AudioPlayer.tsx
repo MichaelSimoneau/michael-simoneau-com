@@ -30,6 +30,12 @@ export const AudioPlayer: React.FC<AudioPlayerProps> = ({ src, title = 'Zeroth V
   const [isCaptionsEnabled, setIsCaptionsEnabled] = useState(false);
 
   useEffect(() => {
+    if (typeof window !== 'undefined' && window.innerWidth >= 1024) {
+      setIsCaptionsEnabled(true);
+    }
+  }, []);
+
+  useEffect(() => {
     const audio = audioRef.current;
     if (!audio) return;
 
