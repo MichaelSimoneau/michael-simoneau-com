@@ -151,11 +151,11 @@ That signal goes from your phone through the cloud down to the data plane. That 
 I like the analogy in the document for this. It calls it the remotec controlled laboratory.
 It's perfect, isn't it? You, the user, are holding this sleek, simple tablet, the Firebase Cloud app, but the actual heavy lifting, the cryptographic reactor, is running safely in your basement.
 So, you get the convenience of a modern web 2.0 interface, but you retain the sovereignty and ownership of the actual hardware.
-And this is key. While this machine is chugging away, earning you pennies from Ethereum, it is also running the Xeroth VM. the Xeroth virtual machine.
+And this is key. While this machine is chugging away, earning you pennies from Ethereum, it is also running the Zeroth VM. the Zeroth virtual machine.
 The ghost in the machine.
 And this brings us to section three of the dive. The ghost in the machine. Because that box in the garage isn't just a simple calculator for Ethereum. It's designed to be the first cell of a new organism.
 Yes. And the architecture documents, especially V3.10 V3 bybioplan. MD are very specific about this biological analogy. They talk about separating the mind and the body of this system.
-Okay, mind and body. Again, with the bi ical terms for a computer network. Let's break that down. What is the mind of the Xerof VM?
+Okay, mind and body. Again, with the bi ical terms for a computer network. Let's break that down. What is the mind of the Zeroth VM?
 The mind is the logic. It's a set of simple text files that end in the extension.0ero.
 Okay,
 these files contain the lies of physics for this new digital world. They define the trinity math we talked about. They define how value decays. They define the rules of reality for the system. And importantly, these files are static. They are the DNA. DNA doesn't do anything on its own. It just contains the instruction. Just the blueprint and the body. What's the body?
@@ -185,7 +185,7 @@ And if it does, the transaction is approved. If not, it's rejected at the source
 It creates consensus by collapsing all the possibilities down to the single verifiable truth. Rather than creating truth through a massive competition of energy expenditure,
 oh, no miners, no gas fees, no massive energy waste,
 just math-checking math. It allows the network to be incredibly lightweight and efficient.
-Okay, so we have the philosophy, the trinity, we have the hardware, the garage rig, we have the operating system, the Xerof VM. Now, we need the fuel. We need to talk about the actual money,
+Okay, so we have the philosophy, the trinity, we have the hardware, the garage rig, we have the operating system, the Zeroth VM. Now, we need the fuel. We need to talk about the actual money,
 the asset itself.
 This brings us to section four, the atom of the hasheb. The documents talk about the Gemini token, and I have to say this is where the proposal gets really radical. This isn't just a digital coin. It's a complex data structure.
 It really is the core innovation of the whole system in Bitcoin. or Ethereum. A token is just a balance entry in a global ledger. It's a number in a spreadsheet cell. Alice has five coins. That's it.
@@ -236,7 +236,7 @@ At the same time, two people across the room are having a completely separate co
 No, of course not. They're all happening at the same time in parallel.
 They happen in parallel. On the hasheb, every user runs their own sovereign chain. My chain starts with my own genesis block. Your chain starts with yours. I don't need the whole world to stop and validate my transaction with you. I just need to validate it with you.
 So instead of one giant global ledger that everyone has to write to, you have billions of tiny personal ledgers that are constantly weaving together like a spiderweb.
-Precisely. Yeah, that is the topology. But, and this is the absolutely critical part that makes it all work. Even though we are on our own separate chains, we are all running the exact same Xeroth VM. We are all obeying the same immutable laws of physics. So, when I send you a Gemini token from my chain to yours, your machine knows exactly how to verify it because we speak the same fundamental mathematical language.
+Precisely. Yeah, that is the topology. But, and this is the absolutely critical part that makes it all work. Even though we are on our own separate chains, we are all running the exact same Zeroth VM. We are all obeying the same immutable laws of physics. So, when I send you a Gemini token from my chain to yours, your machine knows exactly how to verify it because we speak the same fundamental mathematical language.
 This sounds infinitely faster and more scalable. But what about storage? We talked about the grandma problem, but there's also the copypaste problem of the internet.
 The bloat.
 The bloat. If I want to send you a 4K movie file right now, I have to upload gigabytes of data to a server and then you have to download gigabytes of data. It takes time, bandwidth, and tons of storage on both ends. Does the hasheb solve that?

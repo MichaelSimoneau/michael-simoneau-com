@@ -102,7 +102,7 @@ Wait, explain the membrane analogy. I'm trying to picture this.
 Okay. Think of a cell, a biological cell. It has a membrane that lets nutrients in and waste out, but it protects the delicate machinery inside the cell from the chaos of the outside world.
 Right? It's a filter. It's a filter. In this architecture, Ethereum is just the place where the system outputs its final results. It's the cashier at the end of the assembly line.
 So, the brain does all the thinking, all the hard work, and then just hands the final receipt to Ethereum to stamp.
-Exactly. And here's the asymmetric part of the dependency. If Ethereum goes down, which happens, or it gets super clogged, the Xeroth system just waits.
+Exactly. And here's the asymmetric part of the dependency. If Ethereum goes down, which happens, or it gets super clogged, the Zeroth system just waits.
 It doesn't crash.
 Nope, it doesn't crash. It holds the transaction in its own memory. It continues to process things locally. It basically treats the blockchain blockage as bad weather. You just wait for the rain to stop and then you go outside.
 But what if the zero system itself crashes? What if the factory has a power outage?
@@ -147,7 +147,7 @@ zero is truth. It is the resolution. It's the moment of convergence where the pr
 This sounds very poetic. But how does this actually work in a computer? We aren't building a poetry engine here, right? We're building a state machine.
 We are building a validation engine. And it's actually very practical. Think about it this way. In a normal computer, you execute a command. You say, "Do this,
 right? Imperative."
-In the Xeron system, the computer spawns a dream. It's literally a subprocess running in that negative one state. Yeah.
+In the Zeroth system, the computer spawns a dream. It's literally a subprocess running in that negative one state. Yeah.
 And it asks a question. It says, "What if I did this? Does it balance the books? Does it fit with all of known history?"
 So it runs a simulation first every single time.
 It runs a simulation in this negative space. And only when that dream converges with history. Only when the math all balances out to zero does it become truth and get written to the ledger as a one.

@@ -1,6 +1,6 @@
 Welcome back to the deep dive. So today we're going to try and strip away, you know, all the hype around web 3.
 Yeah. The apes, the speculation, the whole casino aspect of it.
-Exactly. And look at the actual architecture of what might come next. We're digging into the hasheb or web 4, specifically Michael Seino's Xeroth protocol.
+Exactly. And look at the actual architecture of what might come next. We're digging into the hasheb or web 4, specifically Michael Seino's Zeroth protocol.
 It's a uh a complete paradigm shift really. The sources frame it as moving away from the data we just rent in web 2.0
 and past the purely speculative assets of web 3,
 right? It's a system where data itself has um intrinsic mathematically verifiable worth. It's about turning a file into a digital organism.
@@ -34,7 +34,7 @@ and observation is oxygen. This is where it gets almost biological.
 How so?
 Think about Bitcoin. If you lose your keys, those coins just sit there in a wallet forever. Static.
 A goose wallet. Yeah.
-In Xeroth, value phase base 3 decay. If data isn't being observed, if the network stops looking at it, its value literally rots away.
+In Zeroth, value phase base 3 decay. If data isn't being observed, if the network stops looking at it, its value literally rots away.
 You're kidding. So, if I have some valuable data and just sit on it,
 it decays towards zero. Then it gets pruned from the network.
 Wow. It forces the whole economy to be active.
