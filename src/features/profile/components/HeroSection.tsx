@@ -6,6 +6,7 @@ import type { BlogData } from "../../blog/data/posts";
 import { ChevronDown, ExternalLink } from "lucide-react";
 import { cleanPlaylist } from "../../../data/playlists";
 import { useProfileFlowDispatch, useProfileFlowState } from "../flow";
+import { AmaEmbedded } from "../../ama/components";
 
 interface HeroSectionProps {
   featuredBlog?: BlogData;
@@ -341,6 +342,19 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ featuredBlog }) => {
         <PlaylistAudioPlayer
           tracks={cleanPlaylist}
           defaultPlaylistTitle="Learn About Michael Simoneau"
+        />
+      </motion.div>
+
+      <motion.div
+        className="w-full max-w-4xl mx-auto z-10 mt-8"
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8, delay: 0.45 }}
+      >
+        <AmaEmbedded
+          title="Ask About Michael"
+          subtitle="Get grounded answers from the public text and audio transcript corpus."
         />
       </motion.div>
 

@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { InterviewButton } from './InterviewButton';
 import { interview1Data, interview2Data, interview3Data } from '../data/interviewData';
+import { AmaEmbedded } from '../../ama/components';
 
 const sectionWrapperClasses = 'py-12 md:py-20 px-4 relative min-h-screen flex flex-col items-center justify-center';
 
@@ -26,6 +27,12 @@ export const AIInterviewSection: React.FC = () => {
         <p className="text-gray-300 text-center text-lg max-w-xl mx-auto mb-8">
           A conversation about the journey in technology and problem-solving—from building a first computer at 12 to leading enterprise transformations. Three sessions: the foundation, the architecture, and the digital organism.
         </p>
+        <div className="mb-8">
+          <AmaEmbedded
+            title="Ask About The Interview"
+            subtitle="Use the transcript corpus to ask follow-up questions before diving into the sessions."
+          />
+        </div>
         <div className="flex flex-col gap-6 w-full">
           <div className="h-[230px] overflow-hidden min-w-0 w-full">
             <InterviewButton

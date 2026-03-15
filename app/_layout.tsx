@@ -5,6 +5,8 @@ import { ScrollProvider } from '../src/contexts/ScrollContext';
 import { CookieNotice } from '../src/layout/CookieNotice';
 import { ProfileFlowProvider } from '../src/features/profile/flow';
 import { BeforeAndAfterProvider } from '../src/hooks/useBeforeAndAfter';
+import { AmaLauncher } from '../src/features/ama/components';
+import { useErrorContextCapture } from '../src/features/ama/hooks';
 import '../src/index.css';
 
 const GA_MEASUREMENT_ID = 'G-58WTRZHT0B';
@@ -53,6 +55,7 @@ function CopyrightNotice() {
 
 export default function RootLayout() {
   useGoogleTag();
+  useErrorContextCapture();
 
   useEffect(() => {
     if (typeof document !== 'undefined') {
@@ -66,6 +69,7 @@ export default function RootLayout() {
         <ProfileFlowProvider>
           <BeforeAndAfterProvider>
             <CookieNotice />
+            <AmaLauncher />
             <div className="app-shell">
               <main className="app-main">
                 <Slot />

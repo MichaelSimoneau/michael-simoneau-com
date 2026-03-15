@@ -1,2 +1,4 @@
-/*    /index.html   200
+/audio/* /audio/:splat 200
+/*.txt /:splat.txt 200
 /*melinda* /melinda 200
+/*    /index.html   200

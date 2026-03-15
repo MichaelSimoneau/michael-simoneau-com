@@ -1,0 +1,24 @@
+ This is the brief on Michael Simeno's Protocol for Self-Sufficiency.
+ We're diving into the personal logs of Michael Simeno, a neurodivergent systems architect
+ who literally engineered a strict mathematical daily routine to manage his severe trauma triggers,
+ proving to authorities and the police that he can safely live on his own.
+ First, let's focus on his daily system for survival, what he calls his Zero Sudoku Protocol.
+ To bypass executive dysfunction, he logically breaks life down to ensure he walks, bathes
+ and washes his one cooking bowl to feed himself.
+ Too depressed to wash it?
+ Well, he just uses a paper plate as a failover so he doesn't starve.
+ What if maintaining your sanity is exactly like programming a server failover?
+ It's not laziness, you know, it's just dependency resolution.
+ Second, let's transition to his external support network.
+ He isn't completely isolated because he relies on Richard, his landlord and investor, as his logistician.
+ Richard helps him grab an Uber to the store so Michael can buy his own groceries with his disability income.
+ Now, you might ask, is relying on your landlord true independence?
+ Absolutely, because he's consciously delegating his weaknesses to a spotter to focus his energy elsewhere.
+ Finally, we need to cover his medical maintenance.
+ Despite having bad days where he just sleeps to reset his brain,
+ Michael strictly takes his prescribed meds every single day.
+ He manually tweaks just one specific medication based on his subjective risk of depression.
+ To the police, that might look erratic, right?
+ But honestly, it's actually a highly effective manual load balancer for his brain.
+ Michael hasn't just survived his mind.
+ He successfully coded a brilliant, highly functional operating system for living.

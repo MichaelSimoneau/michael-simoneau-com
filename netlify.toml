@@ -19,6 +19,21 @@
   status = 200
 
 [[redirects]]
+  from = "/audio/*"
+  to = "/audio/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/*.txt"
+  to = "/:splat.txt"
+  status = 200
+
+[[redirects]]
+  from = "/*melinda*"
+  to = "/melinda"
+  status = 200
+
+[[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200

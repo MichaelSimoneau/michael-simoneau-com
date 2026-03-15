@@ -19,6 +19,8 @@ class CookieService {
   private readonly MEDIA_TERMS_REWARD_ELIGIBLE_COOKIE = 'quantum_media_terms_reward_eligible';
   /** Cookie name for pre-read accept click counter */
   private readonly MEDIA_TERMS_PRE_READ_ACCEPT_COUNT_COOKIE = 'quantum_media_terms_pre_read_accept_count';
+  /** Cookie name for AMA human-verification state */
+  private readonly AMA_HUMAN_VERIFIED_COOKIE = 'quantum_ama_human_verified';
   /** Consent expiry window for media terms (30 minutes) */
   private readonly MEDIA_TERMS_TIMEOUT_MS = 30 * 60 * 1000;
   /** Permanent mode cookie expiration window (365 days) */
@@ -108,6 +110,20 @@ class CookieService {
     }
   }
 
+  private parseAmaPayload(rawValue: string): { verifiedAtMs: number; mode: 'session' | 'permanent' } | null {
+    try {
+      const decoded = decodeURIComponent(rawValue);
+      const parsed = JSON.parse(decoded) as { verifiedAtMs?: number; mode?: 'session' | 'permanent' };
+      if (typeof parsed.verifiedAtMs !== 'number' || !Number.isFinite(parsed.verifiedAtMs)) {
+        return null;
+      }
+      const mode = parsed.mode === 'permanent' ? 'permanent' : 'session';
+      return { verifiedAtMs: parsed.verifiedAtMs, mode };
+    } catch {
+      return null;
+    }
+  }
+
   private writeMediaTermsAgreement(mode: 'session' | 'permanent'): void {
     const payload = encodeURIComponent(
       JSON.stringify({
@@ -120,6 +136,20 @@ class CookieService {
       return;
     }
     this.setSessionCookie(this.MEDIA_TERMS_COOKIE, payload);
+  }
+
+  private writeAmaHumanVerification(mode: 'session' | 'permanent'): void {
+    const payload = encodeURIComponent(
+      JSON.stringify({
+        verifiedAtMs: Date.now(),
+        mode,
+      }),
+    );
+    if (mode === 'permanent') {
+      this.setCookie(this.AMA_HUMAN_VERIFIED_COOKIE, payload, this.MEDIA_TERMS_PERMANENT_DAYS);
+      return;
+    }
+    this.setSessionCookie(this.AMA_HUMAN_VERIFIED_COOKIE, payload);
   }
 
   /**
@@ -268,6 +298,57 @@ class CookieService {
   public clearPreReadAcceptCount(): void {
     this.clearCookie(this.MEDIA_TERMS_PRE_READ_ACCEPT_COUNT_COOKIE);
   }
+
+  /**
+   * Stores that the user passed AMA human verification.
+   * Follows media terms reward mode so persistence matches terms policy.
+   */
+  public setAmaHumanVerified(verified: boolean): void {
+    if (!verified) {
+      this.clearCookie(this.AMA_HUMAN_VERIFIED_COOKIE);
+      return;
+    }
+    const mode: 'session' | 'permanent' = this.hasMediaTermsRewardEligibility() ? 'permanent' : 'session';
+    this.writeAmaHumanVerification(mode);
+  }
+
+  /**
+   * Refreshes AMA verification timestamp with terms-aligned mode.
+   */
+  public touchAmaHumanVerification(): void {
+    const rawValue = this.getCookie(this.AMA_HUMAN_VERIFIED_COOKIE);
+    const currentPayload = rawValue ? this.parseAmaPayload(rawValue) : null;
+    const mode: 'session' | 'permanent' = this.hasMediaTermsRewardEligibility()
+      ? 'permanent'
+      : currentPayload?.mode === 'permanent'
+        ? 'permanent'
+        : 'session';
+    this.writeAmaHumanVerification(mode);
+  }
+
+  /**
+   * Returns true when AMA human verification is present and valid.
+   * Session mode uses the same timeout as media terms agreement.
+   */
+  public hasActiveAmaHumanVerification(): boolean {
+    const rawValue = this.getCookie(this.AMA_HUMAN_VERIFIED_COOKIE);
+    if (!rawValue) {
+      return false;
+    }
+    const parsed = this.parseAmaPayload(rawValue);
+    if (!parsed) {
+      this.clearCookie(this.AMA_HUMAN_VERIFIED_COOKIE);
+      return false;
+    }
+    if (parsed.mode === 'permanent') {
+      return true;
+    }
+    if (Date.now() - parsed.verifiedAtMs > this.MEDIA_TERMS_TIMEOUT_MS) {
+      this.clearCookie(this.AMA_HUMAN_VERIFIED_COOKIE);
+      return false;
+    }
+    return true;
+  }
 }
 
-export const cookieService = CookieService.getInstance(); 
+export const cookieService = CookieService.getInstance();
