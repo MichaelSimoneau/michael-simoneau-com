@@ -8,6 +8,18 @@ interface AmaPanelProps {
   className?: string;
 }
 
+const isMp3CitationPath = (path: string): boolean => /mp3/i.test(path);
+
+const toPlayableCitationPath = (path: string): string => path.replace(/\.txt(?=($|[?#]))/i, "");
+
+const getCitationLabel = (path: string): string => {
+  const fileName = path.split("/").pop() ?? path;
+  const withoutQuery = fileName.split(/[?#]/)[0] ?? fileName;
+  const normalized = withoutQuery.replace(/\.txt$/i, "").replace(/\.mp3$/i, "");
+  const decoded = decodeURIComponent(normalized);
+  return decoded.replace(/[_-]+/g, " ").trim() || "Audio source";
+};
+
 export const AmaPanel: React.FC<AmaPanelProps> = ({
   mode = "floating",
   onClose,
@@ -173,9 +185,28 @@ export const AmaPanel: React.FC<AmaPanelProps> = ({
                 {message.role === "assistant" && Array.isArray(message.citations) && message.citations.length > 0 && (
                   <div className="mt-2 space-y-1 border-t border-cyan-300/20 pt-2 text-xs text-cyan-200">
                     {message.citations.slice(0, 4).map((citation) => (
-                      <p key={`${message.id}-${citation.path}-${citation.snippet.slice(0, 18)}`}>
-                        Source: <span className="text-cyan-300">{citation.path}</span>
-                      </p>
+                      <div
+                        key={`${message.id}-${citation.path}-${citation.snippet.slice(0, 18)}`}
+                        className="rounded-md border border-cyan-300/20 bg-black/30 p-2"
+                      >
+                        {isMp3CitationPath(citation.path) ? (
+                          <>
+                            <p className="mb-1 text-[11px] text-cyan-300">Audio source: {getCitationLabel(citation.path)}</p>
+                            <audio
+                              controls
+                              preload="none"
+                              src={toPlayableCitationPath(citation.path)}
+                              className="w-full"
+                            >
+                              Your browser does not support the audio element.
+                            </audio>
+                          </>
+                        ) : (
+                          <p>
+                            Source: <span className="text-cyan-300">{citation.path}</span>
+                          </p>
+                        )}
+                      </div>
                     ))}
                   </div>
                 )}
