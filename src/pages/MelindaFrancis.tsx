@@ -181,22 +181,22 @@ export const MelindaFrancis: React.FC = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-center z-10"
+            className="w-full max-w-3xl min-w-0 text-center z-10"
           >
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4 break-words [overflow-wrap:anywhere]">
               Ms. Melinda Francis, LISW
             </h1>
-            <p className="text-xl sm:text-2xl md:text-3xl text-cyan-400 font-semibold mb-4">
+            <p className="text-xl sm:text-2xl md:text-3xl text-cyan-400 font-semibold mb-4 break-words [overflow-wrap:anywhere]">
               <strong>Confused Licensed Independent Social Worker</strong>
             </p>
             <motion.div
-              className="w-full max-w-2xl mx-auto z-10 mt-2 mb-6"
+              className="w-full max-w-2xl min-w-0 mx-auto z-10 mt-2 mb-6"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: 0.3 }}
             >
-              <div className="bg-gray-900/60 backdrop-blur-sm border border-amber-800/30 rounded-xl p-6">
+              <div className="w-full min-w-0 bg-gray-900/60 backdrop-blur-sm border border-amber-800/30 rounded-xl p-6">
                 <h2 className="text-lg font-bold text-amber-400 mb-3 text-center">
                   <div className="text-center mb-2">
                     You have <strong>{timeLeftToSchedule}</strong>
@@ -236,14 +236,14 @@ export const MelindaFrancis: React.FC = () => {
                       {block.type === "heading" ? (
                         block.level === 1 ? (
                           <h2
-                            className="text-2xl sm:text-3xl font-bold text-white text-center mb-3"
+                            className="text-2xl sm:text-3xl font-bold text-white text-center mb-3 break-words [overflow-wrap:anywhere]"
                             dangerouslySetInnerHTML={{
                               __html: toInlineHtml(block.content),
                             }}
                           />
                         ) : (
                           <p
-                            className="text-sm sm:text-base text-cyan-300 text-center font-semibold mb-2"
+                            className="text-sm sm:text-base text-cyan-300 text-center font-semibold mb-2 break-words [overflow-wrap:anywhere]"
                             dangerouslySetInnerHTML={{
                               __html: toInlineHtml(block.content),
                             }}
@@ -255,14 +255,14 @@ export const MelindaFrancis: React.FC = () => {
                         <hr className="border-t border-[#0b1a3a] my-4" />
                       ) : block.type === "paragraph" ? (
                         <p
-                          className="text-base text-gray-300 leading-relaxed mb-3"
+                          className="text-base text-gray-300 leading-relaxed mb-3 break-words [overflow-wrap:anywhere]"
                           dangerouslySetInnerHTML={{
                             __html: toInlineHtml(block.content),
                           }}
                         />
                       ) : null}
                       {block.type === "list" ? (
-                        <ul className="list-disc list-inside text-base text-gray-300 leading-relaxed mb-3 space-y-1">
+                        <ul className="list-disc list-inside text-base text-gray-300 leading-relaxed mb-3 space-y-1 break-words [overflow-wrap:anywhere]">
                           {block.items.map((item, itemIndex) => (
                             <li
                               key={`${key}-item-${item.slice(0, 24)}-${itemIndex.toString()}`}

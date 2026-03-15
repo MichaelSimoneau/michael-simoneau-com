@@ -46,10 +46,10 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ featuredBlog }) => {
         transition={{ duration: 0.8, delay: 0.2 }}
         className="text-center z-10"
       >
-        <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4">
+        <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4 break-words [overflow-wrap:anywhere]">
           Michael Simoneau
         </h1>
-        <h2 className="text-xl sm:text-2xl md:text-3xl text-cyan-400 font-semibold mb-2">
+        <h2 className="text-xl sm:text-2xl md:text-3xl text-cyan-400 font-semibold mb-2 break-words [overflow-wrap:anywhere]">
           <span className="font-bold">Saving </span>the
           <span className="font-bold"> US Dollar...</span>
           <i>

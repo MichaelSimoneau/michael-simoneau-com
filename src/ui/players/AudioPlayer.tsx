@@ -233,7 +233,7 @@ export const AudioPlayer: React.FC<AudioPlayerProps> = ({ src, title = 'Zeroth V
       <div className="relative bg-gradient-to-r from-gray-900/80 to-gray-800/80 backdrop-blur-sm rounded-lg overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-cyan-500/5 to-transparent" />
         <div className="relative z-10 p-4">
-          <div className="flex items-center gap-4">
+          <div className="flex items-start sm:items-center gap-3 sm:gap-4">
             {/* Play/Pause Button */}
             <motion.button
               onClick={handlePlayPause}
@@ -252,10 +252,12 @@ export const AudioPlayer: React.FC<AudioPlayerProps> = ({ src, title = 'Zeroth V
             {/* Audio Info and Progress */}
             <div className="flex-1 min-w-0">
               {/* Title */}
-              <div className="flex items-center justify-between gap-2 mb-2">
+              <div className="flex flex-wrap sm:flex-nowrap items-start sm:items-center justify-between gap-2 mb-2">
                 <div className="flex items-center gap-2 min-w-0">
                   <Volume2 className="w-4 h-4 text-cyan-400 flex-shrink-0" />
-                  <span className="text-white font-medium text-sm truncate">{title}</span>
+                  <span className="text-white font-medium text-sm break-words [overflow-wrap:anywhere] sm:truncate">
+                    {title}
+                  </span>
                 </div>
                 <button
                   type="button"
