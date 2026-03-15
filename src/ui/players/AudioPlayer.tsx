@@ -4,6 +4,8 @@ import { Play, Pause, Volume2 } from 'lucide-react';
 import { useMediaAnalytics } from '../../analytics/useMediaAnalytics';
 import { InlineMediaConsentPrompt } from './InlineMediaConsentPrompt';
 import { useMediaConsentGate } from './useMediaConsentGate';
+import { AudioClosedCaptionStrip } from './AudioClosedCaptionStrip';
+import { useAudioTranscript } from './audioCaptions';
 
 interface AudioPlayerProps {
   src: string;
@@ -12,9 +14,10 @@ interface AudioPlayerProps {
 
 export const AudioPlayer: React.FC<AudioPlayerProps> = ({ src, title = 'Zeroth Vision' }) => {
   const { trackMediaEvent } = useMediaAnalytics();
-  const { isGateVisible, requestConsentAwarePlay, acceptAndResume } = useMediaConsentGate({
+  const { isGateVisible, requestConsentAwareAction, requestConsentAwarePlay, acceptAndResume } = useMediaConsentGate({
     source: 'audio-player',
   });
+  const { status: transcriptStatus } = useAudioTranscript(src);
   const audioRef = useRef<HTMLAudioElement>(null);
   const progressRef = useRef<HTMLDivElement>(null);
   const previousIsPlayingRef = useRef(false);
@@ -24,6 +27,7 @@ export const AudioPlayer: React.FC<AudioPlayerProps> = ({ src, title = 'Zeroth V
   const [duration, setDuration] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
   const [isSeeking, setIsSeeking] = useState(false);
+  const [isCaptionsEnabled, setIsCaptionsEnabled] = useState(false);
 
   useEffect(() => {
     const audio = audioRef.current;
@@ -199,6 +203,16 @@ export const AudioPlayer: React.FC<AudioPlayerProps> = ({ src, title = 'Zeroth V
   }, [currentTime, duration, setAudioTime]);
 
   const progress = duration > 0 ? (currentTime / duration) * 100 : 0;
+  const isCaptionUnavailable = transcriptStatus === 'missing' || transcriptStatus === 'error';
+
+  const handleCaptionsToggle = () => {
+    if (isCaptionUnavailable) {
+      return;
+    }
+    requestConsentAwareAction(() => {
+      setIsCaptionsEnabled((previous) => !previous);
+    });
+  };
 
   return (
     <div className="w-full max-w-2xl mx-auto">
@@ -224,9 +238,21 @@ export const AudioPlayer: React.FC<AudioPlayerProps> = ({ src, title = 'Zeroth V
             {/* Audio Info and Progress */}
             <div className="flex-1 min-w-0">
               {/* Title */}
-              <div className="flex items-center gap-2 mb-2">
-                <Volume2 className="w-4 h-4 text-cyan-400 flex-shrink-0" />
-                <span className="text-white font-medium text-sm truncate">{title}</span>
+              <div className="flex items-center justify-between gap-2 mb-2">
+                <div className="flex items-center gap-2 min-w-0">
+                  <Volume2 className="w-4 h-4 text-cyan-400 flex-shrink-0" />
+                  <span className="text-white font-medium text-sm truncate">{title}</span>
+                </div>
+                <button
+                  type="button"
+                  onClick={handleCaptionsToggle}
+                  disabled={isCaptionUnavailable}
+                  aria-pressed={isCaptionsEnabled}
+                  aria-label={isCaptionsEnabled ? 'Disable closed captions' : 'Enable closed captions'}
+                  className="flex-shrink-0 rounded border border-gray-500/60 px-2 py-0.5 text-[10px] font-semibold tracking-wide text-gray-200 transition-colors hover:border-cyan-300 hover:text-cyan-200 disabled:cursor-not-allowed disabled:opacity-45"
+                >
+                  CC
+                </button>
               </div>
 
               {/* Progress Bar */}
@@ -262,6 +288,12 @@ export const AudioPlayer: React.FC<AudioPlayerProps> = ({ src, title = 'Zeroth V
                 <span className="text-gray-400 text-xs">{formatTime(currentTime)}</span>
                 <span className="text-gray-400 text-xs">{formatTime(duration)}</span>
               </div>
+              <AudioClosedCaptionStrip
+                audioRef={audioRef}
+                audioSrc={src}
+                enabled={isCaptionsEnabled}
+                className="mt-3"
+              />
             </div>
           </div>
         </div>

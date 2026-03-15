@@ -16,6 +16,7 @@ export type ConsentGateSource =
   | 'video-hero'
   | 'playlist-audio'
   | 'audio-player'
+  | 'audio-cc'
   | 'blog-speech'
   | 'speech-player'
   | 'universal-player';

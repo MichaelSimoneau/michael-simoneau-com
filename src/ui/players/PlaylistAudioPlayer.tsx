@@ -16,6 +16,8 @@ import { dispatchMediaPlayIntent } from './mediaEvents';
 import { useProfileFlowDispatch, useProfileFlowState } from '../../features/profile/flow';
 import { InlineMediaConsentPrompt } from './InlineMediaConsentPrompt';
 import { useMediaConsentGate } from './useMediaConsentGate';
+import { AudioClosedCaptionStrip } from './AudioClosedCaptionStrip';
+import { useAudioTranscript } from './audioCaptions';
 
 /**
  * Single track definition for the playlist player.
@@ -176,7 +178,7 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({
   defaultPlaylistTitle = 'Playlist',
 }) => {
   const { trackMediaEvent } = useMediaAnalytics();
-  const { isGateVisible, requestConsentAwarePlay, acceptAndResume } = useMediaConsentGate({
+  const { isGateVisible, requestConsentAwareAction, requestConsentAwarePlay, acceptAndResume } = useMediaConsentGate({
     source: 'playlist-audio',
   });
   const flowDispatch = useProfileFlowDispatch();
@@ -261,11 +263,13 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({
   );
   const [isRestrictedFlowActive, setIsRestrictedFlowActive] = useState(false);
   const [activeMelindaSectionId, setActiveMelindaSectionId] = useState<string | null>(null);
+  const [isCaptionsEnabled, setIsCaptionsEnabled] = useState(false);
 
   // Flag to auto-play after a deliberate track change (skip/select)
   const shouldAutoPlay = useRef(false);
 
   const currentTrack = playableTracks[currentTrackIndex];
+  const { status: transcriptStatus } = useAudioTranscript(currentTrack?.src);
   const currentSectionIndex = playableIndexToSectionIndex[currentTrackIndex] ?? -1;
 
   useEffect(() => {
@@ -1075,6 +1079,17 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({
   };
 
   const progress = duration > 0 ? (currentTime / duration) * 100 : 0;
+  const isCaptionUnavailable = transcriptStatus === 'missing' || transcriptStatus === 'error';
+  const isCcToggleDisabled = isRestrictedFlowActive || !currentTrack || isCaptionUnavailable;
+
+  const handleCaptionsToggle = useCallback(() => {
+    if (isCcToggleDisabled) {
+      return;
+    }
+    requestConsentAwareAction(() => {
+      setIsCaptionsEnabled((previous) => !previous);
+    });
+  }, [isCcToggleDisabled, requestConsentAwareAction]);
 
   // ── Render ─────────────────────────────────────────────────────────────
   return (
@@ -1162,6 +1177,18 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({
 
             {/* Expand / Collapse toggle */}
             <motion.button
+              onClick={handleCaptionsToggle}
+              className="flex-shrink-0 h-8 w-8 flex items-center justify-center rounded-full border border-gray-500/60 hover:border-cyan-300 transition-colors disabled:opacity-45 disabled:cursor-not-allowed"
+              whileTap={{ scale: 0.9 }}
+              aria-label={isCaptionsEnabled ? 'Disable closed captions' : 'Enable closed captions'}
+              aria-pressed={isCaptionsEnabled}
+              disabled={isCcToggleDisabled}
+            >
+              <span className="text-[10px] font-semibold tracking-wide text-gray-300">CC</span>
+            </motion.button>
+
+            {/* Expand / Collapse toggle */}
+            <motion.button
               onClick={() => setIsExpanded((prev) => !prev)}
               className="flex-shrink-0 h-8 w-8 flex items-center justify-center rounded-full hover:bg-white/10 transition-colors"
               whileTap={{ scale: 0.9 }}
@@ -1204,6 +1231,12 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({
               style={{ left: `calc(${progress}% - 6px)` }}
             />
           </div>
+          <AudioClosedCaptionStrip
+            audioRef={audioRef}
+            audioSrc={currentTrack?.src}
+            enabled={isCaptionsEnabled}
+            className="mt-3"
+          />
         </div>
 
         {/* ── Track List (expandable) ─────────────────────────────── */}
