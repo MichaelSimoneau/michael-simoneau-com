@@ -406,16 +406,23 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({
   }, [resetRestrictedFlow]);
 
   useEffect(() => {
-    const overrideTrack = flowState.override.value.playlist.track;
-    if (overrideTrack === undefined || playableTracks.length === 0) {
+    if (flowState.deepLink.machine !== 'resolved' || playableTracks.length === 0) {
       return;
     }
-    const normalizedTrackIndex = Math.max(0, Math.min(playableTracks.length - 1, overrideTrack - 1));
-    shouldAutoPlay.current = Boolean(flowState.override.value.playlist.autoplay);
+    const deepLinkIntent = flowState.deepLink.intent;
+    if (!deepLinkIntent || deepLinkIntent.target !== 'audio' || deepLinkIntent.playlistTrack === undefined) {
+      return;
+    }
+
+    const normalizedTrackIndex = Math.max(0, Math.min(playableTracks.length - 1, deepLinkIntent.playlistTrack - 1));
+    shouldAutoPlay.current = flowState.deepLink.autoplayAllowed;
     setCurrentTrackIndex(normalizedTrackIndex);
+    flowDispatch({ type: 'DEEPLINK_INTENT_CONSUMED' });
   }, [
-    flowState.override.value.playlist.autoplay,
-    flowState.override.value.playlist.track,
+    flowDispatch,
+    flowState.deepLink.autoplayAllowed,
+    flowState.deepLink.intent,
+    flowState.deepLink.machine,
     playableTracks.length,
   ]);
 

@@ -1,5 +1,6 @@
 export type NavigationMachineState = 'idle' | 'resolvingHash' | 'scrolling' | 'settled';
 export type MusicMachineState = 'iframeInit' | 'loading' | 'ready' | 'failed';
+export type DeepLinkMachineState = 'idle' | 'parsed' | 'resolved' | 'consumed';
 export type PlaylistMachineState =
   | 'idle'
   | 'loadingTrack'
@@ -44,6 +45,14 @@ export interface FlowOverrideState {
   music: {
     iframe?: 'ready' | 'failed';
   };
+}
+
+export interface DeepLinkIntent {
+  key: string;
+  target: 'audio' | 'videos';
+  playlistTrack?: number;
+  consume?: boolean;
+  autoplayRequested?: boolean;
 }
 
 export interface ProfileFlowState {
@@ -94,6 +103,11 @@ export interface ProfileFlowState {
     machine: OverrideMachineState;
     value: FlowOverrideState;
   };
+  deepLink: {
+    machine: DeepLinkMachineState;
+    intent?: DeepLinkIntent;
+    autoplayAllowed: boolean;
+  };
   footerExpansionFactor: number;
 }
 
@@ -132,5 +146,8 @@ export type ProfileFlowAction =
   | { type: 'RELOAD_TIMER_CLEARED' }
   | { type: 'OVERRIDE_PARSE_STARTED' }
   | { type: 'OVERRIDE_APPLIED'; value: FlowOverrideState }
+  | { type: 'DEEPLINK_INTENT_PARSED'; intent?: DeepLinkIntent }
+  | { type: 'DEEPLINK_INTENT_RESOLVE_REQUESTED'; hasConsent: boolean }
+  | { type: 'DEEPLINK_INTENT_CONSUMED' }
   | { type: 'FOOTER_EXPANSION_UPDATED'; factor: number };
 

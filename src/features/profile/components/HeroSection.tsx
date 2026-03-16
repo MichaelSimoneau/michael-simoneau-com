@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { PlaylistAudioPlayer } from "../../../ui/players/PlaylistAudioPlayer";
 import type { BlogData } from "../../blog/data/posts";
 import { ChevronDown, ExternalLink } from "lucide-react";
 import { cleanPlaylist } from "../../../data/playlists";
-import { useProfileFlowDispatch, useProfileFlowState } from "../flow";
 import { AmaEmbedded } from "../../ama/components";
 
 interface HeroSectionProps {
@@ -13,21 +12,10 @@ interface HeroSectionProps {
 }
 
 export const HeroSection: React.FC<HeroSectionProps> = ({ featuredBlog }) => {
-  const dispatch = useProfileFlowDispatch();
-  const { override } = useProfileFlowState();
   const [isNarrativeExpanded, setIsNarrativeExpanded] = useState(false);
   const [isAmaExpanded, setIsAmaExpanded] = useState(false);
   const prefersReducedMotion = useReducedMotion();
   const heroPanelWidthClass = "w-full max-w-3xl mx-auto";
-
-  useEffect(() => {
-    if (override.value.playlist.track !== undefined) {
-      dispatch({
-        type: "PLAYLIST_TRACK_CHANGED",
-        trackIndex: Math.max(0, override.value.playlist.track - 1),
-      });
-    }
-  }, [dispatch, override.value.playlist.track]);
 
   return (
     <section

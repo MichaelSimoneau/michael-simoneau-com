@@ -5,6 +5,8 @@ export { parseFlowOverrides } from './profileFlowOverrides';
 export type {
   ConsentGateSource,
   ConsentMachineState,
+  DeepLinkIntent,
+  DeepLinkMachineState,
   FlowOverrideState,
   MediaArbitrationState,
   MusicMachineState,

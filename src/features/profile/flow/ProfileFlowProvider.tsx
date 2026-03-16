@@ -2,7 +2,7 @@ import React, { createContext, useContext, useEffect, useMemo, useReducer } from
 import { APP_MEDIA_PLAY_INTENT_EVENT } from '../../../ui/players/mediaEvents';
 import { cookieService } from '../../../services/cookieService';
 import { initialProfileFlowState, profileFlowReducer } from './profileFlowReducer';
-import { parseFlowOverrides } from './profileFlowOverrides';
+import { parseDeepLinkIntent, parseFlowOverrides } from './profileFlowOverrides';
 import type { ProfileFlowAction, ProfileFlowState } from './profileFlowTypes';
 
 interface ProfileFlowContextValue {
@@ -23,7 +23,12 @@ export const ProfileFlowProvider: React.FC<ProfileFlowProviderProps> = ({ childr
     if (typeof window === 'undefined') return;
     const applyOverrides = () => {
       dispatch({ type: 'OVERRIDE_PARSE_STARTED' });
-      dispatch({ type: 'OVERRIDE_APPLIED', value: parseFlowOverrides(window.location.search) });
+      const overrideValue = parseFlowOverrides(window.location.search);
+      dispatch({ type: 'OVERRIDE_APPLIED', value: overrideValue });
+      dispatch({
+        type: 'DEEPLINK_INTENT_PARSED',
+        intent: parseDeepLinkIntent(window.location.search, window.location.hash, overrideValue),
+      });
     };
     applyOverrides();
     window.addEventListener('hashchange', applyOverrides);
@@ -36,12 +41,6 @@ export const ProfileFlowProvider: React.FC<ProfileFlowProviderProps> = ({ childr
 
   useEffect(() => {
     const overrideValue = state.override.value;
-    if (overrideValue.playlist.track !== undefined) {
-      dispatch({ type: 'PLAYLIST_TRACK_CHANGED', trackIndex: Math.max(0, overrideValue.playlist.track - 1) });
-    }
-    if (overrideValue.video.watch) {
-      dispatch({ type: 'VIDEO_WATCH_REQUESTED', mode: 'standard' });
-    }
     if (overrideValue.video.phase) {
       dispatch({ type: 'VIDEO_PHASE_CHANGED', phase: overrideValue.video.phase });
     }
@@ -51,6 +50,19 @@ export const ProfileFlowProvider: React.FC<ProfileFlowProviderProps> = ({ childr
       dispatch({ type: 'MUSIC_IFRAME_FAILED' });
     }
   }, [state.override.value]);
+
+  useEffect(() => {
+    if (state.deepLink.machine !== 'parsed') {
+      return;
+    }
+    if (state.consent.machine === 'unknown') {
+      return;
+    }
+    dispatch({
+      type: 'DEEPLINK_INTENT_RESOLVE_REQUESTED',
+      hasConsent: state.consent.hasAcceptedTerms,
+    });
+  }, [state.consent.hasAcceptedTerms, state.consent.machine, state.deepLink.machine]);
 
   useEffect(() => {
     const handleMediaPlayIntent = (event: Event) => {

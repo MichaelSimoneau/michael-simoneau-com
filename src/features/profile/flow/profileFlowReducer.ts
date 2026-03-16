@@ -52,6 +52,10 @@ export const initialProfileFlowState: ProfileFlowState = {
     machine: 'parse',
     value: defaultFlowOverrideState,
   },
+  deepLink: {
+    machine: 'idle',
+    autoplayAllowed: false,
+  },
   footerExpansionFactor: 0,
 };
 
@@ -230,6 +234,49 @@ export function profileFlowReducer(
         override: {
           machine: action.value.mode === 'force' ? 'forcing' : 'applied',
           value: action.value,
+        },
+      };
+    case 'DEEPLINK_INTENT_PARSED':
+      return {
+        ...state,
+        deepLink: action.intent
+          ? {
+              machine: 'parsed',
+              intent: action.intent,
+              autoplayAllowed: false,
+            }
+          : {
+              machine: 'idle',
+              intent: undefined,
+              autoplayAllowed: false,
+            },
+      };
+    case 'DEEPLINK_INTENT_RESOLVE_REQUESTED': {
+      if (!state.deepLink.intent) {
+        return {
+          ...state,
+          deepLink: {
+            machine: 'idle',
+            intent: undefined,
+            autoplayAllowed: false,
+          },
+        };
+      }
+      return {
+        ...state,
+        deepLink: {
+          ...state.deepLink,
+          machine: 'resolved',
+          autoplayAllowed: state.deepLink.intent.autoplayRequested === true && action.hasConsent,
+        },
+      };
+    }
+    case 'DEEPLINK_INTENT_CONSUMED':
+      return {
+        ...state,
+        deepLink: {
+          ...state.deepLink,
+          machine: state.deepLink.intent ? 'consumed' : 'idle',
         },
       };
     case 'FOOTER_EXPANSION_UPDATED':

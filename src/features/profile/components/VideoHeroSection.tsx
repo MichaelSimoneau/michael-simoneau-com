@@ -514,16 +514,40 @@ export const VideoHeroSection: React.FC = () => {
   }, [clearHandoffTimeout, flowDispatch, isPlayerReady, isWatching, requestConsentAwarePlay, startPlaybackForCurrentMode]);
 
   useEffect(() => {
-    if (flowState.override.value.video.watch) {
-      setIsWatching(true);
-      setIsYouTubeApiFailed(false);
-      setActiveVideoSource('youtube');
-      flowDispatch({ type: 'VIDEO_WATCH_REQUESTED', mode: 'standard' });
+    if (flowState.deepLink.machine !== 'resolved') {
+      return;
     }
-    if (flowState.override.value.video.phase) {
-      flowDispatch({ type: 'VIDEO_PHASE_CHANGED', phase: flowState.override.value.video.phase });
+    const deepLinkIntent = flowState.deepLink.intent;
+    if (!deepLinkIntent || deepLinkIntent.target !== 'videos' || deepLinkIntent.consume !== true) {
+      return;
     }
-  }, [flowDispatch, flowState.override.value.video.phase, flowState.override.value.video.watch]);
+
+    setIsWatching(true);
+    setIsYouTubeApiFailed(false);
+    setActiveVideoSource('youtube');
+    flowDispatch({ type: 'VIDEO_WATCH_REQUESTED', mode: 'standard' });
+
+    if (flowState.deepLink.autoplayAllowed) {
+      startModeRef.current = 'standard';
+      if (!isWatching || !isPlayerReady) {
+        pendingAutoPlayRequestRef.current = true;
+      } else {
+        startPlaybackForCurrentMode();
+      }
+    } else {
+      pendingAutoPlayRequestRef.current = false;
+    }
+
+    flowDispatch({ type: 'DEEPLINK_INTENT_CONSUMED' });
+  }, [
+    flowDispatch,
+    flowState.deepLink.autoplayAllowed,
+    flowState.deepLink.intent,
+    flowState.deepLink.machine,
+    isPlayerReady,
+    isWatching,
+    startPlaybackForCurrentMode,
+  ]);
 
   useEffect(() => {
     if (!isWatching || startModeRef.current !== 'standard' || activeVideoSource === 'local') {
