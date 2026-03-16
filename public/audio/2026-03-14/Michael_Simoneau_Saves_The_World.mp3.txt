@@ -61,7 +61,7 @@
  And then I can take that literal Web3 profit and use those funds directly to reinforce my own THD
  container. You can. And the on-ramp for all of this is completely immediate. You don't need a degree
  in cryptography. No, anyone can do it. A layman can enter the system today. You simply download
- the CryptoFabric app, which is sitting in standard app stores right now. And you just connect a fiat
+the Crypto Fabric app, which is sitting in standard app stores right now. And you just connect a fiat
  gateway like Stripe or Plaid, right? Yeah. And you deposit a maximum of one single dollar at a time.
  That one dollar deposit automatically provisions your Web3 wallet, your personal THD container,
  and mints your genesis block on the hash web. The security on this is wild, though. Because you
@@ -134,7 +134,7 @@
  reinstall itself from scratch across the hash web. The headless server is the absolute prerequisite.
  So it outlives Simon O, it outlives its critics, and it outlasts the old way of thinking entirely.
  And the end goal here is shifting the entire global psychology of money. But that doesn't happen overnight.
- No, of course not. Early adopters who download the crypto fabric app today are still going to store the
+No, of course not. Early adopters who download the Crypto Fabric app today are still going to store the
  vast majority of their life savings in traditional USD for safety. Right. Because the USD is the
  comforting bedrock right now. During the transition, yes. But eventually, as the hash web ecosystem proves
  its stability and as THD takes over, that global psychology will naturally inevitably shift. People will
@@ -165,7 +165,7 @@
  What an absolute journey this concept is. We started by looking at a $100 bill sitting safely
  in a steel vault and realizing that it's actually an illusion. A block of ice slowly melting away,
  bleeding your purchasing power into nothing. And Simon O's solution is to offer an immediate,
- frictionless escape hatch. You deposit a single, completely safe, $1 USDC floor on the CryptoFabric
+frictionless escape hatch. You deposit a single, completely safe, $1 USDC floor on the Crypto Fabric
  app. You watch the speculative token value bubble up above that floor. And you eventually get paid
  out in perpetual dividends just for having the good judgment to buy your weekly groceries from an
  supplier that provides genuine value to the world. You completely abandon the delusion of the battery and

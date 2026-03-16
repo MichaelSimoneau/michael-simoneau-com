@@ -8,10 +8,10 @@
  Well, it's a radical reframing of how a decentralized economy could work. Zeroth is a complete self-governing system.
  And it's built on these four pillars.
  That's right. You have the state machine, which is the Zeroth virtual machine, a totally unique consensus mechanism called Zeroth, a validation layer, protocol zero, and then its token model THTH.
- So our mission for you today is really twofold. First, we need to get our heads around how this incredibly deterministic, almost scientific system actually works. And then we pivot. We look at how one company, Etherhive LLC, plans to take this super complex idea and turn it into a commercial success with their AI platform, CryptoFabric.
+So our mission for you today is really twofold. First, we need to get our heads around how this incredibly deterministic, almost scientific system actually works. And then we pivot. We look at how one company, Etherhive LLC, plans to take this super complex idea and turn it into a commercial success with their AI platform, Crypto Fabric.
  And their promise is pretty bold. We're talking automated profitability with a groundbreaking business model.
  It really is. So for this deep dive, we're pulling from some detailed white paper excerpts that break down the mechanics of Zeroth, Zeroth, all the technicals.
- And we're pairing that with the actual business plan for Etherhive's crypto fabric, which lays out their value proposition, their costs, everything.
+And we're pairing that with the actual business plan for Etherhive's Crypto Fabric, which lays out their value proposition, their costs, everything.
  OK, so let's start at the very core of this, the philosophy. The whole system is called Zeroth And they have this idea that zero isn't nothingness. It's totality, balance.
  It's not absence. It's convergence. And the practical implication of that is, well, it's constant motion.
  What do you mean by that?
@@ -180,7 +180,7 @@
  Now, how does anyone make money from this?
  Right.
  The commercial reality.
- Etherhive LLC's crypto fabric platform.
+Etherhive LLC's Crypto Fabric platform.
  They want to leverage this whole ecosystem for profit.
  What's the pitch to a user who, understandably, intimidated by all this deterministic crypto
  jargon?
@@ -189,7 +189,7 @@
  Their core promise is, and I'm quoting their plan, it pays the bills for you.
  You don't have to do anything.
  The AI actually does it all for you.
- So crypto fabric helps users deploy things like staking services, automated trading.
+So Crypto Fabric helps users deploy things like staking services, automated trading.
  Exactly.
  And it uses AI to optimize everything to make sure they're meeting those convergence deltas
  and reinforcement thresholds to keep their TH-TH value from decaying.
@@ -213,7 +213,7 @@
  And that is where their business plan gets really fascinating.
  They built in other revenue streams, specifically what they call treasury house account operations.
  Meaning?
- Meaning Etherhive can run its own instances of crypto fabric with its own capital.
+Meaning Etherhive can run its own instances of Crypto Fabric with its own capital.
  They can act as their own first best customer.
  For example, they can put $50,000 into their own AI trading bots and validators
  and generate revenue for the company on day one without a single external customer.
@@ -244,13 +244,13 @@
  Pure mathematical theory meeting ruthless operational efficiency.
  What really stands out to me is that dual approach.
  You have the highly theoretical, deterministic economy of Zeroth providing this mathematically certain sandbox to play in.
- And then you have the AI from CryptoFabric.
+And then you have the AI from Crypto Fabric.
  Right.
  A highly optimized, profit-focused commercial AI designed specifically to exploit that certainty.
  The two are just perfectly unified, creating this self-improving business that wins by cutting costs to near zero and guaranteeing constant utility.
  So what does this all mean for you, our listener?
  Zeroth is aiming for a world where value follows mathematical truth, not just speculative markets.
- And CryptoFabric is trying to be the first truly successful automated business running inside what they call a living economy.
+And Crypto Fabric is trying to be the first truly successful automated business running inside what they call a living economy.
  It brings up a really important question, one that echoes the Zeroth philosophy itself.
  In an economy where your value literally decays unless you reinforce it with meaningful, constant activity,
  how do you define the continuous, useful engagement that keeps your own value from fading away?

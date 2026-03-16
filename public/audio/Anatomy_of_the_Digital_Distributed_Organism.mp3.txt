@@ -10,7 +10,7 @@
  talking about the user experience in any traditional sense. Right. No front end discussions here. No.
  We are going straight into the engine room. We are.
  This is going to be a strictly technical high-level architectural briefing. We are looking at the
- evolution of the crypto fabric code base. And we are specifically locking in on the evolution
+evolution of the Crypto Fabric code base. And we are specifically locking in on the evolution
  from version 1.48.x right through to version 1.49.12. That's the scope. And for anyone listening who
  might be thinking, oh, a version bump? Big deal. They fixed some bugs. You need to hold on.
  Yeah, you really do. Yeah. Because looking at this source material, this does not look like a standard
@@ -78,7 +78,7 @@
  1.49 argue that was essentially a lie. A lie. Well, an illusion. An Ethereum node
  that isn't connected to the broader network, that isn't feeding data to a strategy engine.
  It's just burning server electricity. It's useless in isolation. It has no purpose. Right. So the
- crypto fabric actively redefines them. They're no longer independent services. They are zooids.
+Crypto Fabric actively redefines them. They're no longer independent services. They are zooids.
  And you can see the changelogs reflecting this directly. I saw in the notes for version 1.49.9,
  there was this massive refactor of a file called stack.py. Oh yeah. Inside the services
  core functions directory. They didn't just rename some files to be clever. They standardized the entire
@@ -102,7 +102,7 @@
  And without gastrozoids. The colony starves. The server bills don't get paid. The compute stops.
  It dies. Makes perfect sense. Okay. Then we have the second category, nectophores.
  Propulsion. Right. In the jellyfish, these are the little bells that physically pulse and push water
- to move the colony around the ocean. But in the crypto fabric, movement isn't physical. It's not
+to move the colony around the ocean. But in the Crypto Fabric, movement isn't physical. It's not
  moving through space. No. Movement is through time. It's development. It's the evolution of the code
  base itself. So this represents the execution layer. This is the puppeteer agent. Often referred to
  simply as Jimmy in the developer logs. Jimmy. Jimmy's entire job is to move the colony forward

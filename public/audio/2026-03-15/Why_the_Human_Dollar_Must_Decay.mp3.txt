@@ -139,7 +139,7 @@
  The WTHD allows the external world to interact with the token using existing wallets and exchanges.
  It generates the initial kinetic energy required to start the engine.
  But it introduces speculation.
- But once that value is brought inside the system, into the user's specific WTHD container via the CryptoFabric app,
+But once that value is brought inside the system, into the user's specific WTHD container via the Crypto Fabric app,
  it becomes subject to the strict physics of the hash web.
  The speculation completely stops at the membrane.
  Inside, the value is governed strictly by metabolic decay and lineage validation.
@@ -183,7 +183,7 @@
  mathematically enforces the Darwinian Marxism the architect speaks of.
  Darwinian Marxism, right.
  Think about the onboarding flow.
- A layman can download the CryptoFabric app from the App Store.
+A layman can download the Crypto Fabric app from the App Store.
  They use the Plaid or Stripe integration to automatically provision their Web3 wallet.
  They scan their face to generate their biometric hash.
  The bioethereal key binding their physical identity to their container.

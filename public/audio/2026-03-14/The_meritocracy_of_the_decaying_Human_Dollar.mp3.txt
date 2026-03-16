@@ -44,7 +44,7 @@
  No, no. It is earned infrastructure. You are forced to expand, yes, but Michael engineered the entry point to this entire ecosystem to be incredibly accessible.
  A layman can enter this system today with a simple $1 on-ramp.
  Right. A $1 on-ramp into a system that immediately starts degrading their dollar.
- Yes. But let's walk through how frictionless it is. They just download the CryptoFabric app, which is on iOS and Android right now, using Stripe or Plaid.
+Yes. But let's walk through how frictionless it is. They just download the Crypto Fabric app, which is on iOS and Android right now, using Stripe or Plaid.
  The app automatically provisions a Web3 wallet, the THD, and the Genesis block entirely under the hood.
  Sure. The tech is smooth. They just put in a dollar to step onto the treadmill.
  But that's the brilliant paradox of the decay mechanism. Depositing $1 at a time actually causes decay. If you use your funds without adding value, your decay time increases.

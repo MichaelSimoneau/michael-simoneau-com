@@ -184,13 +184,13 @@
  It would be stuck in a permanent static present.
  So what does this all actually mean?
  How do these five deeply philosophical numbers literally operate an AI server?
- To understand that, we have to look at the architecture of the crypto fabric itself.
+To understand that, we have to look at the architecture of the Crypto Fabric itself.
  We have to look at the brain, the mind, and the hands.
  The sources outline a strict, non-negotiable, four-layer hierarchy.
  They call it the tetracameral hierarchy.
  Its entire purpose is to prevent the AI from hallucinating agency.
  It physically separates the intent of an action from the execution of that action.
- And we should probably define crypto fabric here for clarity.
+And we should probably define Crypto Fabric here for clarity.
  Yes.
  It isn't cryptocurrency.
  Rather, it refers to the overarching, cryptographically secure logic environment where all these components interact.

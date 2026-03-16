@@ -159,7 +159,7 @@
  Use the current system to pay for the new one.
  Okay.
  So how does that work in practice?
- The plan describes creating a crypto fabric, and it involves setting up a physical server, a small rig in a user's home, in their garage, in their office, wherever.
+The plan describes creating a Crypto Fabric, and it involves setting up a physical server, a small rig in a user's home, in their garage, in their office, wherever.
  This rig, we need to be clear.
  We aren't talking about a massive rack of loud, hot servers like you'd see at a Google or Amazon data center.
  No, not at all.

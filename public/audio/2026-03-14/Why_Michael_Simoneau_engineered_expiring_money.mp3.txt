@@ -144,7 +144,7 @@
  But if you use it by adding value, by making a good choice, funding a good supplier, engaging in
  productive delegation, it resets your expiry time. And here is the genius of the bridge. The layman
  doesn't need to understand graph theory to enter this system. They can enter today by downloading the
- crypto fabric app from the app store. Under the hood, it uses Stripe to automatically provision their Web3
+Crypto Fabric app from the app store. Under the hood, it uses Stripe to automatically provision their Web3
  wallet, their THD, and their Genesis block on the hash web. It takes seconds. So the technical
  friction is essentially zero. But the financial risk is still there. Not initially. Those who adopt it
  early will still accrue and store the vast majority of their funds in USD. They are perfectly safe in their

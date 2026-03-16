@@ -108,8 +108,8 @@
  Their scalar, hoarding-based frameworks, cannot comprehend a tensor-based metabolic economy where value is determined by direction and velocity.
  The mental psyche around finance has to completely flip.
  But you cannot just wait for economists to die. The system requires human participants now. How do you bridge the gap between today's hoarding mindset and tomorrow's metabolic reality?
- Oh. The bridge is already built. A layman can easily enter the system today by downloading the CryptoFabric app.
- CryptoFabric, right. It uses standard payment gateways like Stripe or Plaid to automatically provision the Web3 wallet and the Genesis block.
+Oh. The bridge is already built. A layman can easily enter the system today by downloading the Crypto Fabric app.
+Crypto Fabric, right. It uses standard payment gateways like Stripe or Plaid to automatically provision the Web3 wallet and the Genesis block.
  It happens completely under the hood. The user just scans their face and enters a password.
  So they interact with it using the tools they already understand.
  Exactly. Those who adopt it today will accrue and store most of their funds in traditional USD.
