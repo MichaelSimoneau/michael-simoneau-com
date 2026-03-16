@@ -1,5 +1,11 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { ChevronDown, ChevronUp } from 'lucide-react';
 import { useCaptionsViewport } from './CaptionsViewportProvider';
+
+const START_DELAY_SECONDS = 1.72;
+const ACCELERATION_WINDOW_SECONDS = 2.72;
+const BASE_SCROLL_DAMPING = 0.72;
+const BASE_SPEED_OFFSET = 0.22;
 
 const clamp = (value: number, min: number, max: number): number => {
   return Math.min(max, Math.max(min, value));
@@ -9,11 +15,15 @@ export const CaptionsViewportOverlay: React.FC = () => {
   const {
     isCaptionsEnabled,
     activeAudio,
+    speedCoefficient,
+    increaseSpeed,
+    decreaseSpeed,
     transcriptStatus,
     transcriptText,
   } = useCaptionsViewport();
   const viewportRef = useRef<HTMLDivElement>(null);
   const textRef = useRef<HTMLSpanElement>(null);
+  const speedMultiplierRef = useRef(1);
   const travelDistanceRef = useRef(0);
   const smoothedProgressRef = useRef(0);
   const hasLoggedRendererRef = useRef(false);
@@ -22,6 +32,11 @@ export const CaptionsViewportOverlay: React.FC = () => {
   const [hasPlaybackStarted, setHasPlaybackStarted] = useState(false);
 
   const isTranscriptMissing = transcriptStatus === 'missing' || transcriptStatus === 'error';
+  const speedMultiplier = useMemo(() => 1 + BASE_SPEED_OFFSET + speedCoefficient, [speedCoefficient]);
+
+  useEffect(() => {
+    speedMultiplierRef.current = speedMultiplier;
+  }, [speedMultiplier]);
 
   useEffect(() => {
     travelDistanceRef.current = travelDistancePx;
@@ -86,7 +101,13 @@ export const CaptionsViewportOverlay: React.FC = () => {
     let animationFrameId = 0;
     const audioAtStart = activeAudio.audioRef.current;
     if (audioAtStart && Number.isFinite(audioAtStart.duration) && audioAtStart.duration > 0) {
-      smoothedProgressRef.current = clamp(audioAtStart.currentTime / audioAtStart.duration, 0, 1);
+      const delayedPlaybackSeconds = Math.max(0, audioAtStart.currentTime - START_DELAY_SECONDS);
+      const effectiveDuration = Math.max(0.001, audioAtStart.duration - START_DELAY_SECONDS);
+      const delayedBaseProgress = clamp(delayedPlaybackSeconds / effectiveDuration, 0, 1);
+      const rampPhase = clamp(delayedPlaybackSeconds / ACCELERATION_WINDOW_SECONDS, 0, 1);
+      const rampedDamping = BASE_SCROLL_DAMPING * rampPhase;
+      const effectiveSpeedMultiplier = speedMultiplierRef.current * rampedDamping;
+      smoothedProgressRef.current = clamp(delayedBaseProgress * effectiveSpeedMultiplier, 0, 1);
     } else {
       smoothedProgressRef.current = 0;
     }
@@ -100,7 +121,13 @@ export const CaptionsViewportOverlay: React.FC = () => {
         return;
       }
 
-      const targetProgress = clamp(audio.currentTime / audio.duration, 0, 1);
+      const delayedPlaybackSeconds = Math.max(0, audio.currentTime - START_DELAY_SECONDS);
+      const effectiveDuration = Math.max(0.001, audio.duration - START_DELAY_SECONDS);
+      const delayedBaseProgress = clamp(delayedPlaybackSeconds / effectiveDuration, 0, 1);
+      const rampPhase = clamp(delayedPlaybackSeconds / ACCELERATION_WINDOW_SECONDS, 0, 1);
+      const rampedDamping = BASE_SCROLL_DAMPING * rampPhase;
+      const effectiveSpeedMultiplier = speedMultiplierRef.current * rampedDamping;
+      const targetProgress = clamp(delayedBaseProgress * effectiveSpeedMultiplier, 0, 1);
 
       smoothedProgressRef.current += (targetProgress - smoothedProgressRef.current) * 0.28;
       setOffsetPx(-travelDistanceRef.current * smoothedProgressRef.current);
@@ -127,6 +154,18 @@ export const CaptionsViewportOverlay: React.FC = () => {
     return null;
   }
 
+  const handleIncreaseSpeed = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    event.stopPropagation();
+    increaseSpeed();
+  };
+
+  const handleDecreaseSpeed = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    event.stopPropagation();
+    decreaseSpeed();
+  };
+
   return (
     <div
       className="fixed inset-x-0 z-[140] flex justify-center px-2 sm:px-3"
@@ -134,17 +173,39 @@ export const CaptionsViewportOverlay: React.FC = () => {
       aria-live="off"
     >
       <div className="w-full rounded-full border border-white/20 bg-black/80 px-3 py-1.5 shadow-[inset_0_0_18px_rgba(255,255,255,0.06)] lg:w-[72vw] lg:px-4">
-        <div ref={viewportRef} className="min-w-0 overflow-hidden whitespace-nowrap">
-          <span
-            ref={textRef}
-            className="inline-block text-xs leading-4 text-gray-100"
-            style={{
-              transform: `translate3d(${offsetPx}px, 0, 0)`,
-              willChange: 'transform',
-            }}
-          >
-            {hasPlaybackStarted ? captionText : ''}
-          </span>
+        <div className="flex items-center gap-1.5">
+          <div ref={viewportRef} className="min-w-0 flex-1 overflow-hidden whitespace-nowrap">
+            <span
+              ref={textRef}
+              className="inline-block text-xs leading-4 text-gray-100"
+              style={{
+                transform: `translate3d(${offsetPx}px, 0, 0)`,
+                willChange: 'transform',
+              }}
+            >
+              {hasPlaybackStarted ? captionText : ''}
+            </span>
+          </div>
+          <div className="flex w-5 flex-shrink-0 flex-col items-center justify-center gap-0.5">
+            <button
+              type="button"
+              aria-label="Increase caption scroll speed"
+              onClick={handleIncreaseSpeed}
+              onPointerDown={(event) => event.stopPropagation()}
+              className="rounded-sm p-0.5 text-gray-300 transition-colors hover:text-white"
+            >
+              <ChevronUp className="h-3 w-3" />
+            </button>
+            <button
+              type="button"
+              aria-label="Decrease caption scroll speed"
+              onClick={handleDecreaseSpeed}
+              onPointerDown={(event) => event.stopPropagation()}
+              className="rounded-sm p-0.5 text-gray-300 transition-colors hover:text-white"
+            >
+              <ChevronDown className="h-3 w-3" />
+            </button>
+          </div>
         </div>
       </div>
     </div>
