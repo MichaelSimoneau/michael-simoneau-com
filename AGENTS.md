@@ -35,3 +35,12 @@ Every contribution must reinforce the future-facing product vision.
 ## Documentation
 
 - Update this file or nested `AGENTS.md` files whenever architectural rules evolve. Keep guidance clear, opinionated, and future-proof.
+
+## Learned Information (Dotcom)
+
+- **Memory source model.** Project "learned" state is primarily recovered from Cursor conversation/tool history artifacts (agent transcripts and tool logs), not from a dedicated per-project memory profile file.
+- **Workspace context.** This project has appeared under two workspace roots (`/Users/devcoup/.../dotcom` and `/Volumes/External/.../dotcom`), and history has been migrated between them; treat both as valid historical context when reconstructing prior intent.
+- **Command preference.** The preferred shorthand command for Gemini guidance tasks is `/gemi` (chosen over multi-command aliases).
+- **Gemini workflow intent.** When `/gemi` is invoked, expected behavior is to create/maintain/sync `GEMINI.md` with `AGENTS.md` while keeping guidance concise, durable, and non-duplicative.
+- **Repo-rule emphasis.** Sessions repeatedly enforce reading and honoring repository rules (especially `.cursorrules` and `AGENTS.md`) before acting on implementation requests.
+- **Output preference for memory requests.** When asked for "learned information," return distilled facts, preferences, and durable behavior patterns; avoid dumping raw file-path inventories unless explicitly requested.

@@ -125,12 +125,6 @@ const cleanPlaylist = podcastsToPlaylist({
   // Track #10 - 2026-03-14
   '"Agency is Authority Not Control" - Michael Simoneau':
     "/audio/2026-03-14/Agency_is_Authority_Not_Control.mp3",
-  // Track #11 - 2026-03-05
-  '"The High-Five Trick" - Michael Simoneau':
-    "/audio/2026-02-20/Chardon_Rd.mp3",
-  // Track #12 - 2026-03-05
-  '"The High-Five Trick - Extended Version" - Michael Simoneau':
-    "/audio/Stop_Watching_Cartoons__It_is_Saturday_Morning__.mp3",
 });
 
 const melindaFrancisPlaylist = podcastsToPlaylist({
@@ -147,6 +141,12 @@ const melindaFrancisPlaylist = podcastsToPlaylist({
     "/audio/2026-03-13/Zero-Sudoku-Implementation.mp3",
   "*NOT A PSYCHIATRIC CASE*...this might be a Psychiatric Case... lol. ":
     "/audio/Stop_Watching_Cartoons__It_is_Saturday_Morning__.mp3",
+    // Track #11 - 2026-03-05
+    '"The High-Five Trick" - Michael Simoneau':
+      "/audio/2026-02-20/Chardon_Rd.mp3",
+    // Track #12 - 2026-03-05
+    '"The High-Five Trick - Extended Version" - Michael Simoneau':
+      "/audio/Stop_Watching_Cartoons__It_is_Saturday_Morning__.mp3",
   // "Group: the "White Noise"
   // COLLAPSE_0:
   //   '"Trap":  ["White Noise" / "Manufactured Mania" / "Psychotic Delusion"]',
