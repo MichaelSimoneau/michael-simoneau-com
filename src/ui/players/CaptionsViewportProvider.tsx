@@ -13,18 +13,11 @@ interface CaptionsViewportContextValue {
   activeAudio: ActiveAudioBinding | null;
   setActiveAudio: (binding: ActiveAudioBinding | null) => void;
   clearActiveAudio: (audioRef: React.RefObject<HTMLAudioElement | null>) => void;
-  speedCoefficient: number;
-  increaseSpeed: () => void;
-  decreaseSpeed: () => void;
   transcriptStatus: 'idle' | 'loading' | 'ready' | 'missing' | 'error';
   transcriptText: string;
 }
 
 const CaptionsViewportContext = createContext<CaptionsViewportContextValue | undefined>(undefined);
-
-const normalizeSpeedCoefficient = (value: number): number => {
-  return Math.round(value * 100) / 100;
-};
 
 const getDesktopDefaultEnabled = (): boolean => {
   if (typeof window === 'undefined') {
@@ -40,7 +33,6 @@ interface CaptionsViewportProviderProps {
 export const CaptionsViewportProvider: React.FC<CaptionsViewportProviderProps> = ({ children }) => {
   const [isCaptionsEnabled, setCaptionsEnabled] = useState<boolean>(getDesktopDefaultEnabled);
   const [activeAudio, setActiveAudio] = useState<ActiveAudioBinding | null>(null);
-  const [speedCoefficient, setSpeedCoefficient] = useState(0);
   const { status: transcriptStatus, transcript: transcriptText } = useAudioTranscript(activeAudio?.audioSrc);
 
   const toggleCaptions = useCallback(() => {
@@ -56,14 +48,6 @@ export const CaptionsViewportProvider: React.FC<CaptionsViewportProviderProps> =
     });
   }, []);
 
-  const increaseSpeed = useCallback(() => {
-    setSpeedCoefficient((previous) => normalizeSpeedCoefficient(previous + 0.01));
-  }, []);
-
-  const decreaseSpeed = useCallback(() => {
-    setSpeedCoefficient((previous) => normalizeSpeedCoefficient(previous - 0.01));
-  }, []);
-
   const contextValue = useMemo<CaptionsViewportContextValue>(() => {
     return {
       isCaptionsEnabled,
@@ -72,19 +56,13 @@ export const CaptionsViewportProvider: React.FC<CaptionsViewportProviderProps> =
       activeAudio,
       setActiveAudio,
       clearActiveAudio,
-      speedCoefficient,
-      increaseSpeed,
-      decreaseSpeed,
       transcriptStatus,
       transcriptText,
     };
   }, [
     activeAudio,
     clearActiveAudio,
-    decreaseSpeed,
-    increaseSpeed,
     isCaptionsEnabled,
-    speedCoefficient,
     toggleCaptions,
     transcriptStatus,
     transcriptText,
