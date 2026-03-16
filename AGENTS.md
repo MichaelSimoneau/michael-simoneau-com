@@ -35,3 +35,16 @@ Every contribution must reinforce the future-facing product vision.
 ## Documentation
 
 - Update this file or nested `AGENTS.md` files whenever architectural rules evolve. Keep guidance clear, opinionated, and future-proof.
+
+## Learned Information (Dotcom)
+
+- **Canonical aggregate docs.**
+  - `docs/learned/dotcom-learned-knowledge.md`
+  - `docs/learned/dotcom-learned-decisions.md`
+  - `docs/learned/dotcom-learned-evidence-index.md`
+- **Durable highlights.**
+  - Expo-first + React Native Web direction is stable.
+  - `/gemi` is the preferred Gemini stewardship command.
+  - Attached-plan execution with ordered todo progression is a recurring expectation.
+  - Rule-first behavior (`.cursorrules`, `AGENTS.md`) is a durable precondition.
+- **Output expectation.** For memory requests, prefer distilled learned facts/decisions over raw path dumps.
