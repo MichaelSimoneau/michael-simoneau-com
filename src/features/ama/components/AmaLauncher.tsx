@@ -139,7 +139,7 @@ export const AmaLauncher: React.FC = () => {
       <button
         type="button"
         onClick={handleLauncherPress}
-        className={`fixed inset-x-3 bottom-3 z-[40] rounded-full border border-cyan-400/50 bg-black/85 px-4 py-3 text-sm font-semibold text-cyan-200 shadow-lg transition-all duration-500 md:hidden ${launcherVisibilityClass} ${launcherOopsClass}`}
+        className={`fixed inset-x-3 bottom-[calc(3.75rem+env(safe-area-inset-bottom))] z-[40] rounded-full border border-cyan-400/50 bg-black/85 px-4 py-3 text-sm font-semibold text-cyan-200 shadow-lg transition-all duration-500 md:hidden ${launcherVisibilityClass} ${launcherOopsClass}`}
         aria-label="Ask Me Anything"
       >
         Ask Me Anything
