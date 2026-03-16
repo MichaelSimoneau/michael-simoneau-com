@@ -1,4 +1,4 @@
-import { readdir, readFile, stat } from "node:fs/promises";
+import { lstat, readdir, readFile, realpath, stat } from "node:fs/promises";
 import path from "node:path";
 
 interface NetlifyEvent {
@@ -35,6 +35,11 @@ interface KnowledgeIndex {
   version: number;
   source: {
     publicDir: string;
+    corpusDirs?: string[];
+    publicExtensions?: string[];
+    allowedExtensions?: string[];
+    maxFileBytes?: number;
+    maxTotalChunks?: number;
     totalDocuments: number;
     totalChunks: number;
   };
@@ -117,6 +122,14 @@ const CORS_HEADERS = {
 };
 const CHUNK_SIZE = 900;
 const CHUNK_OVERLAP = 150;
+const CORPUS_SOURCES = [
+  { dir: "public", label: "public", extensions: new Set([".txt"]) },
+  { dir: "docs", label: "docs", extensions: new Set([".txt", ".md", ".mdx", ".csv", ".json", ".yaml", ".yml"]) },
+] as const;
+const ALLOWED_CORPUS_EXTENSIONS = new Set([".txt", ".md", ".mdx", ".csv", ".json", ".yaml", ".yml"]);
+const EXCLUDED_CORPUS_EXTENSIONS = new Set([".pdf"]);
+const MAX_CORPUS_FILE_BYTES = 8 * 1024 * 1024;
+const MAX_FALLBACK_TOTAL_CHUNKS = 2000;
 
 let inMemoryIndex: KnowledgeIndex | null = null;
 
@@ -132,10 +145,15 @@ function json(statusCode: number, payload: unknown) {
 }
 
 function normalizeToTokens(value: string): string[] {
-  return value
-    .toLowerCase()
-    .split(/[^a-z0-9]+/gu)
-    .filter((token) => token.length >= 3);
+  const tokens: string[] = [];
+  const tokenPattern = /[a-z0-9]{3,48}/gu;
+  const lowered = value.toLowerCase();
+  let match = tokenPattern.exec(lowered);
+  while (match) {
+    tokens.push(match[0]);
+    match = tokenPattern.exec(lowered);
+  }
+  return tokens;
 }
 
 function scoreChunk(queryTokens: string[], chunk: KnowledgeChunk): number {
@@ -238,44 +256,148 @@ function chunkText(value: string): KnowledgeChunk[] {
   return chunks;
 }
 
-async function collectTxtFilesRecursive(rootDir: string, currentRelative = ""): Promise<string[]> {
-  const absoluteDir = path.resolve(rootDir);
-  const entries = await readdir(absoluteDir);
-  const results: string[] = [];
-  for (const entry of entries) {
-    const absolutePath = path.join(absoluteDir, entry);
-    const entryStats = await stat(absolutePath);
-    const relativePath = path.posix.join(currentRelative, entry);
-    if (entryStats.isDirectory()) {
-      results.push(...(await collectTxtFilesRecursive(absolutePath, relativePath)));
-      continue;
-    }
-    if (entry.toLowerCase().endsWith(".txt")) {
-      results.push(relativePath);
-    }
-  }
-  return results.sort((a, b) => a.localeCompare(b));
+interface CorpusCandidateFile {
+  absolutePath: string;
+  corpusPath: string;
 }
 
-async function buildIndexFromPublicDirectory(): Promise<KnowledgeIndex | null> {
-  const publicDir = path.resolve(process.cwd(), "public");
+async function toRealPathSafe(targetPath: string): Promise<string> {
   try {
-    const txtRelativePaths = await collectTxtFilesRecursive(publicDir);
-    if (txtRelativePaths.length === 0) {
+    return await realpath(targetPath);
+  } catch {
+    return path.resolve(targetPath);
+  }
+}
+
+async function pathExists(targetPath: string): Promise<boolean> {
+  try {
+    await stat(targetPath);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+async function collectCorpusFilesRecursive({
+  rootDir,
+  sourceLabel,
+  allowedExtensions,
+  seenCanonicalFiles,
+  visitedCanonicalDirs,
+  currentRelative = "",
+}: {
+  rootDir: string;
+  sourceLabel: string;
+  allowedExtensions: Set<string>;
+  seenCanonicalFiles: Set<string>;
+  visitedCanonicalDirs: Set<string>;
+  currentRelative?: string;
+}): Promise<CorpusCandidateFile[]> {
+  const absoluteDir = path.resolve(rootDir);
+  if (!(await pathExists(absoluteDir))) {
+    return [];
+  }
+
+  const canonicalDir = await toRealPathSafe(absoluteDir);
+  if (visitedCanonicalDirs.has(canonicalDir)) {
+    return [];
+  }
+  visitedCanonicalDirs.add(canonicalDir);
+
+  const entries = (await readdir(absoluteDir)).sort((a, b) => a.localeCompare(b));
+  const results: CorpusCandidateFile[] = [];
+  for (const entry of entries) {
+    const absolutePath = path.join(absoluteDir, entry);
+    const linkStats = await lstat(absolutePath);
+    const entryStats = await stat(absolutePath);
+    const relativePath = path.posix.join(currentRelative, entry);
+    if (linkStats.isSymbolicLink() && entryStats.isDirectory()) {
+      continue;
+    }
+    if (entryStats.isDirectory()) {
+      results.push(
+        ...(await collectCorpusFilesRecursive({
+          rootDir: absolutePath,
+          sourceLabel,
+          allowedExtensions,
+          seenCanonicalFiles,
+          visitedCanonicalDirs,
+          currentRelative: relativePath,
+        })),
+      );
+      continue;
+    }
+
+    const ext = path.extname(entry).toLowerCase();
+    if (EXCLUDED_CORPUS_EXTENSIONS.has(ext)) {
+      continue;
+    }
+    if (!allowedExtensions.has(ext)) {
+      continue;
+    }
+    if (entryStats.size > MAX_CORPUS_FILE_BYTES) {
+      continue;
+    }
+
+    const canonicalFile = await toRealPathSafe(absolutePath);
+    if (seenCanonicalFiles.has(canonicalFile)) {
+      continue;
+    }
+    seenCanonicalFiles.add(canonicalFile);
+
+    results.push({
+      absolutePath,
+      corpusPath: `/${sourceLabel}/${relativePath.replace(/\\/gu, "/")}`,
+    });
+  }
+
+  return results;
+}
+
+async function buildIndexFromCorpusDirectories(): Promise<KnowledgeIndex | null> {
+  try {
+    const seenCanonicalFiles = new Set<string>();
+    const visitedCanonicalDirs = new Set<string>();
+    const sourceFiles = (
+      await Promise.all(
+        CORPUS_SOURCES.map(({ dir, label, extensions }) =>
+          collectCorpusFilesRecursive({
+            rootDir: path.resolve(process.cwd(), dir),
+            sourceLabel: label,
+            allowedExtensions: extensions,
+            seenCanonicalFiles,
+            visitedCanonicalDirs,
+          }),
+        ),
+      )
+    )
+      .flat()
+      .sort((a, b) => a.corpusPath.localeCompare(b.corpusPath));
+    if (sourceFiles.length === 0) {
       return null;
     }
 
     const documents: KnowledgeDocument[] = [];
-    for (let i = 0; i < txtRelativePaths.length; i += 1) {
-      const relativePath = txtRelativePaths[i];
-      const absolutePath = path.join(publicDir, relativePath);
-      const raw = await readFile(absolutePath, "utf8");
+    let totalChunks = 0;
+    for (let i = 0; i < sourceFiles.length; i += 1) {
+      if (totalChunks >= MAX_FALLBACK_TOTAL_CHUNKS) {
+        break;
+      }
+      const sourceFile = sourceFiles[i];
+      const raw = await readFile(sourceFile.absolutePath, "utf8");
       const normalized = normalizeText(raw);
+      const chunks = chunkText(normalized);
+      if (!chunks.length) {
+        continue;
+      }
+      const remainingCapacity = MAX_FALLBACK_TOTAL_CHUNKS - totalChunks;
+      const limitedChunks = chunks.slice(0, remainingCapacity);
+      totalChunks += limitedChunks.length;
       documents.push({
         id: `doc_${i}`,
-        path: `/${relativePath}`,
+        path: sourceFile.corpusPath,
         charCount: normalized.length,
-        chunks: chunkText(normalized),
+        chunks: limitedChunks,
       });
     }
 
@@ -284,6 +406,11 @@ async function buildIndexFromPublicDirectory(): Promise<KnowledgeIndex | null> {
       version: 1,
       source: {
         publicDir: "/public",
+        corpusDirs: CORPUS_SOURCES.map((source) => `/${source.label}`),
+        publicExtensions: [...CORPUS_SOURCES[0].extensions].sort((a, b) => a.localeCompare(b)),
+        allowedExtensions: [...ALLOWED_CORPUS_EXTENSIONS].sort((a, b) => a.localeCompare(b)),
+        maxFileBytes: MAX_CORPUS_FILE_BYTES,
+        maxTotalChunks: MAX_FALLBACK_TOTAL_CHUNKS,
         totalDocuments: documents.length,
         totalChunks: documents.reduce((sum, doc) => sum + doc.chunks.length, 0),
       },
@@ -306,12 +433,12 @@ async function getKnowledgeIndex(event: NetlifyEvent): Promise<KnowledgeIndex> {
     inMemoryIndex = fromFetch;
     return fromFetch;
   }
-  const fromTxtFallback = await buildIndexFromPublicDirectory();
+  const fromTxtFallback = await buildIndexFromCorpusDirectories();
   if (fromTxtFallback) {
     inMemoryIndex = fromTxtFallback;
     return fromTxtFallback;
   }
-  throw new Error("Knowledge index unavailable. Could not load public/*.txt corpus.");
+  throw new Error("Knowledge index unavailable. Could not load configured text corpus sources.");
 }
 
 function buildLexicalCandidates(index: KnowledgeIndex, question: string, prefilterLimit: number) {
@@ -504,7 +631,7 @@ async function callGemini({
 }): Promise<string> {
   const systemPrompt = [
     "You are the Michael Simoneau AMA assistant.",
-    "Answer only using the provided SOURCE_CONTEXT from /public/**/*.txt corpus.",
+    "Answer only using the provided SOURCE_CONTEXT from the indexed text corpus.",
     "If the answer is not explicitly grounded in SOURCE_CONTEXT, say you do not know from the available corpus.",
     "Be concise and factual.",
     "Only provide debugging guidance when DEBUG_MODE is true and the user asked for troubleshooting.",

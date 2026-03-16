@@ -1,40 +1,41 @@
 # GEMINI.md
 
 ## Project Defaults
-- Treat this repository as an Expo-driven React Native Web app using Expo Router + Metro.
-- Do not reintroduce Vite, CRA, or other legacy web build assumptions in runtime code.
-- Use Yarn for dependency and script workflows; do not add `package-lock.json`.
-- Use `yarn start` for local dev, `yarn web` for web preview, and `yarn typecheck` before commit.
+- Build and runtime are Expo-first with Expo Router + Metro; do not reintroduce Vite, CRA, or other legacy build systems.
+- Use Yarn for dependency and script management; do not add `package-lock.json`.
+- Primary development scripts are `yarn start` for local development and `yarn web` for web preview.
 
 ## Coding Standards
 - Keep TypeScript strict and prefer explicit types, discriminated unions, and descriptive interfaces.
-- Use React Native primitives (`View`, `Text`, `ScrollView`) instead of DOM-specific APIs.
-- If web-only behavior is required, guard it behind runtime-safe checks and foundation runtime abstractions.
-- Keep feature logic in `src/features`; keep shared cross-cutting primitives in `src/foundation`; compose globals in `src/providers`.
-- Keep feature boundaries explicit and avoid leaking feature concerns into foundation modules.
-- Use barrel exports sparingly; prefer explicit imports when it improves clarity and tree shaking.
-
-## Foundation Rules
-- Treat `src/foundation` as kernel-level infrastructure with minimal, composable primitives.
-- Keep runtime detection platform-safe; avoid direct `window` or `document` access in shared runtime logic.
+- Use React Native primitives for UI (`View`, `Text`, `ScrollView`, etc.); avoid direct DOM-specific APIs in runtime code.
+- If a web-only capability is required, gate it behind runtime checks that respect `useFoundationRuntime()`.
+- Build feature logic under `src/features`; promote reusable UI into `src/ui`; keep global provider composition in `src/providers`.
+- Use `src/foundation` primitives for config, analytics, and runtime intelligence in cross-cutting concerns.
+- Keep foundation runtime detection platform-safe; avoid direct `window` or `document` access in shared runtime logic.
 - Keep analytics sinks typed and side-effect free by default.
-
-## Documentation & Structure
-- Maintain required README coverage in `src`, `src/services`, `functions`, and `functions/src/__tests__`.
-- Include required README sections where applicable: Architecture Overview, Implementation Guidelines, Performance Metrics, Security Measures, Testing Requirements, Documentation Requirements.
-- Keep guidance durable and concise; remove stale tool references when architecture changes.
+- Favor serializable content pipelines compatible with Expo/React Native assets; avoid Node-only runtime dependencies.
+- Model service classes with a singleton-oriented pattern and keep explicit error handling, type safety, documentation, and tests.
+- Model functions with the repository `onFlow` pattern and include validation, auth checks, error handling, and documentation.
 
 ## Verification
-- Run type checks for changed areas before completing work (`yarn typecheck` minimum).
-- Add or update tests for behavior changes, especially for critical navigation and foundation/runtime behavior.
-- Favor React Native Testing Library for component tests and include smoke validation for critical flows.
+- Run `yarn typecheck` before completion and before commit.
+- Add or update tests for changed behavior, favoring React Native Testing Library for component validation.
+- Add smoke coverage for critical navigation flows when shipping substantial UX changes.
+- For service and function changes, preserve error handling, type safety, and test coverage expectations from repository rules.
+- If changes touch `src`, `src/services`, `functions`, or `functions/src/__tests__`, ensure required `README` guidance exists with architecture, implementation, performance, security, testing, and documentation sections.
 
 ## Safety Rules
-- Never run destructive git commands (for example `git reset --hard`) unless explicitly requested.
-- Never commit secrets or credentials; avoid adding sensitive files to version control.
-- Keep edits scoped to the requested task and avoid reverting unrelated user changes.
+- Do not run destructive Git commands (for example `git reset --hard`) unless explicitly requested.
+- Do not revert unrelated local changes you did not author.
+- Never commit secrets, credentials, or environment-sensitive values.
+- Keep guidance and changes forward-compatible with the Expo/React Native Web architecture.
 
 ## Update Policy
-- Keep this file operational and implementation-focused, not historical.
-- When `AGENTS.md` and `GEMINI.md` overlap, preserve one canonical phrasing and remove duplicates.
-- Prefer repository-specific constraints over generic defaults when conflicts arise.
+- Keep this file concise and operational; include durable implementation rules, not temporary task notes.
+- When `AGENTS.md` and this file overlap, keep repository-specific constraints and remove duplicate wording.
+- Update this file when architectural, tooling, or verification expectations materially change.
+
+## Learned Knowledge References
+- Use `docs/learned/dotcom-learned-knowledge.md` as the canonical durable-facts aggregate.
+- Use `docs/learned/dotcom-learned-decisions.md` for recurring command/workflow preferences.
+- Use `docs/learned/dotcom-learned-evidence-index.md` to trace claims back to parent transcript evidence.
