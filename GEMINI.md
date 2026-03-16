@@ -12,12 +12,15 @@
 - Build feature logic under `src/features`; promote reusable UI into `src/ui`; keep global provider composition in `src/providers`.
 - Use `src/foundation` primitives for config, analytics, and runtime intelligence in cross-cutting concerns.
 - Favor serializable content pipelines compatible with Expo/React Native assets; avoid Node-only runtime dependencies.
+- Model service classes with a singleton-oriented pattern and keep explicit error handling, type safety, documentation, and tests.
+- Model functions with the repository `onFlow` pattern and include validation, auth checks, error handling, and documentation.
 
 ## Verification
 - Run `yarn typecheck` before completion and before commit.
 - Add or update tests for changed behavior, favoring React Native Testing Library for component validation.
 - Add smoke coverage for critical navigation flows when shipping substantial UX changes.
 - For service and function changes, preserve error handling, type safety, and test coverage expectations from repository rules.
+- If changes touch `src`, `src/services`, `functions`, or `functions/src/__tests__`, ensure required `README` guidance exists with architecture, implementation, performance, security, testing, and documentation sections.
 
 ## Safety Rules
 - Do not run destructive Git commands (for example `git reset --hard`) unless explicitly requested.
@@ -29,3 +32,8 @@
 - Keep this file concise and operational; include durable implementation rules, not temporary task notes.
 - When `AGENTS.md` and this file overlap, keep repository-specific constraints and remove duplicate wording.
 - Update this file when architectural, tooling, or verification expectations materially change.
+
+## Learned Knowledge References
+- Use `docs/learned/dotcom-learned-knowledge.md` as the canonical durable-facts aggregate.
+- Use `docs/learned/dotcom-learned-decisions.md` for recurring command/workflow preferences.
+- Use `docs/learned/dotcom-learned-evidence-index.md` to trace claims back to parent transcript evidence.

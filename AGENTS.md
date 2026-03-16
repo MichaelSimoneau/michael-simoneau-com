@@ -38,9 +38,13 @@ Every contribution must reinforce the future-facing product vision.
 
 ## Learned Information (Dotcom)
 
-- **Memory source model.** Project "learned" state is primarily recovered from Cursor conversation/tool history artifacts (agent transcripts and tool logs), not from a dedicated per-project memory profile file.
-- **Workspace context.** This project has appeared under two workspace roots (`/Users/devcoup/.../dotcom` and `/Volumes/External/.../dotcom`), and history has been migrated between them; treat both as valid historical context when reconstructing prior intent.
-- **Command preference.** The preferred shorthand command for Gemini guidance tasks is `/gemi` (chosen over multi-command aliases).
-- **Gemini workflow intent.** When `/gemi` is invoked, expected behavior is to create/maintain/sync `GEMINI.md` with `AGENTS.md` while keeping guidance concise, durable, and non-duplicative.
-- **Repo-rule emphasis.** Sessions repeatedly enforce reading and honoring repository rules (especially `.cursorrules` and `AGENTS.md`) before acting on implementation requests.
-- **Output preference for memory requests.** When asked for "learned information," return distilled facts, preferences, and durable behavior patterns; avoid dumping raw file-path inventories unless explicitly requested.
+- **Canonical aggregate docs.**
+  - `docs/learned/dotcom-learned-knowledge.md`
+  - `docs/learned/dotcom-learned-decisions.md`
+  - `docs/learned/dotcom-learned-evidence-index.md`
+- **Durable highlights.**
+  - Expo-first + React Native Web direction is stable.
+  - `/gemi` is the preferred Gemini stewardship command.
+  - Attached-plan execution with ordered todo progression is a recurring expectation.
+  - Rule-first behavior (`.cursorrules`, `AGENTS.md`) is a durable precondition.
+- **Output expectation.** For memory requests, prefer distilled learned facts/decisions over raw path dumps.
