@@ -1,26 +1,36 @@
 #!/usr/bin/env node
 
 import { createHash } from "node:crypto";
-import { mkdirSync, readFileSync, readdirSync, statSync, writeFileSync } from "node:fs";
+import { existsSync, lstatSync, mkdirSync, readFileSync, readdirSync, realpathSync, statSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import process from "node:process";
 import { fileURLToPath } from "node:url";
 
 const DEFAULT_PUBLIC_DIR = "public";
+const DEFAULT_DOCS_DIR = "docs";
 const DEFAULT_OUTPUT_FILE = "public/ama-knowledge-index.json";
 const DEFAULT_CHUNK_SIZE = 900;
 const DEFAULT_CHUNK_OVERLAP = 150;
 const DEFAULT_ENRICHMENT_CACHE_FILE = ".cache/ama-enrichment-cache.json";
 const DEFAULT_ENRICHMENT_MODEL = "gemini-3.1-pro-preview";
 const DEFAULT_ENRICHMENT_MAX_CHUNKS = 120;
+const DEFAULT_ALLOWED_EXTENSIONS = [".txt", ".md", ".mdx", ".csv", ".json", ".yaml", ".yml"];
+const DEFAULT_PUBLIC_EXTENSIONS = [".txt"];
+const EXCLUDED_EXTENSIONS = new Set([".pdf"]);
+const DEFAULT_MAX_FILE_BYTES = 8 * 1024 * 1024;
+const DEFAULT_MAX_TOTAL_CHUNKS = 2000;
 
-const HELP_TEXT = `Build AMA knowledge index from public text files.
+const HELP_TEXT = `Build AMA knowledge index from configured corpus directories.
 
 Usage:
   node scripts/build-ama-knowledge-index.mjs [options]
 
 Options:
-  --public-dir <path>    Directory to scan for .txt files (default: ${DEFAULT_PUBLIC_DIR})
+  --public-dir <path>    Public corpus directory (default: ${DEFAULT_PUBLIC_DIR})
+  --docs-dir <path>      Docs corpus directory or "none" to disable (default: ${DEFAULT_DOCS_DIR})
+  --extensions <csv>     Allowed docs text extensions (default: ${DEFAULT_ALLOWED_EXTENSIONS.join(",")})
+  --max-file-bytes <n>   Skip corpus files larger than this size (default: ${DEFAULT_MAX_FILE_BYTES})
+  --max-total-chunks <n> Limit total chunks written to the index (default: ${DEFAULT_MAX_TOTAL_CHUNKS})
   --output-file <path>   Output JSON index file path (default: ${DEFAULT_OUTPUT_FILE})
   --chunk-size <number>  Chunk size in characters (default: ${DEFAULT_CHUNK_SIZE})
   --overlap <number>     Chunk overlap in characters (default: ${DEFAULT_CHUNK_OVERLAP})
@@ -38,6 +48,10 @@ function parseArgs(argv) {
     typeof envEnrichFlag === "string" ? envEnrichFlag.toLowerCase() === "true" : false;
   const options = {
     publicDir: DEFAULT_PUBLIC_DIR,
+    docsDir: DEFAULT_DOCS_DIR,
+    allowedExtensions: [...DEFAULT_ALLOWED_EXTENSIONS],
+    maxFileBytes: DEFAULT_MAX_FILE_BYTES,
+    maxTotalChunks: DEFAULT_MAX_TOTAL_CHUNKS,
     outputFile: DEFAULT_OUTPUT_FILE,
     chunkSize: DEFAULT_CHUNK_SIZE,
     overlap: DEFAULT_CHUNK_OVERLAP,
@@ -63,6 +77,47 @@ function parseArgs(argv) {
       const value = argv[index + 1];
       if (!value) throw new Error("Missing value for --output-file");
       options.outputFile = value;
+      index += 1;
+      continue;
+    }
+    if (token === "--docs-dir") {
+      const value = argv[index + 1];
+      if (!value) throw new Error("Missing value for --docs-dir");
+      options.docsDir = value;
+      index += 1;
+      continue;
+    }
+    if (token === "--extensions") {
+      const value = argv[index + 1];
+      if (!value) throw new Error("Missing value for --extensions");
+      const parsed = value
+        .split(",")
+        .map((item) => item.trim().toLowerCase())
+        .filter(Boolean)
+        .map((item) => (item.startsWith(".") ? item : `.${item}`));
+      const unique = [...new Set(parsed)];
+      if (unique.length === 0) {
+        throw new Error("Invalid value for --extensions. Provide a comma-separated list.");
+      }
+      options.allowedExtensions = unique;
+      index += 1;
+      continue;
+    }
+    if (token === "--max-file-bytes") {
+      const value = Number(argv[index + 1]);
+      if (!Number.isFinite(value) || value < 1) {
+        throw new Error("Invalid value for --max-file-bytes. Use a number >= 1.");
+      }
+      options.maxFileBytes = Math.trunc(value);
+      index += 1;
+      continue;
+    }
+    if (token === "--max-total-chunks") {
+      const value = Number(argv[index + 1]);
+      if (!Number.isFinite(value) || value < 1) {
+        throw new Error("Invalid value for --max-total-chunks. Use a number >= 1.");
+      }
+      options.maxTotalChunks = Math.trunc(value);
       index += 1;
       continue;
     }
@@ -137,33 +192,98 @@ function normalizeText(raw) {
     .trim();
 }
 
-function collectTxtFiles(directory, currentRelative = "") {
+function toRealPathSafe(targetPath) {
+  try {
+    return realpathSync(targetPath);
+  } catch {
+    return path.resolve(targetPath);
+  }
+}
+
+function collectCorpusFiles({
+  directory,
+  sourceLabel,
+  allowedExtensions,
+  maxFileBytes,
+  seenCanonicalFiles,
+  visitedCanonicalDirs,
+  currentRelative = "",
+}) {
   const absoluteDir = path.resolve(directory);
+  if (!existsSync(absoluteDir)) {
+    return [];
+  }
+
+  const canonicalDir = toRealPathSafe(absoluteDir);
+  if (visitedCanonicalDirs.has(canonicalDir)) {
+    return [];
+  }
+  visitedCanonicalDirs.add(canonicalDir);
+
   const entries = readdirSync(absoluteDir).sort((a, b) => a.localeCompare(b));
   const files = [];
   for (const entry of entries) {
     const absolutePath = path.join(absoluteDir, entry);
     const relativePath = path.posix.join(currentRelative, entry);
+    const linkStats = lstatSync(absolutePath);
     const stats = statSync(absolutePath);
-    if (stats.isDirectory()) {
-      files.push(...collectTxtFiles(absolutePath, relativePath));
+    if (linkStats.isSymbolicLink() && stats.isDirectory()) {
+      // Avoid traversing linked directories so each corpus root is indexed intentionally.
       continue;
     }
-    if (entry.toLowerCase().endsWith(".txt")) {
-      files.push({ absolutePath, publicPath: `/${relativePath.replace(/\\/gu, "/")}` });
+    if (stats.isDirectory()) {
+      files.push(
+        ...collectCorpusFiles({
+          directory: absolutePath,
+          sourceLabel,
+          allowedExtensions,
+          maxFileBytes,
+          seenCanonicalFiles,
+          visitedCanonicalDirs,
+          currentRelative: relativePath,
+        }),
+      );
+      continue;
     }
+
+    const ext = path.extname(entry).toLowerCase();
+    if (EXCLUDED_EXTENSIONS.has(ext)) {
+      continue;
+    }
+    if (!allowedExtensions.has(ext)) {
+      continue;
+    }
+    if (stats.size > maxFileBytes) {
+      continue;
+    }
+
+    const canonicalFile = toRealPathSafe(absolutePath);
+    if (seenCanonicalFiles.has(canonicalFile)) {
+      continue;
+    }
+    seenCanonicalFiles.add(canonicalFile);
+
+    files.push({
+      absolutePath,
+      publicPath: `/${sourceLabel}/${relativePath.replace(/\\/gu, "/")}`,
+    });
   }
   return files;
 }
 
 function extractTokens(value) {
-  const unique = new Set(
-    value
-      .toLowerCase()
-      .split(/[^a-z0-9]+/gu)
-      .filter((token) => token.length >= 3),
-  );
-  return [...unique].slice(0, 120);
+  const unique = new Set();
+  const lowered = value.toLowerCase();
+  const tokenPattern = /[a-z0-9]{3,48}/gu;
+  let match = tokenPattern.exec(lowered);
+  while (match) {
+    unique.add(match[0]);
+    if (unique.size >= 120) {
+      break;
+    }
+    match = tokenPattern.exec(lowered);
+  }
+  return [...unique];
 }
 
 function hashContent(value) {
@@ -339,6 +459,10 @@ async function applyAiEnrichment({ documents, options }) {
 
 export function buildAmaKnowledgeIndex({
   publicDir = DEFAULT_PUBLIC_DIR,
+  docsDir = DEFAULT_DOCS_DIR,
+  allowedExtensions = DEFAULT_ALLOWED_EXTENSIONS,
+  maxFileBytes = DEFAULT_MAX_FILE_BYTES,
+  maxTotalChunks = DEFAULT_MAX_TOTAL_CHUNKS,
   outputFile = DEFAULT_OUTPUT_FILE,
   chunkSize = DEFAULT_CHUNK_SIZE,
   overlap = DEFAULT_CHUNK_OVERLAP,
@@ -349,6 +473,10 @@ export function buildAmaKnowledgeIndex({
 } = {}) {
   return buildAmaKnowledgeIndexAsync({
     publicDir,
+    docsDir,
+    allowedExtensions,
+    maxFileBytes,
+    maxTotalChunks,
     outputFile,
     chunkSize,
     overlap,
@@ -361,6 +489,10 @@ export function buildAmaKnowledgeIndex({
 
 async function buildAmaKnowledgeIndexAsync({
   publicDir,
+  docsDir,
+  allowedExtensions,
+  maxFileBytes,
+  maxTotalChunks,
   outputFile,
   chunkSize,
   overlap,
@@ -369,24 +501,72 @@ async function buildAmaKnowledgeIndexAsync({
   cacheFile,
   enrichMaxChunks,
 }) {
-  const absolutePublicDir = path.resolve(process.cwd(), publicDir);
   const absoluteOutput = path.resolve(process.cwd(), outputFile);
-  const txtFiles = collectTxtFiles(absolutePublicDir);
-  if (txtFiles.length === 0) {
-    throw new Error(`No .txt files found in ${absolutePublicDir}`);
+  const normalizedExtensions = new Set(
+    allowedExtensions.map((item) => {
+      const normalized = String(item).trim().toLowerCase();
+      return normalized.startsWith(".") ? normalized : `.${normalized}`;
+    }),
+  );
+  if (normalizedExtensions.size === 0) {
+    throw new Error("No allowed extensions configured.");
+  }
+  for (const excludedExtension of EXCLUDED_EXTENSIONS) {
+    normalizedExtensions.delete(excludedExtension);
   }
 
-  const baseDocuments = txtFiles.map((file, fileIndex) => {
+  const publicExtensions = new Set(DEFAULT_PUBLIC_EXTENSIONS);
+  for (const excludedExtension of EXCLUDED_EXTENSIONS) {
+    publicExtensions.delete(excludedExtension);
+  }
+
+  const sources = [{ directory: publicDir, label: "public", allowedExtensions: publicExtensions }];
+  if (docsDir && docsDir.toLowerCase() !== "none") {
+    sources.push({ directory: docsDir, label: "docs", allowedExtensions: normalizedExtensions });
+  }
+
+  const seenCanonicalFiles = new Set();
+  const visitedCanonicalDirs = new Set();
+  const corpusFiles = sources.flatMap((source) =>
+    collectCorpusFiles({
+      directory: source.directory,
+      sourceLabel: source.label,
+      allowedExtensions: source.allowedExtensions,
+      maxFileBytes,
+      seenCanonicalFiles,
+      visitedCanonicalDirs,
+    }),
+  );
+  corpusFiles.sort((a, b) => a.publicPath.localeCompare(b.publicPath));
+  if (corpusFiles.length === 0) {
+    throw new Error(
+      `No eligible corpus files found. Checked: ${sources.map((source) => path.resolve(process.cwd(), source.directory)).join(", ")}`,
+    );
+  }
+
+  const baseDocuments = [];
+  let totalChunks = 0;
+  for (let fileIndex = 0; fileIndex < corpusFiles.length; fileIndex += 1) {
+    if (totalChunks >= maxTotalChunks) {
+      break;
+    }
+    const file = corpusFiles[fileIndex];
     const raw = readFileSync(file.absolutePath, "utf8");
     const normalized = normalizeText(raw);
     const chunks = chunkText(normalized, chunkSize, overlap);
-    return {
+    if (!chunks.length) {
+      continue;
+    }
+    const remainingCapacity = maxTotalChunks - totalChunks;
+    const limitedChunks = chunks.slice(0, remainingCapacity);
+    totalChunks += limitedChunks.length;
+    baseDocuments.push({
       id: `doc_${fileIndex}`,
       path: file.publicPath,
       charCount: normalized.length,
-      chunks,
-    };
-  });
+      chunks: limitedChunks,
+    });
+  }
 
   const { documents, enrichment } = await applyAiEnrichment({
     documents: baseDocuments,
@@ -397,7 +577,12 @@ async function buildAmaKnowledgeIndexAsync({
     generatedAt: new Date().toISOString(),
     version: 1,
     source: {
-      publicDir: `/${path.relative(process.cwd(), absolutePublicDir).replace(/\\/gu, "/")}`,
+      publicDir: `/${path.relative(process.cwd(), path.resolve(process.cwd(), publicDir)).replace(/\\/gu, "/")}`,
+      corpusDirs: sources.map((source) => `/${source.label}`),
+      publicExtensions: [...publicExtensions].sort((a, b) => a.localeCompare(b)),
+      allowedExtensions: [...normalizedExtensions].sort((a, b) => a.localeCompare(b)),
+      maxFileBytes,
+      maxTotalChunks,
       totalDocuments: documents.length,
       totalChunks: documents.reduce((sum, doc) => sum + doc.chunks.length, 0),
     },
