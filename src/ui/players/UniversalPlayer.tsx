@@ -21,12 +21,6 @@ export const UniversalPlayer: React.FC = () => {
     totalPhrases,
     isSupported 
   } = useSpeech();
-
-  React.useEffect(() => {
-    bindPauseHandler(() => {
-      pause();
-    });
-  }, [bindPauseHandler, pause]);
   
   if (!isSupported) {
     return null;
