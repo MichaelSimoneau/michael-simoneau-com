@@ -4,6 +4,8 @@
 
 [build.environment]
   NODE_VERSION = "22"
+  SECRETS_SCAN_OMIT_KEYS = "EXPO_ROUTER_APP_ROOT,GEMINI_MODEL"
+  SECRETS_SCAN_OMIT_PATHS = "coverage/**"
 
 [dev]
   targetPort = 8081
@@ -16,6 +18,21 @@
 [[redirects]]
   from = "/zeroth.txt"
   to = "/zeroth.txt"
+  status = 200
+
+[[redirects]]
+  from = "/audio/*"
+  to = "/audio/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/*.txt"
+  to = "/:splat.txt"
+  status = 200
+
+[[redirects]]
+  from = "/*melinda*"
+  to = "/melinda"
   status = 200
 
 [[redirects]]

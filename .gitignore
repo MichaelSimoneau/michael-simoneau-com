@@ -11,6 +11,7 @@ lerna-debug.log*
 node_modules
 dist
 dist-ssr
+coverage
 *.local
 stats.html
 .expo
@@ -50,3 +51,4 @@ apphosting.local.yaml
 
 expo-env.d.ts
 # @end expo-cli
+.expo/**

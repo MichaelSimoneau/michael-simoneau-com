@@ -1,13 +1,16 @@
-import { useMemo } from 'react';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { useEffect, useMemo } from 'react';
 import { useFoundationBoundary, useFoundationMetadata, useFoundationPageView } from '../../../foundation';
-import { BlogListItem } from '../components/BlogListItem';
-import { useBlogArticles, useFeaturedBlogArticles } from '../hooks/useBlogArticles';
+import { Seo } from '../../../foundation/seo/Seo';
+import { MainNav } from '../../../layout/MainNav';
+import { BlogListView } from '../components/BlogListView';
+import { blogData } from '../data/posts';
+import { useScrollToTop } from '../../../hooks/useScrollToTop';
 
 export const BlogListScreen = () => {
+  useScrollToTop();
   const metadata = useFoundationMetadata();
-  const featuredArticles = useFeaturedBlogArticles();
-  const articles = useBlogArticles();
+  const featuredArticles = useMemo(() => blogData.filter(article => article.featured), []);
+  const articles = useMemo(() => blogData, []);
   const boundary = useMemo(
     () => ({
       id: 'blog-list',
@@ -30,72 +33,44 @@ export const BlogListScreen = () => {
     },
   );
 
+  useEffect(() => {
+    document.title = 'Blog | Michael Simoneau';
+  }, []);
+
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <View style={styles.hero}>
-        <Text style={styles.heroEyebrow}>Insights</Text>
-        <Text style={styles.heroTitle}>{metadata.siteName} Briefings</Text>
-        <Text style={styles.heroSubtitle}>
-          Pattern libraries, zero-trust telemetry, and profitability playbooks engineered for regulated enterprises.
-        </Text>
-      </View>
-
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Featured</Text>
-        <View style={styles.grid}>
-          {featuredArticles.map(article => (
-            <BlogListItem key={article.id} article={article} />
-          ))}
-        </View>
-      </View>
-
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Latest briefs</Text>
-        <View style={styles.grid}>
-          {articles.map(article => (
-            <BlogListItem key={`latest-${article.id}`} article={article} />
-          ))}
-        </View>
-      </View>
-    </ScrollView>
+    <>
+      <Seo
+        title="Strategic Insights & Perspectives | Blog | Michael Simoneau"
+        description="Perspectives on technology transformation, enterprise architecture, and leadership from Michael Simoneau. Explore insights on AI integration, quantum cryptography, legacy system modernization, and more."
+        canonicalUrl="https://www.michaelsimoneau.com/blog"
+        keywords={[
+          'Technology Leadership',
+          'Enterprise Architecture',
+          'AI Strategy',
+          'Digital Transformation',
+          'CTO Advisory',
+          'Software Engineering',
+          'System Modernization',
+          'Quantum Computing',
+          'Blockchain',
+          'Crypto Fabric',
+        ]}
+        image="https://www.michaelsimoneau.com/profile-image.png"
+        structuredData={{
+          '@context': 'https://schema.org',
+          '@type': 'Blog',
+          name: metadata.siteName ? `${metadata.siteName} Blog` : 'Michael Simoneau Blog',
+          description: 'Strategic insights and perspectives on technology transformation, enterprise architecture, and leadership.',
+          url: 'https://www.michaelsimoneau.com/blog',
+          author: {
+            '@type': 'Person',
+            name: 'Michael Simoneau',
+            url: 'https://www.michaelsimoneau.com',
+          },
+        }}
+      />
+      <MainNav />
+      <BlogListView posts={articles} />
+    </>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    padding: 24,
-    gap: 32,
-    backgroundColor: '#F8FAFC',
-  },
-  hero: {
-    gap: 12,
-  },
-  heroEyebrow: {
-    color: '#0EA5E9',
-    fontSize: 14,
-    fontWeight: '600',
-    letterSpacing: 2,
-    textTransform: 'uppercase',
-  },
-  heroTitle: {
-    fontSize: 32,
-    fontWeight: '700',
-    color: '#0F172A',
-  },
-  heroSubtitle: {
-    fontSize: 18,
-    lineHeight: 26,
-    color: '#334155',
-  },
-  section: {
-    gap: 16,
-  },
-  sectionTitle: {
-    fontSize: 20,
-    fontWeight: '700',
-    color: '#0F172A',
-  },
-  grid: {
-    gap: 16,
-  },
-});

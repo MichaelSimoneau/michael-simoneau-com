@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { BookOpen } from 'lucide-react';
-import { blogData } from '../../../data/blogData';
+import { blogData } from '../data/posts';
 
 // Select the first 3 posts from blogData for the teaser
 const teaserPosts = blogData.slice(0, 3);

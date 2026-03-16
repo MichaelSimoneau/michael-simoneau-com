@@ -3,13 +3,13 @@ import { motion } from 'framer-motion';
 import { Play, Pause, SkipBack, SkipForward } from 'lucide-react';
 import { useSpeech } from '../../contexts/SpeechContext';
 import { useMediaAnalytics } from '../../analytics/useMediaAnalytics';
-import { dispatchMediaPlayIntent } from './mediaEvents';
-import { useMediaPlaybackCoordinator } from '../../providers/MediaPlaybackCoordinatorProvider';
+import { InlineMediaConsentPrompt } from './InlineMediaConsentPrompt';
+import { useMediaConsentGate } from './useMediaConsentGate';
 
 export const UniversalPlayer: React.FC = () => {
   const { trackMediaEvent } = useMediaAnalytics();
-  const { announcePlayStart, bindPauseHandler } = useMediaPlaybackCoordinator('universal-player', {
-    playbackKey: 'speech-context',
+  const { isGateVisible, requestConsentAwarePlay, acceptAndResume } = useMediaConsentGate({
+    source: 'universal-player',
   });
   const { 
     isPlaying, 
@@ -45,16 +45,16 @@ export const UniversalPlayer: React.FC = () => {
       });
       pause();
     } else {
-      announcePlayStart();
-      dispatchMediaPlayIntent('universal-player');
-      trackMediaEvent('play', {
-        media_type: 'speech',
-        component: 'UniversalPlayer',
-        track_title: currentPhrase ?? 'speech-sequence',
-        position_seconds: currentIndex,
-        duration_seconds: totalPhrases,
+      requestConsentAwarePlay(() => {
+        trackMediaEvent('play', {
+          media_type: 'speech',
+          component: 'UniversalPlayer',
+          track_title: currentPhrase ?? 'speech-sequence',
+          position_seconds: currentIndex,
+          duration_seconds: totalPhrases,
+        });
+        play();
       });
-      play();
     }
   };
 
@@ -99,6 +99,7 @@ export const UniversalPlayer: React.FC = () => {
           <SkipForward className="w-5 h-5 sm:w-4 sm:h-4 text-gray-400 group-hover:text-cyan-400 transition-colors" />
         </motion.button>
       </motion.div>
+      <InlineMediaConsentPrompt visible={isGateVisible} onAgree={acceptAndResume} className="mt-2" />
     </div>
   );
 }; 

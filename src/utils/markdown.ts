@@ -20,7 +20,7 @@ export const parseInlineMarkdown = (text: string): string => {
   // Links [text](url)
   html = html.replace(
     /\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)/g,
-    '<a href="$2" target="_blank" rel="noopener noreferrer" class="text-cyan-400 hover:text-cyan-300">$1</a>'
+    '<a href="$2" target="_blank" rel="noopener" class="text-cyan-400 hover:text-cyan-300">$1</a>'
   );
 
   return html;

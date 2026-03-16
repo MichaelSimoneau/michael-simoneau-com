@@ -1,5 +1,5 @@
-import { ZeroTruth } from '../src/features/zero-truth/components/ZeroTruth';
+import { Redirect } from 'expo-router';
 
 export default function ZeroRoute() {
-  return <ZeroTruth />;
+  return <Redirect href="/zeroth/theory/chapter/1/principal/1" />;
 }

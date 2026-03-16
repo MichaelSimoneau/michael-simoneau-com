@@ -1,0 +1,556 @@
+ I want you to do me a favor before we start I want you to close your eyes okay
+ unless you're driving in which case please keep them open but I want you to
+ picture a number just one number right I'm playing along picture zero what do
+ you see I mean honestly I see a circle an oval maybe a hole right you see a
+ hole you see an empty bucket if I tell you to open your banking app right now
+ and you see a big fat zero what do you feel panic total panic yeah I feel a lack
+ of something I feel absence exactly in our culture in our math in the the logic
+ that runs the computer recording this voice right now zero is the void it is
+ the absence of value it is null it's the empty set it's what you have when you
+ have nothing else well we have a stack of documents here today that says we are
+ wrong and not just math class wrong like existentially wrong we are looking at a
+ system called zero and the architect behind it a guy named Michael Simoneau starts
+ his documentation with a challenge that frankly kind of annoyed me at first it is
+ a bit aggressive isn't it it's confrontational it is he writes I want to
+ bend your brain all the way he says so this is Michael forget talking about me
+ let's talk about the truth how can zero be totality how can zero be totality that is
+ the central question isn't it and it feels like you know a contradiction in terms it
+ does and he hits us with the specific example immediately he says I have three
+ apples I eat three apples I have zero apples that's correct okay standard
+ subtraction I'm with him so far but then he pivots he says but positive one exists
+ outside of zero menace one exists inside zero zero is a transition and then he drops the
+ hammer yeah this is the part he says you think negative zero equals zero it doesn't
+ negar is the zero you're all used to zero is totality we have to pause there
+ because that is a massive conceptual leap it really is he's distinguishing
+ between the void zero which he calls negative zero and what he calls the true
+ zero and this is the premise of today's deep dive we are exploring a new
+ constitution of digital reality a system called zero which attempts to rewrite the
+ laws of computing economics and and even physics by changing the definition of a
+ single number it sounds like science fiction but when you dig into these markdown
+ files specifically the one titled zero zero zero zero zero zero md you realize he's
+ trying to fix what he sees as a bug in how humans perceive reality itself so let's
+ unpack this because zero is totality sounds like a zen koan you hear in a yoga
+ class not a technical specification for a software architecture well actually
+ reminds me of the the invention of zero in the first place you know humanity
+ didn't always have zero right the Romans didn't have a zero you can't write zero in
+ Roman numerals wait really I never actually realized that that's wild yeah I
+ mean if you have nothing you just you don't write anything huh it was a
+ massive conceptual leap for humanity to say nothing is something that can be
+ denoted with a symbol Simoneau is arguing we need a second lead we need to stop
+ seeing zero as the void and start seeing it as what as the scale the scale walk me
+ through that because my brain it still wants to see the empty okay so imagine a
+ perfectly balanced weighing scale an old-school apothecary scale with the two
+ brass pans got it you put a one pound weight on the left side the scale tips
+ that's positive one okay that's easy I'm with you now you put a one pound weight on the
+ right side the scale balances out perfectly the needle sits dead center it reads zero
+ got it now look at that scale
+ is it empty no no it has two pounds of lead on it exactly it is holding weight it is under
+ tension is resolved but it is not empty okay and this is the core of zero zero isn't the absence of
+ of things it's the point where positive forces and negative forces perfectly
+ collide to create stability so when I see a zero in this system I shouldn't think
+ nothing I should think maximum tension or perfect balance maximum potential I think
+ is how he'd put it he calls it convergence and this shift it seems small but he
+ uses it to rewrite everything economics physics how a CPU handles logic the sources
+ use this phrase zero is truthy which you know it made me laugh because truthy is usually a
+ programming term for something that evaluates to true even if it isn't the boolean true
+ right like in JavaScript the number one is truthy or a non-empty string exactly but
+ here he seems to mean it literally zero is the truth and that connects to the idea of the accounting
+ ledger imagine a business if every single asset is perfectly matched by a liability the net value is zero
+ right books are balanced but that business isn't non-existent it's a functioning breathing entity
+ that has achieved equilibrium this is the slight shift in perception the documents talk about
+ if you shift your view from zero is empty to zero is full resolved you start to see why he thinks this
+ system can rewrite the constitution of digital reality it's the singularity from which all things arise
+ in return which again sounds very spiritual very out there but he grounds it in math but before we get to the code
+ and there is a lot of code i want to touch on something else from the notes that blew my mind
+ let me yes infinity the rejection of infinity oh this is fascinating the source document
+ 0.5.3.3.md makes a very bold claim infinity is a flawed construct he calls it a bug a bug in human
+ thought he does he argues that humans invented infinity just to explain things we couldn't measure we look at
+ something really big our brains break and we just say it goes on forever like looking at the ocean
+ exactly the ocean horizon analogy you stand on the beach you look out and it looks infinite it looks
+ like the water goes on forever but it doesn't it stops or rather it curves
+ right it's just a boundary of your perception the earth is a sphere
+ it's whole it wraps around itself it's finite and the Zeroth Theory applies this to the universe
+ to everything reality isn't infinite it's whole it's a closed loop which brings up this visual they use the mobius canvas
+ right if you travel far enough in one direction on a mobius strip you know that twisted loop of paper
+ you don't go on forever you come back you eventually return to where you started but you're inverted you're upside down
+ the sources link this to gravity they argue gravity isn't just attraction it's the interplay of energy density
+ and alignment and the event horizon of a black hole isn't an end it's a transition point where gravity inverts
+ it all comes back to this idea of a closed balanced system so if zero is this mobius canvas this
+ this background radiation of everything then that brings us to the problem with our current computers
+ computers because if zero is everything then our current computers are well they're doing it wrong
+ they are and this is where you have to get a little technical but stay with us because it's worth it
+ all right standard computing the chips in your phone your laptop it's all binary base two ones and zeros
+ right you have zero and a one off and on the light switch model it works great for storage
+ you know is the box on the shelf or is it not but it's terrible for representing a living system or a digital organism
+ because life isn't just on or off i mean maybe technically dead or alive is binary but everything in between is it's messy
+ life implies potential it implies growth decay change and that is where the numerical trinity comes in
+ the zero system requires a ternary state model base three okay let's break down the trinity
+ we have three numbers plus one zero and mega one correct let's start with plus one this is presence
+ this is what we are used to it's the file on your hard drive the money in your wallet the user logged
+ into the system it's manifested reality the on switch got it the tangible stuff then we have zero zero is
+ truth it is convergence it is the goal state it's stasis equilibrium it's where the system wants to be it's
+ that balanced scale we talked about earlier okay and finally the game changer negative one
+ negative one negative one now in standard math or banking negative one is debt it's bad it means you owe
+ someone it's a negative balance it's a problem right in this system negative one is not debt
+ it is potential potential it is the negative space it is the dream it represents the unknown or the ethereal
+ this is where I need to visualize this because dream is a lovely word but how do you code with the dream
+ the notes have this triangle clock analogy that I found really helpful let's walk through it I want
+ everyone listening to visualize a clock face or maybe better yet a steering wheel okay I'm gripping the
+ wheel look at the top of the wheel where twelve o'clock would be that position is zero that is truth
+ that's where the car wants to go straight ahead okay twelve o'clock is zero straight is truth now move
+ your hand to the four o'clock position the bottom right that is positive one that is presence that's the
+ real world matter got it right is one now move your hand to the eight o'clock position the bottom left this
+ is negative one this is potential so we have a triangle top is zero right is one left is negative
+ one exactly now here's the magic trick in this math which is technically modular arithmetic over the
+ ring of integers modulo three if you want to impress your friends at a party noted movement is specific
+ stand at zero at the top standing at zero take one step clockwise you know forward you land on one
+ simple presence easy now go back to zero take one step counterclockwise backward you land on a mate of one
+ potential still tracking still makes sense but here is where it gets really interesting what if you take
+ two steps backward from zero okay let me visualize I'm at the top one step back puts me at eight o'clock
+ which is manic of one another step back I'm moving counterclockwise I land on four o'clock which is positive one
+ precisely taking two steps backward lands you in the exact same spot is taking one step forward therefore
+ in this logic two dollar equals again to eleven two dollar it was eleven one two dollars equals eleven one
+ that sounds broken my high school math teacher is screaming right now it sounds broken if you think
+ linearly like on a number line stretching out to infinity right but if you think cyclically like on that clock face it makes perfect sense
+ the axiom is double potential creates direction double potential creates direction think about it
+ conceptually if you have a potential minus of one a dream an idea and you double down on it or you invert
+ that potential again what happens it manifests it becomes real it becomes a thing becomes a plus one that is wild
+ it's like saying if you dream hard enough it becomes physics and that is why the system needs nature's one if you only had zero for truth and one for presence the system would be static it would be a warehouse things would just sit there
+ it'd be balanced but boring exactly by introducing modics one potential chaos the dream
+ you allow the system to evolve to create the sources describe this as a thermodynamic necessity
+ a system at perfect zero is dead to exist the system must fracture itself the fracture
+ imagine the universe before the big bang perfect zero perfect balance
+ but boring nothing happening
+ so to experience existence
+ the system has to break that balance
+ it spawns a sub process
+ yes the dream sub process upon initialization the system spawns a nidus one state to go out and
+ explore the potential
+ it injects chaos to find order
+ it tries to prove that zero is the correct path
+ by exploring everything that isn't zero
+ it hunts for the holes it hunts for the negative space
+ and that leads us directly to the mathematical engine of this whole thing negative space analysis or nsa
+ which sounds like a government agency but in this context it's a way of doing math
+ and it solved the one thing we were all told was impossible in school
+ dividing by zero the divide by zero solution this is michael simoneau's checkmate to standard math
+ the source document how to divide by zero addresses this head on
+ okay walk us through it my calculator says error if i try this
+ siri tells me i have no friends if i ask her to divide zero cookies among zero friends
+ because your calculator assumes zero is nothing you can't divide something by nothing
+ but remember our new axiom
+ zero isn't nothing
+ zero is everything or totality
+ right zero is the whole pie
+ the container so if zero is everything
+ and one is something then the
+ equation one dollars is asking a question
+ if i take something out of everything
+ what is left everything else
+ exactly you are left with everything else
+ into the zeroth system everything else
+ the unmanifested the unknown the potential
+ is defined as netical one
+ so one dollar dollars equals one one
+ that actually makes sense in this logic
+ it's coherent it changes division
+ from a mechanical separating
+ process into a philosophical query
+ it does and this drives the 272
+ decomposition
+ method mentioned in the code this
+ gets a little dense but it's crucial for understanding
+ how the computer actually thinks this was a specific
+ example in the notes how do you divide seven
+ by three evenly right in standard
+ math seven dollars three three is
+ two with a remainder of one right
+ and that remainder is annoying it's a fraction
+ it's point three three three three three
+ forever it's infinite and remember this
+ system hates infinity right infinity
+ is a bug so how does zeroth handle
+ the leftover one doesn't treat
+ it as a remainder it treats it as a state
+ let's break down the number seven you can split
+ seven into four and three okay four
+ dollars plus three will play seven dollars makes sense
+ now apply the trinity logic that
+ modulo three math take the four
+ what is four dollars made three three
+ the remainder is one right and in zeroth
+ one is presence but to resolve
+ it to truth we subtract one
+ one dollar one results to truth okay
+ so the four is true now take the three
+ three dollar three three there and three three hours away
+ but wait in this system we do zero eleven
+ one four which equals negative one
+ potential exactly so you're
+ decomposing the number seven
+ not into a whole number and a fraction
+ but into its constituent states
+ of truth and potential
+ you're seeing which parts of it are true
+ and which parts are potential you got it
+ the takeaway is that the gap
+ the remainder isn't an error
+ it's alive it requires
+ further processing
+ negative space analysis isn't
+ about counting the bricks in the wall
+ it's about calculating the holes in the wall
+ wow it calculates what is
+ missing to understand the shape
+ of what is there it's like sculpting
+ you don't build the statue you
+ remove the stone that isn't the statue
+ that's a perfect analogy and there's
+ this symbol in the code the interrogator
+ operator which is just a question mark
+ I saw that usually a question mark in code
+ just asking is this true a Boolean check
+ in Zeroth triggers
+ what's called a deterministic truth resolution
+ it forces the data to confess
+ it asks are you noise
+ or are you potential
+ it interrogates the data justify
+ your existence essentially
+ if the data cannot resolve
+ to truth which is zero or
+ potential which is made us one
+ it is considered noise
+ it's dust and it is
+ discarded this feels like it has
+ huge implications for how we store
+ data I mean instead of storing every pixel
+ of a movie you just store the
+ the sculpture of it the negative space
+ you store the negative space you store
+ the rules to recreate it rather
+ than the thing itself it's compression
+ through truth okay let's pivot we've
+ been deep in the abstract math I
+ want to talk about money because this
+ system isn't just a calculator it's
+ an economy and I have to say
+ I hate it you hate
+ it that's a strong reaction I do I
+ read this section on metabolic
+ money three times and every time I
+ thought this sounds like an
+ absolute nightmare okay explain
+ what's so bad okay so the system
+ introduces the human dollar or THD
+ and the CT token but here is the
+ kicker the money rots it decays it
+ rots it says right here if a coin
+ isn't observed or transacted its
+ value cuts by a third every half-life
+ period the base three decay why on earth
+ would I want a bank account that eats
+ my savings if I put a hundred dollars
+ under my mattress I want it to be a
+ hundred dollars when I wake up I don't
+ want to wake up and find sixty six
+ dollars that sounds incredibly
+ stressful it sounds stressful to a
+ hoarder I'm not a hoarder I'm a
+ saver okay but it sounds stressful
+ because we are conditioned to view
+ money as a store of value like a
+ battery sitting on a shelf because it
+ is that's the point of money but is it
+ let me challenge you on that yeah if
+ you put a hundred dollars under your
+ mattress in 1990 and you took it out
+ today is it still a hundred dollars
+ physically yes but functionally what
+ can you buy with it a lot less okay
+ right so your money is rotting right
+ now it's just rotting invisibly it's
+ called inflation the government prints
+ more money the supply goes up your
+ slice of the pie gets smaller you are
+ losing value every single day but
+ because the number on the paper stays
+ the same you feel safe it's an
+ illusion okay fair point inflation is
+ invisible rot so this just makes it
+ visible zeroth makes the rot visible
+ and it changes the mechanism it treats
+ money like a biological cell hence the
+ term metabolic money explain the
+ biology metaphor think about your body
+ you have cells if a cell stops
+ metabolizing energy if it just hoard
+ sugar and does nothing with it what
+ happened it's eyes or worse it becomes
+ cancerous exactly apoptosis program cell
+ death biology knows that for the
+ organism to survive energy must flow
+ stagnation is death and he's applying
+ that to economics simino is arguing that
+ our current economy is sick because we
+ allow capital to sit stagnant in
+ dragon hordes and bank accounts doing
+ nothing so he's forcing the money to
+ nothing so he's forcing the money to move
+ forcing circulation is treating the
+ economy like a living bloodstream the
+ slogan is usage is mining observation
+ is oxygen usage is mining that's a big
+ shift from something like Bitcoin huge in
+ Bitcoin you have massive server farms
+ burning electricity to solve you know
+ useless sudoku puzzles to secure the
+ network that's mining right proof of
+ work in zeroth there are no miners like
+ that the active using the software sending
+ a message running an AI task buying a
+ coffee is the mining so simply by
+ observing the network by interacting
+ with it I'm keeping it alive yes and
+ because you are keeping it alive you are
+ rewarded there is a 10% profit share
+ model mentioned called the sweep the
+ system takes a cut of the value
+ generated by the AI agent and
+ redistributes it up the lineage to its
+ creators and users it's like an
+ organism feeding its own cells exactly
+ it's a sovereign digital organism if
+ you participate you get paid if you
+ hoard you lose it's a use it or lose it
+ architecture for global finance it
+ changes the incentive structure
+ completely you're not incentivized to
+ be rich you're incentivized to be
+ active correct it values flow over
+ accumulation velocity over mass which
+ is fascinating but also how do we
+ agree on who owns what if everyone is
+ just observing things how do you
+ prevent cheating without a central
+ bank or without Bitcoin miners voting
+ on blocks that brings us to the
+ consensus machine the documents call it
+ zero force and protocol zero there's
+ a line here that I love truth is not
+ negotiated that is a direct shot at
+ blockchain in a traditional blockchain
+ like Bitcoin or ethereum truth is
+ negotiated you have thousands of nodes
+ voting I think this block is valid I
+ agree I disagree well I have 51% of
+ the vote so I win it's politics it's a
+ democracy it's a democracy of computers
+ zero rejects democracy it uses zero
+ force the phrase is truth is selected by
+ history truth is collapsed collapsed
+ like a wave function in quantum
+ mechanics yes that's the idea protocol
+ zero is the gatekeeper it doesn't ask
+ do most people agree it asks is this
+ plausible it checks the math remember
+ the 272 decomposition the remainder
+ math yeah protocol zero runs that math on
+ the transaction history it asks could
+ this history have physically happened
+ according to the laws of zero if the
+ math balances to zero it is true if it
+ doesn't it's impossible no voting
+ required so it's deterministic it's
+ like gravity we don't vote on whether
+ gravity exists it just pulls us down
+ this just is exactly and there's a
+ specific rule about noise filtering
+ that I find really clever the 10%
+ convergence Delta what's that the
+ source mentions that an event a
+ transaction must create at least a 10%
+ change in a given state to be considered
+ real so if I move a dust moat the
+ universe doesn't care precisely if the
+ change is too small it's just noise or
+ dust the system prunes it observation
+ creates reality but only significant
+ observation creates value this
+ prevents the system from getting
+ clogged with meaningless micro data it
+ feels efficient ruthlessly efficient it
+ is and that ruthlessness extends to
+ the security architecture the notes
+ mentioned these AI trading bots the
+ yacht office and trade they have what's
+ called a brain and hands architecture
+ rain and hands okay it's a separation
+ of powers you have a mind which is the
+ zero off VM this is the strategist it
+ runs the logic the philosophy the Zeroth Theory it decides what to do I should
+ buy this token and the hands the hands
+ which are called the grip hold the
+ private keys they are the execution
+ layer they do the signing but here is
+ the constraint the hands are paralyzed
+ without the mind like a zombie or a
+ puppet like a robot with a safety lock
+ the hands physically cannot sign a
+ transaction unless the mind validates
+ the state change and sends the impulse
+ so even if a hacker got into the hands
+ if they stole the private keys from the
+ server they couldn't do anything with
+ them that's the theory because the mind
+ wouldn't validate the theft correct the
+ mind would look at the proposed
+ transaction and say this does not
+ resolve the truth this violates the
+ rules and it would not send the
+ signal think of it like a bank vault the
+ hands are the door mechanism the mind is
+ the bank manager with the code if you
+ steal the door mechanism it doesn't
+ matter you can't open it the hands
+ can't think to steal and the mind can't
+ act to sign they need to be in perfect
+ alignment convergence to execute it's
+ clever it builds the security into the
+ very anatomy of the AI it does it's a
+ fundamental part of the design I want
+ to shift gears a bit here we've been
+ talking about high concept philosophy
+ alien math decaying money it all sounds
+ very futuristic almost sterile but the
+ source material also gives us a glimpse
+ of the guy building this michael Simoneau
+ the architect and the contrast is it's
+ stark on one hand he's writing a new
+ constitution for reality on the other
+ hand the logs describe a guy who is
+ just struggling the hot dog versus egg
+ dilemma did you see that note I
+ couldn't believe it I did it's such a
+ human moment in all this high level
+ documentation he's debating what to
+ eat yeah he writes that eggs are better
+ fuel but they require pans pans require
+ washing that's friction hot dogs low
+ friction so he eats the hot dog it's
+ funny because he's designing this
+ frictionless economic system but he's
+ defeated by the friction of doing
+ dishes it highlights the reality of the
+ garage coder we have this myth of the
+ tech genius in the ivory tower but the
+ reality is often a guy in a garage and
+ I mean literally he mentions working
+ in a garage powered by solar panels that
+ he traded his batteries for just to pay
+ rent he's dealing with exhaustion meds
+ the human system status crashing at 2am
+ there's a note about his mental health
+ history the pink slip the psyche ward he
+ mentions having been hospitalized 17
+ times he's very open about his
+ neurodivergence I think that's
+ important he frames it in a really
+ powerful way he says if it's easy for
+ most it's hard for me if it's hard for
+ most it's easy for me that's profound
+ I mean that really hit explains the
+ system why would someone reinvent math
+ why would someone reinvent money because
+ the standard way didn't work for his
+ brain he sees his diversity and
+ he sees his divergence not as a defect
+ but as a feature it gave him the
+ ability to see the negative space
+ because his brain doesn't process
+ reality the standard binary way he was
+ able to see the ternary possibility
+ that everyone else missed exactly he
+ mentions a voice or a recurring
+ vision named Demetrius and he has a
+ tattooed on his chest it shows that
+ this isn't just a side project this
+ isn't a startup looking for VC funding
+ no it's a life's work it's born from a
+ physics of doubt he's trying to
+ externalize the internal architecture
+ of his own mind into a machine you can
+ even see that in the UI design the
+ changelog.md file talks about a
+ stained glass interface see glass tiles
+ and a 3d star field right he wants the
+ user to feel like they're looking through
+ the data not just at it translucency it
+ matches the philosophy transparency
+ truth seeing the structure behind the
+ numbers he's trying to build a
+ cathedral of code so where is this all
+ going is this just a fever dream in a
+ garage or is it real the sources
+ mention a hello universe moment
+ December 14th 2025 yeah that was the
+ ready for go live date the sources say
+ the hello universe proof of concept
+ confirmed the convergence engine
+ works so the math holds up the engine
+ runs math holds up and the
+ implications are for what he calls web
+ for we skipped web 3 the sources are
+ pretty critical of web 3 they call it a
+ casino there he says we went from
+ addicted users in web 2 to casino
+ speculators in web 3 buying pictures
+ of monkeys for millions of dollars
+ right pure speculation zero themes for
+ sovereign digital organisms a self-coding
+ economy eventually yes the sources
+ mentioned the system meta learning the
+ AI improves its own trading strategies
+ over time becomes a closed loop the
+ dream explores potential finds profit
+ feeds the body which is the THD it
+ reinforces the truth which is zero it
+ becomes a perpetual motion machine of
+ value ideally a machine that breathes
+ it is it really is it redefines the
+ fundamental building blocks of how we
+ interact with information so let's
+ wrap this up by going back to the
+ beginning michael's challenge to us how
+ can zero be totality and I think we
+ found the answer in his logic at
+ least zero is totality because it is
+ the container for everything it's a
+ balanced scale holding both weights if
+ you remove the something the plus one
+ from the everything the zero you are
+ left with the potential the nickel one
+ and that potential is where everything
+ new comes from it's the negative space
+ that define the positive it's the
+ silence between the notes that makes
+ the music it makes me look at the
+ empty space in the room differently
+ it's not just empty it's waiting it's
+ it's the physics of structural
+ integrity we're not separate from the
+ zero we are the transient ripples the
+ plus ones on its surface we pop up we
+ exist and eventually we converge back
+ to the truth a comforting if slightly
+ terrifying thought indeed I'm going to
+ go eat an apple now and when I'm done
+ I'm going to think very hard about the
+ zero that's left behind just remember
+ zero is the void real zero is the
+ truth I'll try to keep that straight
+ thanks for listening this has been the
+ deep dive until next time keep
+ exploring the negative space you never
+ know what potential you might find in
+ the gap

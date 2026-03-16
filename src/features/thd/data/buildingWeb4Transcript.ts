@@ -9,7 +9,7 @@ Usually we look at a specific news event or a trending topic. You know, we strip
 right?
 But today we are looking at a blueprint and not just a blueprint for a piece of software, but a blueprint for a completely new way of structuring digital reality.
 It is a massive topic.
-We're looking at a stack of documents. I mean, everything from technical architecture notes to business plans to these really deep philosophical musings all from an inventor named Michael Simono
+We're looking at a stack of documents. I mean, everything from technical architecture notes to business plans to these really deep philosophical musings all from an inventor named Michael Simoneau
 and I think we need to be clear right from the jump as you said.
 Yes.
 This is not about the next Bitcoin. It's not about some token you buy to get rich quick.
@@ -156,11 +156,11 @@ That signal goes from your phone through the cloud down to the data plane. That 
 I like the analogy in the document for this. It calls it the remotec controlled laboratory.
 It's perfect, isn't it? You, the user, are holding this sleek, simple tablet, the Firebase Cloud app, but the actual heavy lifting, the cryptographic reactor, is running safely in your basement.
 So, you get the convenience of a modern web 2.0 interface, but you retain the sovereignty and ownership of the actual hardware.
-And this is key. While this machine is chugging away, earning you pennies from Ethereum, it is also running the Xeroth VM. the Xeroth virtual machine.
+And this is key. While this machine is chugging away, earning you pennies from Ethereum, it is also running the Zeroth VM. the Zeroth virtual machine.
 The ghost in the machine.
 And this brings us to section three of the dive. The ghost in the machine. Because that box in the garage isn't just a simple calculator for Ethereum. It's designed to be the first cell of a new organism.
 Yes. And the architecture documents, especially V3.10 V3 bybioplan. MD are very specific about this biological analogy. They talk about separating the mind and the body of this system.
-Okay, mind and body. Again, with the bi ical terms for a computer network. Let's break that down. What is the mind of the Xerof VM?
+Okay, mind and body. Again, with the bi ical terms for a computer network. Let's break that down. What is the mind of the Zeroth VM?
 The mind is the logic. It's a set of simple text files that end in the extension.0ero.
 Okay,
 these files contain the lies of physics for this new digital world. They define the trinity math we talked about. They define how value decays. They define the rules of reality for the system. And importantly, these files are static. They are the DNA. DNA doesn't do anything on its own. It just contains the instruction. Just the blueprint and the body. What's the body?
@@ -190,12 +190,12 @@ And if it does, the transaction is approved. If not, it's rejected at the source
 It creates consensus by collapsing all the possibilities down to the single verifiable truth. Rather than creating truth through a massive competition of energy expenditure,
 oh, no miners, no gas fees, no massive energy waste,
 just math-checking math. It allows the network to be incredibly lightweight and efficient.
-Okay, so we have the philosophy, the trinity, we have the hardware, the garage rig, we have the operating system, the Xerof VM. Now, we need the fuel. We need to talk about the actual money,
+Okay, so we have the philosophy, the trinity, we have the hardware, the garage rig, we have the operating system, the Zeroth VM. Now, we need the fuel. We need to talk about the actual money,
 the asset itself.
 This brings us to section four, the atom of the hasheb. The documents talk about the Gemini token, and I have to say this is where the proposal gets really radical. This isn't just a digital coin. It's a complex data structure.
 It really is the core innovation of the whole system in Bitcoin. or Ethereum. A token is just a balance entry in a global ledger. It's a number in a spreadsheet cell. Alice has five coins. That's it.
 It's just a quantity.
-The human dollar or THD, which is the native currency of Zeroth, is a 128 bit container. Think of it like a capsule. It's 128 bits long. But inside that capsule, it's split right down the middle into two 64-bit halves. These are the twins, the Gemini.
+The human dollar or THD, which is legally the native digital bartering chip of Zeroth, is a 128 bit container. Think of it like a capsule. It's 128 bits long. But inside that capsule, it's split right down the middle into two 64-bit halves. These are the twins, the Gemini.
 Sibling A and sibling B. Let's take them one by one. Sibling A, what's its job? Sibling A is called THTH. This stands for the value hash. This half of the token represents the physics of the asset. It's the economic part.
 Okay. What does that mean? The physics.
 It encodes the price. It encodes the lineage. So where it came from, its entire history. And it encodes its orientation in the system. This is the battery. It holds the economic energy. And here's the really controversial part. Sibling A is subject to base three decay.
@@ -204,7 +204,7 @@ As in it rots. Yes.
 Okay. Hold on. I have to push back. card here. This goes against everything we think about money. If I earn $100 and I put them in my wallet, I expect them to still be $100 in a month. You're telling me that in this system, my money just dissolves if I don't spend it. That sounds like a terrible feature for a savings account.
 You're right. If you view money purely as a store of wealth, like gold bars you lock in a vault, then yes, this is a bug. It's a terrible bug.
 It seems fundamentally flawed.
-But Michael Simono is arguing that that entire premise is wrong. He argues that money shouldn't be a static store of wealth. He argued that money should be a measurement of energy and relevance.
+But Michael Simoneau is arguing that that entire premise is wrong. He argues that money shouldn't be a static store of wealth. He argued that money should be a measurement of energy and relevance.
 Energy and relevance.
 Think about a battery. If you leave a fully charged battery on a shelf for 10 years, does it still have a full charge when you pick it up?
 No, of course not. It leaks. It drains over time,
@@ -241,7 +241,7 @@ At the same time, two people across the room are having a completely separate co
 No, of course not. They're all happening at the same time in parallel.
 They happen in parallel. On the hasheb, every user runs their own sovereign chain. My chain starts with my own genesis block. Your chain starts with yours. I don't need the whole world to stop and validate my transaction with you. I just need to validate it with you.
 So instead of one giant global ledger that everyone has to write to, you have billions of tiny personal ledgers that are constantly weaving together like a spiderweb.
-Precisely. Yeah, that is the topology. But, and this is the absolutely critical part that makes it all work. Even though we are on our own separate chains, we are all running the exact same Xeroth VM. We are all obeying the same immutable laws of physics. So, when I send you a Gemini token from my chain to yours, your machine knows exactly how to verify it because we speak the same fundamental mathematical language.
+Precisely. Yeah, that is the topology. But, and this is the absolutely critical part that makes it all work. Even though we are on our own separate chains, we are all running the exact same Zeroth VM. We are all obeying the same immutable laws of physics. So, when I send you a Gemini token from my chain to yours, your machine knows exactly how to verify it because we speak the same fundamental mathematical language.
 This sounds infinitely faster and more scalable. But what about storage? We talked about the grandma problem, but there's also the copypaste problem of the internet.
 The bloat.
 The bloat. If I want to send you a 4K movie file right now, I have to upload gigabytes of data to a server and then you have to download gigabytes of data. It takes time, bandwidth, and tons of storage on both ends. Does the hasheb solve that?
@@ -301,7 +301,7 @@ The question is what happens when it's released.
 The question is how quickly will the global economy be forced to adjust when data for the first time in history carries its own irrefutable stitched in worth completely independent of external markets. What happens to banks to stock markets to social media platforms when they were no longer the trusted custodians of value?
 When you don't need a middleman for trust
 when trust isn't something you have to earn or borrow or buy from a third party but something that is just mathematically intrinsic to the data itself.
-That is the ultimate shift from don't be evil to to can't be evil. Michael Simono's vision seems to suggest that if we stop fearing the negative space, if we stop fearing the gap, the rot, the entropy, we might actually find the stability we've been looking for all along.
+That is the ultimate shift from don't be evil to to can't be evil. Michael Simoneau's vision seems to suggest that if we stop fearing the negative space, if we stop fearing the gap, the rot, the entropy, we might actually find the stability we've been looking for all along.
 Indeed, by embracing the void, we find the hole.
 A heavy thought to end on. Thank you for joining us on this deep dive into the architecture of truth.
 My pleasure.

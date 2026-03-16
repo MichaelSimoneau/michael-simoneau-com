@@ -1,15 +1,18 @@
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useEffect, useMemo } from 'react';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { useFoundationBoundary, useFoundationPageView } from '../../../foundation';
-import { BlogContentRenderer } from '../components/BlogContentRenderer';
-import { useBlogArticle } from '../hooks/useBlogArticles';
+import { Seo } from '../../../foundation/seo/Seo';
+import { MainNav } from '../../../layout/MainNav';
+import { useScrollToTop } from '../../../hooks/useScrollToTop';
+import { BlogArticleView } from '../components/BlogArticleView';
+import { blogData } from '../data/posts';
 
 export const BlogArticleScreen = () => {
   const { id } = useLocalSearchParams();
   const router = useRouter();
   const articleId = useMemo(() => (Array.isArray(id) ? id[0] : id), [id]);
-  const article = useBlogArticle(articleId);
+  const article = useMemo(() => blogData.find(post => post.id === articleId), [articleId]);
+  useScrollToTop([articleId]);
   const boundary = useMemo(() => {
     if (!article) {
       return undefined;
@@ -67,51 +70,90 @@ export const BlogArticleScreen = () => {
     return null;
   }
 
-  return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <View style={styles.hero}>
-        <Text style={styles.date}>{article.date}</Text>
-        <Text style={styles.title}>{article.title}</Text>
-        <Text style={styles.excerpt}>{article.excerpt}</Text>
-        <Text style={styles.meta}>{`${article.author} • ${article.readTime}`}</Text>
-      </View>
+  const seoImagePath = article.heroImage ?? article.heroSvg ?? '/og-image.svg';
+  const heroImageUrl = seoImagePath.startsWith('http')
+    ? seoImagePath
+    : `https://www.michaelsimoneau.com${seoImagePath.startsWith('/') ? seoImagePath : `/${seoImagePath}`}`;
 
-      <BlogContentRenderer blocks={article.content} />
-    </ScrollView>
+  const parseDate = (dateString: string): string | undefined => {
+    try {
+      const parsed = new Date(dateString);
+      if (!Number.isNaN(parsed.getTime()) && parsed.getFullYear() > 2000) {
+        return parsed.toISOString();
+      }
+    } catch {
+      return undefined;
+    }
+    return undefined;
+  };
+
+  const publishedTime = parseDate(article.date);
+
+  return (
+    <>
+      <Seo
+        title={`${article.title}${article.subtitle ? `: ${article.subtitle}` : ''} | Michael Simoneau`}
+        description={article.excerpt}
+        canonicalUrl={`https://www.michaelsimoneau.com/blog/${article.id}`}
+        keywords={article.tags}
+        image={heroImageUrl}
+        type="article"
+        publishedTime={publishedTime}
+        author={article.author}
+        section="Blog"
+        tags={article.tags}
+        structuredData={[
+          {
+            '@context': 'https://schema.org',
+            '@type': 'BlogPosting',
+            headline: `${article.title}${article.subtitle ? `: ${article.subtitle}` : ''}`,
+            description: article.excerpt,
+            image: heroImageUrl,
+            datePublished: publishedTime,
+            dateModified: publishedTime,
+            author: {
+              '@type': 'Person',
+              name: article.author,
+              url: 'https://www.michaelsimoneau.com',
+            },
+            publisher: {
+              '@type': 'Person',
+              name: 'Michael Simoneau',
+              url: 'https://www.michaelsimoneau.com',
+            },
+            mainEntityOfPage: {
+              '@type': 'WebPage',
+              '@id': `https://www.michaelsimoneau.com/blog/${article.id}`,
+            },
+          },
+          {
+            '@context': 'https://schema.org',
+            '@type': 'BreadcrumbList',
+            itemListElement: [
+              {
+                '@type': 'ListItem',
+                position: 1,
+                name: 'Home',
+                item: 'https://www.michaelsimoneau.com/',
+              },
+              {
+                '@type': 'ListItem',
+                position: 2,
+                name: 'Blog',
+                item: 'https://www.michaelsimoneau.com/blog',
+              },
+              {
+                '@type': 'ListItem',
+                position: 3,
+                name: article.title,
+                item: `https://www.michaelsimoneau.com/blog/${article.id}`,
+              },
+            ],
+          },
+        ]}
+      />
+      <MainNav />
+      <BlogArticleView post={article} />
+    </>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    padding: 24,
-    gap: 24,
-    backgroundColor: '#FFFFFF',
-  },
-  hero: {
-    gap: 12,
-    backgroundColor: '#0F172A',
-    padding: 24,
-    borderRadius: 28,
-  },
-  date: {
-    color: '#38BDF8',
-    fontSize: 14,
-    textTransform: 'uppercase',
-    letterSpacing: 2,
-  },
-  title: {
-    fontSize: 32,
-    fontWeight: '700',
-    color: '#F8FAFC',
-    lineHeight: 40,
-  },
-  excerpt: {
-    fontSize: 18,
-    lineHeight: 26,
-    color: '#E2E8F0',
-  },
-  meta: {
-    fontSize: 14,
-    color: '#94A3B8',
-  },
-});

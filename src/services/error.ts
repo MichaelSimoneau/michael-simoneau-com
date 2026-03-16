@@ -102,6 +102,15 @@ export class ConfigServiceError extends ServiceError {
 export function handleError(error: ServiceError): never {
   // Log the error with context
   console.error(`[${error.name}] ${error.message}`, error.context);
+  if (typeof window !== 'undefined') {
+    window.dispatchEvent(
+      new CustomEvent('app:error', {
+        detail: {
+          message: `${error.name}: ${error.message}`,
+        },
+      }),
+    );
+  }
   
   // In a production environment, you might want to:
   // 1. Send the error to an error tracking service

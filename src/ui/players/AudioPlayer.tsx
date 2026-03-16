@@ -2,8 +2,10 @@ import React, { useRef, useState, useEffect, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { Play, Pause, Volume2 } from 'lucide-react';
 import { useMediaAnalytics } from '../../analytics/useMediaAnalytics';
-import { dispatchMediaPlayIntent } from './mediaEvents';
-import { useMediaPlaybackCoordinator } from '../../providers/MediaPlaybackCoordinatorProvider';
+import { InlineMediaConsentPrompt } from './InlineMediaConsentPrompt';
+import { useMediaConsentGate } from './useMediaConsentGate';
+import { useAudioTranscript } from './audioCaptions';
+import { useCaptionsViewport } from './CaptionsViewportProvider';
 
 interface AudioPlayerProps {
   src: string;
@@ -12,7 +14,11 @@ interface AudioPlayerProps {
 
 export const AudioPlayer: React.FC<AudioPlayerProps> = ({ src, title = 'Zeroth Vision' }) => {
   const { trackMediaEvent } = useMediaAnalytics();
-  const { announcePlayStart, bindPauseHandler } = useMediaPlaybackCoordinator('audio-player');
+  const { isGateVisible, requestConsentAwareAction, requestConsentAwarePlay, acceptAndResume } = useMediaConsentGate({
+    source: 'audio-player',
+  });
+  const { isCaptionsEnabled, setActiveAudio, clearActiveAudio, toggleCaptions } = useCaptionsViewport();
+  const { status: transcriptStatus } = useAudioTranscript(src);
   const audioRef = useRef<HTMLAudioElement>(null);
   const progressRef = useRef<HTMLDivElement>(null);
   const previousIsPlayingRef = useRef(false);
@@ -110,15 +116,16 @@ export const AudioPlayer: React.FC<AudioPlayerProps> = ({ src, title = 'Zeroth V
   }, [src]);
 
   useEffect(() => {
-    bindPauseHandler(() => {
-      const audio = audioRef.current;
-      if (!audio) {
-        return;
-      }
-      audio.pause();
-      setIsPlaying(false);
-    });
-  }, [bindPauseHandler]);
+    if (isCaptionsEnabled) {
+      setActiveAudio({ audioRef, audioSrc: src });
+    }
+  }, [isCaptionsEnabled, setActiveAudio, src]);
+
+  useEffect(() => {
+    return () => {
+      clearActiveAudio(audioRef);
+    };
+  }, [clearActiveAudio]);
 
   const handlePlayPause = () => {
     const audio = audioRef.current;
@@ -128,10 +135,10 @@ export const AudioPlayer: React.FC<AudioPlayerProps> = ({ src, title = 'Zeroth V
       audio.pause();
       setIsPlaying(false);
     } else {
-      announcePlayStart();
-      dispatchMediaPlayIntent('audio-player');
-      audio.play();
-      setIsPlaying(true);
+      requestConsentAwarePlay(() => {
+        setActiveAudio({ audioRef, audioSrc: src });
+        audio.play().then(() => setIsPlaying(true)).catch(() => setIsPlaying(false));
+      });
     }
   };
 
@@ -209,13 +216,24 @@ export const AudioPlayer: React.FC<AudioPlayerProps> = ({ src, title = 'Zeroth V
   }, [currentTime, duration, setAudioTime]);
 
   const progress = duration > 0 ? (currentTime / duration) * 100 : 0;
+  const isCaptionUnavailable = transcriptStatus === 'missing' || transcriptStatus === 'error';
+
+  const handleCaptionsToggle = () => {
+    if (isCaptionUnavailable) {
+      return;
+    }
+    requestConsentAwareAction(() => {
+      setActiveAudio({ audioRef, audioSrc: src });
+      toggleCaptions();
+    });
+  };
 
   return (
     <div className="w-full max-w-2xl mx-auto">
       <div className="relative bg-gradient-to-r from-gray-900/80 to-gray-800/80 backdrop-blur-sm rounded-lg overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-cyan-500/5 to-transparent" />
         <div className="relative z-10 p-4">
-          <div className="flex items-center gap-4">
+          <div className="flex items-start sm:items-center gap-3 sm:gap-4">
             {/* Play/Pause Button */}
             <motion.button
               onClick={handlePlayPause}
@@ -234,9 +252,23 @@ export const AudioPlayer: React.FC<AudioPlayerProps> = ({ src, title = 'Zeroth V
             {/* Audio Info and Progress */}
             <div className="flex-1 min-w-0">
               {/* Title */}
-              <div className="flex items-center gap-2 mb-2">
-                <Volume2 className="w-4 h-4 text-cyan-400 flex-shrink-0" />
-                <span className="text-white font-medium text-sm truncate">{title}</span>
+              <div className="flex flex-wrap sm:flex-nowrap items-start sm:items-center justify-between gap-2 mb-2">
+                <div className="flex items-center gap-2 min-w-0">
+                  <Volume2 className="w-4 h-4 text-cyan-400 flex-shrink-0" />
+                  <span className="text-white font-medium text-sm break-words [overflow-wrap:anywhere] sm:truncate">
+                    {title}
+                  </span>
+                </div>
+                <button
+                  type="button"
+                  onClick={handleCaptionsToggle}
+                  disabled={isCaptionUnavailable}
+                  aria-pressed={isCaptionsEnabled}
+                  aria-label={isCaptionsEnabled ? 'Disable closed captions' : 'Enable closed captions'}
+                  className="flex-shrink-0 rounded border border-gray-500/60 px-2 py-0.5 text-[10px] font-semibold tracking-wide text-gray-200 transition-colors hover:border-cyan-300 hover:text-cyan-200 disabled:cursor-not-allowed disabled:opacity-45"
+                >
+                  CC
+                </button>
               </div>
 
               {/* Progress Bar */}
@@ -276,6 +308,7 @@ export const AudioPlayer: React.FC<AudioPlayerProps> = ({ src, title = 'Zeroth V
           </div>
         </div>
       </div>
+      <InlineMediaConsentPrompt visible={isGateVisible} onAgree={acceptAndResume} className="mt-2" />
 
       {/* Hidden Audio Element */}
       <audio ref={audioRef} src={src} preload="metadata" />

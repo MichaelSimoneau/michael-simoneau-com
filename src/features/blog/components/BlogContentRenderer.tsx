@@ -1,149 +1,187 @@
-import { Fragment } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import type { TextStyle } from 'react-native';
-import MathView from 'react-native-math-view';
+import { Copy } from 'lucide-react';
+import { createElement, useState } from 'react';
+import { BlockMath, InlineMath } from 'react-katex';
+import { parseInlineMarkdown } from '../../../utils/markdown';
 import type { ContentBlock } from '../types';
 
 interface BlogContentRendererProps {
   blocks: ContentBlock[];
+  title?: string;
 }
 
-export const BlogContentRenderer = ({ blocks }: BlogContentRendererProps) => {
+const CodeBlock = ({ language, content }: { language: string; content: string }) => {
+  const [copyStatus, setCopyStatus] = useState<'idle' | 'success' | 'error'>('idle');
+
+  const copyToClipboard = async () => {
+    try {
+      if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(content);
+      } else {
+        const textarea = document.createElement('textarea');
+        textarea.value = content;
+        textarea.setAttribute('readonly', '');
+        textarea.style.position = 'absolute';
+        textarea.style.left = '-9999px';
+        document.body.appendChild(textarea);
+        textarea.select();
+        const successful = document.execCommand('copy');
+        document.body.removeChild(textarea);
+
+        if (!successful) {
+          throw new Error('execCommand returned false');
+        }
+      }
+      setCopyStatus('success');
+      setTimeout(() => setCopyStatus('idle'), 2000);
+    } catch {
+      setCopyStatus('error');
+      setTimeout(() => setCopyStatus('idle'), 3000);
+    }
+  };
+
   return (
-    <View style={styles.container}>
-      {blocks.map((block, index) => (
-        <Fragment key={`${block.type}-${index}`}>{renderBlock(block)}</Fragment>
-      ))}
-    </View>
+    <div className="relative rounded-lg overflow-hidden my-6">
+      <div className="flex items-center justify-between bg-gray-800 px-4 py-2">
+        <span className="text-sm font-mono text-gray-400">{language}</span>
+        <button
+          onClick={copyToClipboard}
+          className="text-gray-400 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500 focus-visible:ring-offset-2 focus-visible:ring-offset-gray-800 rounded"
+          title="Copy code"
+          type="button"
+        >
+          {copyStatus === 'success' ? 'Copied!' : copyStatus === 'error' ? 'Copy failed' : <Copy size={16} />}
+          <span className="sr-only" aria-live="polite" role="status">
+            {copyStatus === 'success'
+              ? 'Code copied to clipboard'
+              : copyStatus === 'error'
+                ? 'Copy action failed'
+                : ''}
+          </span>
+        </button>
+      </div>
+      <pre className="bg-gray-900 p-4 overflow-x-auto">
+        <code className="text-gray-300 font-mono text-sm">{content}</code>
+      </pre>
+    </div>
   );
 };
 
-const renderBlock = (block: ContentBlock) => {
+const MathBlock = ({ content, displayMode = 'block' }: { content: string; displayMode?: 'inline' | 'block' }) => {
+  try {
+    return displayMode === 'inline' ? <InlineMath math={content} /> : <BlockMath math={content} />;
+  } catch {
+    return (
+      <pre className="bg-gray-900/70 p-3 rounded-md overflow-x-auto">
+        <code className="text-gray-300 font-mono text-sm">{content}</code>
+      </pre>
+    );
+  }
+};
+
+const renderContentBlock = (block: ContentBlock, index: number) => {
   switch (block.type) {
-    case 'heading':
-      return (
-        <Text
-          style={[
-            styles.heading,
-            headingStyles[block.level] ?? headingStyles[2],
-          ]}
-        >
-          {block.content}
-        </Text>
-      );
+    case 'heading': {
+      const level = block.level;
+      return createElement(`h${level}`, {
+        key: index.toString(),
+        className: `
+            font-bold text-white [&_strong]:font-bold [&_strong]:text-white
+            ${level === 2 ? 'text-2xl md:text-3xl mt-12 mb-6' : ''}
+            ${level === 3 ? 'text-xl md:text-2xl mt-8 mb-4' : ''}
+            ${level > 3 ? 'text-lg md:text-xl mt-6 mb-3' : ''}
+          `,
+        dangerouslySetInnerHTML: { __html: parseInlineMarkdown(block.content) },
+      });
+    }
     case 'paragraph':
-      return <Text style={styles.paragraph}>{block.content}</Text>;
-    case 'list':
       return (
-        <View style={styles.listContainer}>
-          {block.items.map((item, itemIndex) => (
-            <View style={styles.listItem} key={`${itemIndex}-${item}`}>
-              <Text style={styles.bullet}>{'\u2022'} </Text>
-              <Text style={styles.listText}>{item}</Text>
-            </View>
-          ))}
-        </View>
+        <p
+          key={index.toString()}
+          className="text-base md:text-lg text-gray-300 mb-6 leading-relaxed [&_strong]:font-bold [&_strong]:text-white"
+          dangerouslySetInnerHTML={{ __html: parseInlineMarkdown(block.content) }}
+        />
       );
     case 'code':
+      return <CodeBlock key={index.toString()} language={block.language} content={block.content} />;
+    case 'list':
       return (
-        <View style={styles.codeBlock}>
-          <Text style={styles.codeLanguage}>{block.language}</Text>
-          <Text style={styles.codeText}>{block.content}</Text>
-        </View>
+        <ul key={index.toString()} className="list-disc pl-6 mb-6 space-y-2 [&_strong]:font-bold [&_strong]:text-white">
+          {block.items.map((item, itemIndex) => (
+            <li
+              key={itemIndex.toString()}
+              className="text-gray-300"
+              dangerouslySetInnerHTML={{ __html: parseInlineMarkdown(item) }}
+            />
+          ))}
+        </ul>
       );
     case 'callout':
       return (
-        <View style={styles.callout}>
-          <Text style={styles.calloutText}>{block.content}</Text>
-        </View>
+        <div key={index.toString()} className="bg-cyan-900/20 border-l-4 border-cyan-500 p-5 my-8 rounded-r-lg [&_strong]:font-bold [&_strong]:text-cyan-200">
+          <p
+            className="text-cyan-300 italic"
+            dangerouslySetInnerHTML={{ __html: parseInlineMarkdown(block.content) }}
+          />
+        </div>
       );
     case 'math':
       return (
-        <View style={styles.mathBlock}>
-          <MathView
-            math={block.content}
-            renderError={() => <Text style={styles.mathFallback}>{block.content}</Text>}
-          />
-        </View>
+        <div key={index.toString()} className="my-6 text-gray-100 overflow-x-auto">
+          <MathBlock content={block.content} displayMode={block.displayMode} />
+        </div>
+      );
+    case 'table':
+      return (
+        <div key={index.toString()} className="my-8">
+          <div className="overflow-x-auto rounded-xl border border-cyan-900/60 bg-slate-950/70">
+            <table className="min-w-full text-sm md:text-base text-left border-collapse">
+              <thead className="bg-cyan-950/60">
+                <tr>
+                  {block.headers.map((header, headerIndex) => (
+                    <th
+                      key={`${index.toString()}-header-${headerIndex.toString()}`}
+                      scope="col"
+                      className="px-4 py-3 font-semibold text-cyan-100 border-b border-cyan-900/60 whitespace-nowrap"
+                      dangerouslySetInnerHTML={{ __html: parseInlineMarkdown(header) }}
+                    />
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {block.rows.map((row, rowIndex) => (
+                  <tr
+                    key={`${index.toString()}-row-${rowIndex.toString()}`}
+                    className={rowIndex % 2 === 0 ? 'bg-transparent' : 'bg-cyan-950/20'}
+                  >
+                    {row.map((cell, cellIndex) => (
+                      <td
+                        key={`${index.toString()}-cell-${rowIndex.toString()}-${cellIndex.toString()}`}
+                        className="px-4 py-3 align-top text-gray-200 border-b border-cyan-900/40"
+                        dangerouslySetInnerHTML={{ __html: parseInlineMarkdown(cell) }}
+                      />
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          {block.caption ? (
+            <p
+              className="mt-3 text-sm text-cyan-300/80 italic"
+              dangerouslySetInnerHTML={{ __html: parseInlineMarkdown(block.caption) }}
+            />
+          ) : null}
+        </div>
       );
     default:
       return null;
   }
 };
 
-const headingStyles: Record<number, TextStyle> = {
-  1: { fontSize: 32 },
-  2: { fontSize: 28 },
-  3: { fontSize: 24 },
-  4: { fontSize: 20 },
-  5: { fontSize: 18 },
-  6: { fontSize: 16 },
+export const BlogContentRenderer = ({ blocks, title: _title }: BlogContentRendererProps) => {
+  return (
+    <div className="prose prose-sm md:prose-lg prose-invert max-w-none px-2 sm:px-4 md:px-0 [&_strong]:font-bold [&_strong]:text-white">
+      {blocks.map((block, index) => renderContentBlock(block, index))}
+    </div>
+  );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    gap: 16,
-  },
-  heading: {
-    fontWeight: '700',
-    color: '#0F172A',
-  },
-  paragraph: {
-    fontSize: 16,
-    lineHeight: 24,
-    color: '#1F2937',
-  },
-  listContainer: {
-    gap: 8,
-  },
-  listItem: {
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-    gap: 8,
-  },
-  bullet: {
-    lineHeight: 24,
-    fontSize: 16,
-  },
-  listText: {
-    flex: 1,
-    fontSize: 16,
-    lineHeight: 24,
-  },
-  codeBlock: {
-    backgroundColor: '#0F172A',
-    borderRadius: 12,
-    padding: 16,
-    gap: 8,
-  },
-  codeLanguage: {
-    color: '#38BDF8',
-    fontSize: 12,
-    textTransform: 'uppercase',
-    letterSpacing: 1,
-  },
-  codeText: {
-    fontFamily: 'Courier New',
-    color: '#E2E8F0',
-  },
-  mathBlock: {
-    paddingVertical: 4,
-  },
-  mathFallback: {
-    fontFamily: 'Courier New',
-    color: '#334155',
-    fontSize: 14,
-  },
-  callout: {
-    borderLeftWidth: 4,
-    borderLeftColor: '#0EA5E9',
-    backgroundColor: '#E0F2FE',
-    padding: 16,
-    borderRadius: 12,
-  },
-  calloutText: {
-    fontSize: 16,
-    lineHeight: 24,
-    color: '#0F172A',
-  },
-});

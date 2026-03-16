@@ -13,8 +13,8 @@ export const Thd: React.FC = () => {
   return (
     <>
       <Seo
-        title="The Human Dollar (THD) | Anti-Crypto"
-        description="The Human Dollar (THD) is money that works. THD is your employee — $655 for every $1 put to work at the $65,535 cap. Stagnation is a firing offense. 1 THD = 1 USDC floor. This is Metabolic Reality."
+        title="The Human Dollar (THD) | The Anti-Currency"
+        description="The Human Dollar (THD) is The Anti-Currency. THD is legally a digital bartering chip, not a currency: it does not replace money, it costs $1, and your $1 principal is always redeemable (1 THD = 1 USDC floor)."
         canonicalUrl="https://www.michaelsimoneau.com/thd"
         keywords={[
           "The Human Dollar",
@@ -23,7 +23,7 @@ export const Thd: React.FC = () => {
           "Genesis Dividend",
           "stagnation firing offense",
           "#WEB",
-          "Anti-Crypto",
+          "Anti-Currency",
           "Building Web 4",
           "put it to work",
         ]}
@@ -34,7 +34,7 @@ export const Thd: React.FC = () => {
             "@type": "CreativeWork",
             name: "The Human Dollar (THD)",
             description:
-              "The Human Dollar (THD) is a revolutionary digital asset — the Anti-Crypto. It creates an Attention Economy and is the Currency of the Future.",
+              "The Human Dollar (THD) is a cryptographic concert ticket and The Anti-Currency. THD is legally a digital bartering chip, not a currency: it does not replace money, it costs $1, and your $1 principal is always redeemable.",
             url: "https://www.michaelsimoneau.com/thd",
             author: {
               "@type": "Organization",
@@ -64,13 +64,14 @@ export const Thd: React.FC = () => {
       />
       <AnimatedBackground />
       <MainNav />
-      <motion.div
-        className="min-h-screen text-white p-8 relative z-10 pt-24 md:pt-32"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.5 }}
-      >
-        <div className="max-w-6xl mx-auto">
+      <div className="h-screen overflow-y-auto overflow-x-hidden overscroll-behavior-x-none scroll-smooth relative z-10">
+        <motion.div
+          className="min-h-screen text-white p-8 relative z-10 pt-24 md:pt-32"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5 }}
+        >
+          <div className="max-w-6xl mx-auto">
           {/* Header Section with Logo */}
           <motion.div
             className="flex flex-col md:flex-row items-center md:items-start mb-12"
@@ -102,13 +103,13 @@ export const Thd: React.FC = () => {
                 The Human Dollar
               </h1>
               <p className="text-2xl text-amber-300 mb-2">
-                The Human Dollar · Anti-Crypto
+                The Human Dollar · The Anti-Currency
               </p>
               <p className="text-xl text-gray-400 mb-4">
-                Currency of the Future
+                A Cryptographic Concert Ticket
               </p>
               <p className="text-lg text-gray-300 max-w-3xl">
-                THD is your employee. Put it to work and earn $655 for every $1 at the $65,535 cap. Stagnation is a firing offense — idle capital enters early retirement. Observation is oxygen. Usage is mining. The concept is detailed in Building Web 4 With Money That Lives.
+                THD is legally a digital bartering chip, not a currency. It does not replace money, it costs $1, and your $1 principal is always redeemable via the 1 THD = 1 USDC floor. In practice, it behaves like a cryptographic concert ticket: a programmable right to participate in a high-velocity economy where stagnation is a firing offense.
               </p>
             </div>
           </motion.div>
@@ -122,7 +123,7 @@ export const Thd: React.FC = () => {
           >
             <div className="text-center mb-6">
               <p className="text-lg md:text-xl text-gray-300 max-w-4xl mx-auto mb-4">
-                The Human Dollar is the Currency of the Future. The architecture is detailed in the audio below: <em>Building Web4 With Money That Lives</em>.
+                The Human Dollar is The Anti-Currency. THD is legally a digital bartering chip, not a currency: not a replacement for money, but a $1 cryptographic concert ticket with a principal floor. The architecture is detailed in the audio below: <em>Building Web4 With Money That Lives</em>.
               </p>
             </div>
             <div className="flex justify-center mb-6">
@@ -158,7 +159,7 @@ export const Thd: React.FC = () => {
             </div>
           </motion.section>
 
-          {/* Core value: Metabolic money, Anti-Crypto, Attention Economy */}
+          {/* Core value: Anti-Currency with principal protection */}
           <motion.section
             className="mb-12 rounded-xl bg-gray-900/50 p-8 border border-amber-800/50"
             initial={{ opacity: 0, y: 20 }}
@@ -169,16 +170,16 @@ export const Thd: React.FC = () => {
               Core Value
             </h2>
             <p className="text-xl text-gray-200 mb-4 italic">
-              "THD is your employee. Put it to work."
+              "The Anti-Currency: a legal digital bartering chip for participation."
             </p>
             <p className="text-gray-300 mb-4">
-              THD is <strong className="text-amber-300">The Human Dollar</strong>. THD is your employee — put it to work and it pays $655 for every $1 at the $65,535 cap. Stagnation is a firing offense: if an asset is not observed, used, or transacted with, its relevance converges toward zero via base-three half-life. The system incentivizes the velocity of money and rewards participation. That is the Anti-Crypto: Metabolic Reality, not sentiment.
+              THD is <strong className="text-amber-300">The Human Dollar</strong>, positioned as <strong className="text-amber-300">The Anti-Currency</strong>. THD is legally a digital bartering chip, not a currency. It does not replace money; it costs $1; and it treats that dollar as protected principal. The mechanism is a cryptographic concert ticket that grants access to a Darwinian market game where value competes on usage, observation, and participation.
             </p>
             <p className="text-gray-300 mb-4">
-              The <strong className="text-amber-300">redemption constraint</strong> is the safety net: 1 THD is always redeemable for 1 USDC. The smart contract physically rejects any transaction valuing THD below the floor. There is only value — or the dollar retires.
+              The <strong className="text-amber-300">redemption constraint</strong> is the safety net: 1 THD is always redeemable for 1 USDC. The smart contract physically rejects any transaction valuing THD below the floor, so your principal remains anchored at $1.
             </p>
             <p className="text-gray-300">
-              As detailed in Building Web 4 With Money That Lives — The Human Dollar creates an economy where stagnation is a firing offense and capital that works hard earns the Genesis Dividend. This is not speculation. This is Metabolic Reality.
+              As detailed in Building Web 4 With Money That Lives, THD combines competitive incentives and shared floor guarantees: Darwinian maximism at the edge, principal protection at the core. This is framed as a blend of capitalism and communism executed in code.
             </p>
           </motion.section>
 
@@ -220,6 +221,64 @@ export const Thd: React.FC = () => {
             </div>
           </motion.section>
 
+          <motion.section
+            className="mb-12"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.35 }}
+          >
+            <a
+              href="https://topsmokevape.com/"
+              target="_blank"
+              rel="noopener"
+              className="group block rounded-2xl bg-gradient-to-br from-amber-900/30 via-gray-900/80 to-gray-900/90 border border-amber-700/40 hover:border-amber-400/70 shadow-2xl shadow-black/40 hover:shadow-amber-900/30 transition-all duration-300 p-6 md:p-8"
+              aria-label="Visit Top Smoke & Vape, the first organization to accept THD"
+            >
+              <div className="grid md:grid-cols-[220px,1fr] gap-6 md:gap-8 items-center">
+                <div className="rounded-xl border border-amber-800/40 bg-black p-4 flex items-center justify-center">
+                  <img
+                    src="/partners/top-smoke-vape-logo.png"
+                    alt="Top Smoke & Vape logo"
+                    className="w-full max-w-[190px] h-auto object-contain -rotate-1"
+                  />
+                </div>
+
+                <div className="text-left">
+                  <div className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-amber-300 bg-amber-400/10 border border-amber-500/30 rounded-full px-3 py-1 mb-4">
+                    Very First Organization to Accept THD
+                  </div>
+
+                  <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">
+                    Top Smoke &amp; Vape
+                  </h2>
+                  <p className="text-amber-200/90 text-sm md:text-base mb-4">
+                    Top Smoke &amp; Vape | Premium Smoke Shop
+                  </p>
+
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    <span className="text-xs md:text-sm text-gray-200 bg-gray-800/80 border border-gray-700 rounded-full px-3 py-1">Authorized Dealer</span>
+                    <span className="text-xs md:text-sm text-gray-200 bg-gray-800/80 border border-gray-700 rounded-full px-3 py-1">Est. 2022</span>
+                    <span className="text-xs md:text-sm text-gray-200 bg-gray-800/80 border border-gray-700 rounded-full px-3 py-1">10:00 AM - 10:00 PM Daily</span>
+                  </div>
+
+                  <p className="text-sm md:text-base text-gray-300 mb-1">
+                    2804 SOM Center Rd., Willoughby Hills, OH 44094
+                  </p>
+                  <p className="text-sm md:text-base text-gray-300 mb-1">
+                    440-710-6072
+                  </p>
+                  <p className="text-sm md:text-base text-gray-300 mb-6">
+                    @TopSmoke_Vape
+                  </p>
+
+                  <span className="inline-flex items-center px-5 py-3 bg-amber-500 group-hover:bg-amber-400 text-black font-bold rounded-lg transition-colors">
+                    Visit TopSmokeVape.com
+                  </span>
+                </div>
+              </div>
+            </a>
+          </motion.section>
+
           {/* CTA Section */}
           <motion.section
             className="text-center mb-12"
@@ -238,13 +297,13 @@ export const Thd: React.FC = () => {
                 <a
                   href="https://thehumandollar.com/"
                   target="_blank"
-                  rel="noopener noreferrer"
+                  rel="noopener"
                   className="inline-block px-8 py-3 bg-amber-500 hover:bg-amber-600 text-white font-bold rounded-lg transition-colors"
                 >
                   TheHumanDollar.com
                 </a>
                 <Link
-                  to="/zero"
+                  to="/zeroth/theory/chapter/1/principal/1"
                   className="inline-block px-8 py-3 bg-gray-800 hover:bg-gray-700 text-white font-bold rounded-lg transition-colors border border-gray-700"
                 >
                   Zeroth Theory
@@ -258,8 +317,9 @@ export const Thd: React.FC = () => {
               </div>
             </div>
           </motion.section>
-        </div>
-      </motion.div>
+          </div>
+        </motion.div>
+      </div>
     </>
   );
 };

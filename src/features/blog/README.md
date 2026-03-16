@@ -60,7 +60,7 @@ Types are defined in `types.ts`:
 
 ## Dependencies
 
-- **Data:** Uses `src/data/blogData.ts` for blog post content
+- **Data:** Uses `src/features/blog/data/posts.ts` as canonical blog content source
 - **Models:** Uses `src/models/BlogPost.ts` for type definitions
 - **Utils:** Uses `src/utils/markdown.ts` for markdown parsing
 - **Layout:** Uses `MainNav` from `../layout/`

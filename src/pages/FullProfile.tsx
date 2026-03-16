@@ -84,13 +84,14 @@ export const FullProfile: React.FC = () => {
       />
       <AnimatedBackground />
       <MainNav />
-      <motion.div
-        className="min-h-screen text-white p-8 relative z-10 pt-24 md:pt-32"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.5 }}
-      >
-        <div className="max-w-6xl mx-auto mt-16">
+      <div className="h-screen overflow-y-auto overflow-x-hidden overscroll-behavior-x-none scroll-smooth relative z-10">
+        <motion.div
+          className="min-h-screen text-white p-8 relative z-10 pt-24 md:pt-32"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5 }}
+        >
+          <div className="max-w-6xl mx-auto mt-16">
           {/* Header Section */}
           <motion.div
             className="flex flex-col md:flex-row items-center md:items-center mb-12"
@@ -108,7 +109,7 @@ export const FullProfile: React.FC = () => {
               </div>
             </div>
             <div className="text-center md:text-left flex-1">
-              <h1 className="text-5xl font-bold mb-2 text-cyan-400">
+              <h1 className="text-5xl font-bold mb-2 text-cyan-400 break-words [overflow-wrap:anywhere]">
                 Michael Simoneau
               </h1>
               <p className="text-2xl text-cyan-300 mb-1">
@@ -173,7 +174,7 @@ export const FullProfile: React.FC = () => {
                   <a
                     href="https://github.com/ZerothTheory"
                     target="_blank"
-                    rel="noopener noreferrer"
+                    rel="noopener"
                     className="text-cyan-400 hover:text-cyan-200 transition-colors"
                   >
                     ZerothTheory
@@ -769,8 +770,9 @@ export const FullProfile: React.FC = () => {
               </div>
             </div>
           </motion.div>
-        </div>
-      </motion.div>
+          </div>
+        </motion.div>
+      </div>
     </>
   );
 };

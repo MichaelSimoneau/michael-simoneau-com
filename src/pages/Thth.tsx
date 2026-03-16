@@ -74,13 +74,14 @@ export const Thth: React.FC = () => {
       />
       <AnimatedBackground />
       <MainNav />
-      <motion.div
-        className="min-h-screen text-white p-8 relative z-10 pt-24 md:pt-32"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.5 }}
-      >
-        <div className="max-w-6xl mx-auto">
+      <div className="h-screen overflow-y-auto overflow-x-hidden overscroll-behavior-x-none scroll-smooth relative z-10">
+        <motion.div
+          className="min-h-screen text-white p-8 relative z-10 pt-24 md:pt-32"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5 }}
+        >
+          <div className="max-w-6xl mx-auto">
           {/* Header Section with Logo */}
           <motion.div
             className="flex flex-col md:flex-row items-center md:items-start mb-12"
@@ -156,7 +157,7 @@ export const Thth: React.FC = () => {
                 <a
                   href="https://0thth.com/dashboard"
                   target="_blank"
-                  rel="noopener noreferrer"
+                  rel="noopener"
                   className="inline-flex items-center text-purple-400 hover:text-purple-300 transition-colors"
                 >
                   View Dashboard →
@@ -173,7 +174,7 @@ export const Thth: React.FC = () => {
                 <a
                   href="https://0thth.com/mint"
                   target="_blank"
-                  rel="noopener noreferrer"
+                  rel="noopener"
                   className="inline-flex items-center text-purple-400 hover:text-purple-300 transition-colors"
                 >
                   Mint THTH →
@@ -190,7 +191,7 @@ export const Thth: React.FC = () => {
                 <a
                   href="https://0thth.com/whitepapers"
                   target="_blank"
-                  rel="noopener noreferrer"
+                  rel="noopener"
                   className="inline-flex items-center text-purple-400 hover:text-purple-300 transition-colors"
                 >
                   Read Whitepaper →
@@ -207,7 +208,7 @@ export const Thth: React.FC = () => {
                 <a
                   href="https://ZerothTheory.com"
                   target="_blank"
-                  rel="noopener noreferrer"
+                  rel="noopener"
                   className="inline-flex items-center text-purple-400 hover:text-purple-300 transition-colors"
                 >
                   Explore Visualization →
@@ -304,7 +305,7 @@ export const Thth: React.FC = () => {
                 <a
                   href="https://0thth.com/dashboard"
                   target="_blank"
-                  rel="noopener noreferrer"
+                  rel="noopener"
                   className="inline-block px-8 py-3 bg-purple-500 hover:bg-purple-600 text-white font-bold rounded-lg transition-colors"
                 >
                   View Dashboard
@@ -312,7 +313,7 @@ export const Thth: React.FC = () => {
                 <a
                   href="https://0thth.com/mint"
                   target="_blank"
-                  rel="noopener noreferrer"
+                  rel="noopener"
                   className="inline-block px-8 py-3 bg-gray-800 hover:bg-gray-700 text-white font-bold rounded-lg transition-colors border border-gray-700"
                 >
                   Mint THTH
@@ -320,7 +321,7 @@ export const Thth: React.FC = () => {
                 <a
                   href="https://ZerothTheory.com"
                   target="_blank"
-                  rel="noopener noreferrer"
+                  rel="noopener"
                   className="inline-block px-8 py-3 bg-gray-800 hover:bg-gray-700 text-white font-bold rounded-lg transition-colors border border-gray-700"
                 >
                   Explore Visualization
@@ -328,8 +329,9 @@ export const Thth: React.FC = () => {
               </div>
             </div>
           </motion.section>
-        </div>
-      </motion.div>
+          </div>
+        </motion.div>
+      </div>
     </>
   );
 };

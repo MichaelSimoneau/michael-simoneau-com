@@ -626,7 +626,7 @@ But:
 * no consensus
 * no politics
 
-You’re running a **truth machine**, not a currency cartel.
+You’re running a **truth machine**, not a bartering-chip cartel.
 
 ---
 

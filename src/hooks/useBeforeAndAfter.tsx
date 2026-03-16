@@ -1,7 +1,10 @@
-import React, { createContext } from "react";
+import React, { createContext, RefObject, useMemo, useRef } from "react";
+import { BlogData } from "../features/blog/data/posts";
 
-const MARCH_12_2026_9_15_AM = new Date(2026, 2, 12, 9, 15, 0, 0);
-const MARCH_12_2026_12_00_PM = new Date(2026, 2, 12, 12, 0, 0, 0);
+export type BeforeAndAfterValue = string | Record<string, string> | BlogData;
+
+const MARCH_12_2026_9_15_AM = new Date(2026, 2, 12, 9, 30, 0, 0);
+const MARCH_17_2026_10_00_AM = new Date(2026, 2, 17, 10, 0, 0, 0);
 
 /**
  * useBeforeAndAfter
@@ -20,21 +23,23 @@ const MARCH_12_2026_12_00_PM = new Date(2026, 2, 12, 12, 0, 0, 0);
  *     after: 'It happened!',
  *   });
  */
-function beforeAndAfter<T extends string | Record<string, string>>({
-  when = MARCH_12_2026_9_15_AM,
+function beforeAndAfter<
+  T extends string | Record<string, string> | (() => void),
+>({
+  when = { current: MARCH_12_2026_9_15_AM } as RefObject<Date>,
   before,
   after,
   start,
   end,
 }: {
-  when?: Date;
+  when?: RefObject<Date>;
   before: T;
   after: T;
   start?: T;
   end?: T;
 }): T {
   const now = new Date();
-  const value = now.getTime() < when.getTime() ? before : after;
+  const value = now.getTime() < when.current.getTime() ? before : after;
   if (typeof value === "string") {
     if (start && end) {
       return `${start} ${value} ${end}` as T;
@@ -62,9 +67,8 @@ function beforeAndAfter<T extends string | Record<string, string>>({
   return { ...objStart, ...objValue, ...objEnd } as T;
 }
 
-type BeforeAndAfterValue = string | Record<string, string>;
-
-type BeforeAndAfterContextValue = {
+export type BeforeAndAfterContext<T extends BeforeAndAfterValue> = {
+  output: T;
   when: Date;
   before: BeforeAndAfterValue;
   after: BeforeAndAfterValue;
@@ -77,16 +81,24 @@ type BeforeAndAfterContextValue = {
   setEnd: (end: BeforeAndAfterValue) => void;
 };
 
-const BeforeAndAfterContext = createContext<BeforeAndAfterContextValue | undefined>(undefined);
+const BeforeAndAfterContext = createContext<BeforeAndAfterContext<BeforeAndAfterValue> | undefined>(
+  undefined,
+);
 
-const BeforeAndAfterProvider = ({ children }: { children: React.ReactNode }) => {
-  const [when, _setWhen] = React.useState(MARCH_12_2026_9_15_AM);
+const BeforeAndAfterProvider = ({
+  children,
+}: {
+  children: React.ReactNode;
+}) => {
+  const whenRef = useRef<Date>(MARCH_12_2026_9_15_AM);
+  const [output, _setOutput] = React.useState<BeforeAndAfterValue>(null as unknown as BeforeAndAfterValue);
   const [before, _setBefore] = React.useState<BeforeAndAfterValue>("");
   const [after, _setAfter] = React.useState<BeforeAndAfterValue>("");
   const [start, _setStart] = React.useState<BeforeAndAfterValue>("");
   const [end, _setEnd] = React.useState<BeforeAndAfterValue>("");
   const setWhen = React.useCallback((when: Date) => {
-    _setWhen(when);
+    whenRef.current = when;
+    _setOutput(getOutput());
   }, []);
   const setBefore = React.useCallback((before: BeforeAndAfterValue) => {
     _setBefore(before);
@@ -100,39 +112,70 @@ const BeforeAndAfterProvider = ({ children }: { children: React.ReactNode }) => 
   const setEnd = React.useCallback((end: BeforeAndAfterValue) => {
     _setEnd(end);
   }, []);
+  const getOutput = React.useCallback(() => {
+    return new Date() < whenRef.current ? before : after;
+  }, [before, after]);
   React.useEffect(() => {
     const interval = setInterval(() => {
-      _setWhen(new Date());
+      if (whenRef.current < new Date()) {
+        _setOutput(getOutput());
+      }
     }, 1000);
     return () => clearInterval(interval);
-  }, []);
-  const value = React.useMemo(() => ({
-    when,
-    before,
-    after,
-    start,
-    end,
-    setWhen,
-    setBefore,
-    setAfter,
-    setStart,
-    setEnd,
-  }), [when, before, after, start, end, setWhen, setBefore, setAfter, setStart, setEnd]);
-  return <BeforeAndAfterContext.Provider value={value}>{children}</BeforeAndAfterContext.Provider>;
+  }, [getOutput, _setOutput]);
+  const value = useMemo(
+    () => ({
+      output,
+      when: whenRef.current,
+      before,
+      after,
+      start,
+      end,
+      setWhen,
+      setBefore,
+      setAfter,
+      setStart,
+      setEnd,
+    }),
+    [
+      output,
+      before,
+      after,
+      start,
+      end,
+      setWhen,
+      setBefore,
+      setAfter,
+      setStart,
+      setEnd,
+    ],
+  );
+  return (
+    <BeforeAndAfterContext.Provider value={value}>
+      {children}
+    </BeforeAndAfterContext.Provider>
+  );
 };
 
-const useBeforeAndAfter = () => {
-  const context = React.useContext(BeforeAndAfterContext);
+const useBeforeAndAfter = <T extends BeforeAndAfterValue>(): BeforeAndAfterContext<T> => {
+  const context = React.useContext(BeforeAndAfterContext)
   if (!context) {
-    throw new Error("useBeforeAndAfter must be used within a BeforeAndAfterProvider");
+    throw new Error(
+      "useBeforeAndAfter must be used within a BeforeAndAfterProvider",
+    );
   }
-  return context;
+  if (null === (context as BeforeAndAfterContext<T>)) {
+    throw new Error(
+      `${typeof context} is not a BeforeAndAfterContext<T>`,
+    );
+  }
+  return context as BeforeAndAfterContext<T>;
 };
 
-export { 
-    beforeAndAfter, 
-    MARCH_12_2026_9_15_AM, 
-    MARCH_12_2026_12_00_PM,
-    BeforeAndAfterProvider,
-    useBeforeAndAfter,
+export {
+  beforeAndAfter,
+  MARCH_12_2026_9_15_AM,
+  MARCH_17_2026_10_00_AM as MARCH_17_2026_10_00_AM,
+  BeforeAndAfterProvider,
+  useBeforeAndAfter,
 };

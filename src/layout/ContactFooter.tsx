@@ -23,7 +23,7 @@ export const ContactFooter: React.FC = () => {
           <a
             href="https://github.com/michaelsimoneau"
             target="_blank"
-            rel="noopener noreferrer"
+            rel="noopener"
             className="w-11 h-11 rounded-full bg-white text-gray-900 hover:bg-gray-200 transition-colors inline-flex items-center justify-center"
             aria-label="GitHub profile (dark icon)"
           >
@@ -32,7 +32,7 @@ export const ContactFooter: React.FC = () => {
           <a
             href="https://github.com/ZerothTheory"
             target="_blank"
-            rel="noopener noreferrer"
+            rel="noopener"
             className="w-11 h-11 rounded-full bg-gray-900 border border-gray-700 text-white hover:bg-gray-800 transition-colors inline-flex items-center justify-center"
             aria-label="GitHub profile (inverted icon)"
           >

@@ -9,9 +9,9 @@ And it is a dense, fascinating, and uh frankly a somewhat disorienting stack of 
 It's not the usual thing.
 Not at all. We spend so much time talking about web 3.0. And usually when we say web 3, we mean blockchain, we mean crypto,
 decentralized finance, putting a ledger on the internet, tokenizing things.
-Exactly. But the premise of the material we're diving into today, and this is the architectural work of Michael Simeono, is that web 3 as we currently understand it is just a static ledger.
+Exactly. But the premise of the material we're diving into today, and this is the architectural work of Michael Simoneau, is that web 3 as we currently understand it is just a static ledger.
 A static ledger.
-Yeah. A glorified receipt system. It's a record of things that have already happened. Sino's argument is that we are still building dead things. We're building like digital rocks.
+Yeah. A glorified receipt system. It's a record of things that have already happened. Simoneau's argument is that we are still building dead things. We're building like digital rocks.
 And he wants to build a digital organism.
 That is the core thesis. That's the whole ballgame. The transition from the static ledger to the digital organism.
 I have to admit when I first read that phrase in the notes digital organism, I kind of rolled my eyes a little bit. You know, it sounds like marketing fluff.
@@ -34,7 +34,7 @@ We're going to talk about redefining the number zero and using turnary logic ins
 And finally, we will arrive at the organism itself, the hasheb. We'll break down the human dollar, which is that metabolic money we mentioned, and this fascinating concept of the ghost in the shell architecture.
 So, it's a journey from a solar powered server rack all the way to like the philosophy of existence. So let's start with the metal. Let's start with the factory.
 Let's go.
-So in the source material, there is a very specific strategic shift that happens right at the beginning. Simono describes the difference between building a boat and building a factory. And I think this resonates with anyone who has ever, you know, try to build a product.
+So in the source material, there is a very specific strategic shift that happens right at the beginning. Simoneau describes the difference between building a boat and building a factory. And I think this resonates with anyone who has ever, you know, try to build a product.
 It's the fundamental trap of engineering, isn't it? It really is. Most developers, most startups, they are completely obsessed with the boat.
 The boat is everything.
 The boat is the app. The boat is the token. It's the platform. And they spend years just polishing the hull, fixing the sails, trying to make sure this one specific vessel can survive the ocean of the market.
@@ -93,7 +93,7 @@ This is critical. This is another one of those counterintuitive design choices. 
 right? It lives on the chain.
 And so if Ethereum gets congested, the app slows down. If gas fees spike to $100, the app becomes unusable. The app is the boat. The blockchain is the ocean. And if the ocean gets rough, the boat gets tossed around.
 You are totally at the mercy of the chain.
-Sino flips that. In his architecture, the etherhive and the zeroth system, which he calls the brain, operate entirely offchain. They do all the heavy lifting, all the calculation, all the logic in their own protected high performance environment.
+Simoneau flips that. In his architecture, the etherhive and the zeroth system, which he calls the brain, operate entirely offchain. They do all the heavy lifting, all the calculation, all the logic in their own protected high performance environment.
 So where does Ethereum even fit in? What's its job?
 Ethereum is described as a settlement membrane.
 A membrane.
@@ -102,7 +102,7 @@ Wait, explain the membrane analogy. I'm trying to picture this.
 Okay. Think of a cell, a biological cell. It has a membrane that lets nutrients in and waste out, but it protects the delicate machinery inside the cell from the chaos of the outside world.
 Right? It's a filter. It's a filter. In this architecture, Ethereum is just the place where the system outputs its final results. It's the cashier at the end of the assembly line.
 So, the brain does all the thinking, all the hard work, and then just hands the final receipt to Ethereum to stamp.
-Exactly. And here's the asymmetric part of the dependency. If Ethereum goes down, which happens, or it gets super clogged, the Xeroth system just waits.
+Exactly. And here's the asymmetric part of the dependency. If Ethereum goes down, which happens, or it gets super clogged, the Zeroth system just waits.
 It doesn't crash.
 Nope, it doesn't crash. It holds the transaction in its own memory. It continues to process things locally. It basically treats the blockchain blockage as bad weather. You just wait for the rain to stop and then you go outside.
 But what if the zero system itself crashes? What if the factory has a power outage?
@@ -123,7 +123,7 @@ It all starts with a simple question. What is zero?
 Well, it's nothing. It's the absence of things,
 right?
 If I have zero apples, I have no apples. It's an empty set.
-That is the standard definition, the one we all learn in grade school. Zero is a void. But Simono argues that this definition is chemically and physically incomplete. It's not how the universe actually works. He proposes that zero is convergence.
+That is the standard definition, the one we all learn in grade school. Zero is a void. But Simoneau argues that this definition is chemically and physically incomplete. It's not how the universe actually works. He proposes that zero is convergence.
 Convergence. Okay. Think of it less like an empty box and more like a perfectly balanced scale. maybe a perfectly balanced accounting ledger. If you have a business where every single asset is perfectly matched by a liability, your net position is zero. But is the business empty?
 No, not at all. The business is full of activity. It's full of stuff. It's just balanced.
 Exactly. The zero is the state of total equilibrium. He calls it totality. It's the point where all positive forces and all negative forces cancel each other out completely. So in Zeroth Theory, zero isn't nothing. Zero is everything resolved.
@@ -147,7 +147,7 @@ zero is truth. It is the resolution. It's the moment of convergence where the pr
 This sounds very poetic. But how does this actually work in a computer? We aren't building a poetry engine here, right? We're building a state machine.
 We are building a validation engine. And it's actually very practical. Think about it this way. In a normal computer, you execute a command. You say, "Do this,
 right? Imperative."
-In the Xeron system, the computer spawns a dream. It's literally a subprocess running in that negative one state. Yeah.
+In the Zeroth system, the computer spawns a dream. It's literally a subprocess running in that negative one state. Yeah.
 And it asks a question. It says, "What if I did this? Does it balance the books? Does it fit with all of known history?"
 So it runs a simulation first every single time.
 It runs a simulation in this negative space. And only when that dream converges with history. Only when the math all balances out to zero does it become truth and get written to the ledger as a one.
@@ -158,7 +158,7 @@ Because by forcing the data to solve for zero, you ensure its integrity without 
 that is actually a really cool concept data that validates itself that's powerful which brings us I think to the application of this physics the hashweb
 yes the hashweb is where this weird abstract math hits the road and the biggest architectural change here is the move from standard 64-bit computing to a native 128-bit architecture
 but it's not just a bigger number right it's not just More bits equals better.
-No, not at all. It's about the structure. Simono calls it a bicamal structure. Bicamal meaning two chambers. The 128 bit hash isn't one long string. It's actually two 64-bit siblings that are fused together. They call us the Gemini token.
+No, not at all. It's about the structure. Simoneau calls it a bicamal structure. Bicamal meaning two chambers. The 128 bit hash isn't one long string. It's actually two 64-bit siblings that are fused together. They call us the Gemini token.
 Gemini, the twins. Makes sense.
 Exactly. You have sibling A and sibling B and they are mathematically inseparable.
 Okay. So, let's break them down. What does sibling A do?

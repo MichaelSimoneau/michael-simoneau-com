@@ -2,7 +2,7 @@
 
 ## Architecture Overview
 
-THD (The Human Dollar) presentation. This feature module introduces and explains The Human Dollar — money that works. THD is your employee: put it to work and earn $655 for every $1 at the $65,535 cap. Stagnation is a firing offense — idle capital enters early retirement. It positions as the Anti-Crypto. The concept is detailed in the audio "Building Web 4 With Money That Lives."
+THD (The Human Dollar) presentation. This feature module introduces and explains The Human Dollar as The Anti-Currency. THD is legally a digital bartering chip, not a currency: it does not replace money, it costs $1, and your $1 principal is always redeemable (1 THD = 1 USDC floor). THD is framed as a cryptographic concert ticket where participation is rewarded up to the $65,535 cap and stagnation decays via base-three half-life. The concept is detailed in the audio "Building Web 4 With Money That Lives."
 
 ## Implementation Guidelines
 

@@ -119,7 +119,7 @@ export const MainNav: React.FC<MainNavProps> = ({ scrollContainerId }) => {
         <nav className="hidden lg:flex items-center space-x-6 xl:space-x-8 relative" ref={pathsRef}>
           {!isPathsExpanded && (
             <>
-              <button onClick={() => handleSectionLinkClick('about')} className="text-gray-300 hover:text-cyan-400 transition-colors">About</button>
+              <button onClick={() => handleSectionLinkClick('audio')} className="text-gray-300 hover:text-cyan-400 transition-colors">About</button>
               <button onClick={() => handleSectionLinkClick('videos')} className="text-gray-300 hover:text-cyan-400 transition-colors">Video</button>
               <button onClick={() => handleSectionLinkClick('music')} className="text-gray-300 hover:text-cyan-400 transition-colors">Music</button>
               <button onClick={() => handleSectionLinkClick('interview')} className="text-gray-300 hover:text-cyan-400 transition-colors">Interview</button>
@@ -188,7 +188,7 @@ export const MainNav: React.FC<MainNavProps> = ({ scrollContainerId }) => {
                   </button>
                   <span className="text-gray-500">|</span>
                   <button
-                    onClick={(e) => handlePathsItemClick('cryptofabric', e)}
+                    onClick={(e) => handlePathsItemClick('CryptoFabric', e)}
                     className="text-gray-300 hover:text-cyan-400 transition-colors whitespace-nowrap"
                   >
                     Crypto Fabric
@@ -245,7 +245,7 @@ export const MainNav: React.FC<MainNavProps> = ({ scrollContainerId }) => {
                   </Link>
                 )}
                 
-                <button onClick={() => handleSectionLinkClick('about')} className={overlayNavItemClass}>About</button>
+                <button onClick={() => handleSectionLinkClick('audio')} className={overlayNavItemClass}>About</button>
                 <button onClick={() => handleSectionLinkClick('videos')} className={overlayNavItemClass}>Video</button>
                 <button onClick={() => handleSectionLinkClick('music')} className={overlayNavItemClass}>Music</button>
                 <button onClick={() => handleSectionLinkClick('interview')} className={overlayNavItemClass}>Interview</button>
@@ -298,7 +298,7 @@ export const MainNav: React.FC<MainNavProps> = ({ scrollContainerId }) => {
                   Zeroth Theory
                 </button>
                 <button 
-                  onClick={(e) => handlePathsItemClick('cryptofabric', e)}
+                  onClick={(e) => handlePathsItemClick('CryptoFabric', e)}
                   className="text-xl text-gray-400 hover:text-cyan-400 transition-colors"
                 >
                   Crypto Fabric

@@ -1,0 +1,183 @@
+ Welcome to today's Deep Dive. We are looking directly at you today because we're unpacking
+ something that sounds straight out of a science fiction novel. Yeah, it really does. It's a
+ radical economic framework designed by a developer named Michael Simoneau. Right. And to tackle this,
+ we've pulled together a pretty fascinating stack of sources. We've got Simoneau's own architectural
+ logs, some incredibly dense Web 3 white papers, and his personal audio diaries. All detailing this
+ system he calls the human dollar or THD. Exactly. So our mission today is to completely
+ deconstruct Simoneau's core thesis, which is basically that traditional money is fundamentally
+ broken. Completely broken in his eyes. Right. We're going to explore how his new metabolic currency
+ aims to completely cure the global anxiety around retirement. And we'll unpack the exact mechanics
+ of how you sitting right there listening to this can actually adopt this system today. It's a profound
+ shift, you know, and how we perceive value altogether. Because to understand where Simoneau is coming from,
+ we really have to examine our deepest assumptions about security. Which brings us to the classic bank
+ vault. Usually when we think about a vault, there's this expectation of absolute permanence, like a time
+ capsule. Right. You stick a crisp hundred dollar bill in a heavy steel box. You lock the thick door. And
+ well, the assumption is that you've secured your future. Because the paper might get a little dusty, but a hundred
+ bucks is a hundred bucks. Exactly. But Simoneau starts his audio diaries with a very provocative claim.
+ He says everyone is living in a massive global social delusion. We all hallucinate that the value of our
+ savings is still sitting in that vault just because the paper still literally says 100 or the bank screen
+ still shows those specific digits. But if you stick that hundred dollars in a vault for a century, its actual
+ purchasing power completely evaporates. It's gone. So instead of a time capsule, that steel vault looks more like
+ a block of ice left out in the sun. The water might still technically be there, pooled on the floor,
+ but the actual power of that money is just melting away. And we just pretend it isn't happening.
+ What's fascinating here is how Simoneau frames this using what he calls the banana argument. Oh yeah,
+ the banana argument. Break that down for us. So in his notes, he posits that core societal pillars,
+ take religious freedom for example, are essentially socially accepted delusions. Right.
+ They're agreed upon psychological constructs that basically just keep order. A physical banana is
+ real, right? You can eat it. Yeah, it has physical form. Exactly. But a concept like religious freedom
+ exists only because we collectively agree it exists. Simoneau argues that saving money is an equally
+ fabricated social construct. Okay, let's unpack this. Because if I go to the store and buy a gallon of
+ milk, I'm not going to hoard it in a closet for the winter. That would be insane. Right. Because it spoils.
+ It spoils. You consume it while it has value and nutrition. Yeah. But Simoneau is saying we should
+ treat our money the exact same way. That it should actually spoil if we don't use it. That's his whole
+ point. But wait, if saving is a delusion, what is the alternative? I mean, how does a normal person
+ survive or protect their family if they don't save? Well, that is the crux of his philosophy. Yeah.
+ Traditional money is treated like a battery. It's this static store of value that you hoard,
+ hoping it doesn't leak its charge over time. Right. Right. Simoneau argues that money must be a
+ velocity vector. It has to be kinetic energy. Stagnation is literal death in his system.
+ So he creates a currency that forces circulation by programmatically decaying if it isn't used. But
+ how does he actually build that? You can't just print physical paper money that self-destructs.
+ No. You build it on the blockchain. The human dollar isn't just a metaphor. It is a fully functional
+ Web3 ERC20 token. Operating on a decentralized network called the hashweb? Exactly. Wait,
+ I have to jump in here because this is where it gets really interesting. Because if THD is an actual
+ Web3 ERC20 token, that means it's subject to speculation. It's subject to volatility,
+ its own internal bubbles, market dynamics, all of it. It is. And that is entirely by design.
+ Look, to get a THD container, you deposit standard USDC, which is a digital stablecoin pegged to the US
+ dollar into the hashweb. Right. Just a standard stablecoin deposit. But Simoneau built this brilliant
+ architectural failsafe into the code. The base one dollar USDC floor never decays. Wait, explain that
+ mechanism. Because if the whole point is that money decays, why does the floor stay safe? Because the
+ one dollar is an administrative guarantee. It's a hard-coded constraint within the hashweb. Think of
+ that initial dollar as the unbreakable glass floor of a greenhouse. Okay. The floor itself is completely
+ immune to decay. Only the organic value that grows above it, the profit or the speculative value of
+ the THD token decays if it's left unobserved or unspent. Hold on, unobserved? Are we talking
+ about quantum mechanics here? How does a financial app know if I'm observing my money? It's just a
+ programmatic term Simoneau uses to describe interaction. In this ecosystem, observation
+ means deployment. Like, are you transacting with it? Oh, I see. Are you actively adding value to the
+ network? If the code sees the token sitting entirely dormant in your wallet, it defines that value as
+ unobserved. And the algorithmic decay begins eating into your profit. But if you use the
+ token by adding value, it actually resets the expire time. Precisely. So you can literally make
+ money in Web3 from the actual THD tokens growth. If I buy into some indie shoe brand using THD
+ and that brand goes viral and bubbles up, I capture that speculative value. Yeah, you capture it directly.
+ And then I can take that literal Web3 profit and use those funds directly to reinforce my own THD
+ container. You can. And the on-ramp for all of this is completely immediate. You don't need a degree
+ in cryptography. No, anyone can do it. A layman can enter the system today. You simply download
+the Crypto Fabric app, which is sitting in standard app stores right now. And you just connect a fiat
+ gateway like Stripe or Plaid, right? Yeah. And you deposit a maximum of one single dollar at a time.
+ That one dollar deposit automatically provisions your Web3 wallet, your personal THD container,
+ and mints your genesis block on the hash web. The security on this is wild, though. Because you
+ don't use a standard username. You scan your face using the biometric lidar on your phone,
+ coupled with a password. Right. To generate what Simoneau calls a bioethereal key. But practically,
+ how does a face scan become a financial key? Well, it doesn't just take a flat photograph.
+ The lidar creates a three-dimensional cryptographic hash based on the microscopic topography of your
+ facial structure at that exact moment. Wow. So that biometric data is permanently interwoven with your
+ genesis block. Your physical biological self become the literal access point. Which perfectly sets up the
+ biological rules of this money. Because if I'm accumulating all this value from Web3 speculation,
+ is there a limit? Oh, absolutely. Because if there isn't, aren't we just back to the same problem of
+ billionaires hoarding massive batteries of wealth? Simoneau fully anticipated that. Which is why there
+ is a hard mathematical ceiling. A single personal THD container can only hold up to a maximum value of
+ 65,535. That is such a specific, almost random number. Why 65,535? It's the maximum value of a 16-bit
+ unsigned integer in computer programming. Wait, really? Like an old arcade game?
+ Exactly like that. Think of it like the maximum score you could get before the counter simply flips back
+ to zero. Simoneau hard-coded this limitation into the currency itself. So what happens when that indie
+ shoe brand I invested in goes incredibly viral and the value of their token pushes past that cap? The
+ container just explodes. It undergoes what the architectural logs call the mitosis event. Mitosis,
+ like a cell splitting. Right. Just like a biological cell splitting, when it gets too large,
+ the token hits that integer limit and fractures. But here is the key: 90% of that fractured value is
+ immediately sent back to the creator of the viral product. Okay, so they keep 90%. Yeah. And a smaller
+ slice, 9%, is swept into a decentralized liquidity pool to fund the overarching hash web ecosystem. And what
+ happens to that final one percent? That remaining slice is dispersed directly back to the early
+ consumers who originally purchased that viral product. Let me stop you there because that is
+ mind-blowing. If I spend THD on coffee from a local roaster and they become a massive sensation and hit
+ their mitosis cap, you get paid. I get an automatic dividend payout directly into my container. Yeah. Just
+ for having the good judgment to buy my morning coffee from a supplier that provided real value to the
+ network. This completely flips how we view financial security. Under the current system,
+ we just hoard fiat currency in stagnant retirement accounts, terrified of inflation. Right. Which brings
+ me to the ultimate question for you listening right now. How does a system where your money is actively
+ decaying actually cure your anxiety about saving for retirement? Simoneau calls the philosophy driving this
+ Darwinian Marxism. Darwinian Marxism. That is quite the contradiction. It is, but structurally it makes
+ perfect sense. The system leverages pure capitalist ambition. You are incentivized to aggressively grow your
+ token, seek out incredible products, and ride speculative bubbles. Right. Capitalism. But it forces a Marxist
+ distribution. There are inescapable mathematically enforced limits and automatic systemic profit sharing.
+ He actually writes in his audio diaries, and I love this quote, he says, "If they spent THD well,
+ they will perpetually get dividends from the THD organization they invested in. This fixes the global
+ social delusion." Because if you spend your THD intelligently, if your velocity vector is aimed at good
+ local suppliers or sustainable farms, you will perpetually receive dividends from those organizations as they
+ inevitably hit their mitosis caps. So you don't need a static, rotting retirement savings account?
+ No. The good choices you made in the past automatically pay you back in the future.
+ Okay. I have to push back here. What if I am a highly ambitious, wealthy business owner? What if I
+ want to build a massive global corporation with multiple departments and thousands of employees?
+ Right. The scaling problem. Yeah. I cannot run a global enterprise on one personal THD container capped
+ at roughly $65,000. That ceiling completely stifles massive ambition. That is the exact critique
+ traditional economists' level at this framework. But if we pull up the March 13th architectural source,
+ the one specifically titled THD Organizations with Corrections,
+ C. Mano absolutely solves for this. How so? Through the container physics. To obtain a second THD container,
+ your first personal container must reach 99% capacity. At that precise moment, you have mathematically
+ proven your financial velocity. You have earned the right to open a THD organization. And that organization
+ uses the exact same biometric face scan, just with a different password. So you aren't juggling a million
+ corporate identities. Exactly. But remember the rules of the mitosis event. When a container splits,
+ the creator only gets 90% back. Right. So creating THD organizations is only a viable option
+ in the very specific case where you have earned the right to open a second container before you lose your
+ funds to algorithmic decay and the mitosis split. You can effectively store or reset your personal funds
+ by funding your new organization. So think about what this means. It means Simon O created the ultimate loophole,
+ but it's based entirely on merit. A rich person can fund a THD organization and before the mitosis event hits
+ and scatters their wealth, they can transact or delegate that organization to someone they trust.
+ Yes, which perfectly reinforces the entire financial lineage. By delegating that THD,
+ they actively reset the decay clock for both themselves and the person they trusted. It gives
+ everyone involved more opportunity to capture dividends. The capitalist mission is fully engaged,
+ but the limitation and fair distribution is absolute. You spend faster to spend better to get more THD.
+ It is pure, unadulterated financial meritocracy. It's essentially a blueprint for a functional economic
+ utopia. But in that same March 13 source, he gets incredibly fatalistic. He posits that his system wins,
+ but only because it's designed for the future. Well, yeah. He acknowledges that current, deeply entrenched
+ economists will literally have to die off for this paradigm to fully take root. Humans die. He doesn't actually care if the
+ entrenched financial powers of today adopt it. Because he built the ultimate failsafe, the headless server.
+ Exactly. The system relies on a decentralized economist infrastructure that can completely
+ reinstall itself from scratch across the hash web. The headless server is the absolute prerequisite.
+ So it outlives Simon O, it outlives its critics, and it outlasts the old way of thinking entirely.
+ And the end goal here is shifting the entire global psychology of money. But that doesn't happen overnight.
+No, of course not. Early adopters who download the Crypto Fabric app today are still going to store the
+ vast majority of their life savings in traditional USD for safety. Right. Because the USD is the
+ comforting bedrock right now. During the transition, yes. But eventually, as the hash web ecosystem proves
+ its stability and as THD takes over, that global psychology will naturally inevitably shift. People will
+ learn to actually fear holding money. Because holding money, just letting it sit in a container,
+ where it causes decay. The ice block melts. Yes. If you have a high balance of THD, it signals
+ to the network that you have actual bills to pay, businesses to fund, or real-world expectations to
+ meet. Let me make sure I have this right. The on-ramp rule is deposits cause decay. Using it without
+ adding value increases your decay time. Right. Yes. And using it by adding value decreases your decay time.
+ This coupled with the time dilation and the corrected physics, which, by the way, mathematically
+ holds up, society will become naturally anxious about hoarding. The anxiety of not having enough
+ saved in the vault is entirely replaced by the excitement of spending to earn. Exactly. But this
+ raises a massive logistical question. How does humanity physically and psychologically cross over from
+ holding plastic credit cards into a reality governed entirely by biometric hashes and headless servers?
+ Right. The bridge. Yeah. Because what happens if I'm in a terrible car crash? If my entire financial
+ reality is locked to the microscopic topography of my face and my face fundamentally changes in an
+ accident, do I just lose my entire life savings? That vulnerability is exactly why Simon Owen introduces
+ the final piece of the puzzle, the MePhone. He already purchased the domain MePhone.com to prepare for it.
+ The hardware bridge. Yes. A dedicated physical device specifically designed to manage your
+ biometric changes over your entire lifetime. It doesn't just scan your face. It offers full body scans.
+ It securely stores your medical documents on a private chain within the hash web. So in the event of that car
+ crash, the MyPhone could directly validate the physical accident by scanning an actual x-ray sent
+ securely by an emergency room doctor on the hash chain. Exactly. It authenticates the
+ trauma, updates your bioethereal key, and preserves your access to your containers. Wow. It manages the
+ physical reality being human while interfacing with the digital reality of the hash web.
+ Everyone will eventually want a MyPhone because of the medical and security benefits alone.
+ And once the hardware is universally adopted, the need for traditional fiat money completely evaporates.
+ The bridge to the future literally crumbles behind humanity as we cross it using this device.
+ What an absolute journey this concept is. We started by looking at a $100 bill sitting safely
+ in a steel vault and realizing that it's actually an illusion. A block of ice slowly melting away,
+ bleeding your purchasing power into nothing. And Simon O's solution is to offer an immediate,
+frictionless escape hatch. You deposit a single, completely safe, $1 USDC floor on the Crypto Fabric
+ app. You watch the speculative token value bubble up above that floor. And you eventually get paid
+ out in perpetual dividends just for having the good judgment to buy your weekly groceries from an
+ supplier that provides genuine value to the world. You completely abandon the delusion of the battery and
+ you embrace the reality of the velocity vector. So we ask you to seriously consider your
+ own financial mindset today. Look at your savings. Are you treating your hard earned value like a
+ battery that is slowly, inevitably leaking power in a dark vault?
+ It's a massive conceptual leap, honestly. It really is. A lot to wrap your head around. But the code is
+ written, the app is live, and the math doesn't lie. Before we leave you today though, we want to give you
+ one final lingering question to mull over. We know Simon O built this for the future. We know that this
+ mathematically verifiable hash web is designed to run autonomously on a headless server entirely outliving
+ us. Outliving everyone, yeah. But if our unique physical biometrics, our evolving faces, our bioethereal
+ keys managed by the MyPhone are the absolute only access points to our wealth. What happens when we die?
+ Exactly. What happens to our digital truth and the tangible value we've generated when our physical
+ bodies finally fail? When we are no longer here to provide that biological key, does our financial
+ legacy just perfectly mathematically converge back to zero?

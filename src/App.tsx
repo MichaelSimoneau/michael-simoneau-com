@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { SpeechProvider } from "./contexts/SpeechContext";
 import { CookieNotice } from "./layout/CookieNotice";
 import { Outlet, ScrollRestoration } from "react-router-dom";
+import { ProfileFlowProvider } from "./features/profile/flow";
 
 /**
  * Root-level copyright bar. Fixed at bottom with z-index above CookieNotice
@@ -18,7 +19,7 @@ function CopyrightNotice() {
         <a
           href="https://MichaelSimoneau.com"
           className="pointer-events-auto hover:underline focus:outline-none focus:underline"
-          rel="noopener noreferrer"
+          rel="noopener"
         >
           Michael Simoneau
         </a>
@@ -34,10 +35,12 @@ function App() {
 
   return (
     <SpeechProvider>
-      <CookieNotice />
-      <CopyrightNotice />
-      <ScrollRestoration />
-      <Outlet />
+      <ProfileFlowProvider>
+        <CookieNotice />
+        <CopyrightNotice />
+        <ScrollRestoration />
+        <Outlet />
+      </ProfileFlowProvider>
     </SpeechProvider>
   );
 }

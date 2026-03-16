@@ -7,7 +7,7 @@ import { AudioPlayer } from '../../../ui/players/AudioPlayer';
 export const CryptoFabricHero: React.FC = () => {
   return (
     <motion.section 
-      id="cryptofabric"
+      id="CryptoFabric"
       className="w-full flex flex-col items-center justify-center text-white px-4 py-16 md:py-24 relative overflow-hidden bg-gradient-to-br from-gray-900 via-blue-900/20 to-gray-900 flex-none"
       style={{ 
         minHeight: '100vh',

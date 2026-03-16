@@ -12,10 +12,13 @@ import {
   Music,
 } from 'lucide-react';
 import { useMediaAnalytics } from '../../analytics/useMediaAnalytics';
-import { MARCH_12_2026_9_15_AM } from '../../hooks/useBeforeAndAfter';
 import { dispatchMediaPlayIntent } from './mediaEvents';
 import { useMediaPlaybackCoordinator } from '../../providers/MediaPlaybackCoordinatorProvider';
 import { useProfileFlowDispatch, useProfileFlowState } from '../../features/profile/flow';
+import { InlineMediaConsentPrompt } from './InlineMediaConsentPrompt';
+import { useMediaConsentGate } from './useMediaConsentGate';
+import { useAudioTranscript } from './audioCaptions';
+import { useCaptionsViewport } from './CaptionsViewportProvider';
 
 /**
  * Single track definition for the playlist player.
@@ -28,6 +31,7 @@ export interface Track {
 interface PlaylistAudioPlayerProps {
   tracks: Track[];
   className?: string;
+  defaultPlaylistTitle?: string;
 }
 
 interface Section {
@@ -43,27 +47,142 @@ interface PlayableTrack extends Track {
 }
 
 const AUDIO_SOURCE_PATTERN = /\.(mp3|wav|m4a|aac|ogg|flac)(?:\?.*)?$/i;
-const VIDEO_HERO_AUTOPLAY_EVENT = 'videohero:autoplay-request';
-const VIDEO_HERO_PREPEND_MODE_EVENT = 'videohero:prepend-mode';
-const MAIN_SCROLL_CONTAINER_ID = 'new-main-page-scroll-container';
-const VIDEO_HERO_SECTION_ID = 'videos';
 const MELINDA_COLLAPSE_SIDEEFFECT_PATTERN = /^collapse_[01]$/i;
-const MELINDA_RESTRICTED_TRIGGER_PATTERN = /^collapse_0$/i;
-const RESTRICTED_FLOW_DURATION_MS = 2010 * 1000;
+const DATE_DISPLAY_FORMATTER = new Intl.DateTimeFormat('en-US', {
+  month: 'short',
+  day: 'numeric',
+  year: 'numeric',
+});
 
 const isAudioSource = (src: string) => AUDIO_SOURCE_PATTERN.test(src);
 const isCollapsedDirective = (directive: string) => /collapsed/i.test(directive) || /^collapse_/i.test(directive);
 const isMelindaCollapseDirective = (directive: string) => MELINDA_COLLAPSE_SIDEEFFECT_PATTERN.test(directive.trim());
-const isMelindaRestrictedTriggerDirective = (directive: string) => MELINDA_RESTRICTED_TRIGGER_PATTERN.test(directive.trim());
-const isHiddenVideoTriggerDirective = (directive: string) => MELINDA_COLLAPSE_SIDEEFFECT_PATTERN.test(directive.trim());
+const URL_IN_TEXT_PATTERN = /(https?:\/\/[^\s]+)/i;
+const PLAYLIST_METADATA_CACHE_UPDATED_EVENT = 'playlist-metadata-cache-updated';
+
+type MetadataParseResult = {
+  format: { creationTime?: Date };
+  common: {
+    date?: string;
+    originaldate?: string;
+    year?: number;
+    originalyear?: number;
+  };
+};
+
+type ParseBlobFn = (
+  blob: Blob,
+  options?: { skipCovers?: boolean; duration?: boolean },
+) => Promise<MetadataParseResult>;
+
+const sharedTrackDurationsBySrc: Record<string, number | null> = {};
+const sharedTrackCreatedDatesBySrc: Record<string, Date | null> = {};
+const durationProbeInFlight = new Set<string>();
+const createdDateProbeInFlight = new Set<string>();
+const metadataReadySubscribers = new Set<() => void>();
+let isMetadataEnrichmentReady = false;
+let hasInitializedMetadataReadyTrigger = false;
+let metadataParserPromise: Promise<ParseBlobFn | null> | null = null;
+
+const emitPlaylistMetadataCacheUpdated = () => {
+  if (typeof window !== 'undefined') {
+    window.dispatchEvent(new CustomEvent(PLAYLIST_METADATA_CACHE_UPDATED_EVENT));
+  }
+};
+
+const markMetadataEnrichmentReady = () => {
+  if (isMetadataEnrichmentReady) {
+    return;
+  }
+  isMetadataEnrichmentReady = true;
+  metadataReadySubscribers.forEach((notify) => notify());
+};
+
+const subscribeMetadataEnrichmentReady = (notify: () => void) => {
+  metadataReadySubscribers.add(notify);
+  return () => {
+    metadataReadySubscribers.delete(notify);
+  };
+};
+
+const ensureMetadataEnrichmentTrigger = () => {
+  if (typeof window === 'undefined' || hasInitializedMetadataReadyTrigger || isMetadataEnrichmentReady) {
+    return;
+  }
+  hasInitializedMetadataReadyTrigger = true;
+
+  const windowWithIdle = window as Window & {
+    requestIdleCallback?: (callback: () => void, options?: { timeout: number }) => number;
+    cancelIdleCallback?: (id: number) => void;
+  };
+  const cleanups: Array<() => void> = [];
+  let hasSettled = false;
+  const settle = () => {
+    if (hasSettled) {
+      return;
+    }
+    hasSettled = true;
+    cleanups.forEach((cleanup) => cleanup());
+    markMetadataEnrichmentReady();
+  };
+
+  const interactionEvents: Array<keyof WindowEventMap> = ['pointerdown', 'keydown', 'touchstart'];
+  interactionEvents.forEach((eventName) => {
+    const listener = () => settle();
+    window.addEventListener(eventName, listener, { once: true, passive: true });
+    cleanups.push(() => window.removeEventListener(eventName, listener));
+  });
+
+  if (typeof windowWithIdle.requestIdleCallback === 'function') {
+    const idleId = windowWithIdle.requestIdleCallback(() => settle(), { timeout: 2500 });
+    cleanups.push(() => windowWithIdle.cancelIdleCallback?.(idleId));
+  } else {
+    const timeoutId = window.setTimeout(() => settle(), 2500);
+    cleanups.push(() => window.clearTimeout(timeoutId));
+  }
+};
+
+const loadMetadataParserOnce = async (): Promise<ParseBlobFn | null> => {
+  if (!metadataParserPromise) {
+    metadataParserPromise = import('music-metadata-browser')
+      .then((metadataModule) => metadataModule.parseBlob as ParseBlobFn)
+      .catch(() => null);
+  }
+  return metadataParserPromise;
+};
+
+const isFakeTrackSrc = (src: string) => /fake\.mp3$/i.test(src.trim());
+const extractFirstUrl = (text: string): string | null => {
+  const match = text.match(URL_IN_TEXT_PATTERN);
+  if (!match?.[1]) {
+    return null;
+  }
+  const candidate = match[1].replace(/[),.;!?]+$/, '');
+  try {
+    const parsed = new URL(candidate);
+    if (parsed.protocol === 'http:' || parsed.protocol === 'https:') {
+      return parsed.toString();
+    }
+    return null;
+  } catch {
+    return null;
+  }
+};
 
 /**
  * PlaylistAudioPlayer — a sleek, slim audio player that manages a playlist
  * of tracks with sequential playback, seek, skip, rewind, and track selection.
  */
-export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks, className }) => {
+export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({
+  tracks,
+  className,
+  defaultPlaylistTitle = 'Playlist',
+}) => {
   const { trackMediaEvent } = useMediaAnalytics();
-  const { announcePlayStart, bindPauseHandler } = useMediaPlaybackCoordinator('playlist-audio');
+  const { isGateVisible, requestConsentAwareAction, requestConsentAwarePlay, acceptAndResume } = useMediaConsentGate({
+    source: 'playlist-audio',
+  });
+  const { isCaptionsEnabled, setActiveAudio, clearActiveAudio, toggleCaptions } = useCaptionsViewport();
   const flowDispatch = useProfileFlowDispatch();
   const flowState = useProfileFlowState();
   const audioRef = useRef<HTMLAudioElement>(null);
@@ -74,7 +193,6 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
   const endedTrackKeyRef = useRef<string | null>(null);
   const hasVideoAutoTransitionTriggeredRef = useRef(false);
   const lastKnownUrlRef = useRef<string | null>(null);
-  const restrictedFlowTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const restrictedFlowLockedUntilReloadRef = useRef(false);
   const {
     playableTracks,
@@ -108,7 +226,7 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
       }
 
       if (currentSectionIndex === -1) {
-        createSection('Playlist', false, 'EXPANDED_DEFAULT');
+        createSection(defaultPlaylistTitle, false, 'EXPANDED_DEFAULT');
       }
 
       const playableIndex = nextPlayableTracks.length;
@@ -127,7 +245,7 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
       playableIndexToSectionIndex: nextPlayableIndexToSectionIndex,
       sectionDefaultCollapsed: nextSectionDefaultCollapsed,
     };
-  }, [tracks]);
+  }, [defaultPlaylistTitle, tracks]);
 
   const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -136,6 +254,15 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
   const [isExpanded, setIsExpanded] = useState(true);
   const [isSeeking, setIsSeeking] = useState(false);
   const [collapsedSections, setCollapsedSections] = useState<Record<string, boolean>>(sectionDefaultCollapsed);
+  const [, setTrackDurationsBySrc] = useState<Record<string, number | null>>(
+    () => ({ ...sharedTrackDurationsBySrc }),
+  );
+  const [trackCreatedDatesBySrc, setTrackCreatedDatesBySrc] = useState<Record<string, Date | null>>(
+    () => ({ ...sharedTrackCreatedDatesBySrc }),
+  );
+  const [isMetadataEnrichmentEnabled, setIsMetadataEnrichmentEnabled] = useState(
+    () => typeof window === 'undefined' || isMetadataEnrichmentReady,
+  );
   const [isRestrictedFlowActive, setIsRestrictedFlowActive] = useState(false);
   const [activeMelindaSectionId, setActiveMelindaSectionId] = useState<string | null>(null);
 
@@ -143,7 +270,55 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
   const shouldAutoPlay = useRef(false);
 
   const currentTrack = playableTracks[currentTrackIndex];
+  const { status: transcriptStatus } = useAudioTranscript(currentTrack?.src);
   const currentSectionIndex = playableIndexToSectionIndex[currentTrackIndex] ?? -1;
+
+  useEffect(() => {
+    if (isCaptionsEnabled && currentTrack?.src) {
+      setActiveAudio({ audioRef, audioSrc: currentTrack.src });
+    }
+  }, [currentTrack?.src, isCaptionsEnabled, setActiveAudio]);
+
+  useEffect(() => {
+    return () => {
+      clearActiveAudio(audioRef);
+    };
+  }, [clearActiveAudio]);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') {
+      return;
+    }
+    const syncSharedMetadata = () => {
+      setTrackDurationsBySrc((previous) => ({ ...previous, ...sharedTrackDurationsBySrc }));
+      setTrackCreatedDatesBySrc((previous) => ({ ...previous, ...sharedTrackCreatedDatesBySrc }));
+    };
+
+    syncSharedMetadata();
+    window.addEventListener(PLAYLIST_METADATA_CACHE_UPDATED_EVENT, syncSharedMetadata as EventListener);
+    return () => {
+      window.removeEventListener(
+        PLAYLIST_METADATA_CACHE_UPDATED_EVENT,
+        syncSharedMetadata as EventListener,
+      );
+    };
+  }, []);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') {
+      return;
+    }
+    if (isMetadataEnrichmentReady) {
+      setIsMetadataEnrichmentEnabled(true);
+      return;
+    }
+
+    ensureMetadataEnrichmentTrigger();
+    return subscribeMetadataEnrichmentReady(() => {
+      setIsMetadataEnrichmentEnabled(true);
+    });
+  }, []);
+
   const expandedTrackIndices = useMemo(() => {
     return sections.flatMap((section) => {
       const isCollapsed = collapsedSections[section.id] ?? section.defaultCollapsed;
@@ -181,12 +356,6 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
 
     return null;
   }, [currentSectionIndex, sections, collapsedSections]);
-  const hiddenVideoTriggerSections = useMemo(() => {
-    return sections.filter((section) => isHiddenVideoTriggerDirective(section.directive));
-  }, [sections]);
-  const firstHiddenVideoTriggerSectionId = useMemo(() => {
-    return hiddenVideoTriggerSections[0]?.id ?? null;
-  }, [hiddenVideoTriggerSections]);
   const melindaCollapseSections = useMemo(() => {
     return sections.filter((section) => isMelindaCollapseDirective(section.directive));
   }, [sections]);
@@ -201,43 +370,7 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
   }, [activeMelindaSection]);
 
   const centerScrollToVideoHero = useCallback(async () => {
-    const scrollContainer = document.getElementById(MAIN_SCROLL_CONTAINER_ID);
-    const videoSection = document.getElementById(VIDEO_HERO_SECTION_ID);
-    if (!scrollContainer || !videoSection) {
-      return;
-    }
-
-    const containerRect = scrollContainer.getBoundingClientRect();
-    const sectionRect = videoSection.getBoundingClientRect();
-    const sectionTopWithinContainer = sectionRect.top - containerRect.top + scrollContainer.scrollTop;
-    const targetScrollTop = sectionTopWithinContainer + sectionRect.height / 2 - scrollContainer.clientHeight / 2;
-    const maxScrollTop = Math.max(0, scrollContainer.scrollHeight - scrollContainer.clientHeight);
-    const clampedTargetScrollTop = Math.max(0, Math.min(targetScrollTop, maxScrollTop));
-    const settleThresholdPx = 6;
-    const maxWaitMs = 3500;
-    const settleTimeoutAt = Date.now() + maxWaitMs;
-
-    scrollContainer.scrollTo({
-      top: clampedTargetScrollTop,
-      behavior: 'smooth',
-    });
-
-    await new Promise<void>((resolve) => {
-      const waitForSettle = () => {
-        const distance = Math.abs(scrollContainer.scrollTop - clampedTargetScrollTop);
-        if (distance <= settleThresholdPx || Date.now() >= settleTimeoutAt) {
-          resolve();
-          return;
-        }
-        requestAnimationFrame(waitForSettle);
-      };
-      requestAnimationFrame(waitForSettle);
-    });
-
-    if (typeof window !== 'undefined' && window.location.hash !== `#${VIDEO_HERO_SECTION_ID}`) {
-      const nextUrl = `${window.location.pathname}${window.location.search}#${VIDEO_HERO_SECTION_ID}`;
-      window.history.pushState(null, '', nextUrl);
-    }
+    // Legacy cross-section auto-scroll is intentionally disabled.
   }, []);
 
   const resetRestrictedFlow = useCallback((options?: { force?: boolean }) => {
@@ -245,56 +378,17 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
     if (!force && restrictedFlowLockedUntilReloadRef.current) {
       return;
     }
-    if (restrictedFlowTimeoutRef.current !== null) {
-      clearTimeout(restrictedFlowTimeoutRef.current);
-      restrictedFlowTimeoutRef.current = null;
-    }
     restrictedFlowLockedUntilReloadRef.current = false;
     setIsRestrictedFlowActive(false);
   }, []);
 
-  const isBaizeBypassEnabled = useCallback(() => {
-    if (Date.now() >= MARCH_12_2026_9_15_AM.getTime()) {
-      return true;
-    }
-    if (typeof window === 'undefined') {
-      return false;
-    }
-    return new URLSearchParams(window.location.search).has('baize');
-  }, []);
+  const isBeforeNoon = useCallback(() => false, []);
 
-  const startRestrictedFlowFromInitialClick = useCallback(() => {
-    if (isBaizeBypassEnabled()) {
-      resetRestrictedFlow({ force: true });
-      return;
-    }
-    if (restrictedFlowLockedUntilReloadRef.current) {
-      setIsRestrictedFlowActive(true);
-      return;
-    }
-
-    restrictedFlowLockedUntilReloadRef.current = true;
-    setIsRestrictedFlowActive(true);
-    if (restrictedFlowTimeoutRef.current !== null) {
-      clearTimeout(restrictedFlowTimeoutRef.current);
-    }
-    restrictedFlowTimeoutRef.current = setTimeout(() => {
-      if (typeof window === 'undefined') {
-        return;
-      }
-      window.location.assign(`/?_=${Date.now()}#videos`);
-    }, RESTRICTED_FLOW_DURATION_MS);
-  }, [isBaizeBypassEnabled, resetRestrictedFlow]);
+  const isBaizeBypassEnabled = useCallback(() => true, []);
 
   const startRestrictedFlowFromAutoplay = useCallback(() => {
-    if (isBaizeBypassEnabled()) {
-      resetRestrictedFlow({ force: true });
-      return;
-    }
-    if (restrictedFlowLockedUntilReloadRef.current) {
-      setIsRestrictedFlowActive(true);
-    }
-  }, [isBaizeBypassEnabled, resetRestrictedFlow]);
+    resetRestrictedFlow({ force: true });
+  }, [resetRestrictedFlow]);
 
   useEffect(() => {
     setCollapsedSections((previous) => {
@@ -313,41 +407,25 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
   }, [resetRestrictedFlow]);
 
   useEffect(() => {
-    bindPauseHandler(() => {
-      const audio = audioRef.current;
-      if (!audio) {
-        return;
-      }
-      audio.pause();
-      setIsPlaying(false);
-    });
-  }, [bindPauseHandler]);
-
-  useEffect(() => {
-    const overrideTrack = flowState.override.value.playlist.track;
-    if (overrideTrack === undefined || playableTracks.length === 0) {
+    if (flowState.deepLink.machine !== 'resolved' || playableTracks.length === 0) {
       return;
     }
-    const normalizedTrackIndex = Math.max(0, Math.min(playableTracks.length - 1, overrideTrack - 1));
-    shouldAutoPlay.current = Boolean(flowState.override.value.playlist.autoplay);
+    const deepLinkIntent = flowState.deepLink.intent;
+    if (!deepLinkIntent || deepLinkIntent.target !== 'audio' || deepLinkIntent.playlistTrack === undefined) {
+      return;
+    }
+
+    const normalizedTrackIndex = Math.max(0, Math.min(playableTracks.length - 1, deepLinkIntent.playlistTrack - 1));
+    shouldAutoPlay.current = flowState.deepLink.autoplayAllowed;
     setCurrentTrackIndex(normalizedTrackIndex);
+    flowDispatch({ type: 'DEEPLINK_INTENT_CONSUMED' });
   }, [
-    flowState.override.value.playlist.autoplay,
-    flowState.override.value.playlist.track,
+    flowDispatch,
+    flowState.deepLink.autoplayAllowed,
+    flowState.deepLink.intent,
+    flowState.deepLink.machine,
     playableTracks.length,
   ]);
-
-  useEffect(() => {
-    if (isBaizeBypassEnabled()) {
-      resetRestrictedFlow({ force: true });
-      return;
-    }
-    if (flowState.override.value.restricted === 'on') {
-      setIsRestrictedFlowActive(true);
-    } else if (flowState.override.value.restricted === 'off') {
-      resetRestrictedFlow({ force: true });
-    }
-  }, [flowState.override.value.restricted, isBaizeBypassEnabled, resetRestrictedFlow]);
 
   useEffect(() => {
     if (typeof window === 'undefined') {
@@ -426,21 +504,6 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
   }, [isBaizeBypassEnabled, resetRestrictedFlow]);
 
   useEffect(() => {
-    if (typeof window === 'undefined' || !firstHiddenVideoTriggerSectionId) {
-      return;
-    }
-    const isAnyHiddenTriggerExpanded = hiddenVideoTriggerSections.some((section) => {
-      const isCollapsed = collapsedSections[section.id] ?? section.defaultCollapsed;
-      return !isCollapsed;
-    });
-    window.dispatchEvent(
-      new CustomEvent(VIDEO_HERO_PREPEND_MODE_EVENT, {
-        detail: { enabled: isAnyHiddenTriggerExpanded },
-      }),
-    );
-  }, [collapsedSections, firstHiddenVideoTriggerSectionId, hiddenVideoTriggerSections]);
-
-  useEffect(() => {
     if (!activeMelindaSectionId) {
       return;
     }
@@ -490,84 +553,9 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
       melindaSectionExpansionSnapshotRef.current = {};
       return;
     }
-
-    const now = Date.now();
-    const isPre915Window = now < MARCH_12_2026_9_15_AM.getTime();
-    const previousSnapshot = melindaSectionExpansionSnapshotRef.current;
-    const nextSnapshot: Record<string, boolean> = {};
-
-    for (const section of melindaCollapseSections) {
-      const isCollapsed = collapsedSections[section.id] ?? section.defaultCollapsed;
-      const isExpanded = !isCollapsed;
-      nextSnapshot[section.id] = isExpanded;
-      const wasExpanded = previousSnapshot[section.id] ?? false;
-
-      if (!wasExpanded && isExpanded) {
-        setActiveMelindaSectionId(section.id);
-        flowDispatch({ type: 'MELINDA_COLLAPSE_TRIGGER_ARMED', sectionId: section.id });
-
-        if (!isPre915Window) {
-          continue;
-        }
-
-        if (isMelindaRestrictedTriggerDirective(section.directive)) {
-          startRestrictedFlowFromInitialClick();
-        }
-
-        const firstTrackIndex = section.trackIndices[0];
-        const targetTrack = firstTrackIndex !== undefined ? playableTracks[firstTrackIndex] : undefined;
-        if (firstTrackIndex === undefined || !targetTrack) {
-          continue;
-        }
-
-        // Idempotent guard for expand-trigger replay.
-        if (
-          currentTrackIndex === firstTrackIndex &&
-          isPlaying &&
-          currentTrack?.src === targetTrack.src
-        ) {
-          continue;
-        }
-
-        flowDispatch({
-          type: 'MELINDA_COLLAPSE_TRIGGER_FIRED',
-          sectionId: section.id,
-          trackIndex: firstTrackIndex,
-        });
-        shouldAutoPlay.current = true;
-        startedTrackKeyRef.current = null;
-
-        if (currentTrackIndex === firstTrackIndex) {
-          const audio = audioRef.current;
-          if (!audio) {
-            continue;
-          }
-          announcePlayStart();
-          dispatchMediaPlayIntent('playlist-audio');
-          audio.play().then(() => {
-            setIsPlaying(true);
-            startRestrictedFlowFromAutoplay();
-          }).catch(() => setIsPlaying(false));
-          continue;
-        }
-
-        setCurrentTrackIndex(firstTrackIndex);
-      }
-    }
-
-    melindaSectionExpansionSnapshotRef.current = nextSnapshot;
-  }, [
-    announcePlayStart,
-    collapsedSections,
-    currentTrack,
-    currentTrackIndex,
-    flowDispatch,
-    isPlaying,
-    melindaCollapseSections,
-    playableTracks,
-    startRestrictedFlowFromInitialClick,
-    startRestrictedFlowFromAutoplay,
-  ]);
+    // Legacy section-driven autoplay transitions are intentionally disabled.
+    melindaSectionExpansionSnapshotRef.current = {};
+  }, [melindaCollapseSections.length]);
 
   // ── Audio event listeners ──────────────────────────────────────────────
   useEffect(() => {
@@ -581,37 +569,6 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
     const onTimeUpdate = () => {
       if (!isSeeking) {
         setCurrentTime(audio.currentTime);
-      }
-
-      if (hasVideoAutoTransitionTriggeredRef.current) {
-        return;
-      }
-
-      const shouldTriggerVideoAutoplay = activeMelindaSectionSecondTrackIndex !== null
-        ? currentTrackIndex === activeMelindaSectionSecondTrackIndex
-        : nextExpandedTrackIndex === null;
-
-      if (!shouldTriggerVideoAutoplay) {
-        return;
-      }
-
-      const remainingSeconds = audio.duration - audio.currentTime;
-      if (Number.isFinite(remainingSeconds) && remainingSeconds <= 2) {
-        flowDispatch({ type: 'PLAYLIST_HANDOFF_PENDING' });
-        flowDispatch({
-          type: 'PLAYLIST_HANDOFF_TO_VIDEOS_REQUESTED',
-          sectionId: activeMelindaSectionId ?? undefined,
-        });
-        hasVideoAutoTransitionTriggeredRef.current = true;
-        setIsPlaying(false);
-        audio.pause();
-        centerScrollToVideoHero()
-          .then(() => {
-            window.dispatchEvent(new CustomEvent(VIDEO_HERO_AUTOPLAY_EVENT));
-          })
-          .catch(() => {
-            window.dispatchEvent(new CustomEvent(VIDEO_HERO_AUTOPLAY_EVENT));
-          });
       }
     };
 
@@ -633,31 +590,6 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
           position_seconds: audio.currentTime,
           duration_seconds: audio.duration,
         });
-      }
-
-      const shouldTriggerVideoAutoplay = activeMelindaSectionSecondTrackIndex !== null
-        ? currentTrackIndex === activeMelindaSectionSecondTrackIndex
-        : nextExpandedTrackIndex === null;
-
-      if (shouldTriggerVideoAutoplay) {
-        if (hasVideoAutoTransitionTriggeredRef.current) {
-          return;
-        }
-        flowDispatch({ type: 'PLAYLIST_HANDOFF_PENDING' });
-        flowDispatch({
-          type: 'PLAYLIST_HANDOFF_TO_VIDEOS_REQUESTED',
-          sectionId: activeMelindaSectionId ?? undefined,
-        });
-        hasVideoAutoTransitionTriggeredRef.current = true;
-        setIsPlaying(false);
-        centerScrollToVideoHero()
-          .then(() => {
-            window.dispatchEvent(new CustomEvent(VIDEO_HERO_AUTOPLAY_EVENT));
-          })
-          .catch(() => {
-            window.dispatchEvent(new CustomEvent(VIDEO_HERO_AUTOPLAY_EVENT));
-          });
-        return;
       }
 
       // Sequential playback: advance to next track or stop at end
@@ -690,6 +622,7 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
     trackMediaEvent,
     isSeeking,
     nextExpandedTrackIndex,
+    isBeforeNoon,
     startRestrictedFlowFromAutoplay,
   ]);
 
@@ -827,17 +760,179 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
     setDuration(0);
 
     if (shouldAutoPlay.current) {
-      announcePlayStart();
-      dispatchMediaPlayIntent('playlist-audio');
-      audio.play().then(() => {
-        setIsPlaying(true);
-        startRestrictedFlowFromAutoplay();
-      }).catch(() => setIsPlaying(false));
+      requestConsentAwarePlay(() => {
+        audio.play().then(() => {
+          setIsPlaying(true);
+          startRestrictedFlowFromAutoplay();
+        }).catch(() => setIsPlaying(false));
+      });
       shouldAutoPlay.current = false;
     } else {
       setIsPlaying(false);
     }
-  }, [announcePlayStart, currentTrack, startRestrictedFlowFromAutoplay]);
+  }, [currentTrack, requestConsentAwarePlay, startRestrictedFlowFromAutoplay]);
+
+  useEffect(() => {
+    if (!isMetadataEnrichmentEnabled || typeof Audio === 'undefined') {
+      return;
+    }
+
+    let isDisposed = false;
+    const cleanupCallbacks: Array<() => void> = [];
+    const uniqueSources = Array.from(new Set(playableTracks.map((track) => track.src)));
+
+    const timerId = window.setTimeout(() => {
+      uniqueSources.forEach((src) => {
+        if (!isAudioSource(src) || isFakeTrackSrc(src)) {
+          return;
+        }
+        if (sharedTrackDurationsBySrc[src] !== undefined || durationProbeInFlight.has(src)) {
+          return;
+        }
+        durationProbeInFlight.add(src);
+
+        const probe = new Audio();
+        probe.preload = 'metadata';
+
+        const finalizeDuration = (nextDuration: number | null) => {
+          durationProbeInFlight.delete(src);
+          if (isDisposed) {
+            return;
+          }
+          if (sharedTrackDurationsBySrc[src] !== undefined) {
+            return;
+          }
+          sharedTrackDurationsBySrc[src] = nextDuration;
+          setTrackDurationsBySrc((previous) => ({ ...previous, [src]: nextDuration }));
+          emitPlaylistMetadataCacheUpdated();
+        };
+
+        const handleLoadedMetadata = () => {
+          const nextDuration = Number.isFinite(probe.duration) && probe.duration > 0
+            ? probe.duration
+            : null;
+          finalizeDuration(nextDuration);
+        };
+        const handleError = () => {
+          finalizeDuration(null);
+        };
+
+        probe.addEventListener('loadedmetadata', handleLoadedMetadata);
+        probe.addEventListener('error', handleError);
+        probe.src = src;
+        probe.load();
+
+        cleanupCallbacks.push(() => {
+          durationProbeInFlight.delete(src);
+          probe.removeEventListener('loadedmetadata', handleLoadedMetadata);
+          probe.removeEventListener('error', handleError);
+          probe.removeAttribute('src');
+          probe.load();
+        });
+      });
+    }, 0);
+
+    return () => {
+      isDisposed = true;
+      window.clearTimeout(timerId);
+      cleanupCallbacks.forEach((cleanup) => cleanup());
+    };
+  }, [isMetadataEnrichmentEnabled, playableTracks]);
+
+  useEffect(() => {
+    if (!isMetadataEnrichmentEnabled || typeof fetch === 'undefined') {
+      return;
+    }
+
+    let isDisposed = false;
+    const abortControllers: AbortController[] = [];
+    const uniqueSources = Array.from(new Set(playableTracks.map((track) => track.src)));
+
+    const tryParseDate = (value: unknown): Date | null => {
+      if (value instanceof Date && Number.isFinite(value.getTime())) {
+        return value;
+      }
+      if (typeof value === 'number' && Number.isFinite(value)) {
+        const asDate = new Date(value, 0, 1);
+        return Number.isFinite(asDate.getTime()) ? asDate : null;
+      }
+      if (typeof value === 'string' && value.trim().length > 0) {
+        const parsed = new Date(value);
+        if (Number.isFinite(parsed.getTime())) {
+          return parsed;
+        }
+      }
+      return null;
+    };
+
+    const timerId = window.setTimeout(() => {
+      void (async () => {
+        const parseBlob = await loadMetadataParserOnce();
+
+        if (!parseBlob || isDisposed) {
+          return;
+        }
+
+        uniqueSources.forEach((src) => {
+          if (!isAudioSource(src) || isFakeTrackSrc(src)) {
+            return;
+          }
+          if (sharedTrackCreatedDatesBySrc[src] !== undefined || createdDateProbeInFlight.has(src)) {
+            return;
+          }
+          createdDateProbeInFlight.add(src);
+
+          const finalizeCreatedDate = (nextCreatedDate: Date | null) => {
+            createdDateProbeInFlight.delete(src);
+            if (isDisposed) {
+              return;
+            }
+            if (sharedTrackCreatedDatesBySrc[src] !== undefined) {
+              return;
+            }
+            sharedTrackCreatedDatesBySrc[src] = nextCreatedDate;
+            setTrackCreatedDatesBySrc((previous) => ({ ...previous, [src]: nextCreatedDate }));
+            emitPlaylistMetadataCacheUpdated();
+          };
+
+          const controller = new AbortController();
+          abortControllers.push(controller);
+
+          fetch(src, { signal: controller.signal })
+            .then((response) => {
+              if (!response.ok) {
+                throw new Error(`Failed to fetch metadata for ${src}`);
+              }
+              return response.blob();
+            })
+            .then((blob) => parseBlob?.(blob, { skipCovers: true, duration: false }))
+            .then((metadata) => {
+              if (!metadata) {
+                finalizeCreatedDate(null);
+                return;
+              }
+              const nextCreatedDate = (
+                tryParseDate(metadata.format.creationTime)
+                ?? tryParseDate(metadata.common.date)
+                ?? tryParseDate(metadata.common.originaldate)
+                ?? tryParseDate(metadata.common.year)
+                ?? tryParseDate(metadata.common.originalyear)
+              );
+              finalizeCreatedDate(nextCreatedDate);
+            })
+            .catch(() => {
+              finalizeCreatedDate(null);
+            });
+        });
+      })();
+    }, 0);
+
+    return () => {
+      isDisposed = true;
+      window.clearTimeout(timerId);
+      abortControllers.forEach((controller) => controller.abort());
+    };
+  }, [isMetadataEnrichmentEnabled, playableTracks]);
 
   // ── Controls ───────────────────────────────────────────────────────────
   const handlePlayPause = useCallback(() => {
@@ -849,11 +944,14 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
       audio.pause();
       setIsPlaying(false);
     } else {
-      announcePlayStart();
-      dispatchMediaPlayIntent('playlist-audio');
-      audio.play().then(() => setIsPlaying(true)).catch(() => setIsPlaying(false));
+      requestConsentAwarePlay(() => {
+        if (currentTrack?.src) {
+          setActiveAudio({ audioRef, audioSrc: currentTrack.src });
+        }
+        audio.play().then(() => setIsPlaying(true)).catch(() => setIsPlaying(false));
+      });
     }
-  }, [announcePlayStart, isPlaying, currentTrack, isRestrictedFlowActive]);
+  }, [currentTrack, isPlaying, isRestrictedFlowActive, requestConsentAwarePlay, setActiveAudio]);
 
   const handleSkipForward = useCallback(() => {
     if (isRestrictedFlowActive) return;
@@ -996,67 +1094,96 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
     return `${minutes}:${seconds.toString().padStart(2, '0')}`;
   };
 
+  const formatTrackCreatedDate = (value: Date | null | undefined) => {
+    if (!value || !Number.isFinite(value.getTime())) {
+      return '';
+    }
+    return DATE_DISPLAY_FORMATTER.format(value);
+  };
+
   const progress = duration > 0 ? (currentTime / duration) * 100 : 0;
+  const isCaptionUnavailable = transcriptStatus === 'missing' || transcriptStatus === 'error';
+  const isCcToggleDisabled = isRestrictedFlowActive || !currentTrack || isCaptionUnavailable;
+
+  const handleCaptionsToggle = useCallback(() => {
+    if (isCcToggleDisabled) {
+      return;
+    }
+    requestConsentAwareAction(() => {
+      if (currentTrack?.src) {
+        setActiveAudio({ audioRef, audioSrc: currentTrack.src });
+      }
+      toggleCaptions();
+    });
+  }, [currentTrack?.src, isCcToggleDisabled, requestConsentAwareAction, setActiveAudio, toggleCaptions]);
 
   // ── Render ─────────────────────────────────────────────────────────────
   return (
-    <div className={`w-full max-w-2xl mx-auto select-none ${className ?? ''}`}>
+    <div className={`w-full mx-auto select-none ${className ?? ''}`}>
       <div className="relative bg-gradient-to-r from-gray-900/90 to-gray-800/90 backdrop-blur-md rounded-xl overflow-hidden shadow-2xl border border-white/5">
         {/* Subtle top glow */}
         <div className="absolute inset-0 bg-gradient-to-b from-cyan-500/5 to-transparent pointer-events-none" />
 
         {/* ── Control Bar ─────────────────────────────────────────── */}
         <div className="relative z-10 px-4 pt-4 pb-3">
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-1.5 sm:gap-3">
             {/* Skip Back */}
             <motion.button
               onClick={handleSkipBack}
-              className="flex-shrink-0 h-8 w-8 flex items-center justify-center rounded-full hover:bg-white/10 transition-colors"
+              className="flex-shrink-0 h-10 w-10 sm:h-8 sm:w-8 flex items-center justify-center rounded-full hover:bg-white/10 transition-colors"
               whileTap={{ scale: 0.9 }}
               aria-label="Previous track"
             >
-              <SkipBack className="w-4 h-4 text-gray-300" />
+              <span className="h-6 w-6 sm:h-8 sm:w-8 rounded-full flex items-center justify-center">
+                <SkipBack className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gray-300" />
+              </span>
             </motion.button>
 
             {/* Play / Pause */}
             <motion.button
               onClick={handlePlayPause}
-              className="flex-shrink-0 h-10 w-10 rounded-full bg-cyan-400 hover:bg-cyan-300 transition-colors flex items-center justify-center shadow-lg shadow-cyan-400/20"
+              className="flex-shrink-0 h-11 w-11 sm:h-10 sm:w-10 rounded-full transition-colors flex items-center justify-center"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               aria-label={isPlaying ? 'Pause' : 'Play'}
             >
+              <span className="h-7 w-7 sm:h-10 sm:w-10 rounded-full bg-cyan-400 hover:bg-cyan-300 transition-colors flex items-center justify-center shadow-lg shadow-cyan-400/20">
               {isPlaying ? (
-                <Pause className="w-5 h-5 text-black/80" />
+                <Pause className="w-4 h-4 sm:w-5 sm:h-5 text-black/80" />
               ) : (
-                <Play className="w-5 h-5 text-black/80 ml-0.5" />
+                <Play className="w-4 h-4 sm:w-5 sm:h-5 text-black/80 ml-0.5" />
               )}
+              </span>
             </motion.button>
 
             {/* Skip Forward */}
             <motion.button
               onClick={handleSkipForward}
-              className="flex-shrink-0 h-8 w-8 flex items-center justify-center rounded-full hover:bg-white/10 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+              className="flex-shrink-0 h-10 w-10 sm:h-8 sm:w-8 flex items-center justify-center rounded-full hover:bg-white/10 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
               whileTap={{ scale: 0.9 }}
               aria-label="Next track"
               disabled={nextExpandedTrackIndex === null}
             >
-              <SkipForward className="w-4 h-4 text-gray-300" />
+              <span className="h-6 w-6 sm:h-8 sm:w-8 rounded-full flex items-center justify-center">
+                <SkipForward className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gray-300" />
+              </span>
             </motion.button>
 
             {/* Skip to next section */}
             <motion.button
               onClick={handleSkipToNextSection}
-              className="flex-shrink-0 h-8 w-8 flex items-center justify-center rounded-full hover:bg-white/10 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+              className="flex-shrink-0 h-10 w-10 sm:h-8 sm:w-8 flex items-center justify-center rounded-full hover:bg-white/10 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
               whileTap={{ scale: 0.9 }}
               aria-label="Skip to next section"
               disabled={nextSectionStartTrackIndex === null}
             >
-              <ChevronsRight className="w-4 h-4 text-gray-300" />
+              <span className="h-6 w-6 sm:h-8 sm:w-8 rounded-full flex items-center justify-center">
+                <ChevronsRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gray-300" />
+              </span>
             </motion.button>
 
             {/* Track title + time */}
-            <div className="flex-1 min-w-0 ml-1">
+            <div className="flex-1 min-w-0 ml-0.5 sm:ml-1">
               <div className="flex items-center gap-2">
                 <Volume2 className="w-3.5 h-3.5 text-cyan-400 flex-shrink-0" />
                 <span className="text-white text-sm font-medium truncate">
@@ -1073,6 +1200,18 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
                 </span>
               </div>
             </div>
+
+            {/* Expand / Collapse toggle */}
+            <motion.button
+              onClick={handleCaptionsToggle}
+              className="flex-shrink-0 h-8 w-8 flex items-center justify-center rounded-full border border-gray-500/60 hover:border-cyan-300 transition-colors disabled:opacity-45 disabled:cursor-not-allowed"
+              whileTap={{ scale: 0.9 }}
+              aria-label={isCaptionsEnabled ? 'Disable closed captions' : 'Enable closed captions'}
+              aria-pressed={isCaptionsEnabled}
+              disabled={isCcToggleDisabled}
+            >
+              <span className="text-[10px] font-semibold tracking-wide text-gray-300">CC</span>
+            </motion.button>
 
             {/* Expand / Collapse toggle */}
             <motion.button
@@ -1174,19 +1313,14 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
                             const track = playableTracks[trackIndex];
                             const isActive = trackIndex === currentTrackIndex;
                             const isCurrentlyPlaying = isActive && isPlaying;
+                            const linkUrl = extractFirstUrl(track.title);
+                            const isLinkRow = isFakeTrackSrc(track.src) && linkUrl !== null;
+                            const trackCreatedDateLabel = !isAudioSource(track.src) || isFakeTrackSrc(track.src)
+                              ? ''
+                              : formatTrackCreatedDate(trackCreatedDatesBySrc[track.src]);
 
-                            return (
-                              <motion.button
-                                key={`${section.id}-${track.src}-${trackIndex}`}
-                                disabled={isRestrictedFlowActive}
-                                onClick={() => handleSelectTrack(trackIndex)}
-                                className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg text-left transition-colors group ${
-                                  isActive
-                                    ? 'bg-cyan-400/10'
-                                    : 'hover:bg-white/5'
-                                } disabled:opacity-80`}
-                                whileTap={{ scale: 0.98 }}
-                              >
+                            const trackRowContent = (
+                              <>
                                 {/* Track number / playing indicator */}
                                 <span
                                   className={`flex-shrink-0 w-5 text-xs text-right tabular-nums ${
@@ -1204,9 +1338,32 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
                                   )}
                                 </span>
 
+                                {/* Timeline date slot */}
+                                <span
+                                  className="relative flex-shrink-0 w-2 h-6 overflow-visible"
+                                  aria-hidden="true"
+                                >
+                                  <span
+                                    className={`absolute left-1/2 -translate-x-1/2 -top-3 -bottom-3 w-px ${
+                                      isActive ? 'bg-cyan-400/60' : 'bg-white/15'
+                                    }`}
+                                  />
+                                  {trackCreatedDateLabel && (
+                                    <span
+                                      className={`absolute right-full mr-1 top-1/2 -translate-y-1/2 z-10 px-1 rounded-sm text-[9px] tabular-nums leading-none whitespace-nowrap ${
+                                        isActive
+                                          ? 'text-cyan-200 bg-cyan-500/20'
+                                          : 'text-gray-300 bg-gray-900/75'
+                                      }`}
+                                    >
+                                      {trackCreatedDateLabel}
+                                    </span>
+                                  )}
+                                </span>
+
                                 {/* Track title */}
                                 <span
-                                  className={`flex-1 text-sm truncate ${
+                                  className={`flex-1 min-w-0 text-sm truncate ${
                                     isActive
                                       ? 'text-cyan-400 font-medium'
                                       : 'text-gray-300 group-hover:text-white'
@@ -1214,6 +1371,41 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
                                 >
                                   {track.title}
                                 </span>
+                              </>
+                            );
+
+                            if (isLinkRow && linkUrl) {
+                              return (
+                                <motion.a
+                                  key={`${section.id}-${track.src}-${trackIndex}`}
+                                  href={linkUrl}
+                                  target="_blank"
+                                  rel="noopener"
+                                  className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg text-left transition-colors group ${
+                                    isActive
+                                      ? 'bg-cyan-400/10'
+                                      : 'hover:bg-white/5'
+                                  }`}
+                                  whileTap={{ scale: 0.98 }}
+                                >
+                                  {trackRowContent}
+                                </motion.a>
+                              );
+                            }
+
+                            return (
+                              <motion.button
+                                key={`${section.id}-${track.src}-${trackIndex}`}
+                                disabled={isRestrictedFlowActive}
+                                onClick={() => handleSelectTrack(trackIndex)}
+                                className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg text-left transition-colors group ${
+                                  isActive
+                                    ? 'bg-cyan-400/10'
+                                    : 'hover:bg-white/5'
+                                } disabled:opacity-80`}
+                                whileTap={{ scale: 0.98 }}
+                              >
+                                {trackRowContent}
                               </motion.button>
                             );
                           })}
@@ -1227,6 +1419,7 @@ export const PlaylistAudioPlayer: React.FC<PlaylistAudioPlayerProps> = ({ tracks
           )}
         </AnimatePresence>
       </div>
+      <InlineMediaConsentPrompt visible={isGateVisible} onAgree={acceptAndResume} className="mt-2" />
 
       {/* Hidden Audio Element */}
       <audio ref={audioRef} preload="metadata" />

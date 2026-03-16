@@ -60,10 +60,8 @@ export const ZeroMobileNavigation: React.FC<ZeroMobileNavigationProps> = ({
 
   const handleSelect = (index: number) => {
     onSelectIndex(index);
-    // Auto-collapse after a short delay to allow scroll animation to start
-    setTimeout(() => {
-      onToggleExpand();
-    }, 100);
+    // Collapse immediately so menu and content stay in sync.
+    onToggleExpand();
   };
 
   if (!activePrinciple) return null;
@@ -73,19 +71,17 @@ export const ZeroMobileNavigation: React.FC<ZeroMobileNavigationProps> = ({
       {/* Compact Bar */}
       <motion.button
         onClick={onToggleExpand}
-        className="w-full max-w-full bg-black/40 backdrop-blur-md border border-cyan-500/20 rounded-lg shadow-lg hover:border-cyan-500/50 transition-all duration-300 px-4 py-3 flex items-center justify-between box-border"
+        className="w-full max-w-full bg-black/40 backdrop-blur-md border border-cyan-500/20 rounded-lg shadow-lg hover:border-cyan-500/50 transition-all duration-300 px-2.5 py-1.5 flex items-center justify-between box-border"
         style={{ maxWidth: '100%', width: '100%', boxSizing: 'border-box' }}
         aria-label={isExpanded ? 'Collapse navigation' : 'Expand navigation'}
         aria-expanded={isExpanded}
       >
         <div className="flex-1 text-left min-w-0">
-          <div className="text-xs font-mono text-cyan-400 mb-0.5 truncate">
+          <div className="text-xs font-mono text-cyan-400 leading-tight whitespace-normal break-words">
             {activePrinciple.chapterTitle}
           </div>
-          <div className="text-sm font-bold text-white truncate">
-            Principle {activePrinciple.number}
-          </div>
-          <div className="text-xs text-cyan-100 font-light italic truncate">
+          <div className="text-sm text-cyan-100 font-medium leading-tight mt-0.5 whitespace-normal break-words">
+            {`P${activePrinciple.number} - `}
             {activePrinciple.title}
           </div>
         </div>
@@ -110,10 +106,10 @@ export const ZeroMobileNavigation: React.FC<ZeroMobileNavigationProps> = ({
           >
             <div
               ref={containerRef}
-              className="mt-2 bg-black/60 backdrop-blur-md border border-cyan-500/20 rounded-lg shadow-lg overflow-y-auto overflow-x-hidden custom-scrollbar w-full max-w-full box-border"
+              className="mt-1 bg-black/60 backdrop-blur-md border border-cyan-500/20 rounded-lg shadow-lg overflow-y-auto overflow-x-hidden custom-scrollbar w-full max-w-full box-border"
               style={{ maxWidth: '100%', width: '100%', boxSizing: 'border-box' }}
             >
-              <div ref={listRef} className="pb-4 w-full max-w-full box-border" style={{ maxWidth: '100%', width: '100%', boxSizing: 'border-box' }}>
+              <div ref={listRef} className="pb-1 w-full max-w-full box-border" style={{ maxWidth: '100%', width: '100%', boxSizing: 'border-box' }}>
                 {allPrinciples.map((principle, idx) => {
                   const isActive = idx === activeIndex;
                   return (
@@ -121,20 +117,20 @@ export const ZeroMobileNavigation: React.FC<ZeroMobileNavigationProps> = ({
                       key={principle.id}
                       data-index={idx}
                       onClick={() => handleSelect(idx)}
-                      className={`w-full max-w-full text-left px-4 py-3 border-b border-cyan-500/10 last:border-b-0 transition-all box-border break-words ${
+                      className={`w-full max-w-full text-left px-2.5 py-1.5 border-b border-cyan-500/10 last:border-b-0 transition-all box-border break-words ${
                         isActive
                           ? 'bg-cyan-500/20 text-cyan-300 border-l-4 border-l-cyan-500'
                           : 'text-gray-300 hover:bg-white/5 hover:text-cyan-200'
                       }`}
                       style={{ maxWidth: '100%', width: '100%', boxSizing: 'border-box', wordWrap: 'break-word', overflowWrap: 'break-word' }}
                     >
-                      <div className="text-xs font-mono text-cyan-400/70 mb-1">
+                      <div className="text-xs font-mono text-cyan-400/70 mb-0.5 leading-tight whitespace-normal break-words">
                         {principle.chapterTitle}
                       </div>
-                      <div className="text-sm font-bold text-white mb-1">
-                        Principle {principle.number}
+                      <div className="text-sm font-bold text-white mb-0.5 leading-tight whitespace-normal break-words">
+                        {`P${principle.number}`}
                       </div>
-                      <div className="text-xs text-gray-400 font-light italic line-clamp-2">
+                      <div className="text-xs text-gray-400 font-light italic leading-tight whitespace-normal break-words">
                         {principle.title}
                       </div>
                     </button>

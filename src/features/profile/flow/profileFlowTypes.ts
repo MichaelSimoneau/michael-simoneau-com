@@ -1,17 +1,31 @@
 export type NavigationMachineState = 'idle' | 'resolvingHash' | 'scrolling' | 'settled';
 export type MusicMachineState = 'iframeInit' | 'loading' | 'ready' | 'failed';
+export type DeepLinkMachineState = 'idle' | 'parsed' | 'resolved' | 'consumed';
 export type PlaylistMachineState =
   | 'idle'
   | 'loadingTrack'
   | 'playing'
   | 'paused'
-  | 'ended'
-  | 'handoffPending'
-  | 'restrictedLockout';
-export type VideoPlaybackPhase = 'prepended' | 'primary' | 'second' | 'playlist';
-export type VideoMachineState = 'hidden' | 'bootingApi' | 'playerReady' | 'watching' | 'handoffCountdown';
+  | 'ended';
+export type VideoPlaybackPhase = 'primary' | 'playlist';
+export type VideoMachineState = 'hidden' | 'bootingApi' | 'playerReady' | 'watching';
 export type MediaArbitrationState = 'none' | 'sourceActive';
 export type OverrideMachineState = 'parse' | 'applied' | 'forcing';
+export type ConsentMachineState = 'unknown' | 'required' | 'granted';
+
+export type ConsentGateSource =
+  | 'video-hero'
+  | 'playlist-audio'
+  | 'audio-player'
+  | 'audio-cc'
+  | 'blog-speech'
+  | 'speech-player'
+  | 'universal-player';
+
+export interface PendingMediaIntent {
+  source: ConsentGateSource;
+  actionId: string;
+}
 
 export interface FlowOverrideState {
   mode: 'normal' | 'force';
@@ -27,12 +41,18 @@ export interface FlowOverrideState {
   video: {
     watch?: boolean;
     phase?: VideoPlaybackPhase;
-    autoplayRequest?: boolean;
   };
   music: {
     iframe?: 'ready' | 'failed';
   };
-  restricted?: 'on' | 'off';
+}
+
+export interface DeepLinkIntent {
+  key: string;
+  target: 'audio' | 'videos';
+  playlistTrack?: number;
+  consume?: boolean;
+  autoplayRequested?: boolean;
 }
 
 export interface ProfileFlowState {
@@ -49,27 +69,32 @@ export interface ProfileFlowState {
   playlist: {
     machine: PlaylistMachineState;
     currentTrackIndex: number;
-    isRestrictedActive: boolean;
+    isRestrictedActive?: boolean;
     melindaArmedSectionId?: string;
     melindaActiveSectionId?: string;
     melindaHandoffSectionId?: string;
-    controlsNormalizedAfterRefresh: boolean;
+    controlsNormalizedAfterRefresh?: boolean;
   };
   video: {
     machine: VideoMachineState;
     isWatching: boolean;
     isApiReady: boolean;
     isPlayerReady: boolean;
-    prependModeEnabled: boolean;
     playbackPhase: VideoPlaybackPhase;
-    isDelayOverlayVisible: boolean;
-    countdownValue: number | null;
+    isDelayOverlayVisible?: boolean;
+    countdownValue?: number | null;
+  };
+  consent: {
+    machine: ConsentMachineState;
+    hasAcceptedTerms: boolean;
+    gateSource?: ConsentGateSource;
+    pendingIntent?: PendingMediaIntent;
   };
   media: {
     machine: MediaArbitrationState;
     activeSource?: string;
   };
-  reloadTimer: {
+  reloadTimer?: {
     machine: 'idle' | 'running' | 'completed';
     startedAtMs: number | null;
     durationMs: number;
@@ -77,6 +102,11 @@ export interface ProfileFlowState {
   override: {
     machine: OverrideMachineState;
     value: FlowOverrideState;
+  };
+  deepLink: {
+    machine: DeepLinkMachineState;
+    intent?: DeepLinkIntent;
+    autoplayAllowed: boolean;
   };
   footerExpansionFactor: number;
 }
@@ -102,16 +132,22 @@ export type ProfileFlowAction =
   | { type: 'VIDEO_WATCH_REQUESTED'; mode?: 'standard' | 'playlist' }
   | { type: 'VIDEO_API_READY' }
   | { type: 'VIDEO_PLAYER_READY' }
-  | { type: 'VIDEO_PREPEND_MODE_UPDATED'; enabled: boolean }
   | { type: 'VIDEO_PHASE_CHANGED'; phase: VideoPlaybackPhase }
   | { type: 'VIDEO_HANDOFF_COUNTDOWN_STARTED'; countdown: number }
   | { type: 'VIDEO_HANDOFF_COUNTDOWN_UPDATED'; countdown: number | null; visible: boolean }
   | { type: 'VIDEO_HIDDEN' }
+  | { type: 'CONSENT_STATUS_LOADED'; hasAcceptedTerms: boolean }
+  | { type: 'CONSENT_PROMPT_REQUESTED'; source: ConsentGateSource; actionId: string }
+  | { type: 'CONSENT_ACCEPTED' }
+  | { type: 'CONSENT_PENDING_INTENT_CLEARED' }
   | { type: 'MEDIA_SOURCE_ACTIVATED'; source?: string }
   | { type: 'RELOAD_TIMER_STARTED'; durationMs: number; startedAtMs: number }
   | { type: 'RELOAD_TIMER_COMPLETED' }
   | { type: 'RELOAD_TIMER_CLEARED' }
   | { type: 'OVERRIDE_PARSE_STARTED' }
   | { type: 'OVERRIDE_APPLIED'; value: FlowOverrideState }
+  | { type: 'DEEPLINK_INTENT_PARSED'; intent?: DeepLinkIntent }
+  | { type: 'DEEPLINK_INTENT_RESOLVE_REQUESTED'; hasConsent: boolean }
+  | { type: 'DEEPLINK_INTENT_CONSUMED' }
   | { type: 'FOOTER_EXPANSION_UPDATED'; factor: number };
 

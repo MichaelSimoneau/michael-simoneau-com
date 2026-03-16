@@ -115,13 +115,14 @@ export const CryptoFabric: React.FC = () => {
       />
       <AnimatedBackground />
       <MainNav />
-      <motion.div
-        className="min-h-screen text-white p-8 relative z-10 pt-24 md:pt-32"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.5 }}
-      >
-        <div className="max-w-6xl mx-auto">
+      <div className="h-screen overflow-y-auto overflow-x-hidden overscroll-behavior-x-none scroll-smooth relative z-10">
+        <motion.div
+          className="min-h-screen text-white p-8 relative z-10 pt-24 md:pt-32"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5 }}
+        >
+          <div className="max-w-6xl mx-auto">
           {/* Header Section with Logo */}
           <motion.div
             className="flex flex-col md:flex-row items-center md:items-start mb-12"
@@ -169,7 +170,7 @@ export const CryptoFabric: React.FC = () => {
                 the journey from EtherHive to The Human Dollar. It details how value lives in the hash, 
                 observation is oxygen, and usage is mining. The architecture and its embodiment 
                 (The Human Dollar) are introduced in this episode; for more on the philosophy 
-                behind it, see <Link to="/zero" className="text-cyan-400 hover:text-cyan-300 underline">zeroth</Link> and <Link href="/thd" className="text-cyan-400 hover:text-cyan-300 underline">The Human Dollar</Link>.
+                behind it, see <Link to="/zeroth/theory/chapter/1/principal/1" className="text-cyan-400 hover:text-cyan-300 underline">zeroth</Link> and <Link href="/thd" className="text-cyan-400 hover:text-cyan-300 underline">The Human Dollar</Link>.
               </p>
             </div>
             <div className="flex justify-center mb-6">
@@ -476,8 +477,9 @@ export const CryptoFabric: React.FC = () => {
               </a>
             </div>
           </motion.section>
-        </div>
-      </motion.div>
+          </div>
+        </motion.div>
+      </div>
     </>
   );
 };

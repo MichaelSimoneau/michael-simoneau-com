@@ -1,4 +1,4 @@
-import React, { Component, ErrorInfo, ReactNode } from 'react';
+import React, { Component, ErrorInfo, ReactNode, useEffect } from 'react';
 import { useRouteError } from 'react-router-dom';
 import { InteractiveButton } from '../ui/buttons/InteractiveButton';
 
@@ -23,6 +23,15 @@ class GlobalErrorBoundary extends Component<Props, State> {
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo) {
     console.error("GlobalErrorBoundary caught an error:", error, errorInfo);
+    if (typeof window !== "undefined") {
+      window.dispatchEvent(
+        new CustomEvent("app:error", {
+          detail: {
+            message: `${error.name}: ${error.message}`,
+          },
+        }),
+      );
+    }
 
     // Auto-reload for chunk load errors
     if (error.message.includes('Failed to fetch dynamically imported module')) {
@@ -71,6 +80,16 @@ class GlobalErrorBoundary extends Component<Props, State> {
 // Wrapper for usage with React Router's errorElement
 export const GlobalErrorElement = () => {
   const error = useRouteError() as unknown as Error;
+  useEffect(() => {
+    if (typeof window === "undefined" || !error) {
+      return;
+    }
+    window.dispatchEvent(
+      new CustomEvent("app:error", {
+        detail: { message: `${error.name || "RouteError"}: ${error.message || String(error)}` },
+      }),
+    );
+  }, [error]);
   
   // Reuse logic or simple display if not using the class boundary directly
   // For the router, we can just return the UI directly since the router catches the error

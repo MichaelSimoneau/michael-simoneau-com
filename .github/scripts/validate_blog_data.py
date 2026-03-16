@@ -5,7 +5,7 @@ from __future__ import annotations
 from pathlib import Path
 import sys
 
-BLOG_DATA_PATH = Path("src/data/blogData.ts")
+BLOG_DATA_PATH = Path("src/features/blog/data/posts.ts")
 
 
 def main() -> int:

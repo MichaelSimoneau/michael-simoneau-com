@@ -45,7 +45,7 @@ export const Testimonials: React.FC = () => {
                 <a 
                   href="https://sentinellegal.us" 
                   target="_blank" 
-                  rel="noopener noreferrer"
+                  rel="noopener"
                   className="text-cyan-400 hover:text-cyan-300 transition-colors duration-300 underline"
                 >
                   SentinelLitigation.com

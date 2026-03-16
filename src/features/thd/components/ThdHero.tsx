@@ -5,7 +5,7 @@ import { ArrowRight, Sparkles } from 'lucide-react';
 
 /**
  * ThdHero – Main-page hero section for The Human Dollar (THD).
- * Presents THD as the Anti-Crypto, Attention Economy, and Currency of the Future.
+ * Presents THD as The Anti-Currency and legal digital bartering chip.
  * Links to the full /thd page and TheHumanDollar.com.
  */
 export const ThdHero: React.FC = () => {
@@ -70,15 +70,15 @@ export const ThdHero: React.FC = () => {
           <p className="text-xl sm:text-2xl md:text-3xl text-amber-300 font-semibold mb-4 flex flex-wrap items-center justify-center gap-x-3 gap-y-1">
             <span className="whitespace-nowrap">The Working Dollar</span>
             <span className="hidden sm:inline" aria-hidden="true">&middot;</span>
-            <span className="whitespace-nowrap">The Anti-Crypto</span>
+            <span className="whitespace-nowrap">The Anti-Currency</span>
             <span className="hidden sm:inline" aria-hidden="true">&middot;</span>
-            <span className="whitespace-nowrap">The Currency of the Future</span>
+            <span className="whitespace-nowrap">A Cryptographic Concert Ticket</span>
           </p>
           <p className="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto mb-6">
-            THD is your employee. Put it to work: $655 for every $1 at the $65,535 cap.<br />Stagnation is a firing offense. Spending adds Value!
+            THD is legally a digital bartering chip, not a currency. It does not replace money.<br />It costs $1 and functions as a cryptographic concert ticket for participation.
           </p>
           <p className="text-base md:text-lg text-gray-400 max-w-4xl mx-auto mb-8">
-            1 THD is always redeemable for 1 USDC.<br />The smart contract physically rejects any transaction valuing THD below the floor.<br />There is only value or the dollar retires. This is Metabolic Reality, not speculation.
+            1 THD is always redeemable for 1 USDC.<br />The smart contract physically rejects any transaction valuing THD below the floor, so your $1 principal is preserved.<br />Darwinian maximism at the edge, principal protection at the core.
           </p>
         </motion.div>
 
@@ -99,13 +99,70 @@ export const ThdHero: React.FC = () => {
           <a
             href="https://thehumandollar.com/"
             target="_blank"
-            rel="noopener noreferrer"
+            rel="noopener"
             className="inline-flex items-center px-8 py-4 bg-gray-800 hover:bg-gray-700 text-white font-bold rounded-lg transition-colors duration-300 border border-gray-700"
           >
             Visit TheHumanDollar.com
             <Sparkles size={20} className="ml-2" />
           </a>
         </motion.div>
+
+        <motion.a
+          href="https://topsmokevape.com/"
+          target="_blank"
+          rel="noopener"
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.6 }}
+          className="group block rounded-2xl bg-gradient-to-br from-amber-900/30 via-gray-900/80 to-gray-900/90 border border-amber-700/40 hover:border-amber-400/70 shadow-2xl shadow-black/40 hover:shadow-amber-900/30 transition-all duration-300 p-6 md:p-8"
+          aria-label="Visit Top Smoke & Vape, the first organization to accept THD"
+        >
+          <div className="grid md:grid-cols-[220px,1fr] gap-6 md:gap-8 items-center">
+            <div className="rounded-xl border border-amber-800/40 bg-black p-4 flex items-center justify-center">
+              <img
+                src="/partners/top-smoke-vape-logo.png"
+                alt="Top Smoke & Vape logo"
+                className="w-full max-w-[190px] h-auto object-contain -rotate-1"
+              />
+            </div>
+
+            <div className="text-left">
+              <div className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-amber-300 bg-amber-400/10 border border-amber-500/30 rounded-full px-3 py-1 mb-4">
+                <Sparkles size={14} />
+                Very First Organization to Accept THD
+              </div>
+
+              <h3 className="text-2xl md:text-3xl font-bold text-white mb-2">
+                Top Smoke &amp; Vape
+              </h3>
+              <p className="text-amber-200/90 text-sm md:text-base mb-4">
+                Top Smoke &amp; Vape | Premium Smoke Shop
+              </p>
+
+              <div className="flex flex-wrap gap-2 mb-4">
+                <span className="text-xs md:text-sm text-gray-200 bg-gray-800/80 border border-gray-700 rounded-full px-3 py-1">Authorized Dealer</span>
+                <span className="text-xs md:text-sm text-gray-200 bg-gray-800/80 border border-gray-700 rounded-full px-3 py-1">Est. 2022</span>
+                <span className="text-xs md:text-sm text-gray-200 bg-gray-800/80 border border-gray-700 rounded-full px-3 py-1">10:00 AM - 10:00 PM Daily</span>
+              </div>
+
+              <p className="text-sm md:text-base text-gray-300 mb-1">
+                2804 SOM Center Rd., Willoughby Hills, OH 44094
+              </p>
+              <p className="text-sm md:text-base text-gray-300 mb-1">
+                440-710-6072
+              </p>
+              <p className="text-sm md:text-base text-gray-300 mb-6">
+                @TopSmoke_Vape
+              </p>
+
+              <span className="inline-flex items-center px-5 py-3 bg-amber-500 group-hover:bg-amber-400 text-black font-bold rounded-lg transition-colors">
+                Visit TopSmokeVape.com
+                <ArrowRight size={18} className="ml-2 group-hover:translate-x-1 transition-transform" />
+              </span>
+            </div>
+          </div>
+        </motion.a>
 
         {/* Key concepts grid */}
         <motion.div

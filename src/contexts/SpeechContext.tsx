@@ -1,5 +1,4 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode, useCallback } from 'react';
-import { cookieService } from '../services/cookieService';
 
 interface SpeechContextType {
   isPlaying: boolean;
@@ -35,7 +34,6 @@ export const SpeechProvider: React.FC<SpeechProviderProps> = ({ children }) => {
   const [isInitialized, setIsInitialized] = useState(false);
   const [isSupported, setIsSupported] = useState(false);
   const [error, setError] = useState<string | undefined>(undefined);
-  const [hasPlayedThisSession, setHasPlayedThisSession] = useState(false);
   const [isInitializing, setIsInitializing] = useState(false);
 
   const initializeSpeech = useCallback(() => {
@@ -69,53 +67,6 @@ export const SpeechProvider: React.FC<SpeechProviderProps> = ({ children }) => {
     setIsInitialized(true);
     setIsInitializing(false);
   }, [isInitialized, isInitializing]);
-
-  // Handle auto-play with 3-second delay
-  useEffect(() => {
-    let timer: ReturnType<typeof setTimeout> | null = null;
-
-    const setupAutoPlay = () => {
-      const hasPlayedBefore = cookieService.hasAutoPlayConsent() || hasPlayedThisSession;
-      
-      if (!hasPlayedBefore && isInitialized && isSupported && utterances.length > 0) {
-        timer = setTimeout(() => {
-          const synth = window.speechSynthesis;
-          if (!synth) return;
-
-          synth.cancel();
-          setIsPlaying(true);
-          setCurrentPhrase(utterances[0].text);
-          setHasPlayedThisSession(true);
-
-          let currentIndex = 0;
-          const speakNext = () => {
-            if (currentIndex < utterances.length) {
-              setCurrentPhrase(utterances[currentIndex].text);
-              synth.speak(utterances[currentIndex]);
-              currentIndex++;
-            } else {
-              setIsPlaying(false);
-              setCurrentPhrase(null);
-            }
-          };
-
-          utterances.forEach(utterance => {
-            utterance.onend = speakNext;
-          });
-
-          speakNext();
-        }, 3000);
-      }
-    };
-
-    setupAutoPlay();
-
-    return () => {
-      if (timer) {
-        clearTimeout(timer);
-      }
-    };
-  }, [utterances, isInitialized, isSupported, hasPlayedThisSession]);
 
   const play = useCallback(() => {
     if (!isInitialized) {
