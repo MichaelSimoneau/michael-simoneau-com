@@ -26,7 +26,7 @@ export const InlineMediaConsentPrompt: React.FC<InlineMediaConsentPromptProps> =
   return (
     <div className={`rounded-lg border border-cyan-400/30 bg-black/70 p-3 ${className ?? ''}`}>
       <p className="text-sm text-white mb-2">
-        Do you agree to the terms and conditions that protect your privacy?
+        Do you agree to the binding confidentiality and IP terms (NDA) required for access?
       </p>
       <label className="mb-2 flex items-center gap-2 text-xs text-gray-300">
         <input
@@ -35,7 +35,7 @@ export const InlineMediaConsentPrompt: React.FC<InlineMediaConsentPromptProps> =
           onChange={(event) => setIsChecked(event.target.checked)}
           className="h-3.5 w-3.5 accent-cyan-400"
         />
-        I have read and agree to the terms and conditions
+        I have read and agree to the NDA, including strict non-disclosure and no-license terms
       </label>
       <div className="flex items-center justify-between gap-3">
         <div className="flex items-center gap-3 text-xs">
@@ -52,7 +52,7 @@ export const InlineMediaConsentPrompt: React.FC<InlineMediaConsentPromptProps> =
           disabled={!isChecked}
           className="rounded bg-cyan-500 px-3 py-1.5 text-xs font-semibold text-black disabled:opacity-50"
         >
-          Agree & Resume
+          Agree to NDA & Resume
         </button>
       </div>
     </div>

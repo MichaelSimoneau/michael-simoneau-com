@@ -58,27 +58,54 @@ export default function TermsPage() {
   return (
     <LegalPageFrame>
       <main className="mx-auto w-full max-w-4xl px-4 py-16 text-gray-100">
-        <h1 className="mb-6 text-3xl font-bold text-cyan-300">Terms and Confidentiality Agreement</h1>
+        <h1 className="mb-6 text-3xl font-bold text-cyan-300">Binding Terms and Confidentiality Agreement</h1>
         <div className="space-y-4 text-sm leading-7 text-gray-200">
           <p>
-            By accessing media on this site, you agree that all proprietary ideas, demonstrations, and
-            materials are confidential. What you see and hear here stays here.
+            This site and all related audio, video, text, code, datasets, concepts, demonstrations, interface
+            behavior, prompts, outputs, and associated materials (collectively, the "Protected Information")
+            are the personal intellectual property and confidential information of Michael Simoneau.
           </p>
           <p>
-            You may not copy, redistribute, re-publish, screen record, summarize for public posting, or
-            disclose any confidential material to third parties without explicit written permission.
+            By accessing, viewing, listening to, or otherwise interacting with this site, you enter into a
+            legally binding confidentiality agreement with Michael Simoneau and agree to keep all Protected
+            Information strictly confidential.
           </p>
           <p>
-            Access is provided for private review only. No license, transfer of ownership, or waiver of
-            intellectual property rights is granted by viewing this content.
+            You receive no license or other right, express or implied, by estoppel or otherwise, to use,
+            reproduce, modify, adapt, distribute, display, perform, publish, transmit, disclose, train any
+            model on, reverse engineer, scrape, extract, commercialize, or create derivative works from any
+            Protected Information.
           </p>
           <p>
-            If you do not agree with these confidentiality requirements, do not proceed with playback or
-            access protected media.
+            You must not record, screenshot, screen-capture, copy, summarize for public posting, share with
+            third parties, or otherwise disseminate any Protected Information in whole or in part without prior
+            written authorization signed by Michael Simoneau.
           </p>
           <p>
-            This agreement is designed to be seamless for legitimate viewers while preserving strict
-            confidentiality protections for sensitive and proprietary concepts.
+            All rights, title, and interest in and to the Protected Information are and remain exclusively with
+            Michael Simoneau. No ownership rights are transferred. No waiver of rights is valid unless in a
+            written instrument signed by Michael Simoneau.
+          </p>
+          <p>
+            You acknowledge and agree that unauthorized use or disclosure of Protected Information will cause
+            immediate and irreparable harm for which monetary damages may be insufficient. Michael Simoneau is
+            entitled to injunctive and equitable relief, in addition to all other remedies available at law or
+            in equity, without posting bond where permitted by law.
+          </p>
+          <p>
+            This agreement is governed by the laws of the State of California, without regard to conflict of
+            law principles. Any dispute arising out of or related to this agreement or your access to this site
+            shall be brought exclusively in the state or federal courts located in California, and you consent
+            to personal jurisdiction and venue in those courts.
+          </p>
+          <p>
+            If any provision of this agreement is held unenforceable, the remaining provisions remain in full
+            force and effect. This agreement constitutes the entire agreement regarding confidentiality and use
+            of Protected Information available on this site.
+          </p>
+          <p>
+            If you do not agree to every term above, you must immediately stop using this site and must not
+            access any protected content.
           </p>
         </div>
       </main>

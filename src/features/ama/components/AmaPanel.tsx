@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { ArrowUp, Plus } from "lucide-react";
 import { useAmaAssistant } from "../hooks/useAmaAssistant";
 
@@ -25,10 +25,71 @@ export const AmaPanel: React.FC<AmaPanelProps> = ({
   onClose,
   className,
 }) => {
+  const chatFeedRef = useRef<HTMLDivElement | null>(null);
   const [humanProofInput, setHumanProofInput] = useState("");
   const [questionInput, setQuestionInput] = useState("");
   const [questionPlaceholder, setQuestionPlaceholder] = useState("Enter a question...");
+  const [pendingQuestionClear, setPendingQuestionClear] = useState<{
+    text: string;
+    baselineMessageCount: number;
+  } | null>(null);
   const assistant = useAmaAssistant();
+
+  const scrollChatToBottom = useCallback((behavior: ScrollBehavior = "smooth") => {
+    const feed = chatFeedRef.current;
+    if (!feed) {
+      return;
+    }
+    feed.scrollTo({
+      top: feed.scrollHeight,
+      behavior,
+    });
+  }, []);
+
+  useEffect(() => {
+    if (!assistant.isUnlocked || typeof window === "undefined") {
+      return;
+    }
+    const frame = window.requestAnimationFrame(() => {
+      scrollChatToBottom("smooth");
+    });
+    return () => {
+      window.cancelAnimationFrame(frame);
+    };
+  }, [assistant.isUnlocked, assistant.isSubmitting, assistant.messages.length, assistant.queuedQuestion, scrollChatToBottom]);
+
+  useEffect(() => {
+    if (!pendingQuestionClear) {
+      return;
+    }
+    if (assistant.messages.length < pendingQuestionClear.baselineMessageCount) {
+      return;
+    }
+
+    const renderedMessages = assistant.messages.slice(pendingQuestionClear.baselineMessageCount - 1);
+    const hasRenderedQuestion = renderedMessages.some(
+      (message) => message.role === "user" && message.text === pendingQuestionClear.text,
+    );
+
+    if (!hasRenderedQuestion) {
+      return;
+    }
+
+    if (typeof window === "undefined") {
+      setQuestionInput("");
+      setPendingQuestionClear(null);
+      return;
+    }
+
+    const frame = window.requestAnimationFrame(() => {
+      setQuestionInput("");
+      setPendingQuestionClear(null);
+      scrollChatToBottom("smooth");
+    });
+    return () => {
+      window.cancelAnimationFrame(frame);
+    };
+  }, [assistant.messages, pendingQuestionClear, scrollChatToBottom]);
 
   const submitHumanProof = async () => {
     const proof = humanProofInput.trim();
@@ -36,9 +97,17 @@ export const AmaPanel: React.FC<AmaPanelProps> = ({
       return;
     }
     await assistant.verifyHuman(proof);
+    if (typeof window === "undefined") {
+      setHumanProofInput("");
+      return;
+    }
+    window.requestAnimationFrame(() => {
+      setHumanProofInput("");
+      scrollChatToBottom("smooth");
+    });
   };
 
-  const submitQuestion = async () => {
+  const submitQuestion = () => {
     const question = questionInput.trim();
     if (!question) {
       return;
@@ -52,10 +121,20 @@ export const AmaPanel: React.FC<AmaPanelProps> = ({
       }, 1800);
       return;
     }
-    const sent = await assistant.askQuestion(question);
-    if (sent) {
-      setQuestionInput("");
-    }
+    setPendingQuestionClear({
+      text: question,
+      baselineMessageCount: assistant.messages.length + 1,
+    });
+    void assistant.askQuestion(question)
+      .then((sent) => {
+        if (sent) {
+          return;
+        }
+        setPendingQuestionClear((current) => (current?.text === question ? null : current));
+      })
+      .catch(() => {
+        setPendingQuestionClear((current) => (current?.text === question ? null : current));
+      });
   };
 
   const handleHumanProofKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
@@ -104,7 +183,8 @@ export const AmaPanel: React.FC<AmaPanelProps> = ({
       {!assistant.hasTermsAccess && (
         <div className="space-y-3 p-4 text-sm">
           <p className="text-gray-200">
-            Access is gated by terms acceptance. This follows the same timing policy used across protected media.
+            Access is gated by NDA acceptance. You must agree to strict confidentiality, no unauthorized use,
+            and no license grant terms before continuing.
           </p>
           <div className="flex items-center gap-3 text-xs">
             <a href="/terms" className="text-cyan-300 underline underline-offset-2">
@@ -119,7 +199,7 @@ export const AmaPanel: React.FC<AmaPanelProps> = ({
             onClick={assistant.ensureTermsAccepted}
             className="rounded-md bg-cyan-400 px-3 py-2 text-sm font-semibold text-black"
           >
-            I Have Read & Agree to Continue
+            I Have Read the NDA & Agree to Continue
           </button>
         </div>
       )}
@@ -168,7 +248,7 @@ export const AmaPanel: React.FC<AmaPanelProps> = ({
 
       {assistant.isUnlocked && (
         <>
-          <div className="max-h-[300px] space-y-3 overflow-y-auto px-4 py-3">
+          <div ref={chatFeedRef} className="max-h-[300px] space-y-3 overflow-y-auto px-4 py-3">
             {assistant.messages.map((message) => (
               <article
                 key={message.id}
@@ -183,32 +263,37 @@ export const AmaPanel: React.FC<AmaPanelProps> = ({
                 </p>
                 <p className="whitespace-pre-wrap text-gray-100">{message.text}</p>
                 {message.role === "assistant" && Array.isArray(message.citations) && message.citations.length > 0 && (
-                  <div className="mt-2 space-y-1 border-t border-cyan-300/20 pt-2 text-xs text-cyan-200">
-                    {message.citations.slice(0, 4).map((citation) => (
-                      <div
-                        key={`${message.id}-${citation.path}-${citation.snippet.slice(0, 18)}`}
-                        className="rounded-md border border-cyan-300/20 bg-black/30 p-2"
-                      >
-                        {isMp3CitationPath(citation.path) ? (
-                          <>
-                            <p className="mb-1 text-[11px] text-cyan-300">Audio source: {getCitationLabel(citation.path)}</p>
-                            <audio
-                              controls
-                              preload="none"
-                              src={toPlayableCitationPath(citation.path)}
-                              className="w-full"
-                            >
-                              Your browser does not support the audio element.
-                            </audio>
-                          </>
-                        ) : (
-                          <p>
-                            Source: <span className="text-cyan-300">{citation.path}</span>
-                          </p>
-                        )}
-                      </div>
-                    ))}
-                  </div>
+                  <details className="mt-2 border-t border-cyan-300/20 pt-2 text-xs text-cyan-200">
+                    <summary className="cursor-pointer select-none font-semibold text-cyan-300">
+                      Sources ({Math.min(message.citations.length, 4)})
+                    </summary>
+                    <div className="mt-2 space-y-1">
+                      {message.citations.slice(0, 4).map((citation) => (
+                        <div
+                          key={`${message.id}-${citation.path}-${citation.snippet.slice(0, 18)}`}
+                          className="rounded-md border border-cyan-300/20 bg-black/30 p-2"
+                        >
+                          {isMp3CitationPath(citation.path) ? (
+                            <>
+                              <p className="mb-1 text-[11px] text-cyan-300">Audio source: {getCitationLabel(citation.path)}</p>
+                              <audio
+                                controls
+                                preload="none"
+                                src={toPlayableCitationPath(citation.path)}
+                                className="w-full"
+                              >
+                                Your browser does not support the audio element.
+                              </audio>
+                            </>
+                          ) : (
+                            <p>
+                              Source: <span className="text-cyan-300">{citation.path}</span>
+                            </p>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  </details>
                 )}
               </article>
             ))}

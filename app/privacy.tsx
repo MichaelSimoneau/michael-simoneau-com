@@ -8,18 +8,25 @@ export default function PrivacyPage() {
         <h1 className="mb-6 text-3xl font-bold text-cyan-300">Privacy Policy</h1>
         <div className="space-y-4 text-sm leading-7 text-gray-200">
           <p>
-            This site collects only standard anonymous statistical usage data required for operating and
-            improving site performance.
+            The ONLY tracking used on this website is standard Google Analytics.
           </p>
           <p>
-            No additional tracking, profiling, sale of personal data, or collection of personal information
-            will take place other than information you overtly submit through a form.
+            Standard Google Analytics means anonymous, aggregate usage metrics (for example, page traffic and
+            general performance trends) that help operate and improve the site. It does not mean custom user
+            profiling or custom identity tracking.
           </p>
           <p>
-            Form-submitted data is used only for the explicitly requested purpose of that submission.
+            No custom tracking, no fingerprinting, no custom user-data recording, and no sale of personal data
+            are performed in any way.
           </p>
           <p>
-            We do not knowingly request sensitive personal data unless clearly stated in the form workflow.
+            No personal information is recorded unless you intentionally and explicitly submit it through a
+            form, and any form-submitted information is used only for the purpose you requested.
+          </p>
+          <p>
+            Equality is paramount: just as no custom tracking or user data is taken from you, the expectation
+            is that no information is taken from this website's data in return beyond the same generic,
+            anonymous Google Analytics usage totals required for normal operation.
           </p>
         </div>
       </main>
